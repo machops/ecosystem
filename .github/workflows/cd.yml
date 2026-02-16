@@ -191,8 +191,9 @@ jobs:
 
       - name: Run smoke tests
         run: |
-          echo "Waiting for services to be ready..."
-          sleep 30
+          echo "Waiting for deployments to be fully available..."
+          kubectl wait --for=condition=available deployment/client -n ecosystem-production --timeout=120s
+          kubectl wait --for=condition=available deployment/server -n ecosystem-production --timeout=120s
           
           # Test API health endpoint
           kubectl run --rm -i --restart=Never --image=curlimages/curl test-pod-api -n ecosystem-production -- \
