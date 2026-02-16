@@ -4,13 +4,13 @@
 
 ### Phase 1: Repository Settings ✅
 - ✅ Branch protection rules configured for main branch
-- ✅ Required status checks: ci/test, ci/lint, ci/security-scan
+- ✅ Required status checks: CI Pipeline / Lint Code, CI Pipeline / Run Tests, CI Pipeline / Security Scan
 - ✅ Required approving reviews: 1
 - ✅ Dismiss stale reviews enabled
 - ✅ Code owner reviews required
 - ✅ Linear history enforced
 
-### Phase 2: GitHub Secrets ✅ (8/11 Complete)
+### Phase 2: GitHub Secrets ✅ (9/14 Complete)
 Configured secrets:
 - ✅ SUPABASE_URL
 - ✅ SUPABASE_ANON_KEY
@@ -75,7 +75,7 @@ Still needed:
 If you already have a Kubernetes cluster:
 1. Generate base64-encoded kubeconfig files:
    ```bash
-   cat ~/.kube/config | base64 -w 0
+   cat ~/.kube/config | base64 | tr -d '\n'
    ```
 2. Provide the staging cluster kubeconfig
 3. Provide the production cluster kubeconfig
