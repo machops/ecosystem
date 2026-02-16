@@ -16,7 +16,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm install -g pnpm@10
 RUN pnpm run build:server
 
 # Production image, copy all the files and run server
