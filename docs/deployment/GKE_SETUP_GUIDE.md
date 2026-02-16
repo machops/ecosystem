@@ -360,8 +360,16 @@ metadata:
 type: kubernetes.io/service-account-token
 EOF
 
-# Wait a moment for the token to be populated
-sleep 5
+# Wait for the token to be populated (typically takes a few seconds)
+echo "Waiting for token to be populated..."
+for i in {1..30}; do
+  TOKEN_CHECK=$(kubectl get secret github-deployer-token -n ecosystem-production -o jsonpath='{.data.token}' 2>/dev/null)
+  if [ -n "$TOKEN_CHECK" ]; then
+    echo "Token ready!"
+    break
+  fi
+  sleep 1
+done
 
 # Get the service account token
 SA_TOKEN=$(kubectl get secret github-deployer-token \
@@ -369,7 +377,7 @@ SA_TOKEN=$(kubectl get secret github-deployer-token \
   -o jsonpath='{.data.token}' | base64 -d)
 
 # Alternative: Use kubectl create token for short-lived tokens (valid for 1 hour by default)
-# For longer validity, adjust duration as needed (e.g., --duration=168h for 1 week)
+# For longer validity, adjust duration as needed (e.g., --duration=168h for 7 days/1 week)
 # SA_TOKEN=$(kubectl create token github-deployer -n ecosystem-production --duration=1h)
 
 # Get the API server URL and CA data for the eco-production cluster
@@ -412,8 +420,19 @@ cat kubeconfig-ecosystem-production-github-deployer | base64 | tr -d '\n' \
 Enable network policy enforcement on both clusters (if not already enabled):
 
 ```bash
+# Update staging cluster first
 gcloud container clusters update eco-staging --region asia-east1 --project <your-project-id> --enable-network-policy
+
+# Verify staging cluster network policy is enabled
+gcloud container clusters describe eco-staging --region asia-east1 --project <your-project-id> \
+  --format="value(networkPolicy.enabled)"
+
+# Update production cluster
 gcloud container clusters update eco-production --region asia-east1 --project <your-project-id> --enable-network-policy
+
+# Verify production cluster network policy is enabled
+gcloud container clusters describe eco-production --region asia-east1 --project <your-project-id> \
+  --format="value(networkPolicy.enabled)"
 
 # Example: default deny all ingress traffic in the ecosystem-production namespace
 kubectl apply -n ecosystem-production -f - <<'EOF'
