@@ -371,20 +371,32 @@ for i in {1..30}; do
   sleep 1
 done
 
-# Get the service account token
+# Get the service account token (decode base64 in a cross-platform way)
+# Note: base64 flags differ between GNU (Linux) and BSD (macOS)
 SA_TOKEN=$(kubectl get secret github-deployer-token \
   -n ecosystem-production \
-  -o jsonpath='{.data.token}' | base64 -d)
+  -o jsonpath='{.data.token}' | base64 -d 2>/dev/null || \
+  kubectl get secret github-deployer-token \
+  -n ecosystem-production \
+  -o jsonpath='{.data.token}' | base64 -D)
 
 # Alternative: Use kubectl create token for short-lived tokens (valid for 1 hour by default)
 # For longer validity, adjust duration as needed (e.g., --duration=168h for 7 days)
 # SA_TOKEN=$(kubectl create token github-deployer -n ecosystem-production --duration=1h)
 
 # Get the API server URL and CA data for the eco-production cluster
+# Note: The actual cluster name in kubeconfig is typically gke_<project-id>_asia-east1_eco-production
+# Use kubectl config get-contexts to find the exact cluster name
+CLUSTER_NAME=$(kubectl config view --raw -o jsonpath='{.contexts[?(@.name=="gke_*eco-production")].context.cluster}' | grep eco-production | head -n1)
+if [ -z "$CLUSTER_NAME" ]; then
+  # Fallback: try to match any cluster containing "eco-production"
+  CLUSTER_NAME=$(kubectl config view --raw -o jsonpath='{.clusters[*].name}' | tr ' ' '\n' | grep eco-production | head -n1)
+fi
+
 CLUSTER_SERVER=$(kubectl config view --raw \
-  -o jsonpath='{.clusters[?(@.name=="eco-production")].cluster.server}')
+  -o jsonpath="{.clusters[?(@.name==\"${CLUSTER_NAME}\")].cluster.server}")
 CLUSTER_CA_DATA=$(kubectl config view --raw \
-  -o jsonpath='{.clusters[?(@.name=="eco-production")].cluster.certificate-authority-data}')
+  -o jsonpath="{.clusters[?(@.name==\"${CLUSTER_NAME}\")].cluster.certificate-authority-data}")
 
 # Create a restricted kubeconfig for the github-deployer service account
 cat <<EOF > kubeconfig-ecosystem-production-github-deployer
@@ -412,23 +424,37 @@ EOF
 cat kubeconfig-ecosystem-production-github-deployer | base64 | tr -d '\n' \
   > kubeconfig-ecosystem-production-github-deployer-base64.txt
 
+# ⚠️  SECURITY WARNING: Long-lived Service Account Tokens
+# This kubeconfig contains a long-lived service account token that does NOT automatically rotate.
+# On Kubernetes 1.24+, this pattern is discouraged because:
+#   - If the GitHub secret or token is leaked, an attacker gains persistent access
+#     to the ecosystem-production namespace (including all Secrets) until manually revoked.
+#   - These tokens have no expiration and no automatic rotation.
+#
+# RECOMMENDED ALTERNATIVE: Use GitHub OIDC + GCP Workload Identity Federation
+#   See: https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity-github-actions
+#   This provides short-lived, automatically rotated credentials with no static secrets.
+#
+# IF YOU MUST USE SERVICE ACCOUNT TOKENS:
+#   1. Use short-lived tokens generated at workflow runtime:
+#      SA_TOKEN=$(kubectl create token github-deployer --duration=3600s)
+#   2. Inject the token into a minimal kubeconfig in the workflow
+#   3. Never persist the token to disk or GitHub Secrets
+#   4. Implement tight RBAC policies and explicit token rotation procedures
+#
 # This kubeconfig is restricted to the ecosystem-production namespace
 ```
 
 ### Network Policies
 
-Enable network policy enforcement on both clusters (if not already enabled):
+**Important:** GKE Autopilot clusters have network policy enforcement enabled by default and it cannot be disabled. You do not need to run any command to enable it.
+
+To verify that network policy is enabled on your clusters:
 
 ```bash
-# Update staging cluster first
-gcloud container clusters update eco-staging --region asia-east1 --project <your-project-id> --enable-network-policy
-
 # Verify staging cluster network policy is enabled
 gcloud container clusters describe eco-staging --region asia-east1 --project <your-project-id> \
   --format="value(networkPolicy.enabled)"
-
-# Update production cluster
-gcloud container clusters update eco-production --region asia-east1 --project <your-project-id> --enable-network-policy
 
 # Verify production cluster network policy is enabled
 gcloud container clusters describe eco-production --region asia-east1 --project <your-project-id> \
