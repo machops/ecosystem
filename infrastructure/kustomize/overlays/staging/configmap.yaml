@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecosystem-config
+  namespace: ecosystem-staging
+data:
+  NODE_ENV: "staging"
+  LOG_LEVEL: "debug"

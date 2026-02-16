@@ -17,7 +17,8 @@ jobs:
       contents: read
       packages: write
     outputs:
-      image-tag: ${{ steps.meta.outputs.tags }}
+      client-image-tag: ${{ steps.meta-client.outputs.tags }}
+      server-image-tag: ${{ steps.meta-server.outputs.tags }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,7 +45,8 @@ jobs:
       - name: Build and push client image
         uses: docker/build-push-action@v4
         with:
-          context: ./client
+          context: ./
+          file: ./Dockerfile.client
           push: true
           tags: ${{ steps.meta-client.outputs.tags }}
           labels: ${{ steps.meta-client.outputs.labels }}
@@ -63,7 +65,8 @@ jobs:
       - name: Build and push server image
         uses: docker/build-push-action@v4
         with:
-          context: ./server
+          context: ./
+          file: ./Dockerfile.server
           push: true
           tags: ${{ steps.meta-server.outputs.tags }}
           labels: ${{ steps.meta-server.outputs.labels }}
@@ -76,7 +79,7 @@ jobs:
     needs: build-and-push
     environment:
       name: staging
-      url: https://staging.ecosystem.machops.io
+      url: https://staging.autoecoops.io
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -90,31 +93,49 @@ jobs:
           echo "${{ secrets.KUBE_CONFIG_STAGING }}" | base64 -d > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
 
-      - name: Update Kubernetes manifests
+      - name: Create namespace if not exists
         run: |
-          # Update image tags in deployment manifests
-          sed -i 's|IMAGE_TAG|${{ needs.build-and-push.outputs.image-tag }}|g' infrastructure/kustomize/overlays/staging/deployment.yaml
-          # Apply Cloudflare API token
-          sed -i 's|CLOUDFLARE_API_TOKEN|${{ secrets.CLOUDFLARE_API_TOKEN }}|g' infrastructure/kustomize/overlays/staging/configmap.yaml
+          kubectl create namespace ecosystem-staging --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create secrets
+        run: |
+          kubectl create secret generic ecosystem-secrets \
+            --from-literal=database-url="${{ secrets.DATABASE_URL }}" \
+            --from-literal=supabase-url="${{ secrets.SUPABASE_URL }}" \
+            --from-literal=supabase-anon-key="${{ secrets.SUPABASE_ANON_KEY }}" \
+            --from-literal=supabase-service-role-key="${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            --from-literal=anthropic-api-key="${{ secrets.ANTHROPIC_API_KEY }}" \
+            --from-literal=groq-api-key="${{ secrets.GROQ_API_KEY }}" \
+            --from-literal=jwt-secret="${{ secrets.JWT_SECRET }}" \
+            --from-literal=cloudflare-api-token="${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            --namespace=ecosystem-staging \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Update image tags in kustomization
+        run: |
+          cd infrastructure/kustomize/overlays/staging
+          kustomize edit set image ghcr.io/machops/ecosystem/client=${{ needs.build-and-push.outputs.client-image-tag }}
+          kustomize edit set image ghcr.io/machops/ecosystem/server=${{ needs.build-and-push.outputs.server-image-tag }}
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f infrastructure/kustomize/overlays/staging/
-          kubectl rollout status deployment/client -n ecosystem-staging
-          kubectl rollout status deployment/server -n ecosystem-staging
+          kubectl apply -k infrastructure/kustomize/overlays/staging
+          kubectl rollout status deployment/client -n ecosystem-staging --timeout=5m
+          kubectl rollout status deployment/server -n ecosystem-staging --timeout=5m
 
       - name: Verify deployment
         run: |
           kubectl get pods -n ecosystem-staging
           kubectl get services -n ecosystem-staging
+          kubectl get ingress -n ecosystem-staging
 
   deploy-production:
     name: Deploy to Production
     runs-on: ubuntu-latest
-    needs: deploy-staging
+    needs: [build-and-push, deploy-staging]
     environment:
       name: production
-      url: https://ecosystem.machops.io
+      url: https://autoecoops.io
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -128,39 +149,53 @@ jobs:
           echo "${{ secrets.KUBE_CONFIG_PRODUCTION }}" | base64 -d > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
 
-      - name: Update Kubernetes manifests
+      - name: Create namespace if not exists
         run: |
-          # Update image tags in deployment manifests
-          sed -i 's|IMAGE_TAG|${{ needs.build-and-push.outputs.image-tag }}|g' infrastructure/kustomize/overlays/production/deployment.yaml
-          # Apply Cloudflare API token
-          sed -i 's|CLOUDFLARE_API_TOKEN|${{ secrets.CLOUDFLARE_API_TOKEN }}|g' infrastructure/kustomize/overlays/production/configmap.yaml
+          kubectl create namespace ecosystem-production --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create secrets
+        run: |
+          kubectl create secret generic ecosystem-secrets \
+            --from-literal=database-url="${{ secrets.DATABASE_URL }}" \
+            --from-literal=supabase-url="${{ secrets.SUPABASE_URL }}" \
+            --from-literal=supabase-anon-key="${{ secrets.SUPABASE_ANON_KEY }}" \
+            --from-literal=supabase-service-role-key="${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            --from-literal=anthropic-api-key="${{ secrets.ANTHROPIC_API_KEY }}" \
+            --from-literal=groq-api-key="${{ secrets.GROQ_API_KEY }}" \
+            --from-literal=jwt-secret="${{ secrets.JWT_SECRET }}" \
+            --from-literal=cloudflare-api-token="${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            --namespace=ecosystem-production \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Update image tags in kustomization
+        run: |
+          cd infrastructure/kustomize/overlays/production
+          kustomize edit set image ghcr.io/machops/ecosystem/client=${{ needs.build-and-push.outputs.client-image-tag }}
+          kustomize edit set image ghcr.io/machops/ecosystem/server=${{ needs.build-and-push.outputs.server-image-tag }}
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f infrastructure/kustomize/overlays/production/
-          kubectl rollout status deployment/client -n ecosystem-production
-          kubectl rollout status deployment/server -n ecosystem-production
+          kubectl apply -k infrastructure/kustomize/overlays/production
+          kubectl rollout status deployment/client -n ecosystem-production --timeout=5m
+          kubectl rollout status deployment/server -n ecosystem-production --timeout=5m
 
       - name: Verify production deployment
         run: |
           kubectl get pods -n ecosystem-production
           kubectl get services -n ecosystem-production
+          kubectl get ingress -n ecosystem-production
 
       - name: Run smoke tests
         run: |
+          echo "Waiting for services to be ready..."
+          sleep 30
+          
           # Test API health endpoint
           kubectl run --rm -i --restart=Never --image=curlimages/curl test-pod -n ecosystem-production -- \
-            curl -f https://api.ecosystem.machops.io/health || exit 1
+            curl -f https://api.autoecoops.io/health || exit 1
           
           # Test web frontend
           kubectl run --rm -i --restart=Never --image=curlimages/curl test-pod -n ecosystem-production -- \
-            curl -f https://ecosystem.machops.io || exit 1
+            curl -f https://autoecoops.io || exit 1
           
           echo "✅ Production smoke tests passed"
-
-      - name: Notify deployment success
-        if: success()
-        run: |
-          echo "✅ Production deployment successful"
-          echo "Deployed version: ${{ github.sha }}"
-          echo "Image tag: ${{ needs.build-and-push.outputs.image-tag }}"

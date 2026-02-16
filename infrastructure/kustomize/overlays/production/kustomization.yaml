@@ -5,6 +5,8 @@ namespace: ecosystem-production
 
 resources:
   - ../../base
+  - deployment.yaml
+  - configmap.yaml
   - ingress.yaml
 
 commonLabels:

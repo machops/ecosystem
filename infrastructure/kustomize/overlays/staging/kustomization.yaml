@@ -5,6 +5,9 @@ namespace: ecosystem-staging
 
 resources:
   - ../../base
+  - deployment.yaml
+  - configmap.yaml
+  - secret.yaml
   - ingress.yaml
 
 commonLabels:
