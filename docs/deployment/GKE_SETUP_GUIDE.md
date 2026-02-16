@@ -369,7 +369,8 @@ SA_TOKEN=$(kubectl get secret github-deployer-token \
   -o jsonpath='{.data.token}' | base64 -d)
 
 # Alternative: Use kubectl create token for short-lived tokens (valid for 1 hour by default)
-# SA_TOKEN=$(kubectl create token github-deployer -n ecosystem-production --duration=87600h)
+# For longer validity, adjust duration as needed (e.g., --duration=168h for 1 week)
+# SA_TOKEN=$(kubectl create token github-deployer -n ecosystem-production --duration=1h)
 
 # Get the API server URL and CA data for the eco-production cluster
 CLUSTER_SERVER=$(kubectl config view --raw \
@@ -411,8 +412,8 @@ cat kubeconfig-ecosystem-production-github-deployer | base64 | tr -d '\n' \
 Enable network policy enforcement on both clusters (if not already enabled):
 
 ```bash
-gcloud container clusters update eco-staging --region asia-east1 --enable-network-policy
-gcloud container clusters update eco-production --region asia-east1 --enable-network-policy
+gcloud container clusters update eco-staging --region asia-east1 --project <your-project-id> --enable-network-policy
+gcloud container clusters update eco-production --region asia-east1 --project <your-project-id> --enable-network-policy
 
 # Example: default deny all ingress traffic in the ecosystem-production namespace
 kubectl apply -n ecosystem-production -f - <<'EOF'
@@ -499,6 +500,7 @@ gcloud container clusters list --region asia-east1 --project <your-project-id>
 ### View Cluster Details:
 ```bash
 gcloud container clusters describe eco-staging --region asia-east1 --project <your-project-id>
+gcloud container clusters describe eco-production --region asia-east1 --project <your-project-id>
 ```
 
 ### Check Pod Status:
