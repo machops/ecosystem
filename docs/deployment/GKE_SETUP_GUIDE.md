@@ -23,8 +23,8 @@ Once both clusters are Running, generate the kubeconfig files:
 # Get credentials for staging cluster
 gcloud container clusters get-credentials eco-staging --region asia-east1 --project <your-project-id>
 
-# Export to base64
-cat ~/.kube/config | base64 -w 0 > kubeconfig-staging-base64.txt
+# Export to base64 (works on both Linux and macOS)
+cat ~/.kube/config | base64 | tr -d '\n' > kubeconfig-staging-base64.txt
 ```
 
 ### For Production Cluster:
@@ -32,8 +32,8 @@ cat ~/.kube/config | base64 -w 0 > kubeconfig-staging-base64.txt
 # Get credentials for production cluster
 gcloud container clusters get-credentials eco-production --region asia-east1 --project <your-project-id>
 
-# Export to base64
-cat ~/.kube/config | base64 -w 0 > kubeconfig-production-base64.txt
+# Export to base64 (works on both Linux and macOS)
+cat ~/.kube/config | base64 | tr -d '\n' > kubeconfig-production-base64.txt
 ```
 
 ### Important Notes:
@@ -102,9 +102,22 @@ kubectl config get-contexts
 Once clusters are Running and kubeconfigs are provided:
 
 ### 1. Add GitHub Secrets
-I'll add the following secrets to the repository:
-- `KUBE_CONFIG_STAGING`: Base64 staging kubeconfig
-- `KUBE_CONFIG_PRODUCTION`: Base64 production kubeconfig
+
+**⚠️ Security Note**: For production environments, prefer using GitHub OIDC with GCP Workload Identity Federation instead of storing long-lived kubeconfig files. This provides short-lived credentials with better security. See the [Workload Identity Federation Guide](https://github.com/google-github-actions/auth#setup) for setup instructions.
+
+**For development/testing**, you can use base64-encoded kubeconfigs:
+- `KUBE_CONFIG_STAGING`: Base64 staging kubeconfig (least-privilege service account)
+- `KUBE_CONFIG_PRODUCTION`: Base64 production kubeconfig (least-privilege service account)
+
+**Recommended**: Create dedicated service accounts with minimal required permissions:
+```bash
+# Create a deployment service account with limited permissions
+kubectl create serviceaccount github-deployer -n ecosystem-staging
+kubectl create rolebinding github-deployer-binding \
+  --clusterrole=edit \
+  --serviceaccount=ecosystem-staging:github-deployer \
+  --namespace=ecosystem-staging
+```
 
 ### 2. Verify Cluster Access
 ```bash
@@ -214,6 +227,49 @@ I can set up:
 ---
 
 ## Security Best Practices
+
+### Recommended: GitHub OIDC + Workload Identity Federation
+
+For production deployments, use GitHub's OIDC provider with GCP Workload Identity Federation to avoid storing long-lived credentials:
+
+```yaml
+# In your GitHub Actions workflow:
+- name: Authenticate to Google Cloud
+  uses: google-github-actions/auth@v2
+  with:
+    workload_identity_provider: 'projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_NAME/providers/PROVIDER_NAME'
+    service_account: 'github-actions@PROJECT_ID.iam.gserviceaccount.com'
+
+- name: Get GKE credentials
+  uses: google-github-actions/get-gke-credentials@v2
+  with:
+    cluster_name: eco-production
+    location: asia-east1
+```
+
+**Benefits:**
+- No long-lived credentials stored in GitHub
+- Automatic credential rotation
+- Fine-grained IAM permissions
+- Audit trail in GCP logs
+
+### Alternative: Least-Privilege Service Accounts
+
+If using kubeconfig files, create dedicated service accounts with minimal permissions:
+
+```bash
+# Create namespace-scoped service account
+kubectl create serviceaccount github-deployer -n ecosystem-production
+
+# Grant only necessary permissions (edit role scoped to namespace)
+kubectl create rolebinding github-deployer-binding \
+  --clusterrole=edit \
+  --serviceaccount=ecosystem-production:github-deployer \
+  --namespace=ecosystem-production
+
+# Get the service account token and create a restricted kubeconfig
+# This kubeconfig will only have access to the specific namespace
+```
 
 ### Network Policies
 ```bash
