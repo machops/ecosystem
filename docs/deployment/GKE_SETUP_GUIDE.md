@@ -373,12 +373,10 @@ done
 
 # Get the service account token (decode base64 in a cross-platform way)
 # Note: base64 flags differ between GNU (Linux) and BSD (macOS)
-SA_TOKEN=$(kubectl get secret github-deployer-token \
+ENCODED_TOKEN=$(kubectl get secret github-deployer-token \
   -n ecosystem-production \
-  -o jsonpath='{.data.token}' | base64 -d 2>/dev/null || \
-  kubectl get secret github-deployer-token \
-  -n ecosystem-production \
-  -o jsonpath='{.data.token}' | base64 -D)
+  -o jsonpath='{.data.token}')
+SA_TOKEN=$(echo "$ENCODED_TOKEN" | base64 -d 2>/dev/null || echo "$ENCODED_TOKEN" | base64 -D)
 
 # Alternative: Use kubectl create token for short-lived tokens (valid for 1 hour by default)
 # For longer validity, adjust duration as needed (e.g., --duration=168h for 7 days)
@@ -386,12 +384,8 @@ SA_TOKEN=$(kubectl get secret github-deployer-token \
 
 # Get the API server URL and CA data for the eco-production cluster
 # Note: The actual cluster name in kubeconfig is typically gke_<project-id>_asia-east1_eco-production
-# Use kubectl config get-contexts to find the exact cluster name
-CLUSTER_NAME=$(kubectl config view --raw -o jsonpath='{.contexts[?(@.name=="gke_*eco-production")].context.cluster}' | grep eco-production | head -n1)
-if [ -z "$CLUSTER_NAME" ]; then
-  # Fallback: try to match any cluster containing "eco-production"
-  CLUSTER_NAME=$(kubectl config view --raw -o jsonpath='{.clusters[*].name}' | tr ' ' '\n' | grep eco-production | head -n1)
-fi
+# JSONPath doesn't support wildcards, so we list all clusters and grep for the match
+CLUSTER_NAME=$(kubectl config view --raw -o jsonpath='{.clusters[*].name}' | tr ' ' '\n' | grep eco-production | head -n1)
 
 CLUSTER_SERVER=$(kubectl config view --raw \
   -o jsonpath="{.clusters[?(@.name==\"${CLUSTER_NAME}\")].cluster.server}")
