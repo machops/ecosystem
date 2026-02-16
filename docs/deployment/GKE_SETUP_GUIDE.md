@@ -279,9 +279,32 @@ kubectl create rolebinding github-deployer-binding \
 
 ### RBAC Configuration
 ```bash
-# Create service accounts
-# Configure role-based access control
-# Implement least privilege principle
+# Example: namespace-scoped service account for CI/CD deployments
+kubectl create serviceaccount ci-deployer --namespace ecosystem-staging
+
+# Define a minimal Role granting deployment management permissions
+kubectl apply -n ecosystem-staging -f - <<'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ci-deployer-role
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+EOF
+
+# Bind the Role to the service account (least privilege within the namespace)
+kubectl create rolebinding ci-deployer-binding \
+  --role=ci-deployer-role \
+  --serviceaccount=ecosystem-staging:ci-deployer \
+  --namespace=ecosystem-staging
+
+# For more RBAC patterns and examples, see:
+# https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 ```
 
 ### Secrets Management
