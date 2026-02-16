@@ -219,14 +219,14 @@ curl https://ecosystem.machops.io
 ### GKE Cluster Management
 ```bash
 # Get credentials for staging
-gcloud container clusters get-credentials eco-staging --region asia-east1 --project my-project-ops-1991
+gcloud container clusters get-credentials eco-staging --region asia-east1 --project <your-project-id>
 
 # Get credentials for production
-gcloud container clusters get-credentials eco-production --region asia-east1 --project my-project-ops-1991
+gcloud container clusters get-credentials eco-production --region asia-east1 --project <your-project-id>
 
 # Switch contexts
-kubectl config use-context gke_my-project-ops-1991_asia-east1_eco-staging
-kubectl config use-context gke_my-project-ops-1991_asia-east1_eco-production
+kubectl config use-context gke_<your-project-id>_asia-east1_eco-staging
+kubectl config use-context gke_<your-project-id>_asia-east1_eco-production
 
 # List nodes
 kubectl get nodes
