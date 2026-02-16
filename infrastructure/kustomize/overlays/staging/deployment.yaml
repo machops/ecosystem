@@ -27,6 +27,13 @@ spec:
             - ALL
         ports:
         - containerPort: 3000
+        env:
+        - name: NEXT_PUBLIC_API_URL
+          value: "https://api.example.com"
+        - name: NEXT_PUBLIC_SUPABASE_URL
+          value: "https://supabase.example.com"
+        - name: NEXT_PUBLIC_SUPABASE_ANON_KEY
+          value: "REPLACE_WITH_STAGING_SUPABASE_ANON_KEY"
         volumeMounts:
         - name: tmp
           mountPath: /tmp
