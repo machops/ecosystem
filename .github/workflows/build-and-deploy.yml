@@ -78,11 +78,9 @@ jobs:
 
       - name: Run check
         run: pnpm run check
-        continue-on-error: true
 
       - name: Run tests
         run: pnpm run test
-        continue-on-error: true
 
       - name: Build application
         run: pnpm run build
