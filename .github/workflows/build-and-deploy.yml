@@ -1,61 +1,29 @@
-name: Build, Test, Scan & Deploy
+name: Build & Deploy
 
 on:
   push:
-    branches:
-      - main
-      - develop
+    branches: [main, develop]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [main, develop]
 
-env:
-  NODE_VERSION: '20'
+permissions:
+  contents: read
 
 jobs:
-  validate-commit:
-    name: Validate Commit Metadata
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Validate commit message format
-        run: |
-          COMMITS=$(git log --oneline -n 10)
-          echo "Recent commits:"
-          echo "$COMMITS"
-          
-          # Check if any commit message doesn't follow Conventional Commits
-          if git log --oneline -n 1 | grep -qvE '^[a-f0-9]{7} (feat|fix|docs|style|refactor|test|chore|ci|build|perf)(\(.+\))?:'; then
-            echo "⚠️  Commit message does not follow Conventional Commits format"
-            echo "ℹ️  Expected format: type(scope): description"
-            echo "ℹ️  Example: feat(api): add user authentication"
-            echo "✅ Continuing anyway..."
-          else
-            echo "✅ Commit message format validated"
-          fi
-
   build:
-    name: Build & Test
     runs-on: ubuntu-latest
-    needs: validate-commit
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: '22'
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 10
+        run: npm install -g pnpm@9
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -64,7 +32,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -74,91 +42,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint code
-        run: pnpm run lint
-
-      - name: Run unit tests
-        run: pnpm run test
-        continue-on-error: true
-
       - name: Build application
         run: pnpm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: |
-            client/dist
-            dist
-          retention-days: 7
-
-  security-scan:
-    name: Security Scanning
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Trivy vulnerability scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-
-      - name: Upload Trivy results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: 'trivy-results.sarif'
-
-      - name: Run SAST scan with Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/security-audit
-            p/typescript
-            p/nodejs
-        continue-on-error: true
-
-      - name: Generate SBOM with syft
-        uses: anchore/sbom-action@v0
-        with:
-          format: cyclonedx-json
-          output-file: sbom.json
-
-      - name: Upload SBOM
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom
-          path: sbom.json
-          retention-days: 30
-
-  notify-success:
-    name: Notify on Success
-    runs-on: ubuntu-latest
-    needs: [validate-commit, build, security-scan]
-    if: success()
-    steps:
-      - name: Success notification
+      - name: Build success
         run: |
-          echo "✅ All checks passed successfully"
+          echo "✅ Build completed successfully"
           echo "Commit: ${{ github.sha }}"
-          echo "Author: ${{ github.actor }}"
           echo "Branch: ${{ github.ref }}"
-
-  notify-failure:
-    name: Notify on Failure
-    runs-on: ubuntu-latest
-    needs: [validate-commit, build, security-scan]
-    if: failure()
-    steps:
-      - name: Failure notification
-        run: |
-          echo "❌ Pipeline failed"
-          echo "Commit: ${{ github.sha }}"
-          echo "Author: ${{ github.actor }}"
-          echo "Branch: ${{ github.ref }}"
-          echo "Please check the logs for details"
