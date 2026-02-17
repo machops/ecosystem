@@ -375,7 +375,7 @@ kubectl get pods -n ecosystem-production
 ### View Logs:
 ```bash
 kubectl logs -f deployment/client -n ecosystem-staging
-kubectl logs -f deployment/server -n ecosystem-production
+kubectl logs -f deployment/server -n ecosystem-staging
 ```
 
 ### Access Dashboard:
