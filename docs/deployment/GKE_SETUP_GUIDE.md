@@ -259,10 +259,10 @@ GKE Autopilot integrates with:
 - **Cloud Trace**: Distributed tracing
 - **Error Reporting**: Error tracking
 
-I can set up:
+Optional additional monitoring setup:
 - Prometheus + Grafana (custom monitoring)
 - Loki for centralized logging
-- Custom dashboards for your ecosystem
+- Custom dashboards
 
 ---
 
