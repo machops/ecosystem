@@ -14,8 +14,8 @@ const apiKey = process.env.GITHUB_API_KEY
 ### 2. Use Environment-Specific Prefixes
 ```bash
 # Browser-safe (VITE_* - exposed to client)
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your_public_anon_key_here
+VITE_SUPABASE_URL=https://example-project-abc123.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example_anon_key
 
 # Server-side only (not exposed to client)
 SUPABASE_SECRET_KEY=your_secret_key_here
@@ -24,17 +24,24 @@ GITHUB_TOKEN=your_github_token_here
 
 ### 3. Validation and Defaults
 ```typescript
-// config/env.ts
-const env = {
-  // Client-side variables (VITE_*) use import.meta.env in Vite
+// Client-side config (config/client-env.ts)
+// Use in browser/Vite contexts only
+const clientEnv = {
   VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL || '',
-  // Server-side variables use process.env
+}
+
+if (!clientEnv.VITE_SUPABASE_URL) {
+  throw new Error('VITE_SUPABASE_URL is required')
+}
+
+// Server-side config (config/server-env.ts)
+// Use in Node.js/server contexts only
+const serverEnv = {
   SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY || '',
 }
 
-// Validate
-if (!env.VITE_SUPABASE_URL) {
-  throw new Error('VITE_SUPABASE_URL is required')
+if (!serverEnv.SUPABASE_SECRET_KEY) {
+  throw new Error('SUPABASE_SECRET_KEY is required')
 }
 ```
 
@@ -110,8 +117,8 @@ credentials/
 
 ### GitHub Actions Secrets Setup
 ```bash
-# Set secrets via GitHub CLI
-gh secret set VITE_SUPABASE_URL -b "https://your-project.supabase.co"
+# Set secrets via GitHub CLI (server-side secrets only)
+# Note: VITE_* variables are client-exposed and configured differently
 gh secret set SUPABASE_SECRET_KEY -b "your_secret_key_here"
 
 # For custom PAT (not the auto-provisioned GITHUB_TOKEN)
@@ -125,6 +132,8 @@ gh secret remove OLD_SECRET
 ```
 
 **Note**: `GITHUB_TOKEN` is automatically provisioned in GitHub Actions workflows via `${{ github.token }}`. Only create a separate PAT secret (e.g., `GH_PAT`) if you need additional permissions beyond what the default token provides.
+
+**Client Variables**: VITE_* prefixed variables are exposed to the browser bundle and should be set at build time, not stored as GitHub Secrets unless they vary per environment.
 
 ### Workflow Configuration
 ```yaml
@@ -168,8 +177,8 @@ jobs:
 ### Development (.env.development)
 ```bash
 NODE_ENV=development
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your_public_anon_key_here
+VITE_SUPABASE_URL=https://example-project-abc123.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example_anon_key
 SUPABASE_SECRET_KEY=your_secret_key_here
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -216,7 +225,7 @@ NODE_ENV=production
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| VITE_SUPABASE_URL | Supabase project URL (client-exposed) | https://your-project.supabase.co |
+| VITE_SUPABASE_URL | Supabase project URL (client-exposed) | https://example-project-abc123.supabase.co |
 | SUPABASE_SECRET_KEY | Supabase secret key (server-only) | your_secret_key_here |
 | GITHUB_TOKEN | GitHub personal access token (server-only) | ghp_xxxxxxxxxxxx |
 
