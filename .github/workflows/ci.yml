@@ -34,8 +34,6 @@ jobs:
 
       - name: Setup pnpm
         run: corepack prepare pnpm@${{ env.PNPM_VERSION }} --activate
-      - name: Install pnpm
-        run: npm install -g pnpm@9
 
       - name: Get pnpm store directory
         id: pnpm-cache
