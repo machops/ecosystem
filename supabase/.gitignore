@@ -1,0 +1,7 @@
+# Supabase local development
+.branches
+.cache/
+supabase/functions/.denorc.json
+functions/
+.env.local
+.env.*.local

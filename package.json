@@ -11,7 +11,16 @@
     "lint": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
-    "db:push": "drizzle-kit generate && drizzle-kit migrate"
+    "db:push": "drizzle-kit generate && drizzle-kit migrate",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:link": "supabase link",
+    "supabase:push": "supabase db push",
+    "supabase:pull": "supabase db pull",
+    "supabase:reset": "supabase db reset",
+    "supabase:logs": "supabase logs",
+    "supabase:status": "supabase status",
+    "supabase:migration:new": "supabase migration new"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",

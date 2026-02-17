@@ -1,0 +1,49 @@
+# Supabase Configuration
+# Project ID and other basic settings
+
+[project]
+# Project ID - will be populated from environment
+# id = "your_project_id"
+
+# API settings
+[api]
+# Port for Supabase local API
+port = 54321
+# SMTP settings for local email testing
+smtp_port = 54325
+
+# Database settings
+[db]
+# Port for PostgreSQL
+port = 5432
+# Shadow database port
+shadow_db_port = 54320
+# Major version
+major_version = 15
+
+# Realtime settings
+[realtime]
+enabled = true
+max_changes_per_second = 100
+max_connections = 1000
+max_message_size = 8388608
+
+# Studio settings
+[studio]
+enabled = true
+port = 54323
+
+# Inbucket settings (local email testing)
+[inbucket]
+enabled = true
+port = 54324
+smtp_port = 54325
+pop3_port = 54326
+
+# Analytics settings
+[analytics]
+enabled = false
+
+# Vector configuration (pgvector)
+[vector]
+enabled = false
