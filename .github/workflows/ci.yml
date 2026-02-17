@@ -4,6 +4,4 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: node -v
-      - run: npm -v
+      - run: echo "no checkout"
