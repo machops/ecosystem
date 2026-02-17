@@ -109,14 +109,38 @@ Once clusters are Running and kubeconfigs are provided:
 - `KUBE_CONFIG_STAGING`: Base64 staging kubeconfig (least-privilege service account)
 - `KUBE_CONFIG_PRODUCTION`: Base64 production kubeconfig (least-privilege service account)
 
-**Recommended**: Create dedicated service accounts with minimal required permissions:
+**Recommended**: Create a dedicated service account and namespace-scoped Role with only the required permissions:
 ```bash
-# Create a deployment service account with limited permissions
+# Create a deployment service account with least-privilege permissions
 kubectl create serviceaccount github-deployer -n ecosystem-staging
-kubectl create rolebinding github-deployer-binding \
-  --clusterrole=edit \
-  --serviceaccount=ecosystem-staging:github-deployer \
-  --namespace=ecosystem-staging
+
+# Create a namespace-scoped Role and bind it to the service account
+kubectl apply -n ecosystem-staging -f - << 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: github-deployer
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: github-deployer-binding
+subjects:
+  - kind: ServiceAccount
+    name: github-deployer
+    namespace: ecosystem-staging
+roleRef:
+  kind: Role
+  name: github-deployer
+  apiGroup: rbac.authorization.k8s.io
+EOF
 ```
 
 ### 2. Verify Cluster Access
