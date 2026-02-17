@@ -106,12 +106,15 @@ jobs:
                 sed -i "s/newTag: IMAGE_TAG/newTag: ${TAG}/g" "$KUSTOMIZATION_FILE"
                 echo "Updated kustomization.yaml:"
                 cat "$KUSTOMIZATION_FILE"
+                sed -i "s/newTag: IMAGE_TAG/newTag: ${TAG}/" "$KUSTOMIZATION_FILE"
               else
                 echo "Could not determine image tag from '$FIRST_IMAGE', skipping tag substitution"
               fi
             else
               echo "No image tag from build step, skipping tag substitution"
             fi
+
+            kubectl apply -k "$KUSTOMIZE_DIR"
           else
             echo "Kustomization file not found at $KUSTOMIZATION_FILE"
             exit 1
