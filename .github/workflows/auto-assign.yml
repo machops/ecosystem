@@ -36,10 +36,11 @@ jobs:
               assignContext.author = payload.pull_request.user.login;
               
               // 特別為 PR 取得修改的檔案清單（利於 CODEOWNERS 指派）
-              const { data: files } = await github.rest.pulls.listFiles({
+              const files = await github.paginate(github.rest.pulls.listFiles, {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: assignContext.number
+                pull_number: assignContext.number,
+                per_page: 100
               });
               assignContext.files = files.map(f => f.filename);
             }
