@@ -77,8 +77,29 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          if [ -f infrastructure/kustomize/overlays/staging/kustomization.yaml ]; then
-            kubectl apply -k infrastructure/kustomize/overlays/staging/
+          KUSTOMIZE_DIR="infrastructure/kustomize/overlays/staging"
+          KUSTOMIZATION_FILE="$KUSTOMIZE_DIR/kustomization.yaml"
+
+          if [ -f "$KUSTOMIZATION_FILE" ]; then
+            IMAGE_TAGS="${{ needs.build-and-push.outputs.image-tag }}"
+
+            if [ -n "$IMAGE_TAGS" ]; then
+              # Take the first image reference from the comma-separated list
+              FIRST_IMAGE="${IMAGE_TAGS%%,*}"
+              # Extract the tag part after the last colon
+              TAG="${FIRST_IMAGE##*:}"
+
+              if [ -n "$TAG" ] && [ "$TAG" != "$FIRST_IMAGE" ]; then
+                echo "Setting IMAGE_TAG in kustomization.yaml to '$TAG'"
+                sed -i "s/newTag: IMAGE_TAG/newTag: ${TAG}/" "$KUSTOMIZATION_FILE"
+              else
+                echo "Could not determine image tag from '$FIRST_IMAGE', skipping tag substitution"
+              fi
+            else
+              echo "No image tag from build step, skipping tag substitution"
+            fi
+
+            kubectl apply -k "$KUSTOMIZE_DIR"
           else
             echo "Manifests not found, skipping"
           fi
