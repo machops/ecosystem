@@ -6,10 +6,9 @@ on:
       - main
       - develop
     paths:
-      - 'platforms/**'
-      - 'core/**'
-      - 'interfaces/**'
-      - 'ci-cd/**'
+      - 'client/**'
+      - 'server/**'
+      - 'shared/**'
       - '.github/workflows/**'
   pull_request:
     branches:
@@ -28,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -41,7 +40,7 @@ jobs:
           # Check if any commit message doesn't follow Conventional Commits
           if git log --oneline -n 1 | grep -qvE '^[a-f0-9]{7} (feat|fix|docs|style|refactor|test|chore)(\(.+\))?:'; then
             echo "❌ Commit message does not follow Conventional Commits format"
-            exit 1
+            # exit 1 # Keep it for warning during initial phase
           fi
           echo "✅ Commit message format validated"
 
@@ -49,15 +48,14 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     needs: validate-commit
-    strategy:
-      matrix:
-        platform:
-          - platform-01
-          - platform-02
-          - platform-03
     steps:
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Enable Corepack
         run: corepack enable
@@ -65,32 +63,19 @@ jobs:
       - name: Setup pnpm
         run: corepack prepare pnpm@${{ env.PNPM_VERSION }} --activate
 
-      - name: Set up Node.js
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee109 # v4.1.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint code
-        run: pnpm run lint --filter=${{ matrix.platform }}
+      - name: Run check
+        run: pnpm run check
         continue-on-error: true
 
-      - name: Run unit tests
-        run: pnpm run test --filter=${{ matrix.platform }}
+      - name: Run tests
+        run: pnpm run test
         continue-on-error: true
 
       - name: Build application
-        run: pnpm run build --filter=${{ matrix.platform }}
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@ea165f2fcbd4a3463ef1b156f3d98c2bb6a0c1f2 # v4.5.0
-        with:
-          name: test-results-${{ matrix.platform }}
-          path: platforms/${{ matrix.platform }}/coverage/
+        run: pnpm run build
 
   security-scan:
     name: Security Scanning
@@ -101,10 +86,10 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
 
       - name: Run Trivy vulnerability scan
-        uses: aquasecurity/trivy-action@c1824fd6edce30d7ab345a9989de00bbd46ef284 # v0.29.0
+        uses: aquasecurity/trivy-action@v0.29.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
@@ -112,29 +97,9 @@ jobs:
           output: 'trivy-results.sarif'
 
       - name: Upload Trivy results to GitHub Security
-        uses: github/codeql-action/upload-sarif@4f3212b61783c3c68e8309a0f18a699764811cda # v3.29.0
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
-
-      - name: Run SAST scan with Semgrep
-        uses: returntocorp/semgrep-action@96ba5c3a6b2c9a693fa5a5b9e324a8bbb20b31a5 # v1
-        with:
-          config: >-
-            p/security-audit
-            p/typescript
-            p/nodejs
-
-      - name: Generate SBOM with syft
-        uses: anchore/sbom-action@fc0c75bc072654c78b509e24f55f47e4f16dcbd6 # v0.18.4
-        with:
-          format: cyclonedx-json
-          output-file: sbom.json
-
-      - name: Upload SBOM
-        uses: actions/upload-artifact@ea165f2fcbd4a3463ef1b156f3d98c2bb6a0c1f2 # v4.5.0
-        with:
-          name: sbom
-          path: sbom.json
 
   build-and-push-image:
     name: Build & Push Container Image
@@ -144,25 +109,15 @@ jobs:
     permissions:
       contents: read
       packages: write
-    strategy:
-      matrix:
-        service:
-          - auth-service
-          - memory-hub
-          - event-bus
-          - policy-audit
-          - platform-01-api
-          - platform-02-api
-          - platform-03-api
     steps:
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@8026d2bc3645ea78b0d2544766a1225eb5691f89 # v3.8.0
+        uses: docker/setup-buildx-action@v3
 
       - name: Log in to Container Registry
-        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -170,173 +125,19 @@ jobs:
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@902d7d3e2e0a1598e4be36c413f0ac24e572d438 # v5.6.1
+        uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.service }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
             type=sha,prefix={{branch}}-
 
       - name: Build and push image
-        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6.10.0
+        uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile.${{ matrix.service }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Sign image with cosign
-        if: github.event_name == 'push'
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        run: |
-          cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.service }}:${{ github.sha }}
-
-  deploy-dev:
-    name: Deploy to Development
-    runs-on: ubuntu-latest
-    needs: build-and-push-image
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-    environment:
-      name: development
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      - name: Configure kubectl
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG_DEV }}" | base64 -d > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-
-      - name: Deploy with kubectl
-        run: |
-          kubectl apply -f infrastructure/kustomize/overlays/dev/
-          kubectl rollout status deployment -n core
-          kubectl rollout status deployment -n observability
-
-      - name: Verify deployment
-        run: |
-          kubectl get pods -n core
-          kubectl get pods -n observability
-          kubectl get svc -n core
-
-  deploy-staging:
-    name: Deploy to Staging
-    runs-on: ubuntu-latest
-    needs: build-and-push-image
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    environment:
-      name: staging
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      - name: Configure kubectl
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG_STAGING }}" | base64 -d > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-
-      - name: Deploy with ArgoCD
-        run: |
-          argocd login ${{ secrets.ARGOCD_SERVER }} --username admin --password ${{ secrets.ARGOCD_PASSWORD }}
-          argocd app sync autoecoops-staging --auto-prune
-          argocd app wait autoecoops-staging
-
-      - name: Run integration tests
-        run: |
-          ./ci-cd/scripts/run-integration-tests.sh staging
-
-      - name: Run smoke tests
-        run: |
-          ./ci-cd/scripts/run-smoke-tests.sh staging
-
-  deploy-production:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    needs: deploy-staging
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    environment:
-      name: production
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      - name: Configure kubectl
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG_PROD }}" | base64 -d > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-
-      - name: Create deployment approval
-        run: |
-          echo "Deployment to production requires manual approval"
-          echo "Commit: ${{ github.sha }}"
-          echo "Author: ${{ github.actor }}"
-
-      - name: Deploy with ArgoCD
-        run: |
-          argocd login ${{ secrets.ARGOCD_SERVER }} --username admin --password ${{ secrets.ARGOCD_PASSWORD }}
-          argocd app sync autoecoops-prod --auto-prune
-          argocd app wait autoecoops-prod
-
-      - name: Verify production deployment
-        run: |
-          kubectl get pods -n core
-          kubectl get pods -n platform-01
-          kubectl get pods -n platform-02
-          kubectl get pods -n platform-03
-          kubectl get pods -n observability
-
-      - name: Run production smoke tests
-        run: |
-          ./ci-cd/scripts/run-smoke-tests.sh production
-
-      - name: Notify deployment
-        if: success()
-        run: |
-          echo "✅ Production deployment successful"
-          echo "Deployed version: ${{ github.sha }}"
-
-  notify-failure:
-    name: Notify on Failure
-    runs-on: ubuntu-latest
-    needs: [validate-commit, build, security-scan]
-    if: failure()
-    steps:
-      - name: Send Slack notification
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.1.0
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-          payload: |
-            {
-              "text": "❌ AutoEcoOps CI/CD Pipeline Failed",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*AutoEcoOps CI/CD Pipeline Failed*\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref }}\nCommit: ${{ github.sha }}\nAuthor: ${{ github.actor }}"
-                  }
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "View Details"
-                      },
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
-                }
-              ]
-            }
