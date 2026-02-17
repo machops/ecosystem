@@ -80,21 +80,28 @@ GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### Strategy 3: TypeScript Environment Schema
 ```typescript
-// env.ts
+// config/client-env.ts (client-side validation)
 import { z } from 'zod'
 
-const envSchema = z.object({
+const clientEnvSchema = z.object({
   VITE_SUPABASE_URL: z.string().url(),
   VITE_SUPABASE_ANON_KEY: z.string(),
+})
+
+export const clientEnv = clientEnvSchema.parse({
+  VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
+  VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
+})
+
+// config/server-env.ts (server-side validation)
+import { z } from 'zod'
+
+const serverEnvSchema = z.object({
   SUPABASE_SECRET_KEY: z.string(),
   GITHUB_TOKEN: z.string().startsWith('ghp_'),
 })
 
-export const env = envSchema.parse({
-  // Client-side Vite variables use import.meta.env
-  VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
-  VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
-  // Server-side variables use process.env
+export const serverEnv = serverEnvSchema.parse({
   SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
   GITHUB_TOKEN: process.env.GITHUB_TOKEN,
 })
