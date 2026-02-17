@@ -36,7 +36,8 @@
 ### 1. package.json
 ```json
 "scripts": {
-  "lint": "tsc --noEmit",
+  "lint": "pnpm run typecheck",
+  "typecheck": "tsc --noEmit",
   ...existing scripts
 }
 ```
@@ -52,7 +53,7 @@
 - 移除所有 Docker/K8s/ArgoCD 步驟
 - 保留：commit validation → lint → test → build
 
-### 4. 移除 cd.yml（如果存在且不必要）
+### 4. 檢查並視情況移除 cd.yml（若存在且僅執行與重新設計後的 build-and-deploy.yml 完全重疊的部署流程，則刪除以避免重複）
 
 ## 驗證計劃
 1. 本地測試所有 npm scripts
