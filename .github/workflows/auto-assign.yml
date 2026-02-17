@@ -132,7 +132,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           assignees: ${{ steps.decision.outputs.assignees }}
-          numOfAssignee: 1
+          numOfAssignees: 1
 
       # 步驟4：留下決策註解（增加透明度）
       - name: 留言說明指派原因
