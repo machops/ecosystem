@@ -129,12 +129,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@902d7d3e2e0a1598e4be36c413f0ac24e572d438 # v5.6.1
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/server
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/server
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/client
           tags: |
             type=ref,event=branch
             type=sha,prefix={{branch}}-
 
-      - name: Build and push server image
+      - name: Build and push image (tagged as both server and client)
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         with:
           context: .
