@@ -50,10 +50,12 @@ jobs:
       - name: 決定最佳指派人選
         id: decision
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        env:
+          ASSIGN_CONTEXT: ${{ steps.context.outputs.payload }}
         with:
           script: |
             const payload = context.payload;
-            const assignContext = JSON.parse('${{ steps.context.outputs.payload }}');
+            const assignContext = JSON.parse(process.env.ASSIGN_CONTEXT);
             
             // 定義預設維護者
             const defaultMaintainer = 'IndestructibleAutoOps';
