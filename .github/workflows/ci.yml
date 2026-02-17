@@ -1,19 +1,9 @@
-name: CI Pipeline
+name: CI
 on:
   push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+    branches: [main]
 jobs:
-  lint:
-    name: Lint Code
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Run echo
-        run: echo "Hello World"
+      - run: echo "test"
