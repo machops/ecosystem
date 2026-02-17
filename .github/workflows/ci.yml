@@ -9,4 +9,9 @@ jobs:
           git remote add origin https://github.com/machops/ecosystem.git
           git fetch --depth 1 origin ${{ github.sha }}
           git checkout FETCH_HEAD
-      - run: ls -la
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install -g pnpm@10.4.1
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm run build
