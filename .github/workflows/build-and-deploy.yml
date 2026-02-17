@@ -3,6 +3,10 @@ name: Build, Test, Scan & Deploy
 # This workflow is triggered by the CI Pipeline workflow via workflow_run event.
 # It runs after CI completes successfully on main/develop branches,
 # or directly on pull requests for validation.
+#
+# Note: The success condition is applied to the first job (validate-commit).
+# All subsequent jobs depend on it via 'needs:', so they automatically skip
+# if the first job is skipped due to CI failure.
 
 on:
   workflow_run:
