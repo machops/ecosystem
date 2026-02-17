@@ -25,12 +25,16 @@
 ### 保留的 actions (GitHub 官方)
 - actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 - actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-- actions/cache@v4 → 需查詢 SHA
-- actions/upload-artifact@v4 → 需查詢 SHA
-- github/codeql-action/upload-sarif@v3 → 需查詢 SHA
+
+### 待查詢 SHA 的 GitHub 官方 actions（尚未確認，請勿直接使用）
+- actions/cache@v4
+- actions/upload-artifact@v4
 
 ### 移除的 actions (第三方)
 - pnpm/action-setup → 改用 npm install -g pnpm
 - aquasecurity/trivy-action → 改用直接安裝 trivy
 - returntocorp/semgrep-action → 移除 (非必要)
 - anchore/sbom-action → 移除 (非必要)
+
+### 待補充 SHA 的官方 actions（暫勿直接使用標籤）
+- github/codeql-action/upload-sarif@v3 → 尚未查詢到對應的完整 commit SHA，請勿直接使用 `@v3` 標籤
