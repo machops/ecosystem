@@ -137,10 +137,13 @@ jobs:
       # 步驟4：留下決策註解（增加透明度）
       - name: 留言說明指派原因
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        env:
+          REASON: ${{ steps.decision.outputs.reason }}
+          ASSIGNEE: ${{ steps.decision.outputs.assignees }}
         with:
           script: |
-            const reason = '${{ steps.decision.outputs.reason }}';
-            const assignee = '${{ steps.decision.outputs.assignees }}';
+            const reason = process.env.REASON;
+            const assignee = process.env.ASSIGNEE;
             
             let commentBody = `🤖 **AutoEcoOps 自動指派**\n\n`;
             commentBody += `根據本次 ${context.payload.issue ? 'Issue' : 'Pull Request'} 的分析，`;
