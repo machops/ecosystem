@@ -1,0 +1,25 @@
+name = "project-03"
+type = "javascript"
+account_id = "your_account_id"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[env.production]
+name = "project-03-prod"
+route = "api.example.com/project-03/*"
+zone_id = "your_zone_id"
+
+[env.staging]
+name = "project-03-staging"
+route = "staging-api.example.com/project-03/*"
+zone_id = "your_zone_id"
+
+[[kv_namespaces]]
+binding = "KV_STORAGE"
+id = "your_kv_namespace_id"
+preview_id = "your_preview_kv_namespace_id"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "project-03-bucket"
