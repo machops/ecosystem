@@ -9,13 +9,12 @@ RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-COPY backend/services/ai/pyproject.toml ./
+COPY pyproject.toml ./
 RUN pip install --upgrade pip && \
     pip install fastapi uvicorn pydantic pydantic-settings httpx redis numpy scikit-learn \
     networkx scipy prometheus-client gunicorn sentence-transformers
 
-COPY backend/services/ai/ ./
-COPY packages/shared-types/ /app/shared-types/
+COPY . ./
 
 EXPOSE 8000
 
