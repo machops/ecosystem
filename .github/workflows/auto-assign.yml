@@ -1,9 +1,9 @@
 name: Auto Assign 2.0 · 自主演化決策版
 on:
   issues:
-    types: [opened]
+    types: [opened, labeled, reopened]
   pull_request_target:
-    types: [opened]
+    types: [opened, labeled, reopened]
 
 jobs:
   intelligent-assign:
