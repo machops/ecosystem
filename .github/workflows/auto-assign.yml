@@ -54,7 +54,6 @@ jobs:
           ASSIGN_CONTEXT: ${{ steps.context.outputs.payload }}
         with:
           script: |
-            const payload = context.payload;
             const assignContext = JSON.parse(process.env.ASSIGN_CONTEXT);
             
             // 定義預設維護者
