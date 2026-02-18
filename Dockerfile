@@ -9,7 +9,6 @@ COPY package.json pnpm-lock.yaml ./
 
 # Build stage
 FROM base AS build
-ENV NODE_ENV=production
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm run build
