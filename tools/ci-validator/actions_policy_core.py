@@ -53,8 +53,7 @@ def is_docker_action(action_ref: str) -> bool:
 
 def validate_action_reference(
     action_ref: str,
-    policy: Dict,
-    enforcement_level: Optional[str] = None
+    policy: Dict
 ) -> List[str]:
     """
     Validate a single action reference against policy
@@ -62,7 +61,6 @@ def validate_action_reference(
     Args:
         action_ref: The action reference (e.g., 'owner/repo@ref')
         policy: The policy configuration dictionary
-        enforcement_level: Override enforcement level ('error' or 'warning')
     
     Returns:
         List of violation messages (empty if valid)

@@ -95,7 +95,7 @@ class ActionsPolicyValidator:
                 
                 # Validate using shared function
                 violation_messages = actions_policy_core.validate_action_reference(
-                    action_ref, self.policy, enforcement_level
+                    action_ref, self.policy
                 )
                 
                 if violation_messages:

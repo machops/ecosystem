@@ -73,6 +73,7 @@ def test_validate_action_reference():
     }
     
     # Test 1: Valid action from allowed org with SHA
+    # Note: Using valid 40-char hex format (not a real commit SHA)
     violations = actions_policy_core.validate_action_reference(
         'indestructibleorg/my-action@' + 'a' * 40,
         policy
@@ -94,6 +95,7 @@ def test_validate_action_reference():
     assert len(violations) == 0, "Docker action should be allowed"
     
     # Test 4: Action from wrong org
+    # Note: Using valid SHA format for testing
     violations = actions_policy_core.validate_action_reference(
         'actions/checkout@' + 'a' * 40,
         policy
@@ -110,6 +112,7 @@ def test_validate_action_reference():
     assert any('full-length commit SHA' in v for v in violations)
     
     # Test 6: Explicitly blocked action
+    # Note: Using valid SHA format for testing
     violations = actions_policy_core.validate_action_reference(
         'actions/checkout@' + 'a' * 40,
         policy
@@ -162,6 +165,7 @@ jobs:
         
         actions = actions_policy_core.extract_actions_from_workflow(workflow_file, repo_root)
         
+        # Note: SHA in test workflow is valid format but not a real commit
         assert len(actions) == 4, f"Expected 4 actions, found {len(actions)}"
         assert actions[0]['action'] == 'actions/checkout@v4'
         assert actions[1]['action'] == 'indestructibleorg/my-action@1234567890abcdef1234567890abcdef12345678'
@@ -246,12 +250,13 @@ def test_enforcement_level():
         'blocked_actions': []
     }
     
-    # Both should detect violations, but enforcement level affects how they're reported
+    # Both should detect violations
+    # Note: Using fabricated SHA format example (not a real commit)
     violations_error = actions_policy_core.validate_action_reference(
-        'actions/checkout@v4', policy_error, 'error'
+        'actions/checkout@v4', policy_error
     )
     violations_warning = actions_policy_core.validate_action_reference(
-        'actions/checkout@v4', policy_warning, 'warning'
+        'actions/checkout@v4', policy_warning
     )
     
     # Both should detect the same violations

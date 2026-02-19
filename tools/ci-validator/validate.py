@@ -487,7 +487,7 @@ def validate_actions_policy(repo: Path) -> list[dict]:
                 
                 # Validate using shared function
                 violation_messages = actions_policy_core.validate_action_reference(
-                    action_ref, policy, enforcement_level
+                    action_ref, policy
                 )
                 
                 # Convert violations to findings
