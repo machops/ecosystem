@@ -13,7 +13,6 @@ Tests the core validation logic to ensure:
 """
 
 import sys
-import os
 import tempfile
 import shutil
 from pathlib import Path
