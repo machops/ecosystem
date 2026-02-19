@@ -1,70 +1,58 @@
+/**
+ * IndestructibleEco — Platform Routes
+ * URI: indestructibleeco://backend/api/routes/platforms
+ *
+ * CRUD for platforms backed by Supabase.
+ * Admin-only for create/update/delete; authenticated read for all.
+ */
+
 import { Router, Response, NextFunction } from "express";
 import { v1 as uuidv1 } from "uuid";
 import { AuthenticatedRequest, adminOnly } from "../middleware/auth";
 import { AppError } from "../middleware/error-handler";
+import * as db from "../services/supabase";
 
 const platformRouter = Router();
 
-// In-memory store (production: Supabase)
-const platforms = new Map<string, PlatformRecord>();
-
-interface PlatformRecord {
-  id: string;
-  name: string;
-  slug: string;
-  status: string;
-  uri: string;
-  urn: string;
-  config: Record<string, unknown>;
-  capabilities: string[];
-  k8sNamespace: string;
-  deployTarget: string;
-  ownerId: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 // GET /api/v1/platforms
-platformRouter.get("/", async (req: AuthenticatedRequest, res: Response) => {
-  const list = Array.from(platforms.values());
-  res.status(200).json({
-    platforms: list,
-    total: list.length,
-  });
+platformRouter.get("/", async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  try {
+    const platforms = await db.listPlatforms();
+    res.status(200).json({
+      platforms,
+      total: platforms.length,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // POST /api/v1/platforms
 platformRouter.post("/", adminOnly, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const { name, slug, config: platformConfig, capabilities, deployTarget } = req.body;
+    const { name, slug, type, config: platformConfig, capabilities, deploy_target } = req.body;
     if (!name || !slug) {
       throw new AppError(400, "validation_error", "Name and slug are required");
     }
 
-    if (Array.from(platforms.values()).some((p) => p.slug === slug)) {
+    const existing = await db.getPlatformById(slug);
+    if (existing) {
       throw new AppError(409, "conflict", `Platform with slug '${slug}' already exists`);
     }
 
-    const id = uuidv1();
-    const record: PlatformRecord = {
-      id,
+    const platform = await db.createPlatform({
       name,
       slug,
-      status: "inactive",
-      uri: `indestructibleeco://platform/module/${slug}`,
-      urn: `urn:indestructibleeco:platform:module:${slug}:${id}`,
+      type: type || "custom",
       config: platformConfig || {},
       capabilities: capabilities || [],
-      k8sNamespace: "indestructibleeco",
-      deployTarget: deployTarget || "",
-      ownerId: req.user!.id,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
+      owner_id: req.user!.id,
+      k8s_namespace: "indestructibleeco",
+      deploy_target: deploy_target || "",
+      urn: `urn:indestructibleeco:platform:module:${slug}:${uuidv1()}`,
+    });
 
-    platforms.set(id, record);
-
-    res.status(201).json({ platform: record });
+    res.status(201).json({ platform });
   } catch (err) {
     next(err);
   }
@@ -73,11 +61,11 @@ platformRouter.post("/", adminOnly, async (req: AuthenticatedRequest, res: Respo
 // GET /api/v1/platforms/:id
 platformRouter.get("/:id", async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const record = platforms.get(req.params.id);
-    if (!record) {
+    const platform = await db.getPlatformById(req.params.id);
+    if (!platform) {
       throw new AppError(404, "not_found", "Platform not found");
     }
-    res.status(200).json({ platform: record });
+    res.status(200).json({ platform });
   } catch (err) {
     next(err);
   }
@@ -86,22 +74,21 @@ platformRouter.get("/:id", async (req: AuthenticatedRequest, res: Response, next
 // PATCH /api/v1/platforms/:id
 platformRouter.patch("/:id", adminOnly, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const record = platforms.get(req.params.id);
-    if (!record) {
+    const existing = await db.getPlatformById(req.params.id);
+    if (!existing) {
       throw new AppError(404, "not_found", "Platform not found");
     }
 
-    const { name, status, config: platformConfig, capabilities, deployTarget } = req.body;
-    if (name !== undefined) record.name = name;
-    if (status !== undefined) record.status = status;
-    if (platformConfig !== undefined) record.config = platformConfig;
-    if (capabilities !== undefined) record.capabilities = capabilities;
-    if (deployTarget !== undefined) record.deployTarget = deployTarget;
-    record.updatedAt = new Date().toISOString();
+    const { name, status, config: platformConfig, capabilities, deploy_target } = req.body;
+    const updates: Record<string, unknown> = {};
+    if (name !== undefined) updates.name = name;
+    if (status !== undefined) updates.status = status;
+    if (platformConfig !== undefined) updates.config = platformConfig;
+    if (capabilities !== undefined) updates.capabilities = capabilities;
+    if (deploy_target !== undefined) updates.deploy_target = deploy_target;
 
-    platforms.set(req.params.id, record);
-
-    res.status(200).json({ platform: record });
+    const platform = await db.updatePlatform(req.params.id, updates);
+    res.status(200).json({ platform });
   } catch (err) {
     next(err);
   }
@@ -110,17 +97,17 @@ platformRouter.patch("/:id", adminOnly, async (req: AuthenticatedRequest, res: R
 // DELETE /api/v1/platforms/:id
 platformRouter.delete("/:id", adminOnly, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const record = platforms.get(req.params.id);
-    if (!record) {
+    const existing = await db.getPlatformById(req.params.id);
+    if (!existing) {
       throw new AppError(404, "not_found", "Platform not found");
     }
 
-    platforms.delete(req.params.id);
+    await db.deletePlatform(req.params.id);
 
     res.status(200).json({
       message: "Platform deregistered",
       id: req.params.id,
-      urn: record.urn,
+      urn: existing.urn,
     });
   } catch (err) {
     next(err);
