@@ -46,13 +46,39 @@ def test_local_and_docker_actions():
     """Test detection of local and docker actions"""
     print("Testing local and docker action detection...")
     
+    # Test local actions
     assert actions_policy_core.is_local_action('./.github/actions/my-action')
     assert actions_policy_core.is_local_action('./path/to/action')
     assert not actions_policy_core.is_local_action('owner/repo@sha')
     
+    # Test docker actions
     assert actions_policy_core.is_docker_action('docker://alpine:latest')
     assert actions_policy_core.is_docker_action('docker://my-image:tag')
     assert not actions_policy_core.is_docker_action('owner/repo@sha')
+    
+    # Test docker digest pinning validation
+    policy = actions_policy_core.get_default_policy()
+    
+    # Docker with mutable tag - should fail
+    violations = actions_policy_core.validate_docker_action('docker://alpine:latest', policy)
+    assert len(violations) > 0
+    assert 'SHA256 digest' in violations[0]
+    
+    # Docker with SHA256 digest - should pass
+    violations = actions_policy_core.validate_docker_action(
+        'docker://alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b',
+        policy
+    )
+    assert len(violations) == 0
+    
+    # Test with policy that doesn't require docker digest pinning
+    policy_permissive = {
+        'policy': {
+            'require_docker_digest_pinning': False
+        }
+    }
+    violations = actions_policy_core.validate_docker_action('docker://alpine:latest', policy_permissive)
+    assert len(violations) == 0
     
     print("  ✓ Local and docker action detection works correctly")
 
@@ -86,12 +112,20 @@ def test_validate_action_reference():
     )
     assert len(violations) == 0, "Local action should be allowed"
     
-    # Test 3: Docker action should be allowed
+    # Test 3: Docker action with mutable tag should be rejected
     violations = actions_policy_core.validate_action_reference(
         'docker://alpine:latest',
         policy
     )
-    assert len(violations) == 0, "Docker action should be allowed"
+    assert len(violations) > 0, "Docker action with mutable tag should have violations"
+    assert any('SHA256 digest' in v for v in violations)
+    
+    # Test 3b: Docker action with digest should be allowed
+    violations = actions_policy_core.validate_action_reference(
+        'docker://alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b',
+        policy
+    )
+    assert len(violations) == 0, "Docker action with SHA256 digest should be allowed"
     
     # Test 4: Action from wrong org
     # Note: Using valid SHA format for testing
@@ -157,7 +191,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: indestructibleorg/my-action@1234567890abcdef1234567890abcdef12345678
     - uses: ./.github/actions/local
-    - uses: docker://alpine:latest
+    - uses: docker://alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b
     - name: Run command
       run: echo "test"
 """)
@@ -169,7 +203,7 @@ jobs:
         assert actions[0]['action'] == 'actions/checkout@v4'
         assert actions[1]['action'] == 'indestructibleorg/my-action@1234567890abcdef1234567890abcdef12345678'
         assert actions[2]['action'] == './.github/actions/local'
-        assert actions[3]['action'] == 'docker://alpine:latest'
+        assert actions[3]['action'] == 'docker://alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b'
         assert all('line' in a for a in actions)
         assert all('file' in a for a in actions)
         

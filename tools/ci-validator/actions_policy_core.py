@@ -51,6 +51,40 @@ def is_docker_action(action_ref: str) -> bool:
     return action_ref.startswith('docker://')
 
 
+def validate_docker_action(action_ref: str, policy: Dict) -> List[str]:
+    """
+    Validate docker:// action reference for security
+    
+    Docker actions should be pinned to immutable SHA256 digests to prevent
+    supply-chain attacks via mutable tags.
+    
+    Args:
+        action_ref: The docker action reference (e.g., 'docker://alpine:latest')
+        policy: The policy configuration dictionary
+    
+    Returns:
+        List of violation messages (empty if valid)
+    """
+    violations = []
+    
+    policy_config = policy.get('policy', {})
+    require_docker_digest = policy_config.get('require_docker_digest_pinning', True)
+    
+    if not require_docker_digest:
+        return violations
+    
+    # Check if docker image is pinned to SHA256 digest
+    # Valid format: docker://image@sha256:hexdigest or docker://registry/image@sha256:hexdigest
+    if '@sha256:' not in action_ref:
+        violations.append(
+            f"Docker action '{action_ref}' must be pinned to immutable SHA256 digest "
+            f"(e.g., docker://alpine@sha256:...). Mutable tags like ':latest' undermine "
+            f"supply-chain security."
+        )
+    
+    return violations
+
+
 def validate_action_reference(
     action_ref: str,
     policy: Dict
@@ -67,9 +101,13 @@ def validate_action_reference(
     """
     violations = []
     
-    # Allow local actions and docker actions
-    if is_local_action(action_ref) or is_docker_action(action_ref):
+    # Allow local actions (no remote dependencies)
+    if is_local_action(action_ref):
         return violations
+    
+    # Validate docker actions for digest pinning
+    if is_docker_action(action_ref):
+        return validate_docker_action(action_ref, policy)
     
     # Parse action reference: owner/repo@ref or owner/repo/path@ref
     if '@' not in action_ref:
@@ -129,7 +167,8 @@ def get_default_policy() -> Dict:
             'require_org_ownership': True,
             'allowed_organizations': ['indestructibleorg'],
             'require_sha_pinning': True,
-            'block_tag_references': True
+            'block_tag_references': True,
+            'require_docker_digest_pinning': True
         },
         'blocked_actions': [],
         'approved_actions': []

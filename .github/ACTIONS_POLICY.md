@@ -10,13 +10,14 @@ This repository enforces strict GitHub Actions usage policies for security, repr
 
 **All GitHub Actions must be from repositories owned by `indestructibleorg`.**
 
-**Exceptions:** Local actions (`./.github/actions/`) and Docker actions (`docker://`) are permitted.
+**Exceptions:** Local actions (`./.github/actions/`) are permitted. Docker actions (`docker://`) are permitted **only when pinned to immutable SHA256 digests** to prevent supply-chain attacks.
 
 ❌ **NOT ALLOWED:**
 ```yaml
 - uses: actions/checkout@v4
 - uses: actions/setup-node@v4
 - uses: github/codeql-action/init@v3
+- uses: docker://alpine:latest  # ❌ Mutable tag - security risk
 ```
 
 ✅ **ALLOWED:**
@@ -28,8 +29,8 @@ This repository enforces strict GitHub Actions usage policies for security, repr
 # Local actions are allowed
 - uses: ./.github/actions/my-custom-action
 
-# Docker actions are allowed
-- uses: docker://alpine:latest
+# Docker actions with immutable SHA256 digest pinning
+- uses: docker://alpine@sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
 
 # Better: Use manual commands
 - name: Checkout
@@ -69,6 +70,35 @@ The following popular actions are explicitly blocked and should be replaced with
 | `actions/setup-python` | Use container with pre-installed Python |
 | `actions/cache` | Use manual caching or BuildKit cache mounts |
 | `github/codeql-action/*` | Use manual CodeQL CLI setup and execution |
+
+### 4. Docker Action Security Requirements
+
+**Docker actions must be pinned to immutable SHA256 digests.**
+
+Mutable tags like `:latest`, `:stable`, or version tags (`:1.0`) can be changed by attackers who compromise the registry or image repository. This undermines supply-chain security protections.
+
+❌ **INSECURE - Mutable tags:**
+```yaml
+- uses: docker://alpine:latest
+- uses: docker://ubuntu:22.04
+- uses: docker://golang:1.21
+```
+
+✅ **SECURE - SHA256 digest pinning:**
+```yaml
+- uses: docker://alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b
+- uses: docker://ubuntu@sha256:aabed3296a3d45cede1dc866a24476c4d7e093aa806263c27ddaadbdce3c1054
+```
+
+**How to find the correct digest:**
+```bash
+# Pull the image you want to use
+docker pull alpine:3.19
+
+# Get the SHA256 digest
+docker inspect alpine:3.19 --format='{{index .RepoDigests 0}}'
+# Output: alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b
+```
 
 ## Rationale
 
