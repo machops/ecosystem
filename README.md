@@ -45,18 +45,24 @@ pnpm --filter @indestructibleeco/web dev
 ├── tools/
 │   ├── yaml-toolkit/      # YAML Toolkit v8 — .qyaml generator & validator
 │   ├── skill-creator/     # Skill authoring & validation framework
-│   └── ci-validator/      # Centralized CI validation engine (7 validators)
+│   └── ci-validator/      # Centralized CI validation engine (7 validators) + auto-fix
 ├── k8s/                   # Infrastructure-level K8s manifests
+│   ├── base/              # Core services (api-gateway, redis, postgres, engines)
+│   ├── ingress/           # Ingress rules
+│   ├── monitoring/        # Grafana + Prometheus
+│   └── argocd/            # Argo CD GitOps applications & config
+├── src/                   # API Gateway entry point (root-level)
+├── docs/                  # Architecture guides & operational docs
 ├── helm/                  # Helm chart for platform deployment
 ├── docker/                # Docker build files (standard + GPU)
-├── scripts/               # Build & deploy automation
+├── scripts/               # Build, deploy & Argo CD automation
 ├── tests/                 # Unit, integration, e2e test suites
-└── .github/workflows/     # CI/CD pipelines (validate → lint → test → build)
+└── .github/workflows/     # CI/CD pipelines (validate → lint → test → build → auto-fix)
 ```
 
 ## CI/CD Pipeline
 
-The unified CI pipeline (`.github/workflows/ci.yaml`) enforces a 4-gate quality system:
+The unified CI pipeline (`.github/workflows/ci.yaml`) enforces a 5-gate quality system:
 
 | Gate | Purpose |
 |------|---------|
@@ -64,6 +70,56 @@ The unified CI pipeline (`.github/workflows/ci.yaml`) enforces a 4-gate quality 
 | **lint** | Python compile, JS syntax, YAML governance, skill manifests |
 | **test** | Config, governance, shared utils, YAML toolkit, skill tests |
 | **build** | Docker image build + repository structure verification |
+| **auto-fix** | Runs on failure — diagnoses issues, identifies auto-fixable patterns |
+
+An additional `auto-repair.yaml` workflow triggers on CI failure via `workflow_run`, performing deep diagnostics and generating consolidated repair reports.
+
+## GitOps — Argo CD
+
+The platform uses Argo CD for fully automated Kubernetes deployment via GitOps. Every push to `main` triggers automatic synchronization of all `.qyaml` manifests to the cluster.
+
+| Feature | Description |
+|---------|-------------|
+| **Self-Heal** | Cluster drift automatically corrected to Git state |
+| **Prune** | Resources removed from Git are deleted from cluster |
+| **Webhook** | Push-triggered sync (no polling delay) |
+| **Notifications** | Slack + webhook alerts for sync events |
+| **Dual Environment** | Production (`indestructibleeco`) + Staging (`ecosystem-staging`) |
+
+```bash
+# Install Argo CD + deploy applications
+./scripts/argocd-install.sh
+
+# Setup GitHub webhook for push-triggered sync
+./scripts/argocd-setup-webhook.sh
+
+# Full guide: docs/argocd-gitops-guide.md
+```
+
+## Auto-Repair Engine
+
+The CI Auto-Fix Engine (`tools/ci-validator/auto-fix.py`) provides automated repair for known issue patterns:
+
+| Strategy | Scope | Risk |
+|----------|-------|------|
+| `path-correction` | Dockerfile COPY paths | Low |
+| `identity-replace` | Stale identity references | Medium |
+| `yaml-syntax` | Tabs, trailing whitespace | Low |
+| `governance-block` | Missing .qyaml governance blocks | Medium |
+| `schema-field` | Missing skill.json fields | Low |
+
+```bash
+# Detect issues
+python3 tools/ci-validator/validate.py
+
+# Preview fixes (dry-run)
+python3 tools/ci-validator/auto-fix.py --dry-run
+
+# Apply fixes
+python3 tools/ci-validator/auto-fix.py
+
+# Full architecture: docs/auto-repair-architecture.md
+```
 
 ## YAML Governance
 
