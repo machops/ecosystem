@@ -1,16 +1,26 @@
 {
   "name": "@indestructibleeco/im-integration",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev:whatsapp":  "tsx watch whatsapp/src/index.ts",
-    "dev:telegram":  "tsx watch telegram/src/index.ts",
+    "dev:whatsapp": "tsx watch whatsapp/src/index.ts",
+    "dev:telegram": "tsx watch telegram/src/index.ts",
+    "dev:line": "tsx watch line/src/index.ts",
+    "dev:messenger": "tsx watch messenger/src/index.ts",
+    "dev:unified": "tsx watch shared/server.ts",
+    "start:whatsapp": "tsx whatsapp/src/index.ts",
+    "start:telegram": "tsx telegram/src/index.ts",
+    "start:line": "tsx line/src/index.ts",
+    "start:messenger": "tsx messenger/src/index.ts",
+    "start:unified": "tsx shared/server.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "express": "^4.21.0",
     "telegraf": "^4.16.0",
     "ioredis": "^5.4.0",
+    "pino": "^9.2.0",
     "@line/bot-sdk": "^9.3.0",
     "@indestructibleeco/api-client": "workspace:*",
     "@indestructibleeco/shared-types": "workspace:*"
@@ -18,6 +28,7 @@
   "devDependencies": {
     "typescript": "^5.5.0",
     "tsx": "^4.15.0",
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "@types/express": "^4.17.21"
   }
 }
