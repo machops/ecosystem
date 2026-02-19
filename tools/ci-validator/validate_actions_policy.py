@@ -103,6 +103,7 @@ class ActionsPolicyValidator:
                     f"Action '{action_base}' is explicitly blocked by policy. "
                     f"Use manual commands instead."
                 )
+                break
         
         # Check organization ownership requirement
         policy_config = self.policy.get('policy', {})
