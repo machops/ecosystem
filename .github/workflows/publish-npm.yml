@@ -21,10 +21,14 @@ jobs:
       run: |
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
-        cd packages/shared-types
+        # Isolate package from monorepo workspace context
+        mkdir -p /tmp/publish-shared-types
+        cp -r packages/shared-types/* /tmp/publish-shared-types/
+        cp -r packages/shared-types/.* /tmp/publish-shared-types/ 2>/dev/null || true
+        cd /tmp/publish-shared-types
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm install --legacy-peer-deps
         npm run build
-        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
 
   publish-api-client:
@@ -40,10 +44,14 @@ jobs:
       run: |
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
-        cd packages/api-client
+        # Isolate package from monorepo workspace context
+        mkdir -p /tmp/publish-api-client
+        cp -r packages/api-client/* /tmp/publish-api-client/
+        cp -r packages/api-client/.* /tmp/publish-api-client/ 2>/dev/null || true
+        cd /tmp/publish-api-client
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm install --legacy-peer-deps
         npm run build
-        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
 
   publish-ui-kit:
@@ -59,8 +67,12 @@ jobs:
       run: |
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
-        cd packages/ui-kit
+        # Isolate package from monorepo workspace context
+        mkdir -p /tmp/publish-ui-kit
+        cp -r packages/ui-kit/* /tmp/publish-ui-kit/
+        cp -r packages/ui-kit/.* /tmp/publish-ui-kit/ 2>/dev/null || true
+        cd /tmp/publish-ui-kit
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm install --legacy-peer-deps
         npm run build
-        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
