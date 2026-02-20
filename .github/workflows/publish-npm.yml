@@ -22,7 +22,7 @@ jobs:
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
         cd packages/shared-types
-        npm install
+        npm install --legacy-peer-deps
         npm run build
         echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
@@ -41,7 +41,7 @@ jobs:
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
         cd packages/api-client
-        npm install
+        npm install --legacy-peer-deps
         npm run build
         echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
@@ -60,7 +60,7 @@ jobs:
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
         cd packages/ui-kit
-        npm install
+        npm install --legacy-peer-deps
         npm run build
         echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
