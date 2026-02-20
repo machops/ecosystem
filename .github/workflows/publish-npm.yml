@@ -17,12 +17,12 @@ jobs:
         git clone --depth 1 https://github.com/${{ github.repository }}.git .
         git checkout ${{ github.ref_name }}
 
-    - name: Setup Node.js and publish
+    - name: Build and publish shared-types
       run: |
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
         cd packages/shared-types
-        npm install
+        npm install --ignore-scripts
         npm run build
         echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
@@ -36,12 +36,12 @@ jobs:
         git clone --depth 1 https://github.com/${{ github.repository }}.git .
         git checkout ${{ github.ref_name }}
 
-    - name: Setup Node.js and publish
+    - name: Build and publish api-client
       run: |
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
         cd packages/api-client
-        npm install
+        npm install --ignore-scripts
         npm run build
         echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public
@@ -55,12 +55,12 @@ jobs:
         git clone --depth 1 https://github.com/${{ github.repository }}.git .
         git checkout ${{ github.ref_name }}
 
-    - name: Setup Node.js and publish
+    - name: Build and publish ui-kit
       run: |
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
         cd packages/ui-kit
-        npm install
+        npm install --ignore-scripts
         npm run build
         echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         npm publish --access public

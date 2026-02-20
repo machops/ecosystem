@@ -2,8 +2,11 @@
   "name": "indestructibleeco",
   "version": "1.0.0",
   "private": true,
-  "description": "Enterprise cloud-native platform — mono-repository",
-  "engines": { "node": ">=20.0.0", "pnpm": ">=9.0.0" },
+  "description": "Enterprise cloud-native platform \u2014 mono-repository",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
   "packageManager": "pnpm@9.4.0",
   "workspaces": [
     "packages/*",
@@ -15,17 +18,17 @@
     "tools/*"
   ],
   "scripts": {
-    "dev":       "pnpm --filter @indestructibleeco/backend-api dev & pnpm --filter @indestructibleeco/web dev",
-    "build":     "pnpm -r build",
+    "dev": "pnpm --filter @indestructibleeco/backend-api dev & pnpm --filter @indestructibleeco/web dev",
+    "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
-    "test":      "pnpm -r test",
-    "lint":      "eslint packages/ backend/ platforms/ --ext .ts,.tsx",
-    "validate":  "python3 tools/ci-validator/validate.py",
-    "ecosystem:up":   "docker compose -f ecosystem/docker-compose.ecosystem.yml up -d",
+    "test": "pnpm -r test",
+    "lint": "eslint packages/ backend/ platforms/ --ext .ts,.tsx",
+    "validate": "python3 tools/ci-validator/validate.py",
+    "ecosystem:up": "docker compose -f ecosystem/docker-compose.ecosystem.yml up -d",
     "ecosystem:down": "docker compose -f ecosystem/docker-compose.ecosystem.yml down",
-    "local:up":  "docker compose up -d",
+    "local:up": "docker compose up -d",
     "local:down": "docker compose down",
-    "yaml:gen":  "node tools/skill-creator/scripts/create-skill.js",
+    "yaml:gen": "node tools/skill-creator/scripts/create-skill.js",
     "yaml:validate": "node tools/skill-creator/scripts/validate-skill.js",
     "skill:init": "python3 tools/skill-creator/scripts/init_skill.py",
     "skill:validate": "python3 tools/skill-creator/scripts/quick_validate.py"
@@ -33,8 +36,8 @@
   "devDependencies": {
     "typescript": "^5.5.0",
     "eslint": "^9.6.0",
-    "@typescript-eslint/parser": "^7.15.0",
-    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
     "prettier": "^3.3.0"
   }
 }
