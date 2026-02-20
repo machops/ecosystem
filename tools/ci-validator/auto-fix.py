@@ -183,8 +183,8 @@ document_metadata:
   urn: "urn:indestructibleeco:{rel.replace('/', ':').replace('.qyaml', '')}:{unique_id}"
   target_system: gke-production
   cross_layer_binding: []
-  schema_version: v1
-  generated_by: ci-auto-fix-engine
+  schema_version: v8
+  generated_by: yaml-toolkit-v8
   created_at: "{datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.000Z')}"
 governance_info:
   owner: platform-team

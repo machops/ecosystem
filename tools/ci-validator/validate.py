@@ -188,11 +188,11 @@ def validate_governance_blocks(repo: Path) -> list[dict]:
                 "No URN identifier (urn:indestructibleeco:) found",
             ))
 
-        # Schema version must be v1
-        if re.search(r"schema_version:\s*v[2-9]", content):
+        # Schema version must be v1 or v8
+        if re.search(r"schema_version:\s*v[2-7]|schema_version:\s*v9", content):
             findings.append(finding(
                 Category.GOVERNANCE_MISSING, Severity.ERROR, rel,
-                "Schema version must be v1",
+                "Schema version must be v1 or v8",
             ))
 
     return findings
