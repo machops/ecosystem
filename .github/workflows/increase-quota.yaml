@@ -100,7 +100,10 @@ jobs:
 
       - name: Cleanup credentials
         if: always()
-        run: rm -rf "${GCP_CREDENTIALS_DIR:-}"
+        run: |
+          if [ -n "${GCP_CREDENTIALS_DIR+x}" ] && [ -n "$GCP_CREDENTIALS_DIR" ]; then
+            rm -rf "$GCP_CREDENTIALS_DIR"
+          fi
 
   request-quota-increase:
     name: Request Quota Increase
@@ -235,7 +238,6 @@ jobs:
                   "X-GitHub-Api-Version": "2022-11-28",
                   "Content-Type": "application/json",
                   "User-Agent": "increase-ssd-quota-workflow",
-                  "User-Agent": "increase-ssd-quota-workflow",
               },
           )
           try:
@@ -246,10 +248,7 @@ jobs:
               error_body = exc.read().decode("utf-8", errors="replace")
               try:
                   error_json = json.loads(error_body)
-        run: |
-          if [ -n "${GCP_CREDENTIALS_DIR:-}" ]; then
-            rm -rf "$GCP_CREDENTIALS_DIR"
-          fi
+                  error_message = error_json.get("message", error_body)
               except json.JSONDecodeError:
                   error_message = error_body
               raise RuntimeError(f"Failed to create issue: HTTP {exc.code} - {error_message}") from exc
@@ -269,4 +268,7 @@ jobs:
 
       - name: Cleanup credentials
         if: always()
-        run: rm -rf "${GCP_CREDENTIALS_DIR:-}"
+        run: |
+          if [ -n "${GCP_CREDENTIALS_DIR+x}" ] && [ -n "$GCP_CREDENTIALS_DIR" ]; then
+            rm -rf "$GCP_CREDENTIALS_DIR"
+          fi
