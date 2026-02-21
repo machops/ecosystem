@@ -1,0 +1,74 @@
+name: Setup OAuth 2.0 Configuration
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      action:
+        description: 'Action to perform'
+        required: true
+        type: choice
+        options:
+          - create-client
+          - update-secrets
+          - verify-config
+
+env:
+  GCP_PROJECT: my-project-ops-1991
+  GCP_REGION: asia-east1
+
+jobs:
+  setup-oauth:
+    name: Setup OAuth Configuration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install google-cloud-secret-manager google-auth
+
+      - name: Authenticate with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Run OAuth setup script
+        env:
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
+          ACTION: ${{ github.event.inputs.action }}
+          ECO_OAUTH_CLIENT_ID: ${{ secrets.ECO_OAUTH_CLIENT_ID }}
+          ECO_OAUTH_CLIENT_SECRET: ${{ secrets.ECO_OAUTH_CLIENT_SECRET }}
+        run: |
+          python scripts/setup_gcp_oauth.py \
+            --environment $ENVIRONMENT \
+            --action $ACTION
+
+      - name: Update K8s secrets
+        if: github.event.inputs.action == 'update-secrets'
+        run: |
+          kubectl config use-context ${{ secrets.GKE_CLUSTER_CONTEXT }}
+          kubectl apply -f k8s/${{ github.event.inputs.environment }}/oauth-config.qyaml
+
+      - name: Verify configuration
+        if: github.event.inputs.action == 'verify-config'
+        run: |
+          kubectl get secret oauth-secrets -n indestructibleeco
+          kubectl get configmap oauth-config -n indestructibleeco
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "OAuth setup completed successfully for ${{ github.event.inputs.environment }}"
