@@ -490,16 +490,6 @@ data:
       "version": 1
     }
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: grafana-secrets
-  namespace: monitoring
-type: Opaque
-stringData:
-  admin-user: "admin"
-  admin-password: "YOUR_SECURE_PASSWORD_HERE"
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:

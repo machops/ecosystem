@@ -45,6 +45,19 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+      - name: Setup kubectl
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: 'latest'
+          install_components: 'kubectl'
+
+      - name: Get GKE credentials
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
+          location: ${{ env.GCP_REGION }}
+          project_id: ${{ env.GCP_PROJECT }}
+
       - name: Run OAuth setup script
         env:
           ENVIRONMENT: ${{ github.event.inputs.environment }}
@@ -59,7 +72,6 @@ jobs:
       - name: Update K8s secrets
         if: github.event.inputs.action == 'update-secrets'
         run: |
-          kubectl config use-context ${{ secrets.GKE_CLUSTER_CONTEXT }}
           kubectl apply -f k8s/${{ github.event.inputs.environment }}/oauth-config.qyaml
 
       - name: Verify configuration
