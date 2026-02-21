@@ -69,10 +69,19 @@ jobs:
         env:
           REGION: ${{ github.event.inputs.region }}
         run: |
+          # Run the quota script, capturing only the final JSON line into quota_status.json.
+          # Any non-JSON logs are written to a separate log file.
           python3.11 scripts/increase_ssd_quota.py \
             --action check \
-            --region $REGION \
-            --output-json > quota_status.json
+            --region "$REGION" \
+            --output-json 2>increase_quota.log | tail -n 1 > quota_status.json
+          
+          # Optionally surface logs in the GitHub Actions output
+          if [ -s increase_quota.log ]; then
+            echo "::group::increase_ssd_quota.py logs"
+            cat increase_quota.log
+            echo "::endgroup::"
+          fi
           
           OUTPUT_DELIMITER="EOF_QUOTA_STATUS_$(date +%s)"
           echo "usage=$(jq -r '.usage' quota_status.json)" >> $GITHUB_OUTPUT
