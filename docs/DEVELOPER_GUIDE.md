@@ -78,9 +78,9 @@ Current repository structure does **not** support silently or forcibly registeri
 
 This keeps imports auditable and prevents hidden cross-platform coupling.
 
-### Platform Pollution Isolation (合法強制治理)
+### Platform Pollution Isolation
 
-If an imported external platform is chaotic/polluted, handle it with a **policy-enforced quarantine flow**, not illegal force operations:
+If an imported external platform is chaotic/polluted, handle it with a **policy-enforced quarantine flow**, not unreviewed force operations (for example: bypassing PR review, force-pushing direct rewrites, or bulk cross-tree edits without scoped ownership):
 
 1. Place incoming platform code in an isolated path (for example `platforms/<name>/` only).
 2. Block cross-tree coupling until validation passes (no direct edits outside approved paths).
