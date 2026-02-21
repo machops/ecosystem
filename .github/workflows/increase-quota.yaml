@@ -1,0 +1,163 @@
+name: Increase SSD Quota
+
+on:
+  workflow_dispatch:
+    inputs:
+      region:
+        description: 'GCP region'
+        required: true
+        default: 'asia-east1'
+      current_limit:
+        description: 'Current SSD limit in GB'
+        required: true
+        type: number
+      requested_limit:
+        description: 'Requested SSD limit in GB'
+        required: true
+        type: number
+      justification:
+        description: 'Justification for quota increase'
+        required: true
+        type: string
+
+env:
+  GCP_PROJECT: my-project-ops-1991
+
+jobs:
+  check-current-quota:
+    name: Check Current Quota
+    runs-on: ubuntu-latest
+    outputs:
+      current_usage: ${{ steps.check-quota.outputs.usage }}
+      current_limit: ${{ steps.check-quota.outputs.limit }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install google-cloud-compute google-auth
+
+      - name: Authenticate with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Check current quota
+        id: check-quota
+        env:
+          REGION: ${{ github.event.inputs.region }}
+        run: |
+          python scripts/increase_ssd_quota.py \
+            --action check \
+            --region $REGION \
+            --output-json > quota_status.json
+          
+          echo "usage=$(jq -r '.usage' quota_status.json)" >> $GITHUB_OUTPUT
+          echo "limit=$(jq -r '.limit' quota_status.json)" >> $GITHUB_OUTPUT
+          
+          cat quota_status.json
+
+      - name: Upload quota status
+        uses: actions/upload-artifact@v4
+        with:
+          name: quota-status
+          path: quota_status.json
+
+  request-quota-increase:
+    name: Request Quota Increase
+    runs-on: ubuntu-latest
+    needs: check-current-quota
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install google-cloud-compute google-auth
+
+      - name: Authenticate with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Download quota status
+        uses: actions/download-artifact@v4
+        with:
+          name: quota-status
+
+      - name: Request quota increase
+        env:
+          REGION: ${{ github.event.inputs.region }}
+          CURRENT_LIMIT: ${{ github.event.inputs.current_limit }}
+          REQUESTED_LIMIT: ${{ github.event.inputs.requested_limit }}
+          JUSTIFICATION: ${{ github.event.inputs.justification }}
+        run: |
+          python scripts/increase_ssd_quota.py \
+            --action request \
+            --region $REGION \
+            --current-limit $CURRENT_LIMIT \
+            --requested-limit $REQUESTED_LIMIT \
+            --justification "$JUSTIFICATION" \
+            --output-json > quota_request.json
+          
+          cat quota_request.json
+
+      - name: Upload request details
+        uses: actions/upload-artifact@v4
+        with:
+          name: quota-request
+          path: quota_request.json
+
+      - name: Create issue for tracking
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const request = JSON.parse(fs.readFileSync('quota_request.json', 'utf8'));
+            
+            const body = `## SSD Quota Increase Request
+            
+            **Region**: ${{ github.event.inputs.region }}
+            **Current Limit**: ${{ github.event.inputs.current_limit }} GB
+            **Requested Limit**: ${{ github.event.inputs.requested_limit }} GB
+            **Current Usage**: ${{ needs.check-current-quota.outputs.current_usage }} GB
+            
+            **Justification**:
+            ${{ github.event.inputs.justification }}
+            
+            **Request ID**: \`${request.request_id || 'N/A'}\`
+            **Status**: \`${request.status || 'Submitted'}\`
+            
+            ### Next Steps
+            1. Monitor approval status in GCP Console
+            2. Once approved, recreate production cluster
+            3. Deploy production workloads
+            
+            ### References
+            - [GCP Quotas Console](https://console.cloud.google.com/iam-admin/quotas?project=my-project-ops-1991)
+            - [Quota Guide](docs/gcp-quota-guide.md)`;
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `SSD Quota Increase Request - ${{ github.event.inputs.region }}`,
+              body: body,
+              labels: ['quota', 'infrastructure', 'gcp']
+            });
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "Quota increase request submitted successfully"
+          echo "Request ID: $(jq -r '.request_id' quota_request.json)"
