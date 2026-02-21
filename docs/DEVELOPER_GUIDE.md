@@ -80,14 +80,14 @@ This keeps imports auditable and prevents hidden cross-platform coupling.
 
 ### Platform Pollution Isolation
 
-If an imported external platform is chaotic/polluted, handle it with a **policy-enforced quarantine flow**, not unreviewed force operations (for example: bypassing PR review, force-pushing direct rewrites, or bulk cross-tree edits without scoped ownership):
+If an imported external platform is chaotic/polluted, handle it with a **policy-enforced quarantine flow**, not unreviewed force operations (such as bypassing PR review, force-pushing direct rewrites, or bulk cross-tree edits without scoped ownership):
 
-1. Place incoming platform code in an isolated path (for example `platforms/<name>/` only).
+1. Place incoming platform code in an isolated path (for example `platforms/my-new-platform/` only).
 2. Block cross-tree coupling until validation passes (no direct edits outside approved paths).
 3. Run `npm run validate` plus related tests, then fix mappings/dependencies/references in explicit commits.
 4. Merge only when structure and governance checks are clean and review-approved.
 
-This gives you a "forced cleanup" result through CI policy gates and code review, while remaining legal, auditable, and reversible.
+This gives you an enforced cleanup result through CI policy gates and code review, while remaining legal, auditable, and reversible.
 
 ### 1. Branch Strategy
 
