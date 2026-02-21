@@ -49,7 +49,7 @@ jobs:
           echo '${{ secrets.GCP_SA_KEY }}' > /tmp/gcp-sa-key.json
           chmod 600 /tmp/gcp-sa-key.json
           gcloud auth activate-service-account --key-file=/tmp/gcp-sa-key.json
-          gcloud config set project ${{ env.GCP_PROJECT }}
+          gcloud config set project $GCP_PROJECT
           echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-sa-key.json" >> $GITHUB_ENV
 
       - name: Check current quota
@@ -87,14 +87,14 @@ jobs:
       - name: Create issue for tracking
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USAGE: ${{ steps.check-quota.outputs.usage }}
+          REGION: ${{ github.event.inputs.region }}
+          CURRENT_LIMIT: ${{ github.event.inputs.current_limit }}
+          REQUESTED_LIMIT: ${{ github.event.inputs.requested_limit }}
+          JUSTIFICATION: ${{ github.event.inputs.justification }}
         run: |
-          USAGE="${{ steps.check-quota.outputs.usage }}"
           REQUEST_ID=$(jq -r '.request_id // "N/A"' quota_request.json)
           STATUS=$(jq -r '.status // "Submitted"' quota_request.json)
-          REGION="${{ github.event.inputs.region }}"
-          CURRENT_LIMIT="${{ github.event.inputs.current_limit }}"
-          REQUESTED_LIMIT="${{ github.event.inputs.requested_limit }}"
-          JUSTIFICATION="${{ github.event.inputs.justification }}"
 
           printf '## SSD Quota Increase Request\n\n' > issue_body.txt
           printf '**Region**: %s\n' "$REGION" >> issue_body.txt
