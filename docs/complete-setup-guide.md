@@ -152,6 +152,7 @@ kubectl create secret generic supabase-secrets \
 ```
 
 #### Cloudflare Certificate Secret
+
 ```bash
 kubectl create secret tls cloudflare-origin-cert \
   --cert=.cloudflare/cloudflare-origin-cert.pem \
