@@ -78,6 +78,17 @@ Current repository structure does **not** support silently or forcibly registeri
 
 This keeps imports auditable and prevents hidden cross-platform coupling.
 
+### Platform Pollution Isolation (合法強制治理)
+
+If an imported external platform is chaotic/polluted, handle it with a **policy-enforced quarantine flow**, not illegal force operations:
+
+1. Place incoming platform code in an isolated path (for example `platforms/<name>/` only).
+2. Block cross-tree coupling until validation passes (no direct edits outside approved paths).
+3. Run `npm run validate` plus related tests, then fix mappings/dependencies/references in explicit commits.
+4. Merge only when structure and governance checks are clean and review-approved.
+
+This gives you a "forced cleanup" result through CI policy gates and code review, while remaining legal, auditable, and reversible.
+
 ### 1. Branch Strategy
 
 - `main` - Production branch. Protected. Argo CD production tracks this.
