@@ -81,5 +81,7 @@ jobs:
 
       - name: Notify on success
         if: success()
+        env:
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
         run: |
-          echo "OAuth setup completed successfully for ${{ github.event.inputs.environment }}"
+          echo "OAuth setup completed successfully for $ENVIRONMENT"
