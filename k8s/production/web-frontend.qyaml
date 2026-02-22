@@ -29,7 +29,7 @@ spec:
         fsGroup: 101
       containers:
         - name: eco-web-frontend
-          image: ghcr.io/indestructibleorg/web:latest
+          image: asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco/web:v1.0.0
           ports:
             - containerPort: 80
               protocol: TCP
