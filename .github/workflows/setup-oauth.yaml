@@ -72,7 +72,7 @@ jobs:
           ECO_OAUTH_CLIENT_ID: ${{ secrets.ECO_OAUTH_CLIENT_ID }}
           ECO_OAUTH_CLIENT_SECRET: ${{ secrets.ECO_OAUTH_CLIENT_SECRET }}
         run: |
-          python3.11 scripts/setup_gcp_oauth.py \
+          python3 scripts/setup_gcp_oauth.py \
             --environment "$ENVIRONMENT" \
             --action "$ACTION"
 
