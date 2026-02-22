@@ -29,11 +29,12 @@
 - [x] Create merge commit with remote changes
 - [x] Bypass repository rule violations (merge commits)
 
-## Phase C: Application Deployment (Blocked until critical issues resolved)
-- [ ] C1: Build and deploy web frontend to Artifact Registry
-- [ ] C2: Build and deploy API backend to Artifact Registry
-- [ ] C3: Build and deploy AI service to Artifact Registry
-- [ ] C4: Create Kubernetes deployment manifests
-- [ ] C5: Deploy all services to production cluster
-- [ ] C6: Configure ingress and load balancer
-- [ ] C7: Set up SSL/TLS certificates
+## Phase C: Application Deployment (In Progress)
+- [x] C1: Create Docker build workflow (.github/workflows/build-images.yaml)
+- [x] C2: Update Kubernetes manifests with GCP Artifact Registry image references
+- [x] C3: Start GKE cluster creation (eco-production in asia-east1)
+- [ ] C4: Build and push Docker images (web, api, ai, gateway) to Artifact Registry
+- [ ] C5: Complete GKE cluster creation and verify connectivity
+- [ ] C6: Deploy Kubernetes manifests to production cluster
+- [ ] C7: Configure ingress routing for autoecoops.io, api.autoecoops.io, ai.autoecoops.io
+- [ ] C8: Set up GKE managed SSL/TLS certificates
