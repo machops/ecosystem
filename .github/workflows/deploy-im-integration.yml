@@ -30,6 +30,9 @@ jobs:
         working-directory: platforms/im-integration
         run: npm install --no-workspaces --ignore-scripts || true
 
+      - name: Install Wrangler globally
+        run: npm install -g wrangler@3 --no-workspaces
+
       - name: Deploy Cloudflare Workers
         uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65  # v3.14.0
         with:
@@ -37,6 +40,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: backend/cloudflare
           command: deploy
+          packageManager: npm
 
       - name: Notify on failure
         if: failure()
