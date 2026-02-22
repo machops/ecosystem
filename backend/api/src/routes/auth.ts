@@ -17,7 +17,13 @@ authRouter.post("/signup", async (req: Request, res: Response, next: NextFunctio
       return;
     }
 
-    const { data, error } = await getSupabase()?.auth?.signUp({
+    const supabase = getSupabase();
+    if (!supabase) {
+      res.status(503).json({ error: "service_unavailable", message: "Authentication service is not configured" });
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -60,7 +66,13 @@ authRouter.post("/login", async (req: Request, res: Response, next: NextFunction
       return;
     }
 
-    const { data, error } = await getSupabase()?.auth?.signInWithPassword({
+    const supabase = getSupabase();
+    if (!supabase) {
+      res.status(503).json({ error: "service_unavailable", message: "Authentication service is not configured" });
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -98,7 +110,13 @@ authRouter.post("/refresh", async (req: Request, res: Response, next: NextFuncti
       return;
     }
 
-    const { data, error } = await getSupabase()?.auth?.refreshSession({
+    const supabase = getSupabase();
+    if (!supabase) {
+      res.status(503).json({ error: "service_unavailable", message: "Authentication service is not configured" });
+      return;
+    }
+
+    const { data, error } = await supabase.auth.refreshSession({
       refresh_token,
     });
 
@@ -127,9 +145,10 @@ authRouter.post("/refresh", async (req: Request, res: Response, next: NextFuncti
 // POST /auth/logout — Sign out (requires auth)
 authRouter.post("/logout", requireAuth, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    const supabase = getSupabase();
     const token = req.headers.authorization?.replace("Bearer ", "");
-    if (token) {
-      await getSupabase()?.auth?.admin.signOut(token);
+    if (token && supabase) {
+      await supabase.auth.admin.signOut(token);
     }
     res.status(200).json({ ok: true });
   } catch (err) {
