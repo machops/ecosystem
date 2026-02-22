@@ -25,13 +25,22 @@ jobs:
           rm -f /tmp/key.json
       - name: Get pod logs
         run: |
+          NS=${{ env.NAMESPACE }}
           echo "=== All Pods ==="
-          kubectl get pods -n ${{ env.NAMESPACE }} -o wide
-          echo "=== API Service Logs ==="
-          kubectl logs -n ${{ env.NAMESPACE }} -l app=eco-api --tail=80 --previous 2>&1 || kubectl logs -n ${{ env.NAMESPACE }} -l app=eco-api --tail=80 2>&1 || echo "No API logs"
-          echo "=== Web Frontend Logs ==="
-          kubectl logs -n ${{ env.NAMESPACE }} -l app=eco-web --tail=80 --previous 2>&1 || kubectl logs -n ${{ env.NAMESPACE }} -l app=eco-web --tail=80 2>&1 || echo "No Web logs"
+          kubectl get pods -n $NS -o wide
+          echo ""
+          echo "=== API Service Logs (previous) ==="
+          kubectl logs -n $NS -l app.kubernetes.io/name=eco-api-service --tail=100 --previous 2>&1 || true
+          echo "=== API Service Logs (current) ==="
+          kubectl logs -n $NS -l app.kubernetes.io/name=eco-api-service --tail=100 2>&1 || true
+          echo ""
+          echo "=== Web Frontend Logs (previous) ==="
+          kubectl logs -n $NS -l app.kubernetes.io/name=eco-web-frontend --tail=100 --previous 2>&1 || true
+          echo "=== Web Frontend Logs (current) ==="
+          kubectl logs -n $NS -l app.kubernetes.io/name=eco-web-frontend --tail=100 2>&1 || true
+          echo ""
           echo "=== API Pod Events ==="
-          kubectl describe pod -n ${{ env.NAMESPACE }} -l app=eco-api 2>&1 | grep -A 20 "Events:"
+          kubectl describe pod -n $NS -l app.kubernetes.io/name=eco-api-service 2>&1 | tail -30
+          echo ""
           echo "=== Web Pod Events ==="
-          kubectl describe pod -n ${{ env.NAMESPACE }} -l app=eco-web 2>&1 | grep -A 20 "Events:"
+          kubectl describe pod -n $NS -l app.kubernetes.io/name=eco-web-frontend 2>&1 | tail -30
