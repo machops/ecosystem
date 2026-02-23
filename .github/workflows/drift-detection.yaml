@@ -33,7 +33,7 @@ permissions:
   pull-requests: read
 
 env:
-  GKE_CLUSTER: eco-base-prod
+  GKE_CLUSTER: eco-production
   GKE_REGION: asia-east1
   ARGOCD_APPS: "eco-production eco-staging eco-monitoring eco-core"
 
@@ -59,7 +59,7 @@ jobs:
     - name: Authenticate to GCP
       uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f  # v2.1.7
       with:
-        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
     - name: Get GKE credentials
@@ -139,7 +139,7 @@ jobs:
     - name: Authenticate to GCP
       uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f  # v2.1.7
       with:
-        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
     - name: Get GKE credentials
