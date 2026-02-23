@@ -1,4 +1,12 @@
 ---
+# AutoEcoOps Governance Block (auto-injected)
+document_metadata:
+  unique_id: "eco-test-service-k8s-001"
+  uri: "indestructibleeco://backend/k8s/test/test-service"
+  owner: "platform-team@indestructibleeco.io"
+  classification: "internal"
+  retention_policy: "3y"
+  compliance_tags: ["SOC2", "ISO27001"]
 # Test service manifest - intentionally missing governance blocks for auto-fix testing
 apiVersion: v1
 kind: Service

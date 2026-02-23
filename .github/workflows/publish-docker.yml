@@ -12,6 +12,10 @@ permissions:
 env:
   REGISTRY: ghcr.io/indestructibleorg
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build-ai:
     runs-on: ubuntu-latest
