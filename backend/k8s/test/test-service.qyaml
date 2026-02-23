@@ -7,6 +7,9 @@ document_metadata:
   classification: "internal"
   retention_policy: "3y"
   compliance_tags: ["SOC2", "ISO27001"]
+  urn: "urn:eco-base:backend:k8s:test:test-service:eco-test-service-k8s-001"
+  cross_layer_binding: []
+  created_at: "2025-02-18T00:00:00.000Z"
   target_system: gke-staging
   schema_version: v8
   generated_by: yaml-toolkit-v8
