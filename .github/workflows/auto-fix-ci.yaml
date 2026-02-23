@@ -51,28 +51,8 @@ jobs:
         echo "=== Running CI Validator ==="
         python3 tools/ci-validator/validate.py --report=/tmp/validation-report.json 2>&1 | tee /tmp/validator-output.txt || true
 
-        # Parse report
-        python3 - << 'PYEOF'
-        import json, os
-
-        try:
-            report = json.load(open('/tmp/validation-report.json'))
-        except Exception:
-            # Build report from output
-            report = {"errors": [], "warnings": []}
-
-        errors = report.get("errors", [])
-        warnings = report.get("warnings", [])
-        total = len(errors) + len(warnings)
-
-        print(f"Errors: {len(errors)}, Warnings: {len(warnings)}, Total: {total}")
-
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            f.write(f"total_issues={total}\n")
-            f.write(f"error_count={len(errors)}\n")
-            f.write(f"warning_count={len(warnings)}\n")
-            f.write(f"has_issues={'true' if total > 0 else 'false'}\n")
-        PYEOF
+        # Parse report using helper script (avoids YAML heredoc issues)
+        python3 tools/ci-validator/parse-report.py
 
         cat /tmp/validator-output.txt
 
@@ -221,14 +201,7 @@ jobs:
         if git diff --quiet; then
           echo "No validator auto-fixes applied"
         else
-          FIXED_COUNT=$(python3 -c "
-        import json
-        try:
-            d = json.load(open('/tmp/autofix-applied.json'))
-            print(d.get('fixed', 0))
-        except:
-            print(0)
-          " 2>/dev/null || echo "0")
+          FIXED_COUNT=$(python3 -c 'import json; d=json.load(open("/tmp/autofix-applied.json")); print(d.get("fixed",0))' 2>/dev/null || echo '0')
           FIXES_APPLIED=$((FIXES_APPLIED + FIXED_COUNT))
           FIX_SUMMARY="${FIX_SUMMARY}\n- Applied ${FIXED_COUNT} CI validator auto-fixes"
           echo "Validator fixes applied: $FIXED_COUNT"

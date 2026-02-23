@@ -55,7 +55,7 @@ jobs:
         echo "=== YAML Syntax Check ==="
         ERROR_COUNT=0
         for f in .github/workflows/*.yaml .github/workflows/*.yml; do
-          if ! python3 -c "import yaml; yaml.safe_load(open('$f'))" 2>/dev/null; then
+          if ! python3 -c 'import yaml, sys; yaml.safe_load(open(sys.argv[1]))' "$f" 2>/dev/null; then
             echo "YAML ERROR: $f"
             ERROR_COUNT=$((ERROR_COUNT + 1))
           fi
