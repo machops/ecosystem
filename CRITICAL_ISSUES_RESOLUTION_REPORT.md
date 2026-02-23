@@ -165,9 +165,9 @@ All critical CI/CD issues have been resolved except for the OAuth App registrati
 | `GCP_ZONE` | `asia-east1-a` | Default GCP zone |
 | `CLUSTER_NAME_STAGING` | `eco-staging` | Staging cluster name |
 | `CLUSTER_NAME_PRODUCTION` | `eco-production` | Production cluster name |
-| `DOCKER_REGISTRY` | `asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco` | Artifact Registry URI |
+| `DOCKER_REGISTRY` | `asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base` | Artifact Registry URI |
 | `KUBERNETES_NAMESPACE_STAGING` | `eco-staging` | Staging namespace |
-| `KUBERNETES_NAMESPACE_PRODUCTION` | `indestructibleeco` | Production namespace |
+| `KUBERNETES_NAMESPACE_PRODUCTION` | `eco-base` | Production namespace |
 | `MONITORING_NAMESPACE` | `monitoring` | Monitoring namespace |
 
 **Configuration URL**: https://github.com/organizations/indestructibleorg/settings/variables/actions
@@ -199,10 +199,10 @@ All critical CI/CD issues have been resolved except for the OAuth App registrati
 
 | Field | Value |
 |-------|-------|
-| Application name | IndestructibleEco Production |
-| Homepage URL | https://indestructibleeco.io |
-| Application description | Production OAuth app for IndestructibleEco platform |
-| Authorization callback URL | https://indestructibleeco.io/auth/callback |
+| Application name | eco-base Production |
+| Homepage URL | https://eco-base.io |
+| Application description | Production OAuth app for eco-base platform |
+| Authorization callback URL | https://eco-base.io/auth/callback |
 
 **Steps to Complete**:
 1. Navigate to: https://github.com/settings/developers

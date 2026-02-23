@@ -1,6 +1,6 @@
 /**
- * IndestructibleEco API Client — typed HTTP client with retry + interceptors.
- * URI: indestructibleeco://packages/api-client/client
+ * eco-base API Client — typed HTTP client with retry + interceptors.
+ * URI: eco-base://packages/api-client/client
  */
 
 export interface RetryConfig {

@@ -1,9 +1,9 @@
 apiVersion: 1
 
 providers:
-  - name: indestructibleeco
+  - name: eco-base
     orgId: 1
-    folder: indestructibleeco
+    folder: eco-base
     type: file
     disableDeletion: false
     updateIntervalSeconds: 30

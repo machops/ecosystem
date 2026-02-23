@@ -1,6 +1,6 @@
 /**
- * IndestructibleEco — AI Job Poller
- * URI: indestructibleeco://backend/api/services/job-poller
+ * eco-base — AI Job Poller
+ * URI: eco-base://backend/api/services/job-poller
  *
  * Polls pending/running AI jobs from Supabase, checks upstream AI service
  * for completion, updates DB, and pushes status via Socket.IO.
@@ -154,7 +154,7 @@ async function checkAndUpdate(job: db.AiJobRow): Promise<void> {
         status: upstream.status,
       },
       compliance_tags: ["ai-inference"],
-      uri: `indestructibleeco://ai/job/${job.id}`,
+      uri: `eco-base://ai/job/${job.id}`,
     }).catch(() => {});
   }
 }

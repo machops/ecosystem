@@ -1,6 +1,6 @@
-"""Generated gRPC stubs for IndestructibleEco services.
+"""Generated gRPC stubs for eco-base services.
 
-URI: indestructibleeco://backend/shared/proto/generated
+URI: eco-base://backend/shared/proto/generated
 
 These stubs are generated from .proto files. In CI/test environments
 where grpcio-tools is not available, we provide lightweight dataclass

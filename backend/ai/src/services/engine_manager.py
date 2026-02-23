@@ -3,7 +3,7 @@
 Initializes all 7 engine adapters with connection pools and circuit breakers.
 Provides unified generate/stream interface with automatic failover.
 
-URI: indestructibleeco://backend/ai/services/engine_manager
+URI: eco-base://backend/ai/services/engine_manager
 """
 
 from __future__ import annotations

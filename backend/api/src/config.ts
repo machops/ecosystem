@@ -1,5 +1,5 @@
-// IndestructibleEco API Service Configuration
-// URI: indestructibleeco://backend/api/config
+// eco-base API Service Configuration
+// URI: eco-base://backend/api/config
 // All environment variables use ECO_* prefix for namespace isolation.
 
 const config = {

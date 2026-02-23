@@ -162,7 +162,7 @@ class TestProductionManifests:
 
     def test_api_gateway_production(self):
         content = _read("k8s/production/api-gateway.qyaml")
-        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco/gateway" in content
+        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base/gateway" in content
         assert "eco-production" in content
         assert "replicas: 3" in content
         assert "readinessProbe" in content
@@ -170,19 +170,19 @@ class TestProductionManifests:
 
     def test_ai_service_production(self):
         content = _read("k8s/production/ai-service.qyaml")
-        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco/ai" in content
+        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base/ai" in content
         assert "eco-production" in content
         assert "8001" in content
 
     def test_api_service_production(self):
         content = _read("k8s/production/api-service.qyaml")
-        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco/api" in content
+        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base/api" in content
         assert "eco-production" in content
         assert "replicas: 3" in content
 
     def test_web_frontend_production(self):
         content = _read("k8s/production/web-frontend.qyaml")
-        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco/web" in content
+        assert "asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base/web" in content
         assert "eco-production" in content
         assert "replicas: 3" in content
 
@@ -319,24 +319,24 @@ class TestDomainConfig:
     def test_staging_ingress_uses_autoecoops(self):
         content = _read("k8s/staging/ingress.qyaml")
         assert "autoecoops.io" in content
-        assert "indestructibleeco.io" not in content
+        assert "eco-base.io" not in content
 
     def test_production_ingress_uses_autoecoops(self):
         content = _read("k8s/production/ingress.qyaml")
         assert "autoecoops.io" in content
-        assert "indestructibleeco.io" not in content
+        assert "eco-base.io" not in content
 
     def test_base_ingress_uses_autoecoops(self):
         content = _read("k8s/ingress/ingress.qyaml")
         assert "autoecoops.io" in content
-        assert "indestructibleeco.io" not in content
+        assert "eco-base.io" not in content
 
     def test_wrangler_uses_autoecoops(self):
         content = _read("backend/cloudflare/wrangler.toml")
         assert "autoecoops.io" in content
-        assert "indestructibleeco.io" not in content
+        assert "eco-base.io" not in content
 
     def test_helm_values_uses_autoecoops(self):
         content = _read("helm/values.yaml")
         assert "autoecoops.io" in content
-        assert "indestructibleeco.io" not in content
+        assert "eco-base.io" not in content

@@ -8,7 +8,7 @@ metadata:
 data:
   # CircleCI configuration
   CIRCLECI_RUNNER_RESOURCE_CLASS: "eco/base"
-  CIRCLECI_RUNNER_NAME: "indestructibleeco-gke-runner"
+  CIRCLECI_RUNNER_NAME: "eco-base-gke-runner"
   CIRCLECI_RUNNER_MODE: "single-task"
   
   # Logging configuration

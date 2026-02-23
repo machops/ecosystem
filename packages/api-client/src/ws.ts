@@ -1,10 +1,10 @@
 /**
- * IndestructibleEco WebSocket Client
+ * eco-base WebSocket Client
  *
  * Persistent connection with automatic reconnection, heartbeat,
  * and typed event handling.
  *
- * URI: indestructibleeco://packages/api-client/ws
+ * URI: eco-base://packages/api-client/ws
  */
 
 type EventHandler = (data: unknown) => void;

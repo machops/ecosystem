@@ -1,6 +1,6 @@
 """Supabase Client Wrapper — typed CRUD with connection pooling.
 
-URI: indestructibleeco://backend/shared/db/client
+URI: eco-base://backend/shared/db/client
 
 Provides a singleton async-compatible Supabase client with:
 - Connection pooling via httpx

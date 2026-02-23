@@ -5,10 +5,10 @@ serve(async (req) => {
 
   const data = {
     message: `Hello ${name}!`,
-    service: "indestructibleeco",
+    service: "eco-base",
     timestamp: new Date().toISOString(),
-    uri: "indestructibleeco://functions/hello-world",
-    urn: "urn:indestructibleeco:functions:hello-world:v1"
+    uri: "eco-base://functions/hello-world",
+    urn: "urn:eco-base:functions:hello-world:v1"
   }
 
   return new Response(

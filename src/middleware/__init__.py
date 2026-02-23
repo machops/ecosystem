@@ -1,4 +1,4 @@
-"""IndestructibleEco v1.0 — Middleware Package.
+"""eco-base v1.0 — Middleware Package.
 
-URI: indestructibleeco://src/middleware
+URI: eco-base://src/middleware
 """

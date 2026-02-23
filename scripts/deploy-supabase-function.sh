@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# IndestructibleEco Supabase Edge Function Deployment Script
+# eco-base Supabase Edge Function Deployment Script
 # Deploys hello-world function to Supabase
 
 ECO_SCRIPT_VERSION="1.0.0"

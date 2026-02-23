@@ -1,6 +1,6 @@
 """Model management schemas — registration, capabilities, hardware requirements.
 
-URI: indestructibleeco://src/schemas/models
+URI: eco-base://src/schemas/models
 
 Contracts defined by: tests/unit/test_schemas.py, tests/unit/test_registry.py
 """

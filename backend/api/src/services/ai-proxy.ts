@@ -1,6 +1,6 @@
 /**
- * IndestructibleEco — AI Service Proxy
- * URI: indestructibleeco://backend/api/services/ai-proxy
+ * eco-base — AI Service Proxy
+ * URI: eco-base://backend/api/services/ai-proxy
  *
  * HTTP proxy to backend/ai FastAPI service with:
  * - Configurable timeout per endpoint

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# IndestructibleEco v1.0 — Manual GKE Deployment Script
+# eco-base v1.0 — Manual GKE Deployment Script
 # Target: GKE eco-staging cluster (asia-east1)
 # Project: my-project-ops-1991
 #
@@ -67,7 +67,7 @@ ensure_registry() {
             --repository-format=docker \
             --location="${GAR_LOCATION}" \
             --project="${GCP_PROJECT}" \
-            --description="IndestructibleEco container images"
+            --description="eco-base container images"
         ok "Registry created"
     else
         ok "Registry already exists"

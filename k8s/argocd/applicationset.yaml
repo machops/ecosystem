@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: indestructibleeco-envs
+  name: eco-base-envs
   namespace: argocd
   labels:
-    app.kubernetes.io/name: indestructibleeco
-    app.kubernetes.io/part-of: indestructibleeco
+    app.kubernetes.io/name: eco-base
+    app.kubernetes.io/part-of: eco-base
 spec:
   generators:
     - list:
         elements:
           - env: staging
-            namespace: indestructibleeco-staging
+            namespace: eco-base-staging
             cluster: https://kubernetes.default.svc
             revision: develop
             values_file: values-staging.yaml
             auto_sync: "true"
             prune: "true"
           - env: production
-            namespace: indestructibleeco
+            namespace: eco-base
             cluster: https://kubernetes.default.svc
             revision: main
             values_file: values.yaml
@@ -29,7 +29,7 @@ spec:
       name: "eco-{{env}}"
       namespace: argocd
       labels:
-        app.kubernetes.io/name: indestructibleeco
+        app.kubernetes.io/name: eco-base
         app.kubernetes.io/instance: "eco-{{env}}"
         environment: "{{env}}"
       annotations:
@@ -38,7 +38,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/indestructibleorg/indestructibleeco.git
+        repoURL: https://github.com/indestructibleorg/eco-base.git
         targetRevision: "{{revision}}"
         path: helm
         helm:

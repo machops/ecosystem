@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'IndestructibleEcoUIKit',
+      name: 'eco-baseUIKit',
       formats: ['es', 'cjs'],
       fileName: (format) => format === 'es' ? 'index.js' : 'index.cjs',
     },

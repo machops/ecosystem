@@ -1,15 +1,15 @@
 openapi: "3.0.3"
 info:
-  title: IndestructibleEco API
+  title: eco-base API
   version: "1.0.0"
   description: |
     Enterprise cloud-native AI platform API.
-    URI: indestructibleeco://backend/api/openapi
+    URI: eco-base://backend/api/openapi
 
     Provides authentication, platform management, AI inference (OpenAI-compatible),
     vector alignment, async job management, embedding, and .qyaml governance.
   contact:
-    name: IndestructibleEco Platform Team
+    name: eco-base Platform Team
     email: platform-team@autoecoops.io
   license:
     name: MIT
@@ -488,7 +488,7 @@ paths:
               required: [service_name]
               properties:
                 service_name: { type: string }
-                namespace: { type: string, default: indestructibleeco }
+                namespace: { type: string, default: eco-base }
                 kind: { type: string, default: Deployment }
       responses:
         "200":
@@ -691,7 +691,7 @@ components:
             properties:
               id: { type: string }
               object: { type: string, example: model }
-              owned_by: { type: string, example: indestructibleeco }
+              owned_by: { type: string, example: eco-base }
               capabilities: { type: array, items: { type: string } }
               compatible_engines: { type: array, items: { type: string } }
               context_length: { type: integer }

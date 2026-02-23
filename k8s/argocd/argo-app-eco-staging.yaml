@@ -1,4 +1,4 @@
-# IndestructibleEco v1.0 — Argo CD Application (eco-staging on GKE)
+# eco-base v1.0 — Argo CD Application (eco-staging on GKE)
 # Target: GKE eco-staging cluster, asia-east1
 # Project: my-project-ops-1991
 apiVersion: argoproj.io/v1alpha1
@@ -8,13 +8,13 @@ metadata:
   namespace: argocd
   labels:
     app.kubernetes.io/name: eco-staging
-    app.kubernetes.io/part-of: indestructibleeco
+    app.kubernetes.io/part-of: eco-base
     app.kubernetes.io/managed-by: argocd
     environment: staging
   annotations:
-    indestructibleeco/uri: "indestructibleeco://k8s/argocd/application/eco-staging"
-    indestructibleeco/owner: "platform-team"
-    indestructibleeco/compliance: "soc2,zero-trust,gitops"
+    eco-base/uri: "eco-base://k8s/argocd/application/eco-staging"
+    eco-base/owner: "platform-team"
+    eco-base/compliance: "soc2,zero-trust,gitops"
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: eco-deployments
     notifications.argoproj.io/subscribe.on-sync-failed.slack: eco-alerts
   finalizers:
@@ -22,7 +22,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/indestructibleorg/indestructibleeco.git
+    repoURL: https://github.com/indestructibleorg/eco-base.git
     targetRevision: main
     path: k8s/staging
     directory:

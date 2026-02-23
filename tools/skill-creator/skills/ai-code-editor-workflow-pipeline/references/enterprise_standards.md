@@ -73,8 +73,8 @@ cosign verify-blob --key cosign.pub --signature sbom.json.sig sbom.json
   "compliance_tags": ["slsa-l3", "soc2"],
   "content_hash": "sha256:...",
   "governance_stamp": {
-    "uri": "indestructibleeco://...",
-    "urn": "urn:indestructibleeco:..."
+    "uri": "eco-base://...",
+    "urn": "urn:eco-base:..."
   }
 }
 ```
@@ -103,9 +103,9 @@ cosign verify-blob --key cosign.pub --signature sbom.json.sig sbom.json
 - Security controls implementation
 - Continuous monitoring and improvement
 
-## IndestructibleEco Alignment
+## eco-base Alignment
 
-All enterprise standards integrate with the IndestructibleEco governance model:
+All enterprise standards integrate with the eco-base governance model:
 - **UUID v1** for all trace IDs and audit records
 - **URI/URN** dual identification for all audit entries
 - **ECO_*** environment variable prefix for all configuration

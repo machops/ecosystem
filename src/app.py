@@ -1,6 +1,6 @@
-"""IndestructibleEco v1.0 — Application Factory.
+"""eco-base v1.0 — Application Factory.
 
-URI: indestructibleeco://src/app
+URI: eco-base://src/app
 
 Provides:
 - create_app() factory for FastAPI application
@@ -126,7 +126,7 @@ def create_app() -> FastAPI:
         await app.state.api_proxy.close()
 
     app = FastAPI(
-        title="IndestructibleEco AI Service",
+        title="eco-base AI Service",
         version=VERSION,
         docs_url="/docs" if ENVIRONMENT != "production" else None,
         lifespan=lifespan,
@@ -182,8 +182,8 @@ def create_app() -> FastAPI:
             "service": "ai",
             "version": VERSION,
             "engines": sorted(engines),
-            "uri": "indestructibleeco://backend/ai/health",
-            "urn": f"urn:indestructibleeco:backend:ai:health:{uuid.uuid1()}",
+            "uri": "eco-base://backend/ai/health",
+            "urn": f"urn:eco-base:backend:ai:health:{uuid.uuid1()}",
             "uptime_seconds": round(uptime, 2),
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }

@@ -1,6 +1,6 @@
 /**
- * IndestructibleEco — YAML Routes
- * URI: indestructibleeco://backend/api/routes/yaml
+ * eco-base — YAML Routes
+ * URI: eco-base://backend/api/routes/yaml
  *
  * Proxies YAML generation/validation to backend/ai YAML Toolkit.
  * Falls back to local generation when AI service is unavailable.
@@ -50,8 +50,8 @@ yamlRouter.post("/generate", async (req: AuthenticatedRequest, res: Response, ne
         cross_layer_binding: mod.depends_on ?? [],
         schema_version: "v8",
         generated_by: "yaml-toolkit-v8",
-        uri: `indestructibleeco://yaml/document/${uniqueId}`,
-        urn: `urn:indestructibleeco:yaml:document:${uniqueId}`,
+        uri: `eco-base://yaml/document/${uniqueId}`,
+        urn: `urn:eco-base:yaml:document:${uniqueId}`,
         created_at: new Date().toISOString(),
       },
       governance_info: {
@@ -65,7 +65,7 @@ yamlRouter.post("/generate", async (req: AuthenticatedRequest, res: Response, ne
         discovery_protocol: "consul",
         health_check_path: "/health",
         registry_ttl: 30,
-        k8s_namespace: "indestructibleeco",
+        k8s_namespace: "eco-base",
       },
       vector_alignment_map: {
         alignment_model: "quantum-bert-xxl-v1",

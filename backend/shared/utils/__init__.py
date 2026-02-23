@@ -1,4 +1,4 @@
-"""Shared utilities for IndestructibleEco platform."""
+"""Shared utilities for eco-base platform."""
 
 from uuid import UUID, uuid1
 from datetime import datetime
@@ -18,37 +18,37 @@ def new_uuid_str() -> str:
 
 
 def build_uri(domain: str, kind: str, name: str) -> str:
-    """Build IndestructibleEco URI.
+    """Build eco-base URI.
 
-    Format: indestructibleeco://{domain}/{kind}/{name}
-    Example: indestructibleeco://k8s/deployment/api-service
+    Format: eco-base://{domain}/{kind}/{name}
+    Example: eco-base://k8s/deployment/api-service
     """
-    return f"indestructibleeco://{domain}/{kind}/{name}"
+    return f"eco-base://{domain}/{kind}/{name}"
 
 
 def build_urn(domain: str, kind: str, name: str, uid: UUID) -> str:
-    """Build IndestructibleEco URN.
+    """Build eco-base URN.
 
-    Format: urn:indestructibleeco:{domain}:{kind}:{name}:{uuid}
-    Example: urn:indestructibleeco:k8s:deployment:api-service:550e8400-e29b-41d4-a716-446655440000
+    Format: urn:eco-base:{domain}:{kind}:{name}:{uuid}
+    Example: urn:eco-base:k8s:deployment:api-service:550e8400-e29b-41d4-a716-446655440000
     """
-    return f"urn:indestructibleeco:{domain}:{kind}:{name}:{uid}"
+    return f"urn:eco-base:{domain}:{kind}:{name}:{uid}"
 
 
 def build_k8s_uri(namespace: str, kind: str, name: str) -> str:
     """Build K8s resource URI.
 
-    Format: indestructibleeco://k8s/{namespace}/{kind}/{name}
+    Format: eco-base://k8s/{namespace}/{kind}/{name}
     """
-    return f"indestructibleeco://k8s/{namespace}/{kind}/{name}"
+    return f"eco-base://k8s/{namespace}/{kind}/{name}"
 
 
 def build_k8s_urn(namespace: str, kind: str, name: str, uid: UUID) -> str:
     """Build K8s resource URN.
 
-    Format: urn:indestructibleeco:k8s:{namespace}:{kind}:{name}:{uuid}
+    Format: urn:eco-base:k8s:{namespace}:{kind}:{name}:{uuid}
     """
-    return f"urn:indestructibleeco:k8s:{namespace}:{kind}:{name}:{uid}"
+    return f"urn:eco-base:k8s:{namespace}:{kind}:{name}:{uid}"
 
 
 def governance_stamp() -> Dict[str, Any]:

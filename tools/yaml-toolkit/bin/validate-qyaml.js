@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * indestructibleeco YAML Toolkit v8
+ * eco-base YAML Toolkit v8
  * Schema Validator — validate-qyaml.js
  *
  * Usage:
@@ -385,7 +385,7 @@ function renderReport(reports) {
   const totalFiles    = reports.length;
   const failedFiles   = reports.filter(r => !r.valid).length;
 
-  console.log(`\n${C.bold("indestructibleeco YAML Toolkit v8 — Schema Validator")}`);
+  console.log(`\n${C.bold("eco-base YAML Toolkit v8 — Schema Validator")}`);
   console.log(C.dim("─".repeat(62)));
 
   reports.forEach(report => {

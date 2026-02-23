@@ -1,25 +1,25 @@
-# IndestructibleEco v1.0 - Namespace & RBAC
+# eco-base v1.0 - Namespace & RBAC
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: indestructibleeco
+  name: eco-base
   labels:
-    app.kubernetes.io/name: indestructibleeco-platform
-    app.kubernetes.io/part-of: indestructibleeco
+    app.kubernetes.io/name: eco-base-platform
+    app.kubernetes.io/part-of: eco-base
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: eco-sa
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
-    app.kubernetes.io/name: indestructibleeco-platform
+    app.kubernetes.io/name: eco-base-platform
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: eco-role
-  namespace: indestructibleeco
+  namespace: eco-base
 rules:
   - apiGroups: [""]
     resources: ["pods", "services", "configmaps", "secrets"]
@@ -32,11 +32,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: eco-rolebinding
-  namespace: indestructibleeco
+  namespace: eco-base
 subjects:
   - kind: ServiceAccount
     name: eco-sa
-    namespace: indestructibleeco
+    namespace: eco-base
 roleRef:
   kind: Role
   name: eco-role
@@ -45,8 +45,8 @@ roleRef:
 # YAML Toolkit v8 — Governance Block (auto-generated, manual editing prohibited)
 document_metadata:
   unique_id: "eco-ns-0001-0001-000000000001"
-  uri: "indestructibleeco://k8s/cluster/namespace/indestructibleeco"
-  urn: "urn:indestructibleeco:k8s:cluster:namespace:indestructibleeco:eco-ns-0001-0001-000000000001"
+  uri: "eco-base://k8s/cluster/namespace/eco-base"
+  urn: "urn:eco-base:k8s:cluster:namespace:eco-base:eco-ns-0001-0001-000000000001"
   target_system: gke-production
   cross_layer_binding: []
   schema_version: v8
@@ -66,4 +66,4 @@ vector_alignment_map:
   alignment_model: quantum-bert-xxl-v1
   coherence_vector_dim: 1024
   function_keyword: [namespace, platform, cluster, rbac]
-  contextual_binding: "indestructibleeco -> []"
+  contextual_binding: "eco-base -> []"

@@ -1,7 +1,7 @@
-# IndestructibleEco v1.0 — Helm Values
-# URI: indestructibleeco://helm/values
+# eco-base v1.0 — Helm Values
+# URI: eco-base://helm/values
 global:
-  namespace: indestructibleeco
+  namespace: eco-base
   imageRegistry: "ghcr.io/indestructibleorg"
   imagePullSecrets: []
 
@@ -173,8 +173,8 @@ postgres:
   image:
     repository: postgres
     tag: "16-alpine"
-  database: indestructibleeco
-  user: indestructibleeco
+  database: eco-base
+  user: eco-base
   resources:
     requests:
       cpu: "250m"
@@ -230,7 +230,7 @@ secrets:
   postgresPassword: ""
   hfToken: ""
 # -- Top-level defaults for Helm templates (deployment.yaml, hpa.yaml, pdb.yaml)
-namespace: indestructibleeco
+namespace: eco-base
 replicaCount: 2
 
 image:

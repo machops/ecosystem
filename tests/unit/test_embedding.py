@@ -37,7 +37,7 @@ class TestEmbeddingResult:
         assert "uri" in d
         assert "urn" in d
         assert d["model_id"] == "m"
-        assert d["uri"].startswith("indestructibleeco://")
+        assert d["uri"].startswith("eco-base://")
 
 
 class TestSimilarityResult:

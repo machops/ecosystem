@@ -1,5 +1,5 @@
-# IndestructibleEco v1.0 — Argo CD Notifications Configuration
-# URI: indestructibleeco://k8s/argocd/notifications
+# eco-base v1.0 — Argo CD Notifications Configuration
+# URI: eco-base://k8s/argocd/notifications
 # Configures Slack and webhook notifications for sync events.
 #
 # Prerequisites:
@@ -16,7 +16,7 @@ metadata:
   namespace: argocd
   labels:
     app.kubernetes.io/name: argocd-notifications
-    app.kubernetes.io/part-of: indestructibleeco
+    app.kubernetes.io/part-of: eco-base
 data:
   # ── Slack Service ──────────────────────────────────────────
   service.slack: |
@@ -24,12 +24,12 @@ data:
     signingSecret: $slack-signing-secret
 
   # ── Webhook Service (generic) ──────────────────────────────
-  service.webhook.indestructibleeco: |
+  service.webhook.eco-base: |
     url: $webhook-url
     headers:
       - name: Content-Type
         value: application/json
-      - name: X-IndestructibleEco-Event
+      - name: X-eco-base-Event
         value: argocd-sync
 
   # ── Notification Templates ─────────────────────────────────
@@ -45,11 +45,11 @@ data:
             {"title": "Revision", "value": "{{ .app.status.sync.revision | trunc 7 }}", "short": true},
             {"title": "Status", "value": "{{ .app.status.sync.status }}", "short": true}
           ],
-          "footer": "IndestructibleEco GitOps | Argo CD",
+          "footer": "eco-base GitOps | Argo CD",
           "footer_icon": "https://argo-cd.readthedocs.io/en/stable/assets/logo.png"
         }]
     webhook:
-      indestructibleeco:
+      eco-base:
         method: POST
         body: |
           {
@@ -72,10 +72,10 @@ data:
             {"title": "Revision", "value": "{{ .app.status.sync.revision | trunc 7 }}", "short": true},
             {"title": "Error", "value": "{{ .app.status.operationState.message | trunc 200 }}", "short": false}
           ],
-          "footer": "IndestructibleEco GitOps | Argo CD"
+          "footer": "eco-base GitOps | Argo CD"
         }]
     webhook:
-      indestructibleeco:
+      eco-base:
         method: POST
         body: |
           {
@@ -98,7 +98,7 @@ data:
             {"title": "Health", "value": "{{ .app.status.health.status }}", "short": true},
             {"title": "Namespace", "value": "{{ .app.spec.destination.namespace }}", "short": true}
           ],
-          "footer": "IndestructibleEco GitOps | Argo CD"
+          "footer": "eco-base GitOps | Argo CD"
         }]
 
   template.app-sync-running: |
@@ -111,7 +111,7 @@ data:
             {"title": "Application", "value": "{{ .app.metadata.name }}", "short": true},
             {"title": "Revision", "value": "{{ .app.status.sync.revision | trunc 7 }}", "short": true}
           ],
-          "footer": "IndestructibleEco GitOps | Argo CD"
+          "footer": "eco-base GitOps | Argo CD"
         }]
 
   # ── Trigger Definitions ────────────────────────────────────
@@ -140,8 +140,8 @@ data:
   # ── Subscriptions ──────────────────────────────────────────
   subscriptions: |
     - recipients:
-        - slack:indestructibleeco-deployments
-        - webhook:indestructibleeco
+        - slack:eco-base-deployments
+        - webhook:eco-base
       triggers:
         - on-sync-succeeded
         - on-sync-failed

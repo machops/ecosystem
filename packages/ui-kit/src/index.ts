@@ -1,6 +1,6 @@
 /**
- * IndestructibleEco UI Kit — shared component library.
- * URI: indestructibleeco://packages/ui-kit
+ * eco-base UI Kit — shared component library.
+ * URI: eco-base://packages/ui-kit
  */
 export { Modal } from './Modal';
 export type { ModalProps } from './Modal';

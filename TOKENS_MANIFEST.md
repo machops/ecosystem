@@ -1,7 +1,7 @@
-# IndestructibleEco - Complete Token Manifest
+# eco-base - Complete Token Manifest
 
 **Date**: February 21, 2026
-**Project**: IndestructibleEco
+**Project**: eco-base
 **Environment**: Production
 
 ---
@@ -11,7 +11,7 @@
 ### Service Account Details
 
 - **Email**: `eco-deployer@my-project-ops-1991.iam.gserviceaccount.com`
-- **Name**: IndestructibleEco Deployer
+- **Name**: eco-base Deployer
 - **Key ID**: `YOUR_GCP_SA_KEY_ID`
 
 ### Permissions
@@ -46,7 +46,7 @@
 
 ### Project Details
 
-- **Project Name**: indestructibleeco
+- **Project Name**: eco-base
 - **Project Reference**: `yrfxijooswpvdpdseswy`
 - **Project URL**: `https://yrfxijooswpvdpdseswy.supabase.co`
 - **Region**: ap-south-1
@@ -253,7 +253,7 @@ export GRAFANA_ADMIN_PASSWORD="YOUR_SECURE_PASSWORD"
 
 ### Supabase Support
 
-- **Project**: indestructibleeco
+- **Project**: eco-base
 - **Reference**: yrfxijooswpvdpdseswy
 - **Dashboard**: https://supabase.com/dashboard/project/yrfxijooswpvdpdseswy
 

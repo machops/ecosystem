@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package indestructibleeco.governance;
+package eco-base.governance;
 
 service YAMLGovernanceService {
   rpc GenerateManifest  (GenerateManifestRequest)  returns (GenerateManifestResponse);

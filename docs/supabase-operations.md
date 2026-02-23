@@ -1,4 +1,4 @@
-# Supabase Operations Guide - IndestructibleEco
+# Supabase Operations Guide - eco-base
 
 ## Edge Functions
 
@@ -9,8 +9,8 @@
 - **Name**: hello-world
 - **Runtime**: Deno 2
 - **Entry Point**: supabase/functions/hello-world/index.ts
-- **URI**: indestructibleeco://functions/hello-world
-- **URN**: urn:indestructibleeco:functions:hello-world:v1
+- **URI**: eco-base://functions/hello-world
+- **URN**: urn:eco-base:functions:hello-world:v1
 
 **Deployment Status:**
 
@@ -126,7 +126,7 @@ The function uses the following environment variables (configured in Supabase da
 
 - **Owner**: indestructibleorg
 - **Policy**: zero-trust
-- **Compliance**: indestructibleeco v1.0
+- **Compliance**: eco-base v1.0
 - **Audit**: All deployments logged via GitHub Actions
 
 ## Next Steps

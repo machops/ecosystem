@@ -1,7 +1,7 @@
 {
-  "name": "@indestructibleeco/skill-creator",
+  "name": "@eco-base/skill-creator",
   "version": "1.0.0",
-  "description": "Skill authoring, validation, and lifecycle management for IndestructibleEco platform automation units",
+  "description": "Skill authoring, validation, and lifecycle management for eco-base platform automation units",
   "scripts": {
     "init": "python3 scripts/init_skill.py",
     "validate": "node scripts/validate.js",

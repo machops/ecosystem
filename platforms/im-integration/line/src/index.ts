@@ -1,5 +1,5 @@
 /**
- * IndestructibleEco LINE Messaging API Adapter
+ * eco-base LINE Messaging API Adapter
  *
  * Production-grade adapter for LINE Messaging API.
  * Uses shared normalizer for message parsing, shared router for
@@ -13,7 +13,7 @@
  * - Graceful shutdown
  * - Health + metrics endpoints
  *
- * URI: indestructibleeco://platforms/im-integration/line
+ * URI: eco-base://platforms/im-integration/line
  */
 
 import express from "express";
@@ -274,7 +274,7 @@ app.get("/health", (_req, res) =>
     version: "2.0.0",
     api: process.env.ECO_API_URL || "http://localhost:3000",
     channel_secret: CHANNEL_SECRET ? "configured" : "missing",
-    uri: "indestructibleeco://platforms/im-integration/line/health",
+    uri: "eco-base://platforms/im-integration/line/health",
     timestamp: new Date().toISOString(),
   })
 );
@@ -282,7 +282,7 @@ app.get("/health", (_req, res) =>
 app.get("/metrics", (_req, res) =>
   res.json({
     ...metrics,
-    uri: "indestructibleeco://platforms/im-integration/line/metrics",
+    uri: "eco-base://platforms/im-integration/line/metrics",
     timestamp: new Date().toISOString(),
   })
 );
@@ -306,7 +306,7 @@ server = app.listen(PORT, () => {
   logger.info({
     msg: "LINE adapter started",
     port: PORT,
-    uri: "indestructibleeco://platforms/im-integration/line",
+    uri: "eco-base://platforms/im-integration/line",
   });
 });
 

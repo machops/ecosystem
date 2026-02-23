@@ -1,5 +1,5 @@
 #!/bin/bash
-# Cloudflare Certificate Setup Script for IndestructibleEco
+# Cloudflare Certificate Setup Script for eco-base
 # This script helps you create Kubernetes secrets from Cloudflare certificates
 
 set -e

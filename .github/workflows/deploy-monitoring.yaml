@@ -154,8 +154,8 @@ jobs:
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Access URLs" >> $GITHUB_STEP_SUMMARY
-          echo "- Prometheus: http://prometheus.indestructibleeco.io" >> $GITHUB_STEP_SUMMARY
-          echo "- Grafana: http://grafana.indestructibleeco.io" >> $GITHUB_STEP_SUMMARY
+          echo "- Prometheus: http://prometheus.eco-base.io" >> $GITHUB_STEP_SUMMARY
+          echo "- Grafana: http://grafana.eco-base.io" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
           echo "1. Access Grafana and verify dashboards" >> $GITHUB_STEP_SUMMARY

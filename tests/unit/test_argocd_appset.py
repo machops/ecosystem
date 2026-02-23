@@ -52,5 +52,5 @@ class TestApplicationSet:
     def test_staging_values_valid(self):
         with open(STAGING) as f:
             data = yaml.safe_load(f)
-        assert data["global"]["namespace"] == "indestructibleeco-staging"
+        assert data["global"]["namespace"] == "eco-base-staging"
         assert data["api"]["replicaCount"] == 1

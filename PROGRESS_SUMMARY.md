@@ -1,4 +1,4 @@
-# IndestructibleEco - Progress Summary
+# eco-base - Progress Summary
 
 **Date**: February 21, 2026
 **Latest Commit**: afca737 (OAuth and SSD quota automation workflows and scripts)
@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-The IndestructibleEco GKE deployment and security remediation project has made significant progress. All infrastructure automation scripts, documentation, and workflows have been completed. The project is now blocked on browser-based GCP Console operations (SSD quota increase and OAuth consent screen configuration) that require manual intervention.
+The eco-base GKE deployment and security remediation project has made significant progress. All infrastructure automation scripts, documentation, and workflows have been completed. The project is now blocked on browser-based GCP Console operations (SSD quota increase and OAuth consent screen configuration) that require manual intervention.
 
 ---
 
@@ -250,8 +250,8 @@ The IndestructibleEco GKE deployment and security remediation project has made s
 
 ## Contact Information
 
-- **Repository**: https://github.com/indestructibleorg/indestructibleeco
-- **Project**: IndestructibleEco
+- **Repository**: https://github.com/indestructibleorg/eco-base
+- **Project**: eco-base
 - **GCP Project**: my-project-ops-1991
 - **Region**: asia-east1
 

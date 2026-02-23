@@ -44,7 +44,7 @@ export const authMiddleware: RequestHandler = async (
       id: "anonymous",
       email: "anonymous@staging",
       role: "member",
-      urn: "urn:indestructibleeco:iam:user:anonymous",
+      urn: "urn:eco-base:iam:user:anonymous",
     };
     next();
     return;
@@ -66,7 +66,7 @@ export const authMiddleware: RequestHandler = async (
     id: data.user.id,
     email: data.user.email || "",
     role: data.user.role || "member",
-    urn: `urn:indestructibleeco:iam:user:${data.user.id}`,
+    urn: `urn:eco-base:iam:user:${data.user.id}`,
   };
   next();
 };

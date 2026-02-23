@@ -1,6 +1,6 @@
 """Shared database layer — Supabase client wrapper + connection pool.
 
-URI: indestructibleeco://backend/shared/db
+URI: eco-base://backend/shared/db
 """
 
 from .client import SupabaseClient, get_client

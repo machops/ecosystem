@@ -1,7 +1,7 @@
 name: Compliance Report — SOC2 / ISO27001
 
-# IndestructibleEco Compliance Automation
-# URI: indestructibleeco://github/workflows/compliance-report
+# eco-base Compliance Automation
+# URI: eco-base://github/workflows/compliance-report
 #
 # Generates monthly compliance evidence reports for:
 #   - SOC2 Type II (CC6, CC7, CC8, CC9)
@@ -118,7 +118,7 @@ jobs:
         # 2. Workflow runs (CI/CD integrity)
         runs = gh_api('/actions/runs', {'per_page': 100, 'created': f'{start}..{end}'})
         workflow_runs = runs.get('workflow_runs', []) if isinstance(runs, dict) else []
-        ci_runs = [r for r in workflow_runs if r.get('name') in ['IndestructibleEco CI/CD', 'CI']]
+        ci_runs = [r for r in workflow_runs if r.get('name') in ['eco-base CI/CD', 'CI']]
         ci_success = len([r for r in ci_runs if r.get('conclusion') == 'success'])
         ci_total = len(ci_runs)
 

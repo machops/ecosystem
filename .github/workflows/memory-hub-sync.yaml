@@ -1,7 +1,7 @@
 name: Memory Hub Sync
 
-# IndestructibleEco Memory Hub Synchronization
-# URI: indestructibleeco://github/workflows/memory-hub-sync
+# eco-base Memory Hub Synchronization
+# URI: eco-base://github/workflows/memory-hub-sync
 #
 # Triggers vector index updates in Memory Hub (pgvector) whenever:
 #   - Policy files (.rego) change
@@ -171,7 +171,7 @@ jobs:
             else:
                 doc_type = 'configuration'
 
-            uri = f'indestructibleeco://{repo}/{filepath}'
+            uri = f'eco-base://{repo}/{filepath}'
             doc_id = hashlib.sha256(uri.encode()).hexdigest()[:16]
 
             # Chunk document (max 1000 chars per chunk with overlap)

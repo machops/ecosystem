@@ -1,5 +1,5 @@
 groups:
-  - name: indestructibleeco.slo
+  - name: eco-base.slo
     interval: 30s
     rules:
       - alert: APIHighErrorRate

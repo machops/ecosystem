@@ -1,5 +1,5 @@
 # Prometheus Alert Rules for Supabase
-# IndestructibleEco Production Alerts
+# eco-base Production Alerts
 
 groups:
   - name: supabase_database

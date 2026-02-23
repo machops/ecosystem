@@ -1,6 +1,6 @@
 """Lightweight YAML Governance proto stubs.
 
-URI: indestructibleeco://backend/shared/proto/generated/yaml_governance_pb2
+URI: eco-base://backend/shared/proto/generated/yaml_governance_pb2
 
 Matches the message definitions in backend/shared/proto/yaml_governance.proto.
 """
@@ -32,7 +32,7 @@ class ValidateResponse:
 @dataclass
 class StampRequest:
     name: str = ""
-    namespace: str = "indestructibleeco"
+    namespace: str = "eco-base"
     kind: str = "Deployment"
     target_system: str = "gke-production"
     owner: str = "platform-team"

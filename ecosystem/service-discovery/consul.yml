@@ -1,17 +1,17 @@
-# IndestructibleEco Consul Service Discovery Configuration
-# URI: indestructibleeco://ecosystem/service-discovery/consul
+# eco-base Consul Service Discovery Configuration
+# URI: eco-base://ecosystem/service-discovery/consul
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: consul
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     app: consul
     component: service-discovery
     generated-by: yaml-toolkit-v1
   annotations:
-    indestructibleeco/uri: "indestructibleeco://ecosystem/service-discovery/consul"
+    eco-base/uri: "eco-base://ecosystem/service-discovery/consul"
 spec:
   replicas: 1
   selector:
@@ -69,7 +69,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: consul
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     app: consul
     generated-by: yaml-toolkit-v1

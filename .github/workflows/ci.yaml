@@ -1,4 +1,4 @@
-name: IndestructibleEco CI/CD
+name: eco-base CI/CD
 
 on:
   push:
@@ -173,11 +173,11 @@ jobs:
             assert engine == 'vllm_adapter', f'Expected vllm_adapter, got {engine}'
             engine = g.resolve_engine('ollama-chat')
             assert engine == 'ollama_adapter', f'Expected ollama_adapter, got {engine}'
-            stamp = g.stamp_governance('test-svc', 'indestructibleeco', 'Deployment')
+            stamp = g.stamp_governance('test-svc', 'eco-base', 'Deployment')
             assert stamp['document_metadata']['schema_version'] == 'v1'
             assert stamp['document_metadata']['generated_by'] == 'yaml-toolkit-v1'
-            assert 'indestructibleeco://' in stamp['document_metadata']['uri']
-            assert 'urn:indestructibleeco:' in stamp['document_metadata']['urn']
+            assert 'eco-base://' in stamp['document_metadata']['uri']
+            assert 'urn:eco-base:' in stamp['document_metadata']['urn']
             assert stamp['vector_alignment_map']['alignment_model'] == 'quantum-bert-xxl-v1'
             log = g.get_audit_log()
             assert len(log) >= 2
@@ -196,12 +196,12 @@ jobs:
             uid = new_uuid()
             assert uid.version == 1
             uri = build_uri('k8s', 'deployment', 'test')
-            assert uri == 'indestructibleeco://k8s/deployment/test'
+            assert uri == 'eco-base://k8s/deployment/test'
             urn = build_urn('k8s', 'deployment', 'test', uid)
-            assert 'urn:indestructibleeco:' in urn
+            assert 'urn:eco-base:' in urn
             stamp = governance_stamp()
             assert stamp['schema_version'] == 'v1'
-            meta = build_qyaml_metadata('api', 'indestructibleeco', 'Deployment', 'gke-production')
+            meta = build_qyaml_metadata('api', 'eco-base', 'Deployment', 'gke-production')
             assert 'document_metadata' in meta
             assert 'governance_info' in meta
             assert 'registry_binding' in meta
@@ -394,12 +394,12 @@ jobs:
       uses: anchore/syft@0a3f7bb06ee168495ee54b8b66fccb22a056fe99  # v1.42.1
       with:
         image: "."
-        artifact-name: "indestructibleeco-sbom-${{ github.sha }}.json"
+        artifact-name: "eco-base-sbom-${{ github.sha }}.json"
         output-format: cyclonedx-json
 
     - name: Verify SBOM was generated
       run: |
-        SBOM_FILE="indestructibleeco-sbom-${{ github.sha }}.json"
+        SBOM_FILE="eco-base-sbom-${{ github.sha }}.json"
         if [ -f "$SBOM_FILE" ]; then
           echo "SBOM generated successfully"
           python3 tools/ci-validator/parse-report.py "$SBOM_FILE" sbom-summary 2>/dev/null || python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print(f"Components: {len(d.get(chr(99)+chr(111)+chr(109)+chr(112)+chr(111)+chr(110)+chr(101)+chr(110)+chr(116)+chr(115),[]))}") ' "$SBOM_FILE" 2>/dev/null || echo "SBOM parsed"
@@ -412,11 +412,10 @@ jobs:
       uses: anchore/scan-action@7037fa011853d5a11690026fb85feee79f4c946c  # v7.3.2
       id: grype-scan
       with:
-        sbom: "indestructibleeco-sbom-${{ github.sha }}.json"
+        sbom: "eco-base-sbom-${{ github.sha }}.json"
         fail-build: false
         severity-cutoff: critical
         output-format: sarif
-      continue-on-error: true
 
     - name: Upload Grype SARIF to GitHub Security
       uses: github/codeql-action/upload-sarif@ce28f5bb42b7a9f2c824e633a3f6ee835bab6858  # v3.29.0
@@ -427,7 +426,7 @@ jobs:
 
     - name: Sign SBOM with cosign (keyless, Sigstore)
       run: |
-        SBOM_FILE="indestructibleeco-sbom-${{ github.sha }}.json"
+        SBOM_FILE="eco-base-sbom-${{ github.sha }}.json"
         if command -v cosign &>/dev/null && [ -f "$SBOM_FILE" ]; then
           cosign sign-blob \
             --yes \
@@ -443,9 +442,9 @@ jobs:
       with:
         name: "sbom-${{ github.sha }}"
         path: |
-          indestructibleeco-sbom-${{ github.sha }}.json
-          indestructibleeco-sbom-${{ github.sha }}.sig
-          indestructibleeco-sbom-${{ github.sha }}.pem
+          eco-base-sbom-${{ github.sha }}.json
+          eco-base-sbom-${{ github.sha }}.sig
+          eco-base-sbom-${{ github.sha }}.pem
         retention-days: 90
 
     - name: Supply chain summary
@@ -455,9 +454,9 @@ jobs:
         echo "" >> "$GITHUB_STEP_SUMMARY"
         echo "| Check | Status |" >> "$GITHUB_STEP_SUMMARY"
         echo "|-------|--------|" >> "$GITHUB_STEP_SUMMARY"
-        SBOM_FILE="indestructibleeco-sbom-${{ github.sha }}.json"
+        SBOM_FILE="eco-base-sbom-${{ github.sha }}.json"
         if [ -f "$SBOM_FILE" ]; then
-          COMP=$(python3 -c "import json; d=json.load(open('$SBOM_FILE')); print(len(d.get('components',[])))")
+          COMP=$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print(len(d.get("components",[])))' "$SBOM_FILE")
           echo "| SBOM (CycloneDX) | Generated — $COMP components |" >> "$GITHUB_STEP_SUMMARY"
         else
           echo "| SBOM (CycloneDX) | Failed |" >> "$GITHUB_STEP_SUMMARY"

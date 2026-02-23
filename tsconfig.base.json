@@ -14,9 +14,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@indestructibleeco/ui-kit":      ["./packages/ui-kit/src/index.ts"],
-      "@indestructibleeco/api-client":  ["./packages/api-client/src/index.ts"],
-      "@indestructibleeco/shared-types":["./packages/shared-types/src/index.ts"]
+      "@eco-base/ui-kit":      ["./packages/ui-kit/src/index.ts"],
+      "@eco-base/api-client":  ["./packages/api-client/src/index.ts"],
+      "@eco-base/shared-types":["./packages/shared-types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist", "build", ".storybook"]

@@ -1,6 +1,6 @@
-"""IndestructibleEco AI Service configuration — environment-driven, zero hardcoded secrets.
+"""eco-base AI Service configuration — environment-driven, zero hardcoded secrets.
 
-URI: indestructibleeco://backend/ai/config
+URI: eco-base://backend/ai/config
 All environment variables use the ECO_* prefix for namespace isolation.
 """
 

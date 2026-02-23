@@ -76,13 +76,13 @@
           "properties": {
             "uri": {
               "type": "string",
-              "pattern": "^indestructibleeco://",
-              "description": "IndestructibleEco URI for this skill"
+              "pattern": "^eco-base://",
+              "description": "eco-base URI for this skill"
             },
             "urn": {
               "type": "string",
-              "pattern": "^urn:indestructibleeco:",
-              "description": "IndestructibleEco URN for this skill"
+              "pattern": "^urn:eco-base:",
+              "description": "eco-base URN for this skill"
             },
             "schema_version": {
               "type": "string",

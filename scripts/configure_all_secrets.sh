@@ -1,5 +1,5 @@
 #!/bin/bash
-# Complete Secrets Configuration Script for IndestructibleEco
+# Complete Secrets Configuration Script for eco-base
 # This script configures all GCP, Supabase, and Cloudflare secrets
 
 set -e
@@ -11,7 +11,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}=== IndestructibleEco Complete Secrets Configuration ===${NC}"
+echo -e "${BLUE}=== eco-base Complete Secrets Configuration ===${NC}"
 echo ""
 
 # Check if kubectl is installed
@@ -27,7 +27,7 @@ if ! kubectl cluster-info &> /dev/null; then
 fi
 
 # Configuration
-NAMESPACE="indestructibleeco"
+NAMESPACE="eco-base"
 MONITORING_NAMESPACE="monitoring"
 
 echo -e "${GREEN}Step 1: Configuring GCP Service Account Secret${NC}"

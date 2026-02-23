@@ -1,15 +1,15 @@
 # Identity Consistency Rules
-# URI: indestructibleeco://tools/ci-validator/rules/identity
+# URI: eco-base://tools/ci-validator/rules/identity
 
 stale_patterns:
   - pattern: '\bsuperai\b'
-    replacement: indestructibleeco
+    replacement: eco-base
     description: "stale identity reference 'superai'"
   - pattern: '\bSUPERAI_'
     replacement: 'ECO_'
     description: "stale env var prefix 'SUPERAI_'"
   - pattern: '\bsuperai-platform\b'
-    replacement: indestructibleeco
+    replacement: eco-base
     description: "stale project name 'superai-platform'"
 
 excluded_files:

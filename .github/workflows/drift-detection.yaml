@@ -1,7 +1,7 @@
 name: Infrastructure Drift Detection & Auto-Sync
 
-# IndestructibleEco Drift Detection
-# URI: indestructibleeco://github/workflows/drift-detection
+# eco-base Drift Detection
+# URI: eco-base://github/workflows/drift-detection
 #
 # Detects configuration drift between GitOps desired state (this repo)
 # and actual cluster state (GKE), then:
@@ -33,7 +33,7 @@ permissions:
   pull-requests: read
 
 env:
-  GKE_CLUSTER: indestructibleeco-prod
+  GKE_CLUSTER: eco-base-prod
   GKE_REGION: asia-east1
   ARGOCD_APPS: "eco-production eco-staging eco-monitoring eco-core"
 
@@ -61,14 +61,12 @@ jobs:
       with:
         workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      continue-on-error: true
 
     - name: Get GKE credentials
       uses: google-github-actions/get-gke-credentials@7a108e64ed8546fe38316b4086e91da13f4785e1  # v2.3.1
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_REGION }}
-      continue-on-error: true
 
     - name: Detect ArgoCD application drift
       id: detect
@@ -143,14 +141,12 @@ jobs:
       with:
         workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      continue-on-error: true
 
     - name: Get GKE credentials
       uses: google-github-actions/get-gke-credentials@7a108e64ed8546fe38316b4086e91da13f4785e1  # v2.3.1
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_REGION }}
-      continue-on-error: true
 
     - name: Sync drifted applications via ArgoCD
       id: sync

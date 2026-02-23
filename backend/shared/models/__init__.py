@@ -1,4 +1,4 @@
-"""Shared database models for IndestructibleEco platform.
+"""Shared database models for eco-base platform.
 
 UUID Policy: UUID v1 (time-based) for all identifiers.
 - Sortable by creation time
@@ -6,8 +6,8 @@ UUID Policy: UUID v1 (time-based) for all identifiers.
 - Node-aware for distributed systems
 
 URI/URN Policy:
-- URI: indestructibleeco://{domain}/{kind}/{name}
-- URN: urn:indestructibleeco:{domain}:{kind}:{name}:{uuid}
+- URI: eco-base://{domain}/{kind}/{name}
+- URN: urn:eco-base:{domain}:{kind}:{name}:{uuid}
 """
 
 from dataclasses import dataclass, field
@@ -18,11 +18,11 @@ from uuid import UUID, uuid1
 
 
 def generate_uri(domain: str, kind: str, name: str) -> str:
-    return f"indestructibleeco://{domain}/{kind}/{name}"
+    return f"eco-base://{domain}/{kind}/{name}"
 
 
 def generate_urn(domain: str, kind: str, name: str, uid: UUID) -> str:
-    return f"urn:indestructibleeco:{domain}:{kind}:{name}:{uid}"
+    return f"urn:eco-base:{domain}:{kind}:{name}:{uid}"
 
 
 class UserRole(str, Enum):
@@ -82,7 +82,7 @@ class Platform:
     urn: str = ""
     config: Dict[str, Any] = field(default_factory=dict)
     capabilities: List[str] = field(default_factory=list)
-    k8s_namespace: str = "indestructibleeco"
+    k8s_namespace: str = "eco-base"
     deploy_target: str = ""
     owner_id: Optional[UUID] = None
     created_at: datetime = field(default_factory=datetime.utcnow)

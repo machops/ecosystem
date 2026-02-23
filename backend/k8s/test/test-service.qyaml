@@ -2,24 +2,42 @@
 # AutoEcoOps Governance Block (auto-injected)
 document_metadata:
   unique_id: "eco-test-service-k8s-001"
-  uri: "indestructibleeco://backend/k8s/test/test-service"
-  owner: "platform-team@indestructibleeco.io"
+  uri: "eco-base://backend/k8s/test/test-service"
+  owner: "platform-team@eco-base.io"
   classification: "internal"
   retention_policy: "3y"
   compliance_tags: ["SOC2", "ISO27001"]
-# Test service manifest - intentionally missing governance blocks for auto-fix testing
+  target_system: gke-staging
+  schema_version: v8
+  generated_by: yaml-toolkit-v8
+governance_info:
+  owner: platform-team
+  approval_chain: [platform-team]
+  compliance_tags: [zero-trust, internal]
+  lifecycle_policy: active
+registry_binding:
+  service_endpoint: "http://test-service.eco-base.svc.cluster.local"
+  discovery_protocol: consul
+  health_check_path: "/health"
+  registry_ttl: 30
+vector_alignment_map:
+  alignment_model: quantum-bert-xxl-v1
+  coherence_vector_dim: 1024
+  function_keyword: [test, service, validation]
+  contextual_binding: "test-service -> [eco-base]"
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: test-service
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     app: test
     generated-by: yaml-toolkit-v1
     unique-id: "test-0000-0000-0000-000000000001"
   annotations:
-    indestructibleeco/uri: "indestructibleeco://k8s/indestructibleeco/service/test-service"
-    indestructibleeco/urn: "urn:indestructibleeco:k8s:indestructibleeco:service:test-service:test-0000"
+    eco-base/uri: "eco-base://k8s/eco-base/service/test-service"
+    eco-base/urn: "urn:eco-base:k8s:eco-base:service:test-service:test-0000"
 spec:
   selector:
     app: test

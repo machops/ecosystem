@@ -1,7 +1,7 @@
-# IndestructibleEco Repository Configuration Mapping
+# eco-base Repository Configuration Mapping
 
 ## Overview
-This document provides a comprehensive mapping of all configuration files, documentation, and infrastructure components created during Phase A and Phase B of the IndestructibleEco infrastructure setup.
+This document provides a comprehensive mapping of all configuration files, documentation, and infrastructure components created during Phase A and Phase B of the eco-base infrastructure setup.
 
 ---
 
@@ -16,7 +16,7 @@ This document provides a comprehensive mapping of all configuration files, docum
 ### A2: Secret Scanning & Push Protection
 **Status**: Enabled on all repositories
 - Repositories configured:
-  - `indestructibleeco`
+  - `eco-base`
   - `autoecoops-api`
   - `autoecoops-v1`
 - Features enabled:
@@ -41,7 +41,7 @@ This document provides a comprehensive mapping of all configuration files, docum
 **Status**: Verified across namespaces
 - Namespaces with policies:
   - `eco-staging`
-  - `indestructibleeco`
+  - `eco-base`
   - `monitoring`
 - **Configuration**: `/workspace/repo/k8s/base/networkpolicy.qyaml`
 
@@ -49,7 +49,7 @@ This document provides a comprehensive mapping of all configuration files, docum
 **Status**: Configured
 - Namespaces configured:
   - `eco-staging`
-  - `indestructibleeco`
+  - `eco-base`
 - **Configuration**: `/workspace/repo/helm/templates/` (via Helm charts)
 
 ### A7: GitHub OAuth App Registration
@@ -67,10 +67,10 @@ This document provides a comprehensive mapping of all configuration files, docum
 
 ### B1: Docker Artifact Registry
 **Status**: Created and configured
-- **Registry Name**: `indestructibleeco`
+- **Registry Name**: `eco-base`
 - **Location**: `asia-east1`
 - **Format**: Docker
-- **URI**: `asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco`
+- **URI**: `asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base`
 - **IAM**: `eco-deploy-sa` granted `roles/artifactregistry.writer`
 - **Documentation**: `/workspace/PHASE_B_COMPLETION_REPORT.md`
 
@@ -80,9 +80,9 @@ This document provides a comprehensive mapping of all configuration files, docum
 
 | File | Deployment | Min Replicas | Max Replicas | CPU Threshold | Memory Threshold |
 |------|-----------|--------------|--------------|---------------|------------------|
-| `hpa-indestructibleeco-web.yaml` | indestructibleeco-web | 2 | 10 | 70% | 80% |
-| `hpa-indestructibleeco-api.yaml` | indestructibleeco-api | 2 | 10 | 70% | 80% |
-| `hpa-indestructibleeco-ai.yaml` | indestructibleeco-ai | 2 | 8 | 75% | 85% |
+| `hpa-eco-base-web.yaml` | eco-base-web | 2 | 10 | 70% | 80% |
+| `hpa-eco-base-api.yaml` | eco-base-api | 2 | 10 | 70% | 80% |
+| `hpa-eco-base-ai.yaml` | eco-base-ai | 2 | 8 | 75% | 85% |
 
 ### B3: Pod Disruption Budgets (PDBs)
 **Status**: Created and applied
@@ -90,9 +90,9 @@ This document provides a comprehensive mapping of all configuration files, docum
 
 | File | Deployment | Min Available |
 |------|-----------|---------------|
-| `pdb-indestructibleeco-web.yaml` | indestructibleeco-web | 1 |
-| `pdb-indestructibleeco-api.yaml` | indestructibleeco-api | 1 |
-| `pdb-indestructibleeco-ai.yaml` | indestructibleeco-ai | 1 |
+| `pdb-eco-base-web.yaml` | eco-base-web | 1 |
+| `pdb-eco-base-api.yaml` | eco-base-api | 1 |
+| `pdb-eco-base-ai.yaml` | eco-base-ai | 1 |
 
 ### B4: Supabase Schema & RLS Policies
 **Status**: Created and applied
@@ -123,9 +123,9 @@ This document provides a comprehensive mapping of all configuration files, docum
 **Location**: `/workspace/k8s/production/gmp-podmonitoring.qyaml`
 
 #### Monitoring Resources
-- `indestructibleeco-pod-monitoring` - Web service metrics
-- `indestructibleeco-api-monitoring` - API gateway metrics
-- `indestructibleeco-ai-monitoring` - AI service metrics
+- `eco-base-pod-monitoring` - Web service metrics
+- `eco-base-api-monitoring` - API gateway metrics
+- `eco-base-ai-monitoring` - AI service metrics
 
 **Configuration**:
 - Scrape interval: 30s
@@ -309,12 +309,12 @@ repo/tools/
 ### Autoscaling Files
 ```
 k8s/production/
-├── hpa-indestructibleeco-web.yaml      # Web HPA
-├── hpa-indestructibleeco-api.yaml      # API HPA
-├── hpa-indestructibleeco-ai.yaml       # AI HPA
-├── pdb-indestructibleeco-web.yaml      # Web PDB
-├── pdb-indestructibleeco-api.yaml      # API PDB
-├── pdb-indestructibleeco-ai.yaml       # AI PDB
+├── hpa-eco-base-web.yaml      # Web HPA
+├── hpa-eco-base-api.yaml      # API HPA
+├── hpa-eco-base-ai.yaml       # AI HPA
+├── pdb-eco-base-web.yaml      # Web PDB
+├── pdb-eco-base-api.yaml      # API PDB
+├── pdb-eco-base-ai.yaml       # AI PDB
 └── gmp-podmonitoring.qyaml             # GMP PodMonitoring
 ```
 
@@ -406,8 +406,8 @@ supabase/migrations/
 6. **Documentation**: Complete repository mapping and configuration documentation
 
 ### Infrastructure Components
-- **Artifact Registry**: `asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco`
-- **Kubernetes Namespaces**: `eco-staging`, `indestructibleeco`, `monitoring`
+- **Artifact Registry**: `asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base`
+- **Kubernetes Namespaces**: `eco-staging`, `eco-base`, `monitoring`
 - **Supabase**: Schema and RLS policies deployed
 - **Cloudflare**: TLS 1.2, WAF rulesets, DNS records configured
 

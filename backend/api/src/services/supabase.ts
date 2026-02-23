@@ -1,6 +1,6 @@
 /**
- * IndestructibleEco — Supabase Client Service
- * URI: indestructibleeco://backend/api/services/supabase
+ * eco-base — Supabase Client Service
+ * URI: eco-base://backend/api/services/supabase
  *
  * Wraps @supabase/supabase-js for typed CRUD on all platform tables.
  * Uses service_role key for server-side operations with RLS bypass.

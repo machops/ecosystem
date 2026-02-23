@@ -84,8 +84,8 @@ jobs:
       - name: Verify configuration
         if: github.event.inputs.action == 'verify-config'
         run: |
-          kubectl get secret oauth-secrets -n indestructibleeco 2>/dev/null || echo "Secret not found"
-          kubectl get configmap oauth-config -n indestructibleeco 2>/dev/null || echo "ConfigMap not found"
+          kubectl get secret oauth-secrets -n eco-base 2>/dev/null || echo "Secret not found"
+          kubectl get configmap oauth-config -n eco-base 2>/dev/null || echo "ConfigMap not found"
 
       - name: Cleanup credentials
         if: always()

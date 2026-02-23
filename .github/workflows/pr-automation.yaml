@@ -1,7 +1,7 @@
 name: PR Quality Gate & Automation
 
-# IndestructibleEco PR Automation
-# URI: indestructibleeco://github/workflows/pr-automation
+# eco-base PR Automation
+# URI: eco-base://github/workflows/pr-automation
 #
 # Enforces quality gates on every PR:
 #   1. Auto-label by changed paths (CODEOWNERS-aware)

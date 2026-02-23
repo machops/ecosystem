@@ -127,8 +127,8 @@ jobs:
         uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a  # v3.8.1
       - name: Verify SBOM signature (supply chain integrity gate)
         run: |
-          SBOM_FILE="indestructibleeco-sbom-${{ github.sha }}.json"
-          SIG_FILE="indestructibleeco-sbom-${{ github.sha }}.sig"
+          SBOM_FILE="eco-base-sbom-${{ github.sha }}.json"
+          SIG_FILE="eco-base-sbom-${{ github.sha }}.sig"
           echo "=== Supply Chain Integrity Verification ==="
           # Download SBOM artifact from CI run if available
           if command -v cosign &>/dev/null; then

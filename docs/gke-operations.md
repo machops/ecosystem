@@ -1,4 +1,4 @@
-# GKE Operations Guide — IndestructibleEco
+# GKE Operations Guide — eco-base
 
 ## Cluster Information
 

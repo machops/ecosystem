@@ -23,13 +23,13 @@ providers:
       path: /etc/grafana/provisioning/dashboards/kubernetes
       foldersFromFilesStructure: true
 
-  - name: 'IndestructibleEco Dashboards'
+  - name: 'eco-base Dashboards'
     orgId: 1
-    folder: 'IndestructibleEco'
+    folder: 'eco-base'
     type: file
     disableDeletion: false
     updateIntervalSeconds: 10
     allowUiUpdates: true
     options:
-      path: /etc/grafana/provisioning/dashboards/indestructibleeco
+      path: /etc/grafana/provisioning/dashboards/eco-base
       foldersFromFilesStructure: true

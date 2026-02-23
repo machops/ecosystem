@@ -1,7 +1,7 @@
-"""IndestructibleEco AI Services — Engine management, connection pooling, circuit breaking,
+"""eco-base AI Services — Engine management, connection pooling, circuit breaking,
 async worker, gRPC server, embedding.
 
-URI: indestructibleeco://backend/ai/services
+URI: eco-base://backend/ai/services
 """
 
 from .circuit_breaker import CircuitBreaker, CircuitState

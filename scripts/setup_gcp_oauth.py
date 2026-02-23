@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-OAuth 2.0 Configuration Setup Script for IndestructibleEco
+OAuth 2.0 Configuration Setup Script for eco-base
 
 This script automates the setup of OAuth 2.0 configuration for GKE/IAP integration.
 """
@@ -85,7 +85,7 @@ class OAuthSetup:
 kind: Secret
 metadata:
   name: oauth-secrets
-  namespace: indestructibleeco
+  namespace: eco-base
 type: Opaque
 stringData:
   ECO_OAUTH_CLIENT_ID: {config['oauth']['client_id']}
@@ -95,7 +95,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: oauth-config
-  namespace: indestructibleeco
+  namespace: eco-base
 data:
   oauth-config.json: |
     {json.dumps(config, indent=2)}
@@ -117,7 +117,7 @@ data:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Setup OAuth 2.0 configuration for IndestructibleEco'
+        description='Setup OAuth 2.0 configuration for eco-base'
     )
     parser.add_argument(
         '--environment',

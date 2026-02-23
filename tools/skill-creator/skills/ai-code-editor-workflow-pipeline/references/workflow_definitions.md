@@ -107,7 +107,7 @@
   "commit_sha": "abc123",
   "content_hash": "sha256:...",
   "compliance_tags": ["slsa-l3", "sbom", "soc2"],
-  "governance_stamp": { "uri": "indestructibleeco://...", "urn": "urn:indestructibleeco:..." }
+  "governance_stamp": { "uri": "eco-base://...", "urn": "urn:eco-base:..." }
 }
 ```
 

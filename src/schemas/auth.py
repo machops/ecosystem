@@ -1,6 +1,6 @@
 """Authentication schemas — API Key management and user roles.
 
-URI: indestructibleeco://src/schemas/auth
+URI: eco-base://src/schemas/auth
 
 Contracts defined by: tests/unit/test_auth.py, tests/unit/test_schemas.py
 """

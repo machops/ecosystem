@@ -6,7 +6,7 @@
     "timestamp": "2025-02-20T00:00:00Z",
     "component": {
       "type": "application",
-      "name": "indestructibleeco",
+      "name": "eco-base",
       "version": "1.0.0",
       "description": "Enterprise Cloud-Native AI Platform",
       "licenses": [
@@ -19,7 +19,7 @@
       "externalReferences": [
         {
           "type": "vcs",
-          "url": "https://github.com/indestructibleorg/indestructibleeco"
+          "url": "https://github.com/indestructibleorg/eco-base"
         },
         {
           "type": "website",
@@ -29,7 +29,7 @@
     },
     "tools": [
       {
-        "name": "indestructibleeco-sbom-gen",
+        "name": "eco-base-sbom-gen",
         "version": "1.0.0"
       }
     ]

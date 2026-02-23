@@ -2,7 +2,7 @@
 
 **Date**: February 21, 2026
 **Commit**: b2f95ef
-**Project**: IndestructibleEco
+**Project**: eco-base
 
 ---
 
@@ -264,7 +264,7 @@ kubectl patch ingress grafana-ingress -n monitoring -p '{
    ```
 
 2. **Access Grafana**
-   - URL: http://grafana.indestructibleeco.io
+   - URL: http://grafana.eco-base.io
    - Login with admin credentials
    - Navigate to Dashboards → Supabase → Supabase Overview
 

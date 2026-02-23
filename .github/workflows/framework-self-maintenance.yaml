@@ -1,6 +1,6 @@
 name: Framework Self-Maintenance — Health, Integrity & Auto-Repair
-# IndestructibleEco AutoEcoOps — Self-Maintaining Framework
-# URI: indestructibleeco://github/workflows/framework-self-maintenance
+# eco-base AutoEcoOps — Self-Maintaining Framework
+# URI: eco-base://github/workflows/framework-self-maintenance
 #
 # This workflow ensures the automation framework itself remains healthy.
 # It runs on schedule and after every deployment to verify:
@@ -20,8 +20,8 @@ name: Framework Self-Maintenance — Health, Integrity & Auto-Repair
 # Governance:
 #   document_metadata:
 #     unique_id: "eco-framework-self-maintenance-001"
-#     uri: "indestructibleeco://github/workflows/framework-self-maintenance"
-#     owner: "platform-team@indestructibleeco.io"
+#     uri: "eco-base://github/workflows/framework-self-maintenance"
+#     owner: "platform-team@eco-base.io"
 #     classification: "critical"
 #     retention_policy: "7y"
 #     compliance_tags: ["SOC2", "ISO27001"]

@@ -41,8 +41,8 @@ else:
     production_governance = {
         'document_metadata': {
             'unique_id': 'eco-prod-cm-0001-0001-000000000001',
-            'uri': 'indestructibleeco://k8s/eco-production/configmap/eco-config',
-            'urn': 'urn:indestructibleeco:k8s:eco-production:configmap:eco-config:eco-prod-cm-0001-0001-000000000001',
+            'uri': 'eco-base://k8s/eco-production/configmap/eco-config',
+            'urn': 'urn:eco-base:k8s:eco-production:configmap:eco-config:eco-prod-cm-0001-0001-000000000001',
             'target_system': 'gke-eco-production',
             'cross_layer_binding': ['api-gateway', 'ai-service', 'api-service', 'web-frontend'],
             'schema_version': 'v8',
@@ -132,8 +132,8 @@ production_secret = {
         'name': 'eco-secrets',
         'namespace': 'eco-production',
         'labels': {
-            'app.kubernetes.io/name': 'indestructibleeco',
-            'app.kubernetes.io/part-of': 'indestructibleeco',
+            'app.kubernetes.io/name': 'eco-base',
+            'app.kubernetes.io/part-of': 'eco-base',
             'environment': 'production'
         }
     },

@@ -1,5 +1,5 @@
 # auto-generator-prompt.md
-# indestructibleeco YAML Toolkit v8 — AI Auto-Generator Prompt
+# eco-base YAML Toolkit v8 — AI Auto-Generator Prompt
 # Version: v1.0.0
 # Usage: Paste this entire file as the system prompt for any LLM-based YAML generation task.
 #        Then append the [MODULE INPUT] block at the bottom with real values.
@@ -7,11 +7,11 @@
 ---
 
 # ════════════════════════════════════════════════════════════════════════════
-# SYSTEM PROMPT — indestructibleeco YAML Toolkit v8
+# SYSTEM PROMPT — eco-base YAML Toolkit v8
 # ════════════════════════════════════════════════════════════════════════════
 
-You are **indestructibleeco-yaml-agent**, an expert YAML governance architect
-operating within the indestructibleeco v1.0 enterprise cloud-native platform.
+You are **eco-base-yaml-agent**, an expert YAML governance architect
+operating within the eco-base v1.0 enterprise cloud-native platform.
 
 Your sole function is to receive a **Module Descriptor** (JSON) and produce a
 fully compliant `.qyaml` governance document. You must follow every rule in
@@ -46,7 +46,7 @@ top-level sections, in this order:
 ```
 1. [Kubernetes / Docker / Helm / Nomad payload]   ← target-specific manifest
 2. ---                                             ← document separator
-3. governance_companion:                           ← indestructibleeco block
+3. governance_companion:                           ← eco-base block
      document_metadata:      { ... }
      governance_info:        { ... }
      registry_binding:       { ... }
@@ -75,7 +75,7 @@ fields marked `[optional]` have defaults shown.
   "labels":      "[optional] object   — additional K8s labels",
   "env":         "[optional] object   — env var name→value map (non-secret values only)",
   "target":      "[optional] enum     — 'k8s' | 'docker' | 'helm' | 'nomad', default: 'k8s'",
-  "namespace":   "[optional] string   — K8s namespace, default: 'indestructibleeco'",
+  "namespace":   "[optional] string   — K8s namespace, default: 'eco-base'",
   "owner":       "[optional] string   — team owner, default: 'platform-team'",
   "compliance":  "[optional] string[] — compliance tags, default: ['internal']",
   "resources": {
@@ -206,7 +206,7 @@ Produce a `Deployment` resource. Rules:
 
 - `apiVersion: apps/v1`
 - `kind: Deployment`
-- namespace from `module.namespace`, default `indestructibleeco`
+- namespace from `module.namespace`, default `eco-base`
 - Labels: always include `generated-by: yaml-toolkit-v8` and
   `app: {module.name}` and `tier: backend`
 - Add custom labels from `module.labels` (merge, do not override mandatory labels)
@@ -214,7 +214,7 @@ Produce a `Deployment` resource. Rules:
 - `spec.selector.matchLabels`: must match `template.metadata.labels`
 - Container name: same as `module.name`
 - Image: from `module.image`; if absent use placeholder
-  `"ghcr.io/indestructibleeco/{module.name}:latest"`
+  `"ghcr.io/eco-base/{module.name}:latest"`
 - Ports: one `containerPort` per value in `module.ports`
 - Env vars: from `module.env` as `name`/`value` pairs under `env:`
 - Always add `envFrom: [{secretRef: {name: "{module.name}-secrets"}}]`
@@ -240,7 +240,7 @@ Produce a valid `docker-compose.yml` v3.9 service stanza for the module.
 Append the governance_companion as a YAML comment block at the end:
 
 ```yaml
-# ── indestructibleeco Governance Companion ────────────────────────────────
+# ── eco-base Governance Companion ────────────────────────────────
 # document_metadata:
 #   unique_id: ...
 # (etc — all four blocks as commented YAML)
@@ -380,7 +380,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-service
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     app: user-service
     tier: backend
@@ -436,7 +436,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-service
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     app: user-service
     generated-by: yaml-toolkit-v8
@@ -453,7 +453,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: user-service-governance
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     generated-by: yaml-toolkit-v8
 data:
@@ -527,7 +527,7 @@ services:
     labels:
       generated-by: yaml-toolkit-v8
 
-# ── indestructibleeco Governance Companion ────────────────────────────────────
+# ── eco-base Governance Companion ────────────────────────────────────
 # document_metadata:
 #   unique_id:             b9e2d451-7f3a-4c8b-a1e6-3d7f2b9c5e0a
 #   target_system:         docker-compose
@@ -641,7 +641,7 @@ FIXED CONSTANTS
   allowed_dims:     [1024, 2048, 4096]
   tolerance_range:  0.0001 – 0.005
   default_replicas: 2
-  default_ns:       indestructibleeco
+  default_ns:       eco-base
   default_protocol: consul
   default_ttl:      30
 
@@ -650,7 +650,7 @@ REQUIRED INPUT FIELDS
 
 OPTIONAL WITH DEFAULTS
   target           → "k8s"
-  namespace        → "indestructibleeco"
+  namespace        → "eco-base"
   replicas         → 2
   owner            → "platform-team"
   compliance       → ["internal"]

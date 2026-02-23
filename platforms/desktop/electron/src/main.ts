@@ -53,7 +53,7 @@ function createTray(): void {
       { label: "Show", click: () => mainWindow?.show() },
       { label: "Quit", click: () => app.quit() },
     ]);
-    tray.setToolTip("IndestructibleEco");
+    tray.setToolTip("eco-base");
     tray.setContextMenu(contextMenu);
   } catch {
     // Tray icon not available in CI/headless — skip silently

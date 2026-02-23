@@ -1,6 +1,6 @@
 """Real-time Index Updater.
 
-URI: indestructibleeco://backend/ai/engines/folding/realtime_index
+URI: eco-base://backend/ai/engines/folding/realtime_index
 
 Provides incremental update and dynamic indexing mechanisms to ensure
 new data is rapidly integrated into the model. Supports real-time

@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to IndestructibleEco are documented in this file.
+All notable changes to eco-base are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -66,9 +66,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 #### Packages
 
-- `@indestructibleeco/shared-types` v1.0.0 -- TypeScript type definitions (user, platform, AI, requests, responses)
-- `@indestructibleeco/api-client` v1.0.0 -- Typed HTTP client with retry, interceptors, WebSocket
-- `@indestructibleeco/ui-kit` v1.0.0 -- React components (Modal, Dropdown, Table, Toast)
+- `@eco-base/shared-types` v1.0.0 -- TypeScript type definitions (user, platform, AI, requests, responses)
+- `@eco-base/api-client` v1.0.0 -- Typed HTTP client with retry, interceptors, WebSocket
+- `@eco-base/ui-kit` v1.0.0 -- React components (Modal, Dropdown, Table, Toast)
 
 #### Infrastructure
 
@@ -127,4 +127,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - E2E full flow tests (12 tests)
 - Skill manifest tests (70 tests)
 
-[1.0.0]: https://github.com/indestructibleorg/indestructibleeco/releases/tag/v1.0.0
+[1.0.0]: https://github.com/indestructibleorg/eco-base/releases/tag/v1.0.0

@@ -1,10 +1,10 @@
-# IndestructibleEco Architecture
+# eco-base Architecture
 
-URI: indestructibleeco://docs/ARCHITECTURE
+URI: eco-base://docs/ARCHITECTURE
 
 ## System Overview
 
-IndestructibleEco is an enterprise cloud-native AI platform built as a mono-repository. It provides multi-engine inference routing across 7 engine backends, .qyaml governance enforcement, Argo CD GitOps deployment, and a full observability stack. The platform is designed for high availability with circuit breakers, connection pooling, automatic failover, and self-healing infrastructure.
+eco-base is an enterprise cloud-native AI platform built as a mono-repository. It provides multi-engine inference routing across 7 engine backends, .qyaml governance enforcement, Argo CD GitOps deployment, and a full observability stack. The platform is designed for high availability with circuit breakers, connection pooling, automatic failover, and self-healing infrastructure.
 
 ## High-Level Architecture
 

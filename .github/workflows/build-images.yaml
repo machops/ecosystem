@@ -28,7 +28,7 @@ on:
 env:
   PROJECT_ID: my-project-ops-1991
   REGION: asia-east1
-  REGISTRY: asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco
+  REGISTRY: asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base
   VERSION: v1.0.0
 
 permissions:

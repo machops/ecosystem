@@ -1,6 +1,6 @@
-# IndestructibleEco Staging Values Override
+# eco-base Staging Values Override
 global:
-  namespace: indestructibleeco-staging
+  namespace: eco-base-staging
   imageRegistry: "ghcr.io/indestructibleorg"
 
 api:

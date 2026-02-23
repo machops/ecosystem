@@ -1,5 +1,5 @@
 #!/bin/bash
-# Complete Infrastructure Deployment Script for IndestructibleEco
+# Complete Infrastructure Deployment Script for eco-base
 # This script deploys all infrastructure components
 
 set -e
@@ -11,7 +11,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}=== IndestructibleEco Complete Infrastructure Deployment ===${NC}"
+echo -e "${BLUE}=== eco-base Complete Infrastructure Deployment ===${NC}"
 echo ""
 
 # Check if kubectl is installed
@@ -27,7 +27,7 @@ if ! kubectl cluster-info &> /dev/null; then
 fi
 
 # Configuration
-NAMESPACE="indestructibleeco"
+NAMESPACE="eco-base"
 MONITORING_NAMESPACE="monitoring"
 
 echo -e "${GREEN}Phase 1: Configuring Secrets${NC}"

@@ -5,7 +5,7 @@ HealthCheck RPCs on ECO_AI_GRPC_PORT (default 8000).
 
 Uses asyncio-based gRPC with EngineManager for dispatch.
 
-URI: indestructibleeco://backend/ai/services/grpc_server
+URI: eco-base://backend/ai/services/grpc_server
 """
 
 from __future__ import annotations

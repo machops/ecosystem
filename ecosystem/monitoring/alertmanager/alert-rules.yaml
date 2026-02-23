@@ -1,5 +1,5 @@
-# IndestructibleEco Prometheus Alert Rules
-# URI: indestructibleeco://ecosystem/monitoring/alertmanager/alert-rules
+# eco-base Prometheus Alert Rules
+# URI: eco-base://ecosystem/monitoring/alertmanager/alert-rules
 
 groups:
   - name: eco-inference-alerts
@@ -124,7 +124,7 @@ groups:
   - name: eco-resource-alerts
     rules:
       - alert: HighMemoryUsage
-        expr: container_memory_working_set_bytes{namespace="indestructibleeco"} / container_spec_memory_limit_bytes > 0.85
+        expr: container_memory_working_set_bytes{namespace="eco-base"} / container_spec_memory_limit_bytes > 0.85
         for: 5m
         labels:
           severity: warning
@@ -134,7 +134,7 @@ groups:
           description: "Memory usage is {{ $value | humanizePercentage }} of limit."
 
       - alert: HighCPUUsage
-        expr: rate(container_cpu_usage_seconds_total{namespace="indestructibleeco"}[5m]) / container_spec_cpu_quota * 100000 > 0.85
+        expr: rate(container_cpu_usage_seconds_total{namespace="eco-base"}[5m]) / container_spec_cpu_quota * 100000 > 0.85
         for: 5m
         labels:
           severity: warning
@@ -144,7 +144,7 @@ groups:
           description: "CPU usage is {{ $value | humanizePercentage }} of limit."
 
       - alert: PodRestartLoop
-        expr: increase(kube_pod_container_status_restarts_total{namespace="indestructibleeco"}[1h]) > 3
+        expr: increase(kube_pod_container_status_restarts_total{namespace="eco-base"}[1h]) > 3
         for: 0s
         labels:
           severity: critical

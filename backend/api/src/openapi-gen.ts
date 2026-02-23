@@ -2,13 +2,13 @@ import fs from "fs";
 import path from "path";
 
 /**
- * OpenAPI 3.1 specification generator for IndestructibleEco API.
+ * OpenAPI 3.1 specification generator for eco-base API.
  * Run: tsx src/openapi-gen.ts
  */
 const spec = {
   openapi: "3.1.0",
   info: {
-    title: "IndestructibleEco API",
+    title: "eco-base API",
     version: "1.0.0",
     description: "Enterprise cloud-native platform API — REST + WebSocket",
     contact: { name: "Platform Team", url: "https://autoecoops.io" },

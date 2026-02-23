@@ -1,6 +1,6 @@
 """Model Registry — central model lifecycle management.
 
-URI: indestructibleeco://src/core/registry
+URI: eco-base://src/core/registry
 
 Contracts defined by: tests/unit/test_registry.py
 """

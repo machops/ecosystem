@@ -1,6 +1,6 @@
 """Inference Adapter Resilience Layer.
 
-URI: indestructibleeco://backend/ai/engines/inference/resilience
+URI: eco-base://backend/ai/engines/inference/resilience
 
 Provides connection pooling, circuit breaking, and retry with exponential
 backoff for all inference engine adapters. Adapters import and use

@@ -1,5 +1,5 @@
 /**
- * IndestructibleEco Telegram Bot Adapter
+ * eco-base Telegram Bot Adapter
  *
  * Production-grade adapter for Telegram Bot API via Telegraf.
  * Uses shared normalizer for message parsing, shared router for
@@ -13,7 +13,7 @@
  * - Graceful shutdown
  * - Health command + metrics
  *
- * URI: indestructibleeco://platforms/im-integration/telegram
+ * URI: eco-base://platforms/im-integration/telegram
  */
 
 import { Telegraf, Context } from "telegraf";
@@ -90,7 +90,7 @@ export async function sendTelegramReply(
 bot.command("start", async (ctx) => {
   metrics.commands_received++;
   await ctx.reply(
-    "🤖 *IndestructibleEco AI Bot*\n\n" +
+    "🤖 *eco-base AI Bot*\n\n" +
       "Send any message to start a conversation with AI.\n\n" +
       "Commands:\n" +
       "/start — Show this message\n" +
@@ -192,7 +192,7 @@ healthApp.get("/health", (_req, res) =>
     version: "2.0.0",
     mode: MODE,
     api: process.env.ECO_API_URL || "http://localhost:3000",
-    uri: "indestructibleeco://platforms/im-integration/telegram/health",
+    uri: "eco-base://platforms/im-integration/telegram/health",
     timestamp: new Date().toISOString(),
   })
 );
@@ -200,7 +200,7 @@ healthApp.get("/health", (_req, res) =>
 healthApp.get("/metrics", (_req, res) =>
   res.json({
     ...metrics,
-    uri: "indestructibleeco://platforms/im-integration/telegram/metrics",
+    uri: "eco-base://platforms/im-integration/telegram/metrics",
     timestamp: new Date().toISOString(),
   })
 );
@@ -225,7 +225,7 @@ healthServer = healthApp.listen(HEALTH_PORT, () => {
   logger.info({
     msg: "Telegram health server started",
     port: HEALTH_PORT,
-    uri: "indestructibleeco://platforms/im-integration/telegram",
+    uri: "eco-base://platforms/im-integration/telegram",
   });
 });
 

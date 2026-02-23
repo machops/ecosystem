@@ -1,4 +1,4 @@
-"""IndestructibleEco v1.0 — Core Business Logic Package.
+"""eco-base v1.0 — Core Business Logic Package.
 
-URI: indestructibleeco://src/core
+URI: eco-base://src/core
 """

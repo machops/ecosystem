@@ -1,5 +1,5 @@
 #!/bin/bash
-# Create GKE cluster for IndestructibleEco Production
+# Create GKE cluster for eco-base Production
 
 set -e
 

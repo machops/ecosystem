@@ -1,8 +1,8 @@
-# OAuth Consent Screen Setup Guide - IndestructibleEco
+# OAuth Consent Screen Setup Guide - eco-base
 
 ## Overview
 
-This guide explains how to configure the OAuth consent screen for the IndestructibleEco platform authentication.
+This guide explains how to configure the OAuth consent screen for the eco-base platform authentication.
 
 ## Prerequisites
 
@@ -36,9 +36,9 @@ Choose the appropriate user type:
 ### Step 3: Fill in App Information
 
 **Required Fields:**
-- **App name**: `IndestructibleEco`
-- **User support email**: `support@indestructibleeco.io`
-- **Developer contact email**: `dev@indestructibleeco.io`
+- **App name**: `eco-base`
+- **User support email**: `support@eco-base.io`
+- **Developer contact email**: `dev@eco-base.io`
 
 **Optional Fields:**
 - **App logo**: Upload your company logo
@@ -115,7 +115,7 @@ After consent screen is configured, create OAuth clients:
 2. Click "Create Service Account"
 3. Fill in details:
    - Name: `eco-auth-sa`
-   - Description: `IndestructibleEco authentication service account`
+   - Description: `eco-base authentication service account`
 4. Assign roles:
    - `roles/iam.serviceAccountUser`
    - `roles/cloudsql.client` (if using Cloud SQL)
@@ -197,7 +197,7 @@ If OAuth client is not working:
 
 - **Owner**: indestructibleorg
 - **Policy**: zero-trust
-- **Compliance**: indestructibleeco v1.0
+- **Compliance**: eco-base v1.0
 - **Audit**: All OAuth configurations logged in GCP
 
 ## References

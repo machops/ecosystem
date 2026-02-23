@@ -1,8 +1,8 @@
-# IndestructibleEco v1.0
+# eco-base v1.0
 
 > Enterprise cloud-native AI platform -- mono-repository
 
-[![CI](https://github.com/indestructibleorg/indestructibleeco/actions/workflows/ci.yaml/badge.svg)](https://github.com/indestructibleorg/indestructibleeco/actions/workflows/ci.yaml)
+[![CI](https://github.com/indestructibleorg/eco-base/actions/workflows/ci.yaml/badge.svg)](https://github.com/indestructibleorg/eco-base/actions/workflows/ci.yaml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-500%20passing-brightgreen.svg)]()
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)]()
@@ -10,7 +10,7 @@
 
 ## Overview
 
-IndestructibleEco is a production-grade AI inference platform that routes requests across 7 engine backends (vLLM, TGI, Ollama, SGLang, TensorRT-LLM, DeepSpeed, LMDeploy) with automatic failover, circuit breaking, and connection pooling. It provides OpenAI-compatible endpoints, .qyaml governance enforcement, and Argo CD GitOps deployment.
+eco-base is a production-grade AI inference platform that routes requests across 7 engine backends (vLLM, TGI, Ollama, SGLang, TensorRT-LLM, DeepSpeed, LMDeploy) with automatic failover, circuit breaking, and connection pooling. It provides OpenAI-compatible endpoints, .qyaml governance enforcement, and Argo CD GitOps deployment.
 
 **Key capabilities:**
 
@@ -27,8 +27,8 @@ IndestructibleEco is a production-grade AI inference platform that routes reques
 
 ```bash
 # Clone
-git clone https://github.com/indestructibleorg/indestructibleeco.git
-cd indestructibleeco
+git clone https://github.com/indestructibleorg/eco-base.git
+cd eco-base
 
 # Install Python deps
 pip install pydantic fastapi httpx pytest pytest-asyncio jsonschema pyyaml numpy
@@ -52,7 +52,7 @@ open http://localhost:5173          # Web frontend
 ## Architecture
 
 ```
-indestructibleeco/
+eco-base/
 +-- src/                          # Root gateway (FastAPI, port 8000)
 |   +-- app.py                    # Application factory + proxy routing
 |   +-- schemas/                  # Pydantic v2 schemas (auth, inference, models)

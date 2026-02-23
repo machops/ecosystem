@@ -5,7 +5,7 @@
 # Format:
 #   rule_id: strategy_name
 #
-# URI: indestructibleeco://tools/ci-validator/rules/strategies
+# URI: eco-base://tools/ci-validator/rules/strategies
 ---
 strategies:
   # Workflow rules

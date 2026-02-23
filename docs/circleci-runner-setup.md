@@ -1,6 +1,6 @@
 # CircleCI Self-Hosted Runner Setup Guide
 
-**Project**: IndestructibleEco
+**Project**: eco-base
 **Resource Class**: `eco/base`
 **Runner Type**: Container Runner on GKE
 
@@ -304,7 +304,7 @@ kubectl delete namespace circleci-runner
 - [CircleCI Runner Documentation](https://circleci.com/docs/runner-overview/)
 - [CircleCI Container Runner for Kubernetes](https://circleci.com/docs/container-runner/)
 - [GKE Documentation](https://cloud.google.com/kubernetes-engine/docs)
-- [Project Repository](https://github.com/indestructibleorg/indestructibleeco)
+- [Project Repository](https://github.com/indestructibleorg/eco-base)
 
 ---
 

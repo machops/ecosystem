@@ -1,5 +1,5 @@
-# IndestructibleEco v1.0 — Auto-Repair Workflow
-# URI: indestructibleeco://workflows/auto-repair
+# eco-base v1.0 — Auto-Repair Workflow
+# URI: eco-base://workflows/auto-repair
 #
 # Triggered when CI/CD pipeline fails. Runs diagnostic analysis,
 # identifies auto-fixable issues, and generates repair reports.
@@ -9,7 +9,7 @@ name: Auto-Repair
 
 on:
   workflow_run:
-    workflows: ["IndestructibleEco CI/CD"]
+    workflows: ["eco-base CI/CD"]
     types: [completed]
 
 concurrency:

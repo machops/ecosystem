@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  indestructibleeco v1.0 — docker-compose.yml                               ║
+# ║  eco-base v1.0 — docker-compose.yml                               ║
 # ║  Local Development Environment — Backend Services + Infrastructure          ║
 # ║                                                                              ║
 # ║  Usage:                                                                      ║
@@ -95,7 +95,7 @@ services:
     environment:
       POSTGRES_USER:     ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB:       ${POSTGRES_DB:-indestructibleeco}
+      POSTGRES_DB:       ${POSTGRES_DB:-eco-base}
       # Supabase required vars
       POSTGRES_HOST:     /var/run/postgresql
       PGPORT:            5432
@@ -128,7 +128,7 @@ services:
     networks:
       - data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-indestructibleeco}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-eco-base}"]
       <<: *hc-defaults
     logging: *default-logging
     labels:
@@ -254,7 +254,7 @@ services:
       # Email (Mailpit for dev)
       SMTP_HOST: mailpit
       SMTP_PORT: 1025
-      SMTP_FROM: noreply@indestructibleeco.local
+      SMTP_FROM: noreply@eco-base.local
 
       # OpenTelemetry
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318

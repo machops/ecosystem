@@ -61,10 +61,10 @@ setupWebSocket(io, logger);
 // ─── Start ───
 httpServer.listen(config.port, () => {
   logger.info({
-    msg: "IndestructibleEco API started",
+    msg: "eco-base API started",
     port: config.port,
     env: config.nodeEnv,
-    uri: `indestructibleeco://backend/api/server`,
+    uri: `eco-base://backend/api/server`,
   });
 });
 

@@ -1,5 +1,5 @@
 /**
- * IndestructibleEco Cloudflare Worker — Webhook Router
+ * eco-base Cloudflare Worker — Webhook Router
  *
  * Production-grade edge webhook router for IM platforms
  * (WhatsApp, Telegram, LINE, Messenger).
@@ -15,7 +15,7 @@
  * - /health and /metrics endpoints
  * - Error classification (4xx client vs 5xx upstream)
  *
- * URI: indestructibleeco://backend/cloudflare/webhook-router
+ * URI: eco-base://backend/cloudflare/webhook-router
  */
 
 // ─── Environment Bindings ────────────────────────────────────────────
@@ -110,7 +110,7 @@ function log(entry: Omit<LogEntry, "timestamp" | "service" | "uri">): void {
     ...entry,
     timestamp: new Date().toISOString(),
     service: "webhook-router",
-    uri: "indestructibleeco://cloudflare/webhook-router/log",
+    uri: "eco-base://cloudflare/webhook-router/log",
   };
   if (entry.level === "error") {
     console.error(JSON.stringify(full));
@@ -391,8 +391,8 @@ async function buildPayload(
     raw,
     signature_valid: true,
     idempotency_key: idempotencyKey,
-    uri: `indestructibleeco://im/${channel}/webhook/${normalized.message_id || "unknown"}`,
-    urn: `urn:indestructibleeco:im:${channel}:webhook:${normalized.sender_id || "anon"}:${normalized.message_id || "unknown"}`,
+    uri: `eco-base://im/${channel}/webhook/${normalized.message_id || "unknown"}`,
+    urn: `urn:eco-base:im:${channel}:webhook:${normalized.sender_id || "anon"}:${normalized.message_id || "unknown"}`,
   };
 }
 
@@ -402,7 +402,7 @@ async function forwardToUpstream(
   env: Env,
   payload: NormalizedWebhookPayload
 ): Promise<Response> {
-  const apiUrl = env.ECO_API_URL || "https://api.indestructibleeco.com";
+  const apiUrl = env.ECO_API_URL || "https://api.eco-base.com";
   const url = `${apiUrl}/api/v1/im/webhook`;
 
   let lastError: Error | null = null;
@@ -419,7 +419,7 @@ async function forwardToUpstream(
           "X-Webhook-Message-Id": payload.message_id,
           "X-Webhook-Sender-Id": payload.sender_id,
           "X-Request-Source": "eco-webhook-router",
-          "User-Agent": `IndestructibleEco-WebhookRouter/${VERSION}`,
+          "User-Agent": `eco-base-WebhookRouter/${VERSION}`,
         },
         body: JSON.stringify(payload),
         signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
@@ -568,7 +568,7 @@ export default {
           status: "healthy",
           service: "webhook-router",
           version: VERSION,
-          uri: "indestructibleeco://cloudflare/webhook-router/health",
+          uri: "eco-base://cloudflare/webhook-router/health",
           timestamp: new Date().toISOString(),
           channels: ["whatsapp", "telegram", "line", "messenger"],
           kv_available: !!env.WEBHOOK_KV,
@@ -582,7 +582,7 @@ export default {
       return jsonResponse(
         {
           ...metrics,
-          uri: "indestructibleeco://cloudflare/webhook-router/metrics",
+          uri: "eco-base://cloudflare/webhook-router/metrics",
           timestamp: new Date().toISOString(),
         },
         200

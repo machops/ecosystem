@@ -3,14 +3,14 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "indestructibleeco"
+name = "eco-base"
 version = "1.0.0"
-description = "IndestructibleEco v1.0 — Enterprise Cloud-Native AI Platform with Multi-Engine Inference Routing"
+description = "eco-base v1.0 — Enterprise Cloud-Native AI Platform with Multi-Engine Inference Routing"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.11"
 authors = [
-    { name = "IndestructibleEco Platform Team", email = "platform-team@autoecoops.io" },
+    { name = "eco-base Platform Team", email = "platform-team@autoecoops.io" },
 ]
 keywords = ["ai", "inference", "llm", "vllm", "sglang", "tgi", "ollama", "kubernetes", "governance", "qyaml"]
 classifiers = [
@@ -54,7 +54,7 @@ ml = [
 ]
 
 [project.scripts]
-indestructibleeco = "src.app:app"
+eco-base = "src.app:app"
 
 [tool.ruff]
 target-version = "py311"

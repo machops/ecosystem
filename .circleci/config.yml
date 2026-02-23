@@ -39,7 +39,7 @@ jobs:
             echo "Python Version: $(python3 --version 2>/dev/null || python --version 2>/dev/null || echo 'Python not installed')"
             echo "Docker Version: $(docker --version 2>/dev/null || echo 'Docker not installed')"
 
-  # Build and test job for the IndestructibleEco project
+  # Build and test job for the eco-base project
   build-and-test:
     docker:
       - image: cimg/python:3.11

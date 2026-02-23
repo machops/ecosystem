@@ -184,7 +184,7 @@ bucket_name = "eco-base-assets"
 - [ ] R2 存取正常
 
 ### GitHub Actions CI
-- [ ] IndestructibleEco CI/CD ✅
+- [ ] eco-base CI/CD ✅
 - [ ] Deploy to GKE eco-staging ✅
 - [ ] Deploy Web ✅
 - [ ] YAML Governance Lint ✅

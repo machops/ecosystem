@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# IndestructibleEco v1.0 — Deployment Script
-# URI: indestructibleeco://scripts/deploy
+# eco-base v1.0 — Deployment Script
+# URI: eco-base://scripts/deploy
 set -euo pipefail
 
-NAMESPACE="${ECO_NAMESPACE:-indestructibleeco}"
-RELEASE_NAME="${ECO_RELEASE:-indestructibleeco}"
+NAMESPACE="${ECO_NAMESPACE:-eco-base}"
+RELEASE_NAME="${ECO_RELEASE:-eco-base}"
 CHART_DIR="./helm"
 VALUES_FILE="./helm/values.yaml"
 
 echo "╔══════════════════════════════════════════════════════════╗"
-echo "║     IndestructibleEco v1.0 — Deployment Script          ║"
+echo "║     eco-base v1.0 — Deployment Script          ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 
 # ── Pre-deploy validation ─────────────────────────────────────

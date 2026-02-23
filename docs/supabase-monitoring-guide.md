@@ -230,7 +230,7 @@ Pre-configured dashboards include:
 
 1. **Supabase Overview**: Database health, API performance
 2. **Kubernetes Cluster**: Node and pod metrics
-3. **IndestructibleEco**: Application-specific metrics
+3. **eco-base**: Application-specific metrics
 
 ## Testing the Setup
 
@@ -315,8 +315,8 @@ route:
 receivers:
   - name: 'default-receiver'
     email_configs:
-      - to: 'alerts@indestructibleeco.io'
-        from: 'prometheus@indestructibleeco.io'
+      - to: 'alerts@eco-base.io'
+        from: 'prometheus@eco-base.io'
         smarthost: 'smtp.gmail.com:587'
         auth_username: 'your-email@gmail.com'
         auth_password: 'your-app-password'

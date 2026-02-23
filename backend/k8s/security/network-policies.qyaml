@@ -3,13 +3,13 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny-all
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     generated-by: yaml-toolkit-v1
     unique-id: "6ba7b819-9dad-11d1-80b4-00c04fd430c8"
   annotations:
-    indestructibleeco/uri: "indestructibleeco://k8s/indestructibleeco/networkpolicy/default-deny-all"
-    indestructibleeco/urn: "urn:indestructibleeco:k8s:indestructibleeco:networkpolicy:default-deny-all:6ba7b819-9dad-11d1-80b4-00c04fd430c8"
+    eco-base/uri: "eco-base://k8s/eco-base/networkpolicy/default-deny-all"
+    eco-base/urn: "urn:eco-base:k8s:eco-base:networkpolicy:default-deny-all:6ba7b819-9dad-11d1-80b4-00c04fd430c8"
 spec:
   podSelector: {}
   policyTypes:
@@ -20,7 +20,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-api-ingress
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     generated-by: yaml-toolkit-v1
 spec:
@@ -42,7 +42,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-api-to-ai
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     generated-by: yaml-toolkit-v1
 spec:
@@ -66,7 +66,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-egress-dns-redis
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     generated-by: yaml-toolkit-v1
 spec:
@@ -91,8 +91,8 @@ spec:
 # YAML Toolkit v8 — Governance Block (auto-generated, manual editing prohibited)
 document_metadata:
   unique_id: "6ba7b819-9dad-11d1-80b4-00c04fd430c8"
-  uri: "indestructibleeco://k8s/indestructibleeco/networkpolicy/default-deny-all"
-  urn: "urn:indestructibleeco:k8s:indestructibleeco:networkpolicy:default-deny-all:6ba7b819-9dad-11d1-80b4-00c04fd430c8"
+  uri: "eco-base://k8s/eco-base/networkpolicy/default-deny-all"
+  urn: "urn:eco-base:k8s:eco-base:networkpolicy:default-deny-all:6ba7b819-9dad-11d1-80b4-00c04fd430c8"
   target_system: gke-production
   cross_layer_binding: [api-service, ai-service, redis, ingress-nginx]
   schema_version: v8

@@ -1,6 +1,6 @@
 """Inference schemas — OpenAI-compatible chat/completion/embedding contracts.
 
-URI: indestructibleeco://src/schemas/inference
+URI: eco-base://src/schemas/inference
 
 Contracts defined by: tests/unit/test_schemas.py
 """

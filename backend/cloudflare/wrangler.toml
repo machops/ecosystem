@@ -1,4 +1,4 @@
-name = "indestructibleeco-workers"
+name = "eco-base-workers"
 main = "workers/webhook-router.ts"
 compatibility_date = "2024-06-01"
 compatibility_flags = ["nodejs_compat"]

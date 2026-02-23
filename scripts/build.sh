@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# IndestructibleEco v1.0 — Build Script
-# URI: indestructibleeco://scripts/build
+# eco-base v1.0 — Build Script
+# URI: eco-base://scripts/build
 set -euo pipefail
 
 VERSION="${1:-1.0.0}"
 REGISTRY="${DOCKER_REGISTRY:-ghcr.io/indestructibleorg}"
 
 echo "╔══════════════════════════════════════════════════════════╗"
-echo "║     IndestructibleEco v1.0 — Build v${VERSION}              ║"
+echo "║     eco-base v1.0 — Build v${VERSION}              ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 
 # ── Pre-build validation ──────────────────────────────────────

@@ -3,13 +3,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: api-config
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     generated-by: yaml-toolkit-v1
     unique-id: "6ba7b815-9dad-11d1-80b4-00c04fd430c8"
   annotations:
-    indestructibleeco/uri: "indestructibleeco://k8s/indestructibleeco/configmap/api-config"
-    indestructibleeco/urn: "urn:indestructibleeco:k8s:indestructibleeco:configmap:api-config:6ba7b815-9dad-11d1-80b4-00c04fd430c8"
+    eco-base/uri: "eco-base://k8s/eco-base/configmap/api-config"
+    eco-base/urn: "urn:eco-base:k8s:eco-base:configmap:api-config:6ba7b815-9dad-11d1-80b4-00c04fd430c8"
 data:
   NODE_ENV: "production"
   PORT: "3000"
@@ -19,40 +19,40 @@ data:
   RATE_LIMIT_AUTHENTICATED: "100"
   RATE_LIMIT_PUBLIC: "10"
   RATE_LIMIT_WINDOW_MS: "60000"
-  AI_SERVICE_GRPC: "ai-svc.indestructibleeco.svc.cluster.local:8000"
-  AI_SERVICE_HTTP: "http://ai-svc.indestructibleeco.svc.cluster.local:8001"
-  CONSUL_ENDPOINT: "http://consul.indestructibleeco.svc.cluster.local:8500"
-  JAEGER_ENDPOINT: "http://jaeger.indestructibleeco.svc.cluster.local:14268/api/traces"
+  AI_SERVICE_GRPC: "ai-svc.eco-base.svc.cluster.local:8000"
+  AI_SERVICE_HTTP: "http://ai-svc.eco-base.svc.cluster.local:8001"
+  CONSUL_ENDPOINT: "http://consul.eco-base.svc.cluster.local:8500"
+  JAEGER_ENDPOINT: "http://jaeger.eco-base.svc.cluster.local:14268/api/traces"
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ai-config
-  namespace: indestructibleeco
+  namespace: eco-base
   labels:
     generated-by: yaml-toolkit-v1
     unique-id: "6ba7b816-9dad-11d1-80b4-00c04fd430c8"
   annotations:
-    indestructibleeco/uri: "indestructibleeco://k8s/indestructibleeco/configmap/ai-config"
-    indestructibleeco/urn: "urn:indestructibleeco:k8s:indestructibleeco:configmap:ai-config:6ba7b816-9dad-11d1-80b4-00c04fd430c8"
+    eco-base/uri: "eco-base://k8s/eco-base/configmap/ai-config"
+    eco-base/urn: "urn:eco-base:k8s:eco-base:configmap:ai-config:6ba7b816-9dad-11d1-80b4-00c04fd430c8"
 data:
   models: "vllm,ollama,tgi,sglang"
   VECTOR_DIM: "1024"
   ALIGNMENT_MODEL: "quantum-bert-xxl-v1"
   ALIGNMENT_TOLERANCE: "0.001"
-  CELERY_BROKER: "redis://redis-svc.indestructibleeco.svc.cluster.local:6379/0"
-  CELERY_BACKEND: "redis://redis-svc.indestructibleeco.svc.cluster.local:6379/1"
+  CELERY_BROKER: "redis://redis-svc.eco-base.svc.cluster.local:6379/0"
+  CELERY_BACKEND: "redis://redis-svc.eco-base.svc.cluster.local:6379/1"
   GRPC_PORT: "8000"
   HTTP_PORT: "8001"
   LOG_LEVEL: "info"
-  CONSUL_ENDPOINT: "http://consul.indestructibleeco.svc.cluster.local:8500"
-  JAEGER_ENDPOINT: "http://jaeger.indestructibleeco.svc.cluster.local:14268/api/traces"
+  CONSUL_ENDPOINT: "http://consul.eco-base.svc.cluster.local:8500"
+  JAEGER_ENDPOINT: "http://jaeger.eco-base.svc.cluster.local:14268/api/traces"
 ---
 # YAML Toolkit v8 — Governance Block (auto-generated, manual editing prohibited)
 document_metadata:
   unique_id: "6ba7b815-9dad-11d1-80b4-00c04fd430c8"
-  uri: "indestructibleeco://k8s/indestructibleeco/configmap/api-config"
-  urn: "urn:indestructibleeco:k8s:indestructibleeco:configmap:api-config:6ba7b815-9dad-11d1-80b4-00c04fd430c8"
+  uri: "eco-base://k8s/eco-base/configmap/api-config"
+  urn: "urn:eco-base:k8s:eco-base:configmap:api-config:6ba7b815-9dad-11d1-80b4-00c04fd430c8"
   target_system: gke-production
   cross_layer_binding: [api-service, ai-service, consul, jaeger]
   schema_version: v8
@@ -64,7 +64,7 @@ governance_info:
   compliance_tags: [zero-trust, internal]
   lifecycle_policy: active
 registry_binding:
-  service_endpoint: "http://api-config.indestructibleeco.svc.cluster.local"
+  service_endpoint: "http://api-config.eco-base.svc.cluster.local"
   discovery_protocol: consul
   health_check_path: "/health"
   registry_ttl: 30

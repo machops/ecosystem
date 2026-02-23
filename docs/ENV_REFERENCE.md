@@ -1,6 +1,6 @@
-# IndestructibleEco Environment Variables Reference
+# eco-base Environment Variables Reference
 
-URI: indestructibleeco://docs/ENV_REFERENCE
+URI: eco-base://docs/ENV_REFERENCE
 
 All environment variables use the `ECO_*` prefix for namespace isolation. A complete template is available at `.env.example` in the repository root.
 

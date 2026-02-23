@@ -1,1 +1,1 @@
-"""IndestructibleEco Platform Tests."""
+"""eco-base Platform Tests."""

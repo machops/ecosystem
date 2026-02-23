@@ -3,7 +3,7 @@ name: Auto-Fix CI Failures
 on:
   workflow_run:
     workflows:
-      - "IndestructibleEco CI/CD"
+      - "eco-base CI/CD"
     types:
       - completed
   schedule:

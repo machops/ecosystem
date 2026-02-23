@@ -1,14 +1,14 @@
-# IndestructibleEco - Complete Setup Guide
+# eco-base - Complete Setup Guide
 
 **Date**: February 21, 2026
-**Project**: IndestructibleEco
+**Project**: eco-base
 **Status**: Production Ready
 
 ---
 
 ## 🎯 Overview
 
-This guide provides complete instructions for deploying the IndestructibleEco infrastructure with all configurations, secrets, and monitoring systems.
+This guide provides complete instructions for deploying the eco-base infrastructure with all configurations, secrets, and monitoring systems.
 
 ---
 
@@ -49,8 +49,8 @@ All tokens and credentials are documented in `TOKENS_MANIFEST.md`. This file con
 
 ```bash
 # Clone the repository
-git clone https://github.com/indestructibleorg/indestructibleeco.git
-cd indestructibleeco
+git clone https://github.com/indestructibleorg/eco-base.git
+cd eco-base
 
 # Run the complete deployment script
 ./scripts/deploy_complete_infrastructure.sh
@@ -136,7 +136,7 @@ gcloud container clusters get-credentials eco-staging --region asia-east1
 ```bash
 kubectl create secret generic gcp-sa-key \
   --from-file=.gcp/eco-deployer-key.json \
-  --namespace=indestructibleeco
+  --namespace=eco-base
 ```
 
 #### Supabase Secrets
@@ -148,7 +148,7 @@ kubectl create secret generic supabase-secrets \
   --from-literal=SUPABASE_DB_URL="postgresql://postgres:YOUR_PASSWORD@db.yrfxijooswpvdpdseswy.supabase.co:5432/postgres" \
   --from-literal=SUPABASE_JWT_SECRET="YOUR_JWT_SECRET" \
   --from-literal=SUPABASE_PROJECT_REF="yrfxijooswpvdpdseswy" \
-  --namespace=indestructibleeco
+  --namespace=eco-base
 ```
 
 #### Cloudflare Certificate Secret
@@ -205,11 +205,11 @@ kubectl create secret generic grafana-secrets \
 
 ```bash
 # Check all secrets
-kubectl get secrets -n indestructibleeco
+kubectl get secrets -n eco-base
 kubectl get secrets -n monitoring
 
 # Verify specific secret
-kubectl describe secret supabase-secrets -n indestructibleeco
+kubectl describe secret supabase-secrets -n eco-base
 ```
 
 ### Verify Deployments
@@ -316,7 +316,7 @@ export CLOUDFLARE_HOSTNAME_ID="21c5d22a-4512-485b-9557-8aa9fa7c96ed"
 
 ```bash
 # Check if secrets exist
-kubectl get secrets -n indestructibleeco
+kubectl get secrets -n eco-base
 kubectl get secrets -n monitoring
 
 # Reconfigure secrets
@@ -403,4 +403,4 @@ For issues or questions:
 
 **End of Complete Setup Guide**
 
-🚀 Your IndestructibleEco infrastructure is ready for production!
+🚀 Your eco-base infrastructure is ready for production!

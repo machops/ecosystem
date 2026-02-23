@@ -11,7 +11,7 @@ data:
       scrape_interval: 60s
       evaluation_interval: 60s
       external_labels:
-        cluster: 'indestructibleeco'
+        cluster: 'eco-base'
         environment: 'production'
 
     alerting:

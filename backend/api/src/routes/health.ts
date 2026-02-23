@@ -48,8 +48,8 @@ healthRouter.get("/", (_req: Request, res: Response) => {
     status: "healthy",
     service: "api",
     version: "1.0.0",
-    uri: "indestructibleeco://backend/api/health",
-    urn: `urn:indestructibleeco:backend:api:health:${uuidv1()}`,
+    uri: "eco-base://backend/api/health",
+    urn: `urn:eco-base:backend:api:health:${uuidv1()}`,
     timestamp: new Date().toISOString(),
   });
 });
@@ -78,7 +78,7 @@ healthRouter.get("/ready", async (_req: Request, res: Response) => {
     status: overallStatus,
     service: "api",
     version: "1.0.0",
-    uri: "indestructibleeco://backend/api/ready",
+    uri: "eco-base://backend/api/ready",
     components,
     timestamp: new Date().toISOString(),
   });

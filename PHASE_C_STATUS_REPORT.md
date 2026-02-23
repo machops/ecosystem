@@ -28,7 +28,7 @@ Phase C (Application Deployment) is currently **IN PROGRESS** with the following
 - **Workflow File**: `.github/workflows/build-images.yaml`
 - **Status**: Created and pushed to main branch
 - **Services**: web, api, ai, gateway
-- **Target Registry**: `asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco`
+- **Target Registry**: `asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base`
 - **Version**: v1.0.0
 - **Trigger**: Manual (GitHub Actions UI or CLI)
 
@@ -133,7 +133,7 @@ Phase C (Application Deployment) is currently **IN PROGRESS** with the following
 
 5. **Verify images in Artifact Registry**
    ```bash
-   gcloud artifacts images list --repository=indestructibleeco --location=asia-east1
+   gcloud artifacts images list --repository=eco-base --location=asia-east1
    ```
 
 6. **Deploy Kubernetes manifests**

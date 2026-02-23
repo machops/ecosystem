@@ -1,6 +1,6 @@
-# IndestructibleEco AI Service
+# eco-base AI Service
 
-AI generation and YAML governance service for the IndestructibleEco platform.
+AI generation and YAML governance service for the eco-base platform.
 
 ## Features
 
@@ -14,7 +14,7 @@ AI generation and YAML governance service for the IndestructibleEco platform.
 ## Installation
 
 ```bash
-pip install indestructibleeco-ai
+pip install eco-base-ai
 ```
 
 ## License

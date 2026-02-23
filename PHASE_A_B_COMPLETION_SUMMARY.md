@@ -1,4 +1,4 @@
-# IndestructibleEco Infrastructure - Phase A & B Completion Summary
+# eco-base Infrastructure - Phase A & B Completion Summary
 
 ## Executive Summary
 
@@ -23,7 +23,7 @@ Phase A focused on verifying and configuring security measures across GitHub, Cl
 
 #### ✅ A2: Secret Scanning & Push Protection
 - **Repositories Configured**:
-  - `indestructibleeco`
+  - `eco-base`
   - `autoecoops-api`
   - `autoecoops-v1`
 - **Features Enabled**:
@@ -48,7 +48,7 @@ Phase A focused on verifying and configuring security measures across GitHub, Cl
 #### ✅ A5: Network Policies
 - **Namespaces with Policies**:
   - `eco-staging`
-  - `indestructibleeco`
+  - `eco-base`
   - `monitoring`
 - **Status**: Verified across all namespaces
 - **Configuration**: `/workspace/repo/k8s/base/networkpolicy.qyaml`
@@ -56,7 +56,7 @@ Phase A focused on verifying and configuring security measures across GitHub, Cl
 #### ✅ A6: Resource Quotas & Limit Ranges
 - **Namespaces Configured**:
   - `eco-staging`
-  - `indestructibleeco`
+  - `eco-base`
 - **Status**: Configured via Helm charts
 - **Configuration**: `/workspace/repo/helm/templates/`
 
@@ -79,10 +79,10 @@ Phase B focused on setting up core infrastructure components including Artifact 
 ### Completed Tasks (6/6)
 
 #### ✅ B1: Docker Artifact Registry
-- **Registry Name**: `indestructibleeco`
+- **Registry Name**: `eco-base`
 - **Location**: `asia-east1`
 - **Format**: Docker
-- **URI**: `asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco`
+- **URI**: `asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base`
 - **IAM Configuration**: `eco-deploy-sa` granted `roles/artifactregistry.writer`
 - **Status**: Created and operational
 - **Documentation**: `/workspace/PHASE_B_COMPLETION_REPORT.md`
@@ -97,9 +97,9 @@ Phase B focused on setting up core infrastructure components including Artifact 
 | AI Service | 2 | 8 | 75% | 85% |
 
 **Files Created**:
-- `hpa-indestructibleeco-web.yaml`
-- `hpa-indestructibleeco-api.yaml`
-- `hpa-indestructibleeco-ai.yaml`
+- `hpa-eco-base-web.yaml`
+- `hpa-eco-base-api.yaml`
+- `hpa-eco-base-ai.yaml`
 
 **Status**: Created and applied to cluster
 
@@ -113,9 +113,9 @@ Phase B focused on setting up core infrastructure components including Artifact 
 | AI Service | 1 |
 
 **Files Created**:
-- `pdb-indestructibleeco-web.yaml`
-- `pdb-indestructibleeco-api.yaml`
-- `pdb-indestructibleeco-ai.yaml`
+- `pdb-eco-base-web.yaml`
+- `pdb-eco-base-api.yaml`
+- `pdb-eco-base-ai.yaml`
 
 **Status**: Created and applied to cluster
 
@@ -147,9 +147,9 @@ Phase B focused on setting up core infrastructure components including Artifact 
 **Location**: `/workspace/k8s/production/gmp-podmonitoring.qyaml`
 
 **Monitoring Resources**:
-- `indestructibleeco-pod-monitoring` - Web service metrics
-- `indestructibleeco-api-monitoring` - API gateway metrics
-- `indestructibleeco-ai-monitoring` - AI service metrics
+- `eco-base-pod-monitoring` - Web service metrics
+- `eco-base-api-monitoring` - API gateway metrics
+- `eco-base-ai-monitoring` - AI service metrics
 
 **Configuration**:
 - Scrape interval: 30s
@@ -177,14 +177,14 @@ Phase B focused on setting up core infrastructure components including Artifact 
 ## Infrastructure Components
 
 ### Google Cloud Platform (GCP)
-- **Artifact Registry**: `asia-east1-docker.pkg.dev/my-project-ops-1991/indestructibleeco`
+- **Artifact Registry**: `asia-east1-docker.pkg.dev/my-project-ops-1991/eco-base`
 - **Service Account**: `eco-deploy-sa` with Artifact Registry writer permissions
 - **Monitoring**: Google Managed Prometheus (GMP) configured
 
 ### Kubernetes Clusters
 - **Namespaces**:
   - `eco-staging` - Staging environment
-  - `indestructibleeco` - Production environment
+  - `eco-base` - Production environment
   - `monitoring` - Monitoring stack
 - **Autoscaling**: HPAs configured for all production services
 - **High Availability**: PDBs configured for all production services

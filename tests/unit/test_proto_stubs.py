@@ -66,5 +66,5 @@ class TestYAMLGovernanceProto:
         assert req.kind == "Deployment"
 
     def test_stamp_response(self):
-        resp = StampResponse(unique_id="abc", uri="indestructibleeco://test")
-        assert resp.uri.startswith("indestructibleeco://")
+        resp = StampResponse(unique_id="abc", uri="eco-base://test")
+        assert resp.uri.startswith("eco-base://")

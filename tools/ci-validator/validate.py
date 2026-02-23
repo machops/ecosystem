@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-IndestructibleEco CI Validator Engine — Centralized validation for all CI/CD pipelines.
+eco-base CI Validator Engine — Centralized validation for all CI/CD pipelines.
 
-URI: indestructibleeco://tools/ci-validator
+URI: eco-base://tools/ci-validator
 Usage:
     python3 tools/ci-validator/validate.py [--fix] [--report=report.json]
 
@@ -177,15 +177,15 @@ def validate_governance_blocks(repo: Path) -> list[dict]:
                         ))
 
         # URI/URN presence
-        if "indestructibleeco://" not in content:
+        if "eco-base://" not in content:
             findings.append(finding(
                 Category.GOVERNANCE_MISSING, Severity.WARNING, rel,
-                "No URI identifier (indestructibleeco://) found",
+                "No URI identifier (eco-base://) found",
             ))
-        if "urn:indestructibleeco:" not in content:
+        if "urn:eco-base:" not in content:
             findings.append(finding(
                 Category.GOVERNANCE_MISSING, Severity.WARNING, rel,
-                "No URN identifier (urn:indestructibleeco:) found",
+                "No URN identifier (urn:eco-base:) found",
             ))
 
         # Schema version must be v1 or v8
@@ -401,15 +401,15 @@ def validate_schema_compliance(repo: Path) -> list[dict]:
         # Governance identity in metadata
         meta = manifest.get("metadata", {})
         if meta:
-            if not meta.get("uri", "").startswith("indestructibleeco://"):
+            if not meta.get("uri", "").startswith("eco-base://"):
                 findings.append(finding(
                     Category.SCHEMA_VIOLATION, Severity.ERROR, rel,
-                    "Metadata URI must start with 'indestructibleeco://'",
+                    "Metadata URI must start with 'eco-base://'",
                 ))
-            if not meta.get("urn", "").startswith("urn:indestructibleeco:"):
+            if not meta.get("urn", "").startswith("urn:eco-base:"):
                 findings.append(finding(
                     Category.SCHEMA_VIOLATION, Severity.ERROR, rel,
-                    "Metadata URN must start with 'urn:indestructibleeco:'",
+                    "Metadata URN must start with 'urn:eco-base:'",
                 ))
 
     return findings
@@ -643,14 +643,14 @@ def run_all(repo: Path, report_path: str | None = None) -> int:
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="IndestructibleEco CI Validator Engine")
+    parser = argparse.ArgumentParser(description="eco-base CI Validator Engine")
     parser.add_argument("--repo", default=str(REPO_ROOT), help="Repository root path")
     parser.add_argument("--report", default=None, help="Output report JSON path")
     parser.add_argument("--fix", action="store_true", help="Attempt auto-repair (future)")
     args = parser.parse_args()
 
     repo = Path(args.repo).resolve()
-    print(f"IndestructibleEco CI Validator — {repo}")
+    print(f"eco-base CI Validator — {repo}")
     print(f"{'='*60}")
 
     exit_code = run_all(repo, args.report)

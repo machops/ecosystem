@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * indestructibleeco YAML Skill Creator
+ * eco-base YAML Skill Creator
  * Scaffolds a new .qyaml governance skill
  */
 const fs   = require("fs");

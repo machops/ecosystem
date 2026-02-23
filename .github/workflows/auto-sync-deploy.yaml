@@ -1,6 +1,6 @@
 name: Auto-Sync Deploy — GitHub → GCP/GKE + Supabase + Cloudflare
-# IndestructibleEco AutoEcoOps — Permanent Auto-Deployment Orchestrator
-# URI: indestructibleeco://github/workflows/auto-sync-deploy
+# eco-base AutoEcoOps — Permanent Auto-Deployment Orchestrator
+# URI: eco-base://github/workflows/auto-sync-deploy
 #
 # Architecture:
 #   GitHub push → CI passes → This workflow triggers → deploys to ALL platforms
@@ -20,8 +20,8 @@ name: Auto-Sync Deploy — GitHub → GCP/GKE + Supabase + Cloudflare
 # Governance:
 #   document_metadata:
 #     unique_id: "eco-auto-sync-deploy-001"
-#     uri: "indestructibleeco://github/workflows/auto-sync-deploy"
-#     owner: "platform-team@indestructibleeco.io"
+#     uri: "eco-base://github/workflows/auto-sync-deploy"
+#     owner: "platform-team@eco-base.io"
 #     classification: "critical"
 #     retention_policy: "7y"
 #     compliance_tags: ["SOC2", "ISO27001", "SLSA-L3"]
@@ -29,7 +29,7 @@ name: Auto-Sync Deploy — GitHub → GCP/GKE + Supabase + Cloudflare
 on:
   # Trigger after CI/CD pipeline completes successfully on main
   workflow_run:
-    workflows: ["IndestructibleEco CI/CD"]
+    workflows: ["eco-base CI/CD"]
     types: [completed]
     branches: [main]
   # Allow manual trigger with environment selection
@@ -70,13 +70,13 @@ env:
   # GCP / GKE
   GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'my-project-ops-1991' }}
   GKE_REGION: ${{ vars.GKE_REGION || 'asia-east1' }}
-  GKE_CLUSTER_STAGING: ${{ vars.GKE_CLUSTER_STAGING || 'indestructibleeco-staging' }}
-  GKE_CLUSTER_PRODUCTION: ${{ vars.GKE_CLUSTER_PRODUCTION || 'indestructibleeco-prod' }}
+  GKE_CLUSTER_STAGING: ${{ vars.GKE_CLUSTER_STAGING || 'eco-base-staging' }}
+  GKE_CLUSTER_PRODUCTION: ${{ vars.GKE_CLUSTER_PRODUCTION || 'eco-base-prod' }}
   K8S_NAMESPACE_STAGING: ${{ vars.K8S_NAMESPACE_STAGING || 'eco-staging' }}
   K8S_NAMESPACE_PRODUCTION: ${{ vars.K8S_NAMESPACE_PRODUCTION || 'eco-production' }}
   # Registry
   REGISTRY: ghcr.io/indestructibleorg
-  GCP_REGISTRY: asia-east1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID || 'my-project-ops-1991' }}/indestructibleeco
+  GCP_REGISTRY: asia-east1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID || 'my-project-ops-1991' }}/eco-base
   # ArgoCD
   ARGOCD_SERVER: ${{ vars.ARGOCD_SERVER || 'argocd.autoecoops.io' }}
   ARGOCD_APP_STAGING: eco-staging

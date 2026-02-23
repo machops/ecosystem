@@ -1,6 +1,6 @@
-"""IndestructibleEco v1.0 — Pydantic Schemas Package.
+"""eco-base v1.0 — Pydantic Schemas Package.
 
-URI: indestructibleeco://src/schemas
+URI: eco-base://src/schemas
 """
 
 from .auth import APIKeyCreate, APIKeyInfo, APIKeyResult, UserRole

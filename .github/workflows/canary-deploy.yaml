@@ -1,7 +1,7 @@
 name: Canary Deployment — Staging SLO Gate → Production
 
-# IndestructibleEco Canary Deployment Pipeline
-# URI: indestructibleeco://github/workflows/canary-deploy
+# eco-base Canary Deployment Pipeline
+# URI: eco-base://github/workflows/canary-deploy
 #
 # Flow:
 #   1. Deploy to staging (GKE staging namespace)
@@ -38,7 +38,7 @@ on:
 
   # Auto-trigger after CI supply-chain job passes on main
   workflow_run:
-    workflows: ["IndestructibleEco CI/CD"]
+    workflows: ["eco-base CI/CD"]
     types: [completed]
     branches: [main]
 
@@ -50,7 +50,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io/indestructibleorg
-  GKE_CLUSTER: indestructibleeco-prod
+  GKE_CLUSTER: eco-base-prod
   GKE_REGION: asia-east1
   STAGING_NS: eco-staging
   PRODUCTION_NS: eco-production
@@ -99,7 +99,7 @@ jobs:
     if: needs.preflight.outputs.should_deploy == 'true'
     environment:
       name: staging
-      url: https://staging.indestructibleeco.space
+      url: https://staging.eco-base.space
     outputs:
       deploy_time: ${{ steps.deploy.outputs.deploy_time }}
     steps:
@@ -111,14 +111,12 @@ jobs:
       with:
         workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      continue-on-error: true  # graceful degradation if GCP not configured
 
     - name: Get GKE credentials
       uses: google-github-actions/get-gke-credentials@7a108e64ed8546fe38316b4086e91da13f4785e1  # v2.3.1
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_REGION }}
-      continue-on-error: true
 
     - name: Deploy to staging via ArgoCD sync
       id: deploy
@@ -280,7 +278,6 @@ jobs:
         SLO_AVAILABILITY_MIN: ${{ env.SLO_AVAILABILITY_MIN }}
         SLO_P95_LATENCY_MAX_MS: ${{ env.SLO_P95_LATENCY_MAX_MS }}
         SLO_ERROR_RATE_MAX_PCT: ${{ env.SLO_ERROR_RATE_MAX_PCT }}
-      continue-on-error: true
 
     - name: SLO gate summary
       run: |
@@ -304,7 +301,7 @@ jobs:
     if: needs.slo-gate.outputs.slo_passed == 'true'
     environment:
       name: production
-      url: https://indestructibleeco.space
+      url: https://eco-base.space
     steps:
     - name: Checkout
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
@@ -316,14 +313,12 @@ jobs:
       with:
         workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      continue-on-error: true
 
     - name: Get GKE credentials
       uses: google-github-actions/get-gke-credentials@7a108e64ed8546fe38316b4086e91da13f4785e1  # v2.3.1
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_REGION }}
-      continue-on-error: true
 
     - name: Promote to production
       run: |
