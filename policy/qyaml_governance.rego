@@ -65,3 +65,22 @@ warn[msg] {
     sv != "v8"
     msg := sprintf("Non-standard schema_version: %s", [sv])
 }
+
+# Container image registry check (K8s Deployment documents only)
+deny[msg] {
+    not input.document_metadata
+    input.kind == "Deployment"
+    some container in input.spec.template.spec.containers
+    image := container.image
+    not startswith(image, "ghcr.io/indestructibleorg/")
+    not startswith(image, "gcr.io/")
+    not startswith(image, "us-docker.pkg.dev/")
+    not startswith(image, "europe-docker.pkg.dev/")
+    not startswith(image, "asia-docker.pkg.dev/")
+    not startswith(image, "redis:")
+    not startswith(image, "postgres:")
+    not startswith(image, "prom/")
+    not startswith(image, "grafana/")
+    not startswith(image, "bitnami/")
+    msg := sprintf("Unapproved image registry: %s", [image])
+}
