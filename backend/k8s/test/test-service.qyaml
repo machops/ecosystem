@@ -1,0 +1,20 @@
+---
+# Test service manifest - intentionally missing governance blocks for auto-fix testing
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-service
+  namespace: indestructibleeco
+  labels:
+    app: test
+    generated-by: yaml-toolkit-v1
+    unique-id: "test-0000-0000-0000-000000000001"
+  annotations:
+    indestructibleeco/uri: "indestructibleeco://k8s/indestructibleeco/service/test-service"
+    indestructibleeco/urn: "urn:indestructibleeco:k8s:indestructibleeco:service:test-service:test-0000"
+spec:
+  selector:
+    app: test
+  ports:
+    - port: 80
+      targetPort: 8080

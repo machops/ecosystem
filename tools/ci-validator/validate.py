@@ -157,7 +157,7 @@ def validate_governance_blocks(repo: Path) -> list[dict]:
                 findings.append(finding(
                     Category.GOVERNANCE_MISSING, Severity.ERROR, rel,
                     f"Missing mandatory governance block: {block}",
-                    auto_fixable=True, fix_strategy="inject-governance-block",
+                    auto_fixable=True, fix_strategy="governance-block",
                 ))
 
         field_groups = [
