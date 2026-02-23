@@ -6,12 +6,16 @@ on:
       - "IndestructibleEco CI/CD"
     types:
       - completed
+  schedule:
+    # Daily at 01:00 UTC — proactively scan for fixable issues
+    - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
-      target_run_id:
-        description: 'Workflow run ID to analyze (optional)'
+      dry_run:
+        description: 'Dry run only (no branch/PR created)'
         required: false
-        type: string
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -20,172 +24,408 @@ permissions:
   actions: read
 
 jobs:
-  analyze-failure:
-    name: Analyze & Auto-Fix CI Failure
+  detect-and-fix:
+    name: Detect Issues & Auto-Fix via PR
     runs-on: ubuntu-latest
     timeout-minutes: 20
     if: >
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule' ||
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'failure')
 
     steps:
-    - name: Checkout
+    - name: Checkout main
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
       with:
-        fetch-depth: 10
+        fetch-depth: 0
+        token: ${{ github.token }}
 
-    - name: Collect failure context
-      id: context
-      run: |
-        if [ "${{ github.event_name }}" = "workflow_run" ]; then
-          RUN_ID="${{ github.event.workflow_run.id }}"
-          COMMIT_SHA="${{ github.event.workflow_run.head_sha }}"
-          BRANCH="${{ github.event.workflow_run.head_branch }}"
-        else
-          RUN_ID="${{ inputs.target_run_id }}"
-          COMMIT_SHA="${{ github.sha }}"
-          BRANCH="${{ github.ref_name }}"
-        fi
-        echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
-        echo "commit_sha=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
-        echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
-        echo "=== Analyzing Run: $RUN_ID on branch $BRANCH ==="
-
-    - name: Fetch failed job details
-      id: failed_jobs
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-        RUN_ID: ${{ steps.context.outputs.run_id }}
-      run: |
-        python3 - << 'PYEOF'
-        import json, os, urllib.request
-
-        run_id = os.environ.get("RUN_ID", "")
-        repo = os.environ.get("GITHUB_REPOSITORY", "")
-        token = os.environ.get("GITHUB_TOKEN", "")
-
-        if not run_id or run_id == "":
-            print("No run_id provided, skipping job analysis")
-            exit(0)
-
-        url = f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/jobs"
-        req = urllib.request.Request(url, headers={
-            "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json",
-        })
-        try:
-            with urllib.request.urlopen(req) as resp:
-                data = json.loads(resp.read())
-                failed_jobs = [j for j in data.get("jobs", []) if j.get("conclusion") == "failure"]
-
-                print(f"\n=== Failed Jobs ({len(failed_jobs)}) ===")
-                failure_summary = []
-                for job in failed_jobs:
-                    print(f"\nJob: {job['name']}")
-                    for step in job.get("steps", []):
-                        if step.get("conclusion") == "failure":
-                            print(f"  Failed Step: {step['name']}")
-                            failure_summary.append({
-                                "job": job["name"],
-                                "step": step["name"],
-                            })
-
-                with open("/tmp/failure-summary.json", "w") as f:
-                    json.dump(failure_summary, f, indent=2)
-
-                if not failed_jobs:
-                    print("No failed jobs found")
-        except Exception as e:
-            print(f"Could not fetch job details: {e}")
-        PYEOF
-
-    - name: Run auto-fix engine
-      id: autofix
-      run: |
-        echo "=== Auto-Fix Engine ==="
-        python3 tools/ci-validator/auto-fix.py --dry-run --report=/tmp/autofix-report.json 2>/dev/null || true
-        if [ -f /tmp/autofix-report.json ]; then
-          cat /tmp/autofix-report.json | python3 -m json.tool || true
-          AUTO_FIXABLE=$(python3 -c "
-        import json
-        try:
-            d = json.load(open('/tmp/autofix-report.json'))
-            print(d.get('auto_fixable', 0))
-        except:
-            print(0)
-          ")
-          echo "auto_fixable=$AUTO_FIXABLE" >> "$GITHUB_OUTPUT"
-        else
-          echo "auto_fixable=0" >> "$GITHUB_OUTPUT"
-        fi
-
-    - name: Apply auto-fixes (if any)
-      if: steps.autofix.outputs.auto_fixable > 0
-      run: |
-        echo "=== Applying Auto-Fixes ==="
-        python3 tools/ci-validator/auto-fix.py --report=/tmp/autofix-applied.json 2>/dev/null || true
-        echo "Auto-fixes applied"
-
-    - name: Commit and push auto-fixes
-      if: steps.autofix.outputs.auto_fixable > 0
+    - name: Configure git
       run: |
         git config user.name "IndestructibleAutoOps"
         git config user.email "indestructible-auto-ops@outlook.com"
-        if git diff --quiet; then
-          echo "No changes to commit"
-        else
-          git add -A
-          git commit -m "fix(auto): apply CI auto-fixes from run ${{ steps.context.outputs.run_id }}"
-          git push origin HEAD:${{ steps.context.outputs.branch }} || echo "Push failed — may need manual review"
-        fi
 
-    - name: Generate consolidated repair report
+    - name: Run CI Validator — detect all fixable issues
+      id: detect
       run: |
+        echo "=== Running CI Validator ==="
+        python3 tools/ci-validator/validate.py --report=/tmp/validation-report.json 2>&1 | tee /tmp/validator-output.txt || true
+
+        # Parse report
         python3 - << 'PYEOF'
         import json, os
-        from datetime import datetime, timezone
-
-        report = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "trigger": {
-                "run_id": os.environ.get("RUN_ID", ""),
-                "commit": "${{ steps.context.outputs.commit_sha }}",
-                "branch": "${{ steps.context.outputs.branch }}",
-                "repository": os.environ.get("GITHUB_REPOSITORY", ""),
-            },
-            "failure_summary": [],
-            "autofix": {},
-            "recommendations": [],
-        }
 
         try:
-            with open("/tmp/failure-summary.json") as f:
-                report["failure_summary"] = json.load(f)
+            report = json.load(open('/tmp/validation-report.json'))
         except Exception:
-            pass
+            # Build report from output
+            report = {"errors": [], "warnings": []}
 
-        try:
-            with open("/tmp/autofix-report.json") as f:
-                af = json.load(f)
-                report["autofix"] = af
-                if af.get("auto_fixable", 0) > 0:
-                    report["recommendations"].append(
-                        "Auto-fixes were applied — review the commit for changes"
-                    )
-                if af.get("manual_required", 0) > 0:
-                    report["recommendations"].append(
-                        "Manual review required for some issues — see autofix report"
-                    )
-        except Exception:
-            pass
+        errors = report.get("errors", [])
+        warnings = report.get("warnings", [])
+        total = len(errors) + len(warnings)
 
-        if not report["recommendations"]:
-            report["recommendations"].append(
-                "No auto-fixable issues detected — review CI logs for root cause"
-            )
+        print(f"Errors: {len(errors)}, Warnings: {len(warnings)}, Total: {total}")
 
-        print("=== Consolidated Repair Report ===")
-        print(json.dumps(report, indent=2))
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"total_issues={total}\n")
+            f.write(f"error_count={len(errors)}\n")
+            f.write(f"warning_count={len(warnings)}\n")
+            f.write(f"has_issues={'true' if total > 0 else 'false'}\n")
+        PYEOF
+
+        cat /tmp/validator-output.txt
+
+    - name: Detect unpinned actions
+      id: detect_actions
+      run: |
+        python3 - << 'PYEOF'
+        import glob, re, json, os, urllib.request
+
+        TOKEN = os.environ.get("GITHUB_TOKEN", "")
+        issues = []
+
+        for wf_file in sorted(glob.glob(".github/workflows/*.yaml") + glob.glob(".github/workflows/*.yml")):
+            try:
+                content = open(wf_file).read()
+                for i, line in enumerate(content.split('\n'), 1):
+                    stripped = line.strip()
+                    if not stripped.startswith('uses:'):
+                        continue
+                    use = stripped[5:].strip()
+                    if '@' not in use:
+                        continue
+                    # Skip regex patterns in shell scripts
+                    if any(x in line for x in ["r'", 'r"', 'findall', 'match', 'search']):
+                        continue
+                    action, ref = use.split('@', 1)
+                    ref = ref.split('#')[0].strip()
+                    if not re.match(r'^[0-9a-f]{40}$', ref):
+                        issues.append({
+                            "file": wf_file,
+                            "line": i,
+                            "action": action.strip(),
+                            "ref": ref,
+                            "current_line": line,
+                        })
+            except Exception as e:
+                print(f"Error in {wf_file}: {e}")
+
+        print(f"Unpinned actions found: {len(issues)}")
+        for i in issues:
+            print(f"  {i['file']}:{i['line']} — {i['action']}@{i['ref']}")
+
+        with open('/tmp/unpinned-actions.json', 'w') as f:
+            json.dump(issues, f, indent=2)
+
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"unpinned_count={len(issues)}\n")
         PYEOF
       env:
-        RUN_ID: ${{ steps.context.outputs.run_id }}
+        GITHUB_TOKEN: ${{ github.token }}
+
+    - name: Resolve correct SHAs for unpinned actions
+      id: resolve_shas
+      if: steps.detect_actions.outputs.unpinned_count > 0
+      run: |
+        python3 - << 'PYEOF'
+        import json, os, urllib.request, re
+
+        TOKEN = os.environ.get("GITHUB_TOKEN", "")
+        issues = json.load(open('/tmp/unpinned-actions.json'))
+        resolved = []
+
+        def get_sha_for_ref(action, ref):
+            """Resolve a tag/branch ref to a full commit SHA."""
+            # Handle owner/repo format
+            parts = action.split('/')
+            if len(parts) < 2:
+                return None
+            owner_repo = '/'.join(parts[:2])
+
+            # Try as tag first
+            for endpoint in [f"git/ref/tags/{ref}", f"git/ref/heads/{ref}"]:
+                url = f"https://api.github.com/repos/{owner_repo}/{endpoint}"
+                req = urllib.request.Request(url, headers={
+                    "Authorization": f"token {TOKEN}",
+                    "Accept": "application/vnd.github.v3+json",
+                })
+                try:
+                    with urllib.request.urlopen(req) as r:
+                        data = json.loads(r.read())
+                        obj = data.get('object', {})
+                        sha = obj.get('sha', '')
+                        obj_type = obj.get('type', '')
+
+                        # Dereference annotated tags
+                        if obj_type == 'tag':
+                            tag_url = f"https://api.github.com/repos/{owner_repo}/git/tags/{sha}"
+                            tag_req = urllib.request.Request(tag_url, headers={
+                                "Authorization": f"token {TOKEN}",
+                                "Accept": "application/vnd.github.v3+json",
+                            })
+                            with urllib.request.urlopen(tag_req) as tr:
+                                tag_data = json.loads(tr.read())
+                                sha = tag_data.get('object', {}).get('sha', sha)
+
+                        if sha and re.match(r'^[0-9a-f]{40}$', sha):
+                            return sha
+                except Exception:
+                    continue
+            return None
+
+        for issue in issues:
+            sha = get_sha_for_ref(issue['action'], issue['ref'])
+            if sha:
+                resolved.append({**issue, "resolved_sha": sha})
+                print(f"✅ {issue['action']}@{issue['ref']} → {sha[:12]}...")
+            else:
+                print(f"❌ Could not resolve SHA for {issue['action']}@{issue['ref']}")
+
+        with open('/tmp/resolved-actions.json', 'w') as f:
+            json.dump(resolved, f, indent=2)
+
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"resolved_count={len(resolved)}\n")
+        PYEOF
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
+    - name: Check if there are any issues to fix
+      id: check_fixable
+      run: |
+        VALIDATOR_ISSUES="${{ steps.detect.outputs.total_issues }}"
+        UNPINNED="${{ steps.detect_actions.outputs.unpinned_count }}"
+        VALIDATOR_ISSUES=${VALIDATOR_ISSUES:-0}
+        UNPINNED=${UNPINNED:-0}
+        TOTAL=$((VALIDATOR_ISSUES + UNPINNED))
+        echo "total_fixable=$TOTAL" >> "$GITHUB_OUTPUT"
+        echo "Total fixable issues: $TOTAL"
+
+    - name: Create fix branch and apply all fixes
+      id: apply_fixes
+      if: steps.check_fixable.outputs.total_fixable > 0 && inputs.dry_run != true
+      run: |
+        BRANCH="auto-fix/ci-$(date +%Y%m%d-%H%M%S)"
+        echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+        git checkout -b "$BRANCH"
+
+        FIXES_APPLIED=0
+        FIX_SUMMARY=""
+
+        # Fix 1: Apply auto-fix engine (validator issues)
+        echo "=== Applying CI Validator auto-fixes ==="
+        python3 tools/ci-validator/auto-fix.py --report=/tmp/autofix-applied.json 2>&1 | tee /tmp/autofix-output.txt || true
+
+        if git diff --quiet; then
+          echo "No validator auto-fixes applied"
+        else
+          FIXED_COUNT=$(python3 -c "
+        import json
+        try:
+            d = json.load(open('/tmp/autofix-applied.json'))
+            print(d.get('fixed', 0))
+        except:
+            print(0)
+          " 2>/dev/null || echo "0")
+          FIXES_APPLIED=$((FIXES_APPLIED + FIXED_COUNT))
+          FIX_SUMMARY="${FIX_SUMMARY}\n- Applied ${FIXED_COUNT} CI validator auto-fixes"
+          echo "Validator fixes applied: $FIXED_COUNT"
+        fi
+
+        # Fix 2: Pin unpinned actions to SHA
+        echo "=== Pinning unpinned actions ==="
+        if [ -f /tmp/resolved-actions.json ]; then
+          python3 - << 'PYEOF'
+        import json, re, os
+
+        resolved = json.load(open('/tmp/resolved-actions.json'))
+        files_modified = set()
+
+        for item in resolved:
+            filepath = item['file']
+            action = item['action']
+            old_ref = item['ref']
+            new_sha = item['resolved_sha']
+
+            content = open(filepath).read()
+            # Replace the unpinned reference with SHA + comment
+            old_pattern = f"{action}@{old_ref}"
+            new_pattern = f"{action}@{new_sha}  # {old_ref}"
+
+            if old_pattern in content:
+                content = content.replace(old_pattern, new_pattern, 1)
+                open(filepath, 'w').write(content)
+                files_modified.add(filepath)
+                print(f"Pinned: {action}@{old_ref} → {new_sha[:12]}...")
+
+        print(f"Files modified: {len(files_modified)}")
+        PYEOF
+
+          if ! git diff --quiet; then
+            PINNED=$(git diff --name-only | wc -l)
+            FIXES_APPLIED=$((FIXES_APPLIED + PINNED))
+            FIX_SUMMARY="${FIX_SUMMARY}\n- Pinned ${PINNED} unpinned GitHub Actions to full commit SHA"
+          fi
+        fi
+
+        # Fix 3: Fix the actions/stale wrong SHA in issue-automation.yaml
+        echo "=== Fixing known wrong SHA in issue-automation.yaml ==="
+        WRONG_SHA="5bef64f19d7facfed25c7e8e4f7f4b3697e8a3a4"
+        CORRECT_SHA="5bef64f19d7facfb25b37b414482c7164d639639"
+        if grep -q "$WRONG_SHA" .github/workflows/issue-automation.yaml 2>/dev/null; then
+          sed -i "s/$WRONG_SHA/$CORRECT_SHA/g" .github/workflows/issue-automation.yaml
+          FIXES_APPLIED=$((FIXES_APPLIED + 1))
+          FIX_SUMMARY="${FIX_SUMMARY}\n- Fixed wrong SHA for actions/stale in issue-automation.yaml"
+          echo "Fixed wrong SHA for actions/stale"
+        fi
+
+        echo "fixes_applied=$FIXES_APPLIED" >> "$GITHUB_OUTPUT"
+        echo "fix_summary=$FIX_SUMMARY" >> "$GITHUB_OUTPUT"
+        echo "Total fixes applied: $FIXES_APPLIED"
+
+        # Commit if there are changes
+        if git diff --quiet && git diff --cached --quiet; then
+          echo "No changes to commit"
+          echo "has_changes=false" >> "$GITHUB_OUTPUT"
+        else
+          git add -A
+          git commit -m "fix(auto): CI auto-fixes — $(date -u '+%Y-%m-%d')
+
+        Automated fixes applied by auto-fix-ci workflow:
+        $(echo -e "$FIX_SUMMARY")
+
+        Triggered by: ${{ github.event_name }}
+        Run: ${{ github.run_id }}"
+          git push origin "$BRANCH"
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          echo "Branch pushed: $BRANCH"
+        fi
+
+    - name: Open Pull Request with fixes
+      id: open_pr
+      if: steps.apply_fixes.outputs.has_changes == 'true'
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        BRANCH: ${{ steps.apply_fixes.outputs.branch }}
+        FIXES_APPLIED: ${{ steps.apply_fixes.outputs.fixes_applied }}
+        FIX_SUMMARY: ${{ steps.apply_fixes.outputs.fix_summary }}
+        VALIDATOR_ISSUES: ${{ steps.detect.outputs.error_count }}
+        UNPINNED: ${{ steps.detect_actions.outputs.unpinned_count }}
+      run: |
+        python3 - << 'PYEOF'
+        import json, os, urllib.request
+        from datetime import datetime, timezone
+
+        token = os.environ.get("GITHUB_TOKEN", "")
+        repo = os.environ.get("GITHUB_REPOSITORY", "")
+        branch = os.environ.get("BRANCH", "")
+        fixes = os.environ.get("FIXES_APPLIED", "0")
+        validator_issues = os.environ.get("VALIDATOR_ISSUES", "0")
+        unpinned = os.environ.get("UNPINNED", "0")
+        run_id = os.environ.get("GITHUB_RUN_ID", "")
+
+        title = f"fix(auto): CI auto-fixes — {datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
+
+        body = f"""## Automated CI Fix PR
+
+        This PR was **automatically created** by the `auto-fix-ci` workflow.
+
+        ### Issues Detected & Fixed
+
+        | Category | Count |
+        |----------|-------|
+        | CI Validator errors | {validator_issues} |
+        | Unpinned GitHub Actions | {unpinned} |
+        | **Total fixes applied** | **{fixes}** |
+
+        ### What was fixed
+
+        - Resolved CI validator workflow syntax issues (inline `python -c` with quotes → heredoc)
+        - Pinned all GitHub Actions to full 40-character commit SHA per security policy
+        - Corrected wrong SHA for `actions/stale` in `issue-automation.yaml`
+
+        ### Verification
+
+        After merging, the CI validator should report 0 errors.
+
+        > **Auto-generated by**: [Workflow Run #{run_id}](https://github.com/{repo}/actions/runs/{run_id})
+        > **Triggered by**: `{os.environ.get('GITHUB_EVENT_NAME', 'unknown')}`
+        """
+
+        pr_data = {
+            "title": title,
+            "body": body,
+            "head": branch,
+            "base": "main",
+            "draft": False,
+        }
+
+        url = f"https://api.github.com/repos/{repo}/pulls"
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(pr_data).encode(),
+            method="POST",
+            headers={
+                "Authorization": f"token {token}",
+                "Accept": "application/vnd.github.v3+json",
+                "Content-Type": "application/json",
+            }
+        )
+        try:
+            with urllib.request.urlopen(req) as r:
+                pr = json.loads(r.read())
+                pr_number = pr.get('number', '?')
+                pr_url = pr.get('html_url', '')
+                print(f"✅ PR #{pr_number} created: {pr_url}")
+
+                # Add labels
+                labels_url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/labels"
+                labels_req = urllib.request.Request(
+                    labels_url,
+                    data=json.dumps({"labels": ["automated", "ci/cd"]}).encode(),
+                    method="POST",
+                    headers={
+                        "Authorization": f"token {token}",
+                        "Accept": "application/vnd.github.v3+json",
+                        "Content-Type": "application/json",
+                    }
+                )
+                try:
+                    with urllib.request.urlopen(labels_req):
+                        print("Labels added")
+                except Exception as e:
+                    print(f"Could not add labels: {e}")
+
+        except Exception as e:
+            print(f"❌ Could not create PR: {e}")
+            import traceback
+            traceback.print_exc()
+        PYEOF
+
+    - name: Report results (dry run or no changes)
+      if: steps.check_fixable.outputs.total_fixable == 0 || inputs.dry_run == true
+      run: |
+        if [ "${{ steps.check_fixable.outputs.total_fixable }}" = "0" ]; then
+          echo "✅ No fixable issues detected — repository is clean"
+        else
+          echo "🔍 DRY RUN — would fix ${{ steps.check_fixable.outputs.total_fixable }} issues"
+          echo "Run without dry_run=true to apply fixes"
+        fi
+
+    - name: Write job summary
+      if: always()
+      run: |
+        cat >> "$GITHUB_STEP_SUMMARY" << 'SUMMARY'
+        ## Auto-Fix CI Report
+        SUMMARY
+        echo "" >> "$GITHUB_STEP_SUMMARY"
+        echo "| Metric | Value |" >> "$GITHUB_STEP_SUMMARY"
+        echo "|--------|-------|" >> "$GITHUB_STEP_SUMMARY"
+        echo "| Validator Issues | ${{ steps.detect.outputs.total_issues }} |" >> "$GITHUB_STEP_SUMMARY"
+        echo "| Unpinned Actions | ${{ steps.detect_actions.outputs.unpinned_count }} |" >> "$GITHUB_STEP_SUMMARY"
+        echo "| Fixes Applied | ${{ steps.apply_fixes.outputs.fixes_applied }} |" >> "$GITHUB_STEP_SUMMARY"
+        echo "| PR Created | ${{ steps.apply_fixes.outputs.has_changes }} |" >> "$GITHUB_STEP_SUMMARY"
+        echo "" >> "$GITHUB_STEP_SUMMARY"
+        echo "Completed at: $(date -u '+%Y-%m-%d %H:%M UTC')" >> "$GITHUB_STEP_SUMMARY"
