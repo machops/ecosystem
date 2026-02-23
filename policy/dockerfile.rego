@@ -1,4 +1,4 @@
-package indestructibleeco.dockerfile
+package eco_base.dockerfile
 
 deny[msg] {
     input.Cmd == "user"

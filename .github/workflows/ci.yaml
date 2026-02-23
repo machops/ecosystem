@@ -495,8 +495,8 @@ jobs:
         TOTAL=0
         for f in $(find backend/k8s k8s -name "*.qyaml" -type f 2>/dev/null); do
           TOTAL=$((TOTAL + 1))
-          if conftest test "$f" --policy policy/qyaml_governance.rego --output json 2>/dev/null | \
-             python3 -c 'import sys,json; r=json.load(sys.stdin); failures=[x for x in r if x.get("failures")]; print("\n".join([f["msg"] for f in (failures[0]["failures"] if failures else [])])) if failures else None; sys.exit(1 if failures else 0)'; then
+          if { conftest test "$f" --policy policy/qyaml_governance.rego --output json 2>/dev/null || echo "[]"; } | \
+             python3 -c 'import sys,json; raw=sys.stdin.read().strip(); r=json.loads(raw) if raw else []; failures=[x for x in r if x.get("failures")]; print("\n".join([f["msg"] for f in (failures[0]["failures"] if failures else [])])) if failures else None; sys.exit(1 if failures else 0)'; then
             PASS=$((PASS + 1))
             echo "  PASS: $f"
           else
@@ -513,7 +513,7 @@ jobs:
         for f in $(find . -name "Dockerfile*" -not -path "*/node_modules/*" 2>/dev/null); do
           echo "Checking $f"
           conftest test "$f" --policy policy/dockerfile.rego --output json 2>/dev/null | \
-            python3 -c 'import sys,json; r=json.load(sys.stdin); failures=[x for x in r if x.get("failures")]; [print(f"  FAIL: {m[\"msg\"]}") for f in failures for m in f.get("failures",[])] if failures else print("  PASS")' || true
+            python3 -c 'import sys,json; raw=sys.stdin.read().strip(); r=json.loads(raw) if raw else []; failures=[x for x in r if x.get("failures")]; [print(f"  FAIL: {m[\"msg\"]}") for f in failures for m in f.get("failures",[])] if failures else print("  PASS")' || true
         done
         echo "Dockerfile policy check complete"
 
