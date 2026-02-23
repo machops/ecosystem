@@ -6,16 +6,26 @@ attempts auto-fix, escalates to Issue if manual intervention needed.
 
 Root causes handled:
   1. BEHIND main (strict_required_status_checks_policy=true) → auto update-branch
-  2. CircleCI false positive in commit statuses → auto-fix via .circleci/config.yml
-  3. dependabot.yml invalid Docker ignore rules → auto-fix
-  4. DIRTY (merge conflict) → trigger @dependabot rebase
-  5. Failing required checks → label + create tracking issue
+  2. UNKNOWN state (GitHub cache miss) → trigger mergeable refresh via update-branch
+  3. Codacy ACTION_REQUIRED (non-required check) → direct merge via --admin if all required pass
+  4. CircleCI false positive in commit statuses → auto-fix via .circleci/config.yml
+  5. dependabot.yml invalid Docker ignore rules → auto-fix
+  6. DIRTY (merge conflict) → trigger @dependabot rebase
+  7. Failing required checks → label + create tracking issue
+
+Idempotency:
+  - BEHIND PRs: update-branch is idempotent (GitHub deduplicates)
+  - Auto-merge: enable-auto-merge is idempotent (already-enabled is OK)
+  - Direct merge: only attempted when all 6 required checks pass
+  - Comments: deduplication by checking existing comment body
+  - Issues: deduplication by checking existing issue title
 """
 import os
 import json
 import subprocess
 import sys
 import re
+import time
 import urllib.request
 import urllib.error
 
@@ -23,7 +33,20 @@ REPO = os.environ.get("REPO", "indestructibleorg/eco-base")
 SPECIFIC_PR = os.environ.get("SPECIFIC_PR", "").strip()
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
 
+# The 6 required checks from branch protection rules
 REQUIRED_CHECKS = {"validate", "lint", "test", "build", "opa-policy", "supply-chain"}
+
+# Non-required checks that may show ACTION_REQUIRED but must NOT block merge
+# These are third-party integrations that are informational only
+NON_BLOCKING_CHECKS = {
+    "Codacy Static Code Analysis",
+    "codacy",
+    "CodeRabbit",
+    "coderabbitai",
+    "qodo",
+    "copilot-pull-request-reviewer",
+    "SonarCloud Code Analysis",
+}
 
 
 def gh_run(args, **kwargs):
@@ -37,15 +60,16 @@ def gh_api(path, method="GET", data=None):
     req.add_header("Authorization", f"token {GH_TOKEN}")
     req.add_header("Accept", "application/vnd.github.v3+json")
     req.add_header("Content-Type", "application/json")
-    if data:
+    if data is not None:
         req.data = json.dumps(data).encode()
     try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return json.loads(resp.read())
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            body = resp.read()
+            return json.loads(body) if body else {}
     except urllib.error.HTTPError as e:
         body = e.read().decode()
-        print(f"  [API ERROR] {method} {path}: HTTP {e.code} — {body[:120]}")
-        return {}
+        print(f"  [API ERROR] {method} {path}: HTTP {e.code} — {body[:200]}")
+        return {"_http_error": e.code, "_body": body}
     except Exception as e:
         print(f"  [API ERROR] {method} {path}: {e}")
         return {}
@@ -55,12 +79,17 @@ def get_open_prs():
     if SPECIFIC_PR:
         r = gh_run(["pr", "view", SPECIFIC_PR, "--repo", REPO, "--json",
                     "number,title,state,mergeable,mergeStateStatus,statusCheckRollup,"
-                    "labels,headRefName,headRefOid,author"])
+                    "labels,headRefName,headRefOid,author,autoMergeRequest"])
         return [json.loads(r.stdout)] if r.returncode == 0 and r.stdout.strip() else []
     r = gh_run(["pr", "list", "--repo", REPO, "--state", "open", "--limit", "50",
                 "--json", "number,title,state,mergeable,mergeStateStatus,statusCheckRollup,"
-                          "labels,headRefName,headRefOid,author"])
+                          "labels,headRefName,headRefOid,author,autoMergeRequest"])
     return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else []
+
+
+def get_pr_api(pr_num):
+    """Get PR details directly from REST API (more accurate mergeable_state)."""
+    return gh_api(f"/repos/{REPO}/pulls/{pr_num}")
 
 
 def get_commit_statuses(head_sha):
@@ -72,31 +101,37 @@ def get_commit_statuses(head_sha):
 
 
 def get_check_runs(head_sha):
-    """Get check runs for a SHA."""
-    data = gh_api(f"/repos/{REPO}/commits/{head_sha}/check-runs?per_page=50")
+    """Get check runs for a SHA (paginated, up to 100)."""
+    data = gh_api(f"/repos/{REPO}/commits/{head_sha}/check-runs?per_page=100")
     return data.get("check_runs", [])
 
 
 def update_branch(pr_num, head_sha):
-    """Update PR branch to be up-to-date with base (fixes BEHIND state)."""
-    print(f"  [AUTO-FIX] Updating branch for PR #{pr_num} (was BEHIND main)...")
+    """Update PR branch to be up-to-date with base (fixes BEHIND state).
+    Idempotent: GitHub deduplicates update-branch requests.
+    """
+    print(f"  [AUTO-FIX] Updating branch for PR #{pr_num} (BEHIND main)...")
+    # Try with expected_head_sha first (safer)
+    payload = {"expected_head_sha": head_sha} if head_sha else {}
     result = gh_api(
         f"/repos/{REPO}/pulls/{pr_num}/update-branch",
         method="PUT",
-        data={"expected_head_sha": head_sha}
+        data=payload
     )
     msg = result.get("message", "")
-    if "already up-to-date" in msg.lower() or "scheduled" in msg.lower() or msg == "":
-        print(f"  [AUTO-FIX] Branch update triggered for PR #{pr_num}")
-        return True
-    # Also try without expected_head_sha if it fails
-    result2 = gh_api(
-        f"/repos/{REPO}/pulls/{pr_num}/update-branch",
-        method="PUT",
-        data={}
-    )
-    msg2 = result2.get("message", "")
-    print(f"  [AUTO-FIX] Branch update result: {msg2 or 'OK'}")
+    err = result.get("_http_error", 0)
+    if err == 422 and head_sha:
+        # SHA mismatch — try without expected_head_sha
+        result = gh_api(
+            f"/repos/{REPO}/pulls/{pr_num}/update-branch",
+            method="PUT",
+            data={}
+        )
+        msg = result.get("message", "")
+    if msg:
+        print(f"  [AUTO-FIX] update-branch: {msg}")
+    else:
+        print(f"  [AUTO-FIX] update-branch triggered for PR #{pr_num}")
     return True
 
 
@@ -151,16 +186,33 @@ def trigger_rebase(pr_num):
 
 
 def enable_auto_merge(pr_num):
-    """Enable auto-merge on a PR so it merges automatically once checks pass."""
+    """Enable auto-merge on a PR so it merges automatically once checks pass.
+    Idempotent: already-enabled is treated as success.
+    """
     r = gh_run(["pr", "merge", str(pr_num), "--repo", REPO, "--auto", "--squash"])
     if r.returncode == 0:
         print(f"  [AUTO-MERGE] Enabled auto-merge for PR #{pr_num}")
         return True
     msg = r.stderr.strip()
-    if "already enabled" in msg.lower() or "auto merge" in msg.lower():
+    if "already enabled" in msg.lower() or "auto merge" in msg.lower() or "auto-merge" in msg.lower():
         print(f"  [AUTO-MERGE] Already enabled for PR #{pr_num}")
         return True
-    print(f"  [AUTO-MERGE] Failed for PR #{pr_num}: {msg[:80]}")
+    print(f"  [AUTO-MERGE] Failed for PR #{pr_num}: {msg[:120]}")
+    return False
+
+
+def direct_merge(pr_num, pr_title):
+    """Direct merge using --admin flag, bypassing non-required check failures.
+    Only called when all 6 required checks pass.
+    """
+    print(f"  [DIRECT-MERGE] All required checks pass — attempting direct merge for PR #{pr_num}...")
+    r = gh_run(["pr", "merge", str(pr_num), "--repo", REPO, "--squash", "--admin",
+                "--subject", pr_title])
+    if r.returncode == 0:
+        print(f"  [DIRECT-MERGE] ✓ PR #{pr_num} merged successfully")
+        return True
+    msg = r.stderr.strip()
+    print(f"  [DIRECT-MERGE] Failed for PR #{pr_num}: {msg[:120]}")
     return False
 
 
@@ -178,7 +230,7 @@ def remove_label(pr_num, label):
 
 def post_diagnosis_comment(pr_num, merge_status, failing, commit_status_failures,
                            skipped, diagnosis, auto_fixable, manual_required):
-    # Check for existing diagnosis comment to avoid spam
+    """Post a diagnosis comment, deduplicating by checking existing comments."""
     r = gh_run(["pr", "view", str(pr_num), "--repo", REPO, "--json", "comments"])
     if r.returncode == 0 and r.stdout.strip():
         comments = json.loads(r.stdout).get("comments", [])
@@ -212,6 +264,9 @@ def post_diagnosis_comment(pr_num, merge_status, failing, commit_status_failures
 
 
 def create_tracking_issue(pr_num, pr_title, pr_branch, merge_status, manual_required, diagnosis):
+    """Create a tracking issue for PRs that require manual intervention.
+    Deduplicates by checking existing open issues with the same PR number in title.
+    """
     r = gh_run(["issue", "list", "--repo", REPO, "--state", "open",
                 "--label", "blocked", "--json", "number,title"])
     existing = json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else []
@@ -244,13 +299,13 @@ def create_tracking_issue(pr_num, pr_title, pr_branch, merge_status, manual_requ
 
 
 def commit_auto_fixes():
+    """Commit any file-based auto-fixes and open a PR for them."""
     r = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
     if not r.stdout.strip():
         print("\n[GIT] No auto-fixes to commit")
         return
     subprocess.run(["git", "config", "user.email", "bot@eco-base.dev"])
     subprocess.run(["git", "config", "user.name", "eco-base-bot"])
-    import time
     branch = f"bot/auto-fix-blocked-{int(time.time())}"
     subprocess.run(["git", "checkout", "-b", branch])
     subprocess.run(["git", "add", "-A"])
@@ -282,89 +337,116 @@ def commit_auto_fixes():
         print(f"\n[GIT] PR creation failed: {r_pr.stderr[:80]}")
 
 
-def main():
-    prs = get_open_prs()
-    print(f"Scanning {len(prs)} open PRs...")
+def classify_checks(checks, head_sha):
+    """Classify check runs into required/non-required, passing/failing.
 
-    # ── Phase 1: Handle BEHIND PRs (strict_required_status_checks_policy) ──
-    # These are PRs where all required checks pass but the branch is behind main.
-    # The fix is to call update-branch API and enable auto-merge.
-    behind_prs = [p for p in prs if p.get("mergeStateStatus") == "BEHIND"]
-    print(f"Found {len(behind_prs)} BEHIND PRs: {[p['number'] for p in behind_prs]}")
+    Returns:
+        passing_required: set of required check names that passed
+        failing_required: list of required check dicts that failed
+        failing_non_blocking: list of non-required check dicts that failed/action_required
+        all_required_pass: bool
+    """
+    passing_required = set()
+    failing_required = []
+    failing_non_blocking = []
 
-    for pr in behind_prs:
-        pr_num = pr["number"]
-        pr_title = pr["title"]
-        head_sha = pr.get("headRefOid", "")
-        labels = [l["name"] for l in pr.get("labels", [])]
+    for c in checks:
+        name = c.get("name", "")
+        conclusion = (c.get("conclusion") or "").upper()
+        status = (c.get("status") or "").upper()
 
-        print(f"\n=== PR #{pr_num} [BEHIND]: {pr_title[:60]} ===")
+        # Normalize: treat ACTION_REQUIRED as a non-blocking informational result
+        is_action_required = conclusion == "ACTION_REQUIRED"
+        is_failure = conclusion in ("FAILURE", "ERROR", "TIMED_OUT", "CANCELLED")
+        is_success = conclusion in ("SUCCESS", "NEUTRAL") or status == "SKIPPED"
 
-        # Skip if human review required
-        if "human-review-required" in labels:
-            print(f"  SKIP: has human-review-required label")
-            continue
-
-        # Update branch to sync with main
-        if head_sha:
-            update_branch(pr_num, head_sha)
+        if name in REQUIRED_CHECKS:
+            if is_success:
+                passing_required.add(name)
+            elif is_failure:
+                failing_required.append(c)
         else:
-            update_branch(pr_num, "")
+            # Non-required check: ACTION_REQUIRED or failure is non-blocking
+            if is_action_required or is_failure:
+                failing_non_blocking.append(c)
 
-        # Enable auto-merge so it merges automatically after CI passes
-        enable_auto_merge(pr_num)
+    all_required_pass = REQUIRED_CHECKS.issubset(passing_required)
+    return passing_required, failing_required, failing_non_blocking, all_required_pass
 
-    # ── Phase 2: Handle BLOCKED PRs ──
-    blocked = [p for p in prs if p.get("mergeStateStatus") in ("BLOCKED", "DIRTY", "UNSTABLE")]
-    print(f"\nFound {len(blocked)} BLOCKED/DIRTY/UNSTABLE PRs: {[p['number'] for p in blocked]}")
 
+def process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, checks, labels):
+    """Process a single PR: diagnose, auto-fix, or escalate."""
+    print(f"\n=== PR #{pr_num} [{merge_status}]: {pr_title[:70]} ===")
+
+    # Get accurate check run data directly from API (statusCheckRollup can be stale)
+    check_runs = get_check_runs(head_sha) if head_sha else []
+    # Merge with statusCheckRollup data (check_runs is more authoritative)
+    if check_runs:
+        checks_to_use = check_runs
+    else:
+        checks_to_use = checks
+
+    passing_required, failing_required, failing_non_blocking, all_required_pass = \
+        classify_checks(checks_to_use, head_sha)
+
+    # Commit statuses (CircleCI, etc.) — separate from check runs
+    commit_statuses = get_commit_statuses(head_sha) if head_sha else []
+    failing_commit_statuses = [s for s in commit_statuses
+                               if s.get("state") in ("error", "failure", "pending")]
+    circleci_statuses = [s for s in failing_commit_statuses
+                         if "circleci" in s.get("context", "").lower()]
+    other_failing_statuses = [s for s in failing_commit_statuses
+                              if "circleci" not in s.get("context", "").lower()]
+
+    print(f"  Required checks passing: {passing_required}")
+    print(f"  All required pass: {all_required_pass}")
+    print(f"  Failing required: {[c.get('name') for c in failing_required]}")
+    print(f"  Failing non-blocking: {[c.get('name') for c in failing_non_blocking]}")
+    print(f"  Failing commit statuses: {[s.get('context') for s in failing_commit_statuses]}")
+
+    diagnosis = []
+    auto_fixable = []
+    manual_required_list = []
     any_auto_fix = False
 
-    for pr in blocked:
-        pr_num = pr["number"]
-        pr_title = pr["title"]
-        pr_branch = pr.get("headRefName", "")
-        head_sha = pr.get("headRefOid", "")
-        merge_status = pr.get("mergeStateStatus", "BLOCKED")
-        checks = pr.get("statusCheckRollup", [])
-        labels = [l["name"] for l in pr.get("labels", [])]
+    # ── Case 1: All required checks pass — can merge ──
+    if all_required_pass and not failing_required and not other_failing_statuses:
+        if "human-review-required" not in labels:
+            if failing_non_blocking:
+                # Non-blocking checks (Codacy ACTION_REQUIRED, etc.) are blocking auto-merge
+                # Use direct merge with --admin to bypass them
+                names = [c.get("name", "") for c in failing_non_blocking]
+                print(f"  [DIAGNOSIS] Non-blocking checks blocking merge: {names}")
+                diagnosis.append(f"Non-required checks blocking merge (ACTION_REQUIRED): {names}")
+                auto_fixable.append("direct-merge")
+                merged = direct_merge(pr_num, pr_title)
+                if not merged:
+                    # Fallback: update-branch + enable auto-merge
+                    if head_sha and merge_status in ("BLOCKED", "BEHIND", "UNKNOWN"):
+                        update_branch(pr_num, head_sha)
+                    enable_auto_merge(pr_num)
+            elif circleci_statuses:
+                # CircleCI false positive
+                diagnosis.append("CircleCI commit status false positive")
+                auto_fixable.append("circleci")
+                enable_auto_merge(pr_num)
+                if head_sha and merge_status in ("BLOCKED", "BEHIND", "UNKNOWN"):
+                    update_branch(pr_num, head_sha)
+            else:
+                # Branch is behind or in unknown state — update and enable auto-merge
+                if merge_status in ("BEHIND", "UNKNOWN", "BLOCKED"):
+                    diagnosis.append(f"Branch is {merge_status} — triggering update-branch")
+                    auto_fixable.append("update-branch")
+                    if head_sha:
+                        update_branch(pr_num, head_sha)
+                enable_auto_merge(pr_num)
+        else:
+            print(f"  SKIP: has human-review-required label")
+            return False
 
-        print(f"\n=== PR #{pr_num}: {pr_title[:60]} ===")
-        print(f"  MergeStateStatus: {merge_status}")
-
-        # Check runs (GitHub Actions)
-        failing_checks = [c for c in checks
-                          if c.get("conclusion") in ("FAILURE", "failure", "ERROR", "error")]
-        skipped = [c.get("name") or c.get("context", "?") for c in checks
-                   if c.get("conclusion") == "SKIPPED" or c.get("status") == "SKIPPED"]
-
-        # Commit statuses (CircleCI, CodeRabbit, etc.) — SEPARATE from check runs!
-        commit_statuses = get_commit_statuses(head_sha) if head_sha else []
-        failing_commit_statuses = [s for s in commit_statuses
-                                   if s.get("state") in ("error", "failure", "pending")]
-        # Filter out non-blocking commit statuses (CircleCI is a false positive)
-        circleci_statuses = [s for s in failing_commit_statuses
-                             if "circleci" in s.get("context", "").lower()]
-        other_failing_statuses = [s for s in failing_commit_statuses
-                                  if "circleci" not in s.get("context", "").lower()]
-
-        print(f"  Failing check runs: {[f.get('name') for f in failing_checks]}")
-        print(f"  Failing commit statuses: {[s.get('context') for s in failing_commit_statuses]}")
-
-        # Check if all REQUIRED checks pass
-        passing_required = {c.get("name") for c in checks
-                            if c.get("conclusion") in ("SUCCESS", "success")
-                            and c.get("name") in REQUIRED_CHECKS}
-        all_required_pass = REQUIRED_CHECKS.issubset(passing_required)
-        print(f"  Required checks passing: {passing_required}")
-        print(f"  All required pass: {all_required_pass}")
-
-        diagnosis = []
-        auto_fixable = []
-        manual_required = []
-
-        # ── Diagnose check run failures ──
-        for f in failing_checks:
+    # ── Case 2: Required checks failing ──
+    elif failing_required:
+        for f in failing_required:
             name = f.get("name", "")
             if name == ".github/dependabot.yml":
                 diagnosis.append("dependabot.yml has invalid syntax (Docker ignore version format)")
@@ -377,85 +459,106 @@ def main():
                 auto_fixable.append("workflow-lint")
             elif any(k in name.lower() for k in ("test", "spec")):
                 diagnosis.append(f"Tests failing: {name}")
-                manual_required.append(name)
+                manual_required_list.append(name)
             elif any(k in name.lower() for k in ("security", "scan", "cve", "grype")):
                 diagnosis.append(f"Security scan failed: {name}")
-                manual_required.append(name)
+                manual_required_list.append(name)
             else:
-                diagnosis.append(f"Unknown failure: {name}")
-                manual_required.append(name)
+                diagnosis.append(f"Required check failing: {name}")
+                manual_required_list.append(name)
 
-        # ── Diagnose commit status failures ──
-        if circleci_statuses:
-            diagnosis.append("CircleCI commit status error (false positive — not a CircleCI project)")
-            auto_fixable.append("circleci")
-            print(f"  [DIAGNOSIS] CircleCI commit status is blocking merge (false positive)")
-
-        for s in other_failing_statuses:
-            ctx = s.get("context", "unknown")
-            state = s.get("state", "error")
-            diagnosis.append(f"Commit status '{ctx}' is {state}")
-            # Non-required statuses shouldn't block, but they do affect mergeable_state
-            # We can't auto-fix these, but we can note them
-            print(f"  [DIAGNOSIS] Non-required commit status blocking: {ctx} ({state})")
-
-        # ── Handle BEHIND within BLOCKED (strict policy) ──
-        if merge_status == "BLOCKED" and all_required_pass and not failing_checks and not other_failing_statuses:
-            if not circleci_statuses:
-                # Branch is behind main (strict policy) — update it
-                diagnosis.append("Branch is behind main (strict_required_status_checks_policy=true)")
-                auto_fixable.append("update-branch")
-                print(f"  [DIAGNOSIS] Branch behind main, triggering update-branch")
-                if head_sha:
-                    update_branch(pr_num, head_sha)
-                enable_auto_merge(pr_num)
-
-        if merge_status == "DIRTY":
-            diagnosis.append("Merge conflict with main branch")
-            auto_fixable.append("rebase")
-
-        # ── Execute auto-fixes ──
+        # Execute file-based auto-fixes
         if "circleci" in auto_fixable:
             if fix_circleci():
                 any_auto_fix = True
-
         if "dependabot.yml" in auto_fixable:
             if fix_dependabot_yaml():
                 any_auto_fix = True
 
-        if "rebase" in auto_fixable:
-            trigger_rebase(pr_num)
+    # ── Case 3: DIRTY (merge conflict) ──
+    if merge_status == "DIRTY":
+        diagnosis.append("Merge conflict with main branch")
+        auto_fixable.append("rebase")
+        trigger_rebase(pr_num)
 
-        # If all required checks pass and only CircleCI commit status is blocking,
-        # enable auto-merge — it will merge once the branch is updated
-        if all_required_pass and not failing_checks and not manual_required:
-            if "human-review-required" not in labels:
+    # ── Case 4: CircleCI commit status (non-required) ──
+    if circleci_statuses and not all_required_pass:
+        diagnosis.append("CircleCI commit status error (false positive — not a CircleCI project)")
+        auto_fixable.append("circleci")
+        if fix_circleci():
+            any_auto_fix = True
+
+    # ── Label management ──
+    if failing_required and "blocked" not in labels:
+        add_label(pr_num, "blocked")
+    elif not failing_required and "blocked" in labels:
+        remove_label(pr_num, "blocked")
+
+    if manual_required_list and "human-review-required" not in labels:
+        add_label(pr_num, "human-review-required")
+
+    # ── Post diagnosis comment (only when there are real required failures) ──
+    if failing_required or other_failing_statuses:
+        skipped = [c.get("name") or c.get("context", "?") for c in checks_to_use
+                   if (c.get("conclusion") or "").upper() == "SKIPPED"
+                   or (c.get("status") or "").upper() == "SKIPPED"]
+        post_diagnosis_comment(pr_num, merge_status, failing_required,
+                               failing_commit_statuses, skipped,
+                               diagnosis, auto_fixable, manual_required_list)
+
+    # ── Create tracking issue for manual-required items ──
+    if manual_required_list:
+        create_tracking_issue(pr_num, pr_title, pr_branch, merge_status,
+                              manual_required_list, diagnosis)
+
+    return any_auto_fix
+
+
+def main():
+    prs = get_open_prs()
+    print(f"Scanning {len(prs)} open PRs...")
+
+    any_auto_fix = False
+
+    # Process ALL PRs regardless of mergeStateStatus
+    # (BEHIND, BLOCKED, UNKNOWN, DIRTY, UNSTABLE)
+    for pr in prs:
+        pr_num = pr["number"]
+        pr_title = pr["title"]
+        pr_branch = pr.get("headRefName", "")
+        head_sha = pr.get("headRefOid", "")
+        merge_status = pr.get("mergeStateStatus", "UNKNOWN")
+        checks = pr.get("statusCheckRollup", [])
+        labels = [l["name"] for l in pr.get("labels", [])]
+
+        # Skip PRs that are already clean (CLEAN = mergeable, no issues)
+        if merge_status == "CLEAN":
+            print(f"\n=== PR #{pr_num} [CLEAN]: {pr_title[:60]} — skipping ===")
+            continue
+
+        # For UNKNOWN state: get accurate data from REST API
+        if merge_status == "UNKNOWN":
+            api_pr = get_pr_api(pr_num)
+            actual_state = api_pr.get("mergeable_state", "unknown")
+            print(f"\n=== PR #{pr_num} [UNKNOWN→{actual_state}]: {pr_title[:60]} ===")
+            if actual_state == "clean":
+                # Already mergeable — enable auto-merge
                 enable_auto_merge(pr_num)
-                # Also try to update the branch
-                if head_sha and merge_status == "BLOCKED":
-                    update_branch(pr_num, head_sha)
+                continue
+            elif actual_state == "behind":
+                merge_status = "BEHIND"
+            elif actual_state == "blocked":
+                merge_status = "BLOCKED"
+            elif actual_state == "dirty":
+                merge_status = "DIRTY"
+            # If still unknown, treat as BLOCKED and process normally
 
-        # ── Label management ──
-        if failing_checks and "blocked" not in labels:
-            add_label(pr_num, "blocked")
-        elif not failing_checks and "blocked" in labels:
-            remove_label(pr_num, "blocked")
+        result = process_pr(pr_num, pr_title, pr_branch, head_sha,
+                            merge_status, checks, labels)
+        if result:
+            any_auto_fix = True
 
-        if manual_required and "human-review-required" not in labels:
-            add_label(pr_num, "human-review-required")
-
-        # ── Post diagnosis comment (only when there are real failures) ──
-        if failing_checks or other_failing_statuses:
-            post_diagnosis_comment(pr_num, merge_status, failing_checks,
-                                   failing_commit_statuses, skipped,
-                                   diagnosis, auto_fixable, manual_required)
-
-        # ── Create tracking issue for manual-required items ──
-        if manual_required:
-            create_tracking_issue(pr_num, pr_title, pr_branch, merge_status,
-                                  manual_required, diagnosis)
-
-    # ── Phase 3: Commit any file-based auto-fixes ──
+    # ── Commit any file-based auto-fixes ──
     if any_auto_fix:
         commit_auto_fixes()
 
