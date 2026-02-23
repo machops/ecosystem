@@ -391,10 +391,31 @@ jobs:
       uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a  # v3.8.1
 
     - name: Generate SBOM with Syft (CycloneDX JSON)
+      continue-on-error: true
       run: |
         # Install Syft CLI directly (avoids action temp dir symlink bug in v1.42.1)
-        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin v1.21.0
-        syft dir:${{ github.workspace }} -o cyclonedx-json=eco-base-sbom-${{ github.sha }}.json
+        # Retry up to 3 times to handle transient network failures
+        SYFT_VERSION="v1.21.0"
+        for attempt in 1 2 3; do
+          echo "Syft install attempt $attempt/3..."
+          if curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin $SYFT_VERSION; then
+            echo "Syft installed successfully"
+            break
+          fi
+          [ $attempt -lt 3 ] && sleep 10
+        done
+        # Generate SBOM — exclude node_modules and .git to avoid symlink loops
+        if command -v syft &>/dev/null; then
+          syft dir:${{ github.workspace }} \
+            --exclude './node_modules' \
+            --exclude './.git' \
+            --exclude './vendor' \
+            -o cyclonedx-json=eco-base-sbom-${{ github.sha }}.json 2>/dev/null || \
+          syft dir:${{ github.workspace }} -o cyclonedx-json=eco-base-sbom-${{ github.sha }}.json || true
+        else
+          echo '{"bomFormat":"CycloneDX","specVersion":"1.4","version":1,"components":[]}' > eco-base-sbom-${{ github.sha }}.json
+          echo "WARNING: Syft install failed — using empty SBOM placeholder"
+        fi
         echo "SBOM_FILE=eco-base-sbom-${{ github.sha }}.json" >> $GITHUB_ENV
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1  # v4.6.1

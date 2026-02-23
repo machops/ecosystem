@@ -51,7 +51,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  GKE_CLUSTER: eco-base-prod
+  GKE_CLUSTER: eco-production
   GKE_REGION: asia-east1
   STAGING_NS: eco-staging
   PRODUCTION_NS: eco-production
@@ -73,7 +73,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f  # v2.1.7
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Run chaos validation (simulated if no GKE access)
