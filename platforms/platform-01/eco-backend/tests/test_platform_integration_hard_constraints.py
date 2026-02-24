@@ -10,7 +10,7 @@ from unittest.mock import Mock, AsyncMock, patch, MagicMock
 from datetime import datetime
 
 # 测试对象
-from eco_backend.app.services.platform_integration_service_v2 import (
+from app.services.platform_integration_service import (
     PlatformIntegrationService,
     IntegrationResult,
     PlatformIntegrationError,
@@ -67,8 +67,8 @@ class TestInitializationHardConstraints:
         硬约束: 初始化成功时 _initialized = True
         """
         with patch.object(service, '_service', mock_eco_service):
-            with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
-                with patch('eco_backend.app.services.platform_integration_service_v2.register_all_adapters'):
+            with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+                with patch('app.services.platform_integration_service.register_all_adapters'):
                     with patch.object(service, '_configure_providers', return_value=None):
                         with patch.object(service, '_validate_providers', return_value=None):
                             await service.initialize(valid_config)
@@ -80,7 +80,7 @@ class TestInitializationHardConstraints:
         """
         硬约束: 平台集成不可用时抛出 PlatformIntegrationError
         """
-        with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', False):
+        with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', False):
             with pytest.raises(PlatformIntegrationError) as exc_info:
                 await service.initialize(valid_config)
             
@@ -92,8 +92,8 @@ class TestInitializationHardConstraints:
         硬约束: 适配器注册失败抛出 PlatformIntegrationError
         """
         with patch.object(service, '_service', mock_eco_service):
-            with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
-                with patch('eco_backend.app.services.platform_integration_service_v2.register_all_adapters', side_effect=Exception("Registration failed")):
+            with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+                with patch('app.services.platform_integration_service.register_all_adapters', side_effect=Exception("Registration failed")):
                     with pytest.raises(PlatformIntegrationError) as exc_info:
                         await service.initialize(valid_config)
                     
@@ -105,8 +105,8 @@ class TestInitializationHardConstraints:
         硬约束: 提供商验证失败抛出 ProviderUnavailableError
         """
         with patch.object(service, '_service', mock_eco_service):
-            with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
-                with patch('eco_backend.app.services.platform_integration_service_v2.register_all_adapters'):
+            with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+                with patch('app.services.platform_integration_service.register_all_adapters'):
                     with patch.object(service, '_configure_providers', return_value=None):
                         with patch.object(service, 'health_check', return_value={"status": "unhealthy", "providers": {}}):
                             with pytest.raises(ProviderUnavailableError):
@@ -278,8 +278,8 @@ class TestConfigValidation:
         }
         
         with patch.object(service, '_service', Mock()):
-            with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
-                with patch('eco_backend.app.services.platform_integration_service_v2.register_all_adapters'):
+            with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+                with patch('app.services.platform_integration_service.register_all_adapters'):
                     with pytest.raises(ProviderConfigError) as exc_info:
                         await service._configure_providers(config)
                     
@@ -297,8 +297,8 @@ class TestConfigValidation:
         }
         
         with patch.object(service, '_service', Mock()):
-            with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
-                with patch('eco_backend.app.services.platform_integration_service_v2.register_all_adapters'):
+            with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+                with patch('app.services.platform_integration_service.register_all_adapters'):
                     with pytest.raises(ProviderConfigError) as exc_info:
                         await service._configure_providers(config)
                     
@@ -377,8 +377,8 @@ class TestIntegration:
         
         # 初始化
         with patch.object(service, '_service', mock_eco_service):
-            with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
-                with patch('eco_backend.app.services.platform_integration_service_v2.register_all_adapters'):
+            with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+                with patch('app.services.platform_integration_service.register_all_adapters'):
                     await service.initialize(valid_config)
                     
                     # 执行操作
@@ -399,8 +399,8 @@ class TestIntegration:
         )
         
         with patch.object(service, '_service', mock_eco_service):
-            with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
-                with patch('eco_backend.app.services.platform_integration_service_v2.register_all_adapters'):
+            with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+                with patch('app.services.platform_integration_service.register_all_adapters'):
                     await service.initialize(valid_config)
                     
                     health = await service.health_check()
@@ -413,7 +413,7 @@ class TestIntegration:
         """
         健康检查测试 - 未初始化
         """
-        with patch('eco_backend.app.services.platform_integration_service_v2.PLATFORM_INTEGRATIONS_AVAILABLE', True):
+        with patch('app.services.platform_integration_service.PLATFORM_INTEGRATIONS_AVAILABLE', True):
             health = await service.health_check()
             
             assert health["status"] == "not_initialized"

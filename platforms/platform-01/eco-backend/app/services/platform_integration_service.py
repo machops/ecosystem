@@ -828,11 +828,13 @@ class PlatformIntegrationService:
 
 
 # 全局服务实例
-platform_integration_service_v2 = PlatformIntegrationService()
+platform_integration_service = PlatformIntegrationService()
+platform_integration_service_v2 = platform_integration_service
 
 
 __all__ = [
     "PlatformIntegrationService",
+    "platform_integration_service",
     "platform_integration_service_v2",
     "IntegrationResult",
     "PlatformIntegrationError",
