@@ -117,10 +117,11 @@ def test_upsert_anomaly_issue_dedups_same_key(monkeypatch):
     monkeypatch.setattr(diagnose, "TRIGGER_EVENT", "schedule")
     monkeypatch.setattr(diagnose, "SOURCE_WORKFLOW", "")
     dedup_key = diagnose.build_dedup_key(280, "headsha")
+    signature = diagnose.build_anomaly_signature([("canary-gate", "failure")])
     issue_body = (
         "x\n"
         f"<!-- autoecoops:dkey={dedup_key} -->\n"
-        "<!-- autoecoops:asig=canary-gate::failure -->\n"
+        f"<!-- autoecoops:asig={signature} -->\n"
         "<!-- autoecoops:acount=2 -->\n"
     )
     monkeypatch.setattr(

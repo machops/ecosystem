@@ -462,7 +462,7 @@ def collect_non_required_gate_anomalies(check_runs):
     return anomalies
 
 
-def current_trigger_source():
+def get_trigger_source_label():
     if TRIGGER_EVENT == "workflow_run":
         return f"workflow_run: {SOURCE_WORKFLOW or 'unknown'}"
     return TRIGGER_EVENT or "unknown"
@@ -474,18 +474,28 @@ def build_dedup_key(pr_num, head_sha):
 
 
 def build_anomaly_signature(anomalies):
-    return "|".join(f"{name}::{conclusion}" for name, conclusion in sorted(set(anomalies)))
+    """Build a stable JSON signature from anomaly tuples for persistence counters."""
+    normalized = sorted(set(anomalies), key=lambda item: (item[0], item[1]))
+    return json.dumps(normalized)
 
 
 def parse_anomaly_metadata(body):
     text = body or ""
-    dedup_match = re.search(r'<!-- autoecoops:dkey=(.*?) -->', text)
-    signature_match = re.search(r'<!-- autoecoops:asig=(.*?) -->', text)
-    count_match = re.search(r'<!-- autoecoops:acount=(\d+) -->', text)
+    dedup_key, signature, count = "", "", 0
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("<!-- autoecoops:dkey=") and line.endswith(" -->"):
+            dedup_key = line[len("<!-- autoecoops:dkey="):-4]
+        elif line.startswith("<!-- autoecoops:asig=") and line.endswith(" -->"):
+            signature = line[len("<!-- autoecoops:asig="):-4]
+        elif line.startswith("<!-- autoecoops:acount=") and line.endswith(" -->"):
+            raw_count = line[len("<!-- autoecoops:acount="):-4]
+            if raw_count.isdigit():
+                count = int(raw_count)
     return {
-        "dedup_key": dedup_match.group(1) if dedup_match else "",
-        "signature": signature_match.group(1) if signature_match else "",
-        "count": int(count_match.group(1)) if count_match else 0,
+        "dedup_key": dedup_key,
+        "signature": signature,
+        "count": count,
     }
 
 
@@ -507,7 +517,7 @@ def upsert_auto_anomaly_issue(pr_num, anomalies, head_sha):
     title = f"[Auto] PR #{pr_num} CI anomaly tracking"
     dedup_key = build_dedup_key(pr_num, head_sha)
     anomaly_signature = build_anomaly_signature(anomalies)
-    trigger_source = current_trigger_source()
+    trigger_source = get_trigger_source_label()
     observed_at = datetime.now(timezone.utc).isoformat()
     body_lines = "\n".join(
         f"- `{name}`: `{conclusion}`"
@@ -520,7 +530,12 @@ def upsert_auto_anomaly_issue(pr_num, anomalies, head_sha):
         if meta["dedup_key"] == dedup_key:
             print(f"  [ANOMALY-ISSUE] Dedup hit for key {dedup_key}")
             return {"issue_number": issue["number"], "anomaly_count": meta["count"], "dedup_skipped": True}
-        anomaly_count = meta["count"] + 1 if meta["signature"] == anomaly_signature else 1
+        if meta["signature"] == anomaly_signature:
+            # Same anomaly set persisted → advance consecutive counter.
+            anomaly_count = meta["count"] + 1
+        else:
+            # Different anomaly set → start a new consecutive counter.
+            anomaly_count = 1
         body = (
             f"## Auto-detected CI/Gate anomalies for PR #{pr_num}\n\n"
             f"- **Trigger Source:** `{trigger_source}`\n"
@@ -587,12 +602,24 @@ def apply_anomaly_escalation(pr_num, issue_number, anomaly_count):
     add_label(pr_num, HUMAN_REVIEW_LABEL)
     issue_data = gh_api(f"/repos/{REPO}/issues/{issue_number}")
     if not isinstance(issue_data, dict):
+        print(f"  [ANOMALY-ESCALATE] Failed to fetch issue #{issue_number}, skipping sev/high label")
+        return
+    if issue_data.get("_http_error"):
+        print(
+            f"  [ANOMALY-ESCALATE] Failed to fetch issue #{issue_number}: "
+            f"{issue_data.get('_http_error')}"
+        )
         return
     existing_labels = [label.get("name") for label in issue_data.get("labels", []) if isinstance(label, dict)]
     if ANOMALY_SEVERITY_LABEL in existing_labels:
         return
     updated_labels = existing_labels + [ANOMALY_SEVERITY_LABEL]
-    gh_api(f"/repos/{REPO}/issues/{issue_number}", method="PATCH", data={"labels": updated_labels})
+    patch_result = gh_api(f"/repos/{REPO}/issues/{issue_number}", method="PATCH", data={"labels": updated_labels})
+    if patch_result.get("_http_error"):
+        print(
+            f"  [ANOMALY-ESCALATE] Failed to set {ANOMALY_SEVERITY_LABEL} on issue #{issue_number}: "
+            f"{patch_result.get('_http_error')}"
+        )
 
 
 def close_auto_anomaly_issue_if_clean(pr_num):
