@@ -1,0 +1,122 @@
+name: Governance Replay
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to replay governance decision"
+        required: true
+        type: number
+      dry_run:
+        description: "Dry run (no mutations)"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      snapshot_artifact:
+        description: "Artifact name containing replay snapshot (leave empty to capture fresh)"
+        required: false
+        type: string
+
+  workflow_call:
+    inputs:
+      pr_number:
+        required: true
+        type: number
+      dry_run:
+        required: false
+        default: "true"
+        type: string
+      snapshot_artifact:
+        required: false
+        default: ""
+        type: string
+    outputs:
+      action:
+        description: "Governance action taken"
+        value: ${{ jobs.replay.outputs.action }}
+      outcome:
+        description: "Governance outcome"
+        value: ${{ jobs.replay.outputs.outcome }}
+      audit_hash:
+        description: "SHA-256 hash of audit trail"
+        value: ${{ jobs.replay.outputs.audit_hash }}
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: read
+
+jobs:
+  replay:
+    name: "Replay PR #${{ inputs.pr_number }}"
+    runs-on: ubuntu-latest
+    outputs:
+      action: ${{ steps.governance.outputs.action }}
+      outcome: ${{ steps.governance.outputs.outcome }}
+      audit_hash: ${{ steps.governance.outputs.audit_hash }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.11"
+
+      - name: Download snapshot artifact (if provided)
+        if: inputs.snapshot_artifact != ''
+        uses: actions/download-artifact@fa0a91b85d4f404e444306234a3b2c8f8e4e4e4e
+        with:
+          name: ${{ inputs.snapshot_artifact }}
+          path: artifacts/replay/
+
+      - name: Run governance engine
+        id: governance
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          ARTIFACTS_DIR: artifacts
+        run: |
+          python3 tools/autoecops-governance/engine.py \
+            --pr ${{ inputs.pr_number }} \
+            ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
+
+          # Extract outputs from audit file
+          AUDIT_FILE="artifacts/audit/pr-${{ inputs.pr_number }}-audit.json"
+          if [ -f "$AUDIT_FILE" ]; then
+            ACTION=$(python3 -c "import json; d=json.load(open('$AUDIT_FILE')); print(d.get('properties',[{}])[2].get('value','NONE'))" 2>/dev/null || echo "NONE")
+            OUTCOME=$(python3 -c "import json; d=json.load(open('$AUDIT_FILE')); print(d.get('properties',[{}])[3].get('value','unknown'))" 2>/dev/null || echo "unknown")
+            AUDIT_HASH=$(python3 -c "import json; d=json.load(open('$AUDIT_FILE')); print(d.get('audit',{}).get('audit_hash','')[:16])" 2>/dev/null || echo "")
+            echo "action=$ACTION" >> "$GITHUB_OUTPUT"
+            echo "outcome=$OUTCOME" >> "$GITHUB_OUTPUT"
+            echo "audit_hash=$AUDIT_HASH" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload governance artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: governance-pr-${{ inputs.pr_number }}-${{ github.run_id }}
+          path: artifacts/
+          retention-days: 90
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Governance Replay — PR #${{ inputs.pr_number }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|-------|-------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| PR | #${{ inputs.pr_number }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Dry Run | ${{ inputs.dry_run }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Action | ${{ steps.governance.outputs.action }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Outcome | ${{ steps.governance.outputs.outcome }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Audit Hash | \`${{ steps.governance.outputs.audit_hash }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Artifacts uploaded: \`governance-pr-${{ inputs.pr_number }}-${{ github.run_id }}\`" >> "$GITHUB_STEP_SUMMARY"
