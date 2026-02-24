@@ -91,9 +91,9 @@ class RuleEngine:
             action_type = action
         elif isinstance(action, str):
             normalized_action = action.strip().lower()
-            if normalized_action in [a.value for a in RuleAction]:
+            try:
                 action_type = RuleAction(normalized_action)
-            else:
+            except ValueError:
                 logger.warning(f"无效规则动作: {action}, 使用默认动作 alert")
                 action_type = RuleAction.ALERT
         else:
