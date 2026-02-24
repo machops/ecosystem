@@ -351,8 +351,13 @@ def retrigger_ci(pr_num, head_sha, failed_check_names):
     runs = get_check_runs(head_sha)
     rerun_count = 0
     for run in runs:
-        if (run.get("name") in failed_check_names and
-                run.get("conclusion") in ("failure", "timed_out", "cancelled")):
+        status = (run.get("status") or "").lower()
+        conclusion = (run.get("conclusion") or "").lower()
+        if (
+            run.get("name") in failed_check_names and
+            status == "completed" and
+            conclusion in ("failure", "error", "timed_out", "cancelled", "skipped", "action_required")
+        ):
             result = gh_api(f"/repos/{REPO}/check-runs/{run['id']}/rerequest", method="POST")
             if not result.get("_http_error"):
                 rerun_count += 1
@@ -544,6 +549,21 @@ def process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels):
 
     # ── 2. Checks still running → enable auto-merge and wait ─────────────────
     if any_pending and not failing:
+        skipped_required = set()
+        for run in check_runs:
+            name = run.get("name")
+            status = (run.get("status") or "").lower()
+            conclusion = (run.get("conclusion") or "").lower()
+            if (
+                name in REQUIRED_CHECKS and
+                name in pending and
+                status == "completed" and
+                conclusion in ("skipped", "action_required")
+            ):
+                skipped_required.add(name)
+        if skipped_required:
+            print(f"  → Required checks skipped ({sorted(skipped_required)}). Re-triggering...")
+            retrigger_ci(pr_num, head_sha, skipped_required)
         print(f"  → CI running ({pending}). Enabling auto-merge...")
         enable_auto_merge(pr_num)
         return

@@ -474,8 +474,8 @@ def classify_check_runs(check_runs: list[dict]) -> dict:
 
     for run in check_runs:
         name = run.get("name", "")
-        status = run.get("status", "")
-        conclusion = run.get("conclusion", "")
+        status = (run.get("status") or "").lower()
+        conclusion = (run.get("conclusion") or "").lower()
 
         if name in REQUIRED_CHECKS:
             entry = {"status": status, "conclusion": conclusion}
@@ -484,7 +484,11 @@ def classify_check_runs(check_runs: list[dict]) -> dict:
             if status != "completed":
                 summary["any_required_pending"] = True
                 summary["all_required_pass"] = False
-            elif conclusion not in ("success", "skipped", "neutral"):
+            elif conclusion == "skipped":
+                summary["any_required_pending"] = True
+                summary["all_required_pass"] = False
+                summary["unexpected_skips"].append(name)
+            elif conclusion not in ("success", "neutral"):
                 summary["any_required_failed"] = True
                 summary["all_required_pass"] = False
 
@@ -497,6 +501,11 @@ def classify_check_runs(check_runs: list[dict]) -> dict:
                 # Unexpected skip of a non-required check — log but don't block
                 pass
             summary["optional"][name] = {"status": status, "conclusion": conclusion}
+
+    missing_required = REQUIRED_CHECKS - set(summary["required"].keys())
+    if missing_required:
+        summary["any_required_pending"] = True
+        summary["all_required_pass"] = False
 
     return summary
 
