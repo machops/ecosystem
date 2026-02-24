@@ -59,6 +59,20 @@ EXPECTED_SKIPS = {
     "Auto-label New Issues",
 }
 
+# Non-required gate conclusions that should be tracked as anomalies
+ANOMALY_FAILURE_CONCLUSIONS = {
+    "failure", "error", "timed_out", "cancelled", "startup_failure", "action_required",
+}
+
+# Pagination size for issue list calls
+ISSUES_PAGE_SIZE = 100
+
+# Non-required skipped checks tracked as anomalies (matched by check name keywords)
+TRACKED_SKIPPED_KEYWORDS = {"gate", "ci"}
+
+# Labels attached to centralized CI anomaly tracking issues
+AUTO_ANOMALY_ISSUE_LABELS = ["blocked", "ci/cd", "needs-attention"]
+
 # AI/Bot actors whose review comments are evaluated by governance policy
 AI_BOT_ACTORS = {
     # GitHub Copilot review (inline review comments use login "Copilot")
@@ -435,28 +449,34 @@ def collect_non_required_gate_anomalies(check_runs):
         if not name or name in REQUIRED_CHECKS or name in EXPECTED_SKIPS or status != "completed":
             continue
 
-        if conclusion in ("failure", "error", "timed_out", "cancelled", "startup_failure", "action_required"):
+        if conclusion in ANOMALY_FAILURE_CONCLUSIONS:
             anomalies.append((name, conclusion))
-        elif conclusion == "skipped" and ("gate" in name_lower or "ci" in name_lower):
+        elif conclusion == "skipped" and any(keyword in name_lower for keyword in TRACKED_SKIPPED_KEYWORDS):
             anomalies.append((name, conclusion))
 
     return anomalies
 
 
 def find_open_auto_anomaly_issue(pr_num):
-    data = gh_api(f"/repos/{REPO}/issues?state=open&per_page=100&labels=blocked")
-    if not isinstance(data, list):
-        return None
     title_key = f"[Auto] PR #{pr_num} CI anomaly tracking"
-    for issue in data:
-        if issue.get("title", "") == title_key:
-            return issue
+    page = 1
+    while True:
+        data = gh_api(f"/repos/{REPO}/issues?state=open&per_page={ISSUES_PAGE_SIZE}&labels=blocked&page={page}")
+        if not isinstance(data, list) or not data:
+            break
+        for issue in data:
+            if issue.get("title", "") == title_key:
+                return issue
+        page += 1
     return None
 
 
 def upsert_auto_anomaly_issue(pr_num, anomalies):
     title = f"[Auto] PR #{pr_num} CI anomaly tracking"
-    body_lines = "\n".join(f"- `{name}`: `{conclusion}`" for name, conclusion in sorted(set(anomalies)))
+    body_lines = "\n".join(
+        f"- `{name}`: `{conclusion}`"
+        for name, conclusion in sorted(set(anomalies), key=lambda item: item[0].lower())
+    )
     body = (
         f"## Auto-detected CI/Gate anomalies for PR #{pr_num}\n\n"
         f"The following non-required gates are not healthy and need follow-up:\n\n"
@@ -467,18 +487,31 @@ def upsert_auto_anomaly_issue(pr_num, anomalies):
 
     issue = find_open_auto_anomaly_issue(pr_num)
     if issue:
-        gh_api(f"/repos/{REPO}/issues/{issue['number']}/comments", method="POST", data={"body": body})
+        current_body = (issue.get("body", "") or "").replace("\r\n", "\n").strip()
+        next_body = (body or "").replace("\r\n", "\n").strip()
+        if current_body == next_body:
+            print(f"  [ANOMALY-ISSUE] No changes for issue #{issue['number']}")
+            return issue["number"]
+        updated = gh_api(f"/repos/{REPO}/issues/{issue['number']}", method="PATCH", data={"body": body})
+        if updated.get("_http_error"):
+            print(f"  [ANOMALY-ISSUE] Failed to update issue #{issue['number']}: {updated.get('_http_error')}")
+            return None
         print(f"  [ANOMALY-ISSUE] Updated issue #{issue['number']}")
         return issue["number"]
 
     created = gh_api(
         f"/repos/{REPO}/issues",
         method="POST",
-        data={"title": title, "body": body, "labels": ["blocked", "ci/cd", "needs-attention"]},
+        data={"title": title, "body": body, "labels": AUTO_ANOMALY_ISSUE_LABELS},
     )
     issue_number = created.get("number")
+    if created.get("_http_error"):
+        print(f"  [ANOMALY-ISSUE] Failed to create issue: {created.get('_http_error')}")
+        return None
     if issue_number:
         print(f"  [ANOMALY-ISSUE] Created issue #{issue_number}")
+    else:
+        print(f"  [ANOMALY-ISSUE] Failed to create issue: no issue number returned")
     return issue_number
 
 
@@ -487,7 +520,7 @@ def close_auto_anomaly_issue_if_clean(pr_num):
     if not issue:
         return
     issue_num = issue["number"]
-    gh_api(
+    comment_result = gh_api(
         f"/repos/{REPO}/issues/{issue_num}/comments",
         method="POST",
         data={
@@ -498,7 +531,17 @@ def close_auto_anomaly_issue_if_clean(pr_num):
             )
         },
     )
-    gh_api(f"/repos/{REPO}/issues/{issue_num}", method="PATCH", data={"state": "closed", "state_reason": "completed"})
+    if comment_result.get("_http_error"):
+        print(f"  [ANOMALY-ISSUE] Failed to comment before close #{issue_num}: {comment_result.get('_http_error')}")
+        return
+    closed = gh_api(
+        f"/repos/{REPO}/issues/{issue_num}",
+        method="PATCH",
+        data={"state": "closed", "state_reason": "completed"},
+    )
+    if closed.get("_http_error"):
+        print(f"  [ANOMALY-ISSUE] Failed to close issue #{issue_num}: {closed.get('_http_error')}")
+        return
     print(f"  [ANOMALY-ISSUE] Closed issue #{issue_num}")
 
 
@@ -620,8 +663,9 @@ def process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels):
     print(f"  all_pass={all_pass} any_pending={any_pending} merge_status={merge_status}")
     if anomalies:
         print(f"  [ANOMALIES] Non-required gate anomalies: {anomalies}")
-        upsert_auto_anomaly_issue(pr_num, anomalies)
-        add_label(pr_num, "blocked")
+        issue_number = upsert_auto_anomaly_issue(pr_num, anomalies)
+        if issue_number:
+            add_label(pr_num, "blocked")
     else:
         close_auto_anomaly_issue_if_clean(pr_num)
 

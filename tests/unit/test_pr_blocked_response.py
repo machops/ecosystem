@@ -65,11 +65,15 @@ def test_engine_classify_marks_skipped_required_as_pending():
 def test_collect_non_required_gate_anomalies_detects_failed_and_key_skipped():
     anomalies = diagnose.collect_non_required_gate_anomalies([
         {"name": "Security Gates — Trivy + Checkov + Gitleaks", "status": "completed", "conclusion": "startup_failure"},
+        {"name": "canary-gate", "status": "completed", "conclusion": "failure"},
         {"name": "optional-ci-health", "status": "completed", "conclusion": "skipped"},
+        {"name": "optional-ci-health-queued", "status": "queued", "conclusion": "skipped"},
         {"name": "request-codacy-review", "status": "completed", "conclusion": "skipped"},
         {"name": "lint", "status": "completed", "conclusion": "failure"},
     ])
     assert ("Security Gates — Trivy + Checkov + Gitleaks", "startup_failure") in anomalies
+    assert ("canary-gate", "failure") in anomalies
     assert ("optional-ci-health", "skipped") in anomalies
+    assert ("optional-ci-health-queued", "skipped") not in anomalies
     assert ("request-codacy-review", "skipped") not in anomalies
     assert ("lint", "failure") not in anomalies
