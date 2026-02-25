@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-smoke
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-4398d7341f22e99dd48e60a90307b3719bfd28a52b37d7b00939f521acebe6ef
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-19473b3410a66d6ea30a063385abb6960fd206b8ebc6e17527e3f39af571bcf5
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -75,7 +75,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-load
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-40c93929c8f618e3943acc05e878b811e247a22e1ca77b18bce9f12f435786e2
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-879fd6c1da96101d491d7b2dced9f5a6917a3b355fb4e8230a9d331e5a74684b
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -144,7 +144,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-stress
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-aefa007eaff28717e8a4ade2e1722746a9a3bd33e3547b31afec13dc3b525e3b
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-9491cfa0c93f5ff850855f5157eaf8b00cc99d8d1d61682349145b6a16751273
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -213,7 +213,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-endurance
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-37d104fa1c9e9ccacf0204ae5076a4d5977ff56bd7962cbfcb27ee96c4ba0735
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-7ca8151ea60264310632afbba9c6d6672061b9d3532a4b0d8a2a1b760c89de72
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

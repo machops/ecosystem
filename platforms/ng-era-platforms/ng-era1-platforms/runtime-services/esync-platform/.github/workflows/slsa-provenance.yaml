@@ -9,12 +9,7 @@
 
 
 version: "1.0.0"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:esync-platform:.github:workflows:slsa-provenance.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/slsa-provenance.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

@@ -12,9 +12,6 @@
 apiVersion: enforcer.machinenativeops.io/v1
 kind: PolicyEnforcer
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:infrastructure:enforcers:policy-enforcer.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/enforcers/policy-enforcer.yaml"
   name: gl-quantum-policy-enforcer
   namespace: infrastructure
   labels:
@@ -91,10 +88,7 @@ spec:
         target:
           resources: ["Pod", "Deployment", "Service"]
         patch:
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:infrastructure:enforcers:policy-enforcer.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/enforcers/policy-enforcer.yaml"
+          
             labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned

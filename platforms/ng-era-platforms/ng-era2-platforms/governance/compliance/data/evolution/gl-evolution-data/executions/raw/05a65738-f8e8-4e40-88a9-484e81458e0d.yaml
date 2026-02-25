@@ -2,10 +2,7 @@
 # @ECO-governed
 execution_id: 05a65738-f8e8-4e40-88a9-484e81458e0d
 input_hash: 2ea8c89f7fc21b367af5c1ac961f615e88d169352cb73dc38cbe4abe54b8c1b7
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance:data:evolution:gl-evolution-data:executions:raw:05a65738-f8e8-4e40-88a9-484e81458e0d.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance/data/evolution/gl-evolution-data/executions/raw/05a65738-f8e8-4e40-88a9-484e81458e0d.yaml"
+
   contracts:
   - gl-naming-ontology
   - gl-platforms
@@ -20,10 +17,7 @@ raw_data:
   input:
     context: 每月例行檢查
     query: 分析GL生態系統狀態
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance:data:evolution:gl-evolution-data:executions:raw:05a65738-f8e8-4e40-88a9-484e81458e0d.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance/data/evolution/gl-evolution-data/executions/raw/05a65738-f8e8-4e40-88a9-484e81458e0d.yaml"
+  
     contracts:
     - gl-naming-ontology
     - gl-platforms

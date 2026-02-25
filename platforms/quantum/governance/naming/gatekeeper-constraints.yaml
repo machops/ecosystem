@@ -12,9 +12,6 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sAllowedRepos
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:gatekeeper-constraints.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/gatekeeper-constraints.yaml"
   name: gov-quantum-naming-constraint
   namespace: governance
   labels:
@@ -40,9 +37,6 @@ spec:
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:gatekeeper-constraints.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/gatekeeper-constraints.yaml"
   name: glnamingconvention
   namespace: governance
 spec:

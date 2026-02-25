@@ -7,12 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLGovernanceLoopVision
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:governance:gl-artifacts:strategic:artifacts:bi-direction-governance-loop-vision.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/governance/gl-artifacts/strategic/artifacts/bi-direction-governance-loop-vision.yaml"
-  name: bi-direction-governance-loop-vision
-  version: "1.0.0"
+
   created: "2026-01-21"
   layer: "GL00-09"
 vision:

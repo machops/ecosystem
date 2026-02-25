@@ -1,11 +1,25 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: circleci-agent
-  namespace: circleci-runner
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/deployment/circleci-agent
+    eco-base/urn: urn:eco-base:k8s:core:deployment:circleci-agent:sha256-fdd73944dd857ab64802f48fd17e7e9ce9febb846a223d34b38cc17acfc4e11d
   labels:
     app: circleci-runner
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: circleci-agent
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
     component: agent
+    eco-base/environment: development
+    eco-base/owner: eco-system
+    eco-base/platform: core
+  name: circleci-agent
+  namespace: circleci-runner
 spec:
   replicas: 1
   selector:
@@ -19,97 +33,77 @@ spec:
         component: agent
     spec:
       containers:
-      - name: runner-agent
-        image: circleci/runner:launch-agent
-        imagePullPolicy: Always
-        env:
-        # Resource class configuration
+      - env:
         - name: CIRCLECI_RESOURCE_CLASS
           valueFrom:
             configMapKeyRef:
-              name: circleci-agent-config
               key: CIRCLECI_RUNNER_RESOURCE_CLASS
-              
-        # Runner token
+              name: circleci-agent-config
         - name: CIRCLECI_RUNNER_TOKEN
           valueFrom:
             secretKeyRef:
-              name: circleci-runner-secrets
               key: CIRCLECI_RUNNER_TOKEN
-              
-        # API token (optional)
+              name: circleci-runner-secrets
         - name: CIRCLECI_API_TOKEN
+          optional: true
           valueFrom:
             secretKeyRef:
-              name: circleci-runner-secrets
               key: CIRCLECI_API_TOKEN
-          optional: true
-              
-        # Logging
+              name: circleci-runner-secrets
         - name: LOG_LEVEL
           valueFrom:
             configMapKeyRef:
-              name: circleci-agent-config
               key: LOG_LEVEL
-              
-        # Agent name
+              name: circleci-agent-config
         - name: AGENT_NAME
           valueFrom:
             configMapKeyRef:
-              name: circleci-agent-config
               key: CIRCLECI_RUNNER_NAME
-              
-        # Agent mode
+              name: circleci-agent-config
         - name: LAUNCH_AGENT_MODE
           valueFrom:
             configMapKeyRef:
-              name: circleci-agent-config
               key: CIRCLECI_RUNNER_MODE
-              
-        # Working directory
+              name: circleci-agent-config
         - name: WORKING_DIRECTORY
           valueFrom:
             configMapKeyRef:
-              name: circleci-agent-config
               key: WORKING_DIRECTORY
-              
-        # Cleanup workspace
+              name: circleci-agent-config
         - name: CLEANUP_WORKSPACE
           valueFrom:
             configMapKeyRef:
-              name: circleci-agent-config
               key: CLEANUP_WORKSPACE
-              
-        resources:
-          requests:
-            cpu: "250m"
-            memory: "512Mi"
-          limits:
-            cpu: "2000m"
-            memory: "4Gi"
-            
+              name: circleci-agent-config
+        image: circleci/runner:launch-agent
+        imagePullPolicy: Always
         livenessProbe:
           exec:
             command:
             - /bin/sh
             - -c
-            - "pgrep -f launch-agent || exit 1"
+            - pgrep -f launch-agent || exit 1
+          failureThreshold: 3
           initialDelaySeconds: 30
           periodSeconds: 30
           timeoutSeconds: 10
-          failureThreshold: 3
-          
+        name: runner-agent
         readinessProbe:
           exec:
             command:
             - /bin/sh
             - -c
-            - "pgrep -f launch-agent || exit 1"
+            - pgrep -f launch-agent || exit 1
+          failureThreshold: 3
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 3
-          
-      serviceAccountName: circleci-runner
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+          requests:
+            cpu: 250m
+            memory: 512Mi
       restartPolicy: Always
-</create_file>
+      serviceAccountName: circleci-runner

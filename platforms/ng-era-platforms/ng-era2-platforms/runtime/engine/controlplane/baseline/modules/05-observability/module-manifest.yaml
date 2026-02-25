@@ -115,12 +115,7 @@ semantic_mappings:
   - concept: "Auto-Fix"
     mapping: "mno-observability.autofix"
     description: "Map automatic fixes to auto-fix engine"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:controlplane:baseline:modules:05-observability:module-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/baseline/modules/05-observability/module-manifest.yaml"
-  created_date: "2025-01-18"
-  last_modified: "2025-01-18"
+
   maintainers:
     - "MachineNativeOps Team"
   tags:

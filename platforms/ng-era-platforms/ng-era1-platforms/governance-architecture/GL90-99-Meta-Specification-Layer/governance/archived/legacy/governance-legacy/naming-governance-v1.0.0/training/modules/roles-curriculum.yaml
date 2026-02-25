@@ -4,12 +4,7 @@
 # @ECO-audit-trail: engine/governance/GL_SEMANTIC_ANCHOR.json
 
 version: v1.0.0
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:naming-governance-v1.0.0:training:modules:roles-curriculum.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0/training/modules/roles-curriculum.yaml"
-  name: "命名治理角色培訓課程"
-  description: "針對不同角色的命名治理培訓模組與學習地圖"
+
   last_updated: "2025-01-18"
 
 roles:

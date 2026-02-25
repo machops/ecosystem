@@ -4,12 +4,7 @@
 # @ECO-audit-trail: engine/governance/GL_SEMANTIC_ANCHOR.json
 
 version: v1.0.0
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:naming-governance-v1.0.0:config:machine-spec.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0/config/machine-spec.yaml"
-  name: "canonical-naming-governance"
-  description: "組織層級命名治理規範與技術實施標準"
+
   last_updated: "2025-01-18"
   maintainer: "platform-governance-committee"
 

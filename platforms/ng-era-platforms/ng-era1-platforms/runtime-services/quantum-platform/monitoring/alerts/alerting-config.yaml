@@ -12,9 +12,6 @@
 apiVersion: alerting.machinenativeops.io/v1
 kind: AlertingConfig
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:monitoring:alerts:alerting-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/alerts/alerting-config.yaml"
   name: gl-quantum-alerting
   namespace: monitoring
   labels:

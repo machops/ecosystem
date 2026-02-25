@@ -12,9 +12,6 @@
 apiVersion: alerting.machinenativeops.io/v1
 kind: AlertingConfig
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:monitoring:alerts:alerting-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/monitoring/alerts/alerting-config.yaml"
   name: gov-quantum-alerting
   namespace: monitoring
   labels:

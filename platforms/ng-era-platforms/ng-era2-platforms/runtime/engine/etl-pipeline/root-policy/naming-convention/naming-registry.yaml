@@ -9,12 +9,7 @@
 # ECO-Layer: GL90-99 (Meta - Naming Convention)
 # Closure-Signal: naming, schema
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:root-policy:naming-convention:naming-registry.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/root-policy/naming-convention/naming-registry.yaml"
-  registry-name: etl-naming-registry
-  version: "1.0.0"
+
   layer: "GL90-99"
   last-updated: "2024-01-01T00:00:00Z"
   responsible: "governance-committee"

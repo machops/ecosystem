@@ -10,9 +10,6 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:istio:virtualservices:resilience-features.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/istio/virtualservices/resilience-features.yaml"
   name: machine-native-ops-resilience
   namespace: platform-03
 spec:
@@ -79,9 +76,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:istio:virtualservices:resilience-features.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/istio/virtualservices/resilience-features.yaml"
   name: machine-native-ops-rate-limit
   namespace: platform-03
 spec:
@@ -106,9 +100,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:istio:virtualservices:resilience-features.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/istio/virtualservices/resilience-features.yaml"
   name: machine-native-ops-hedging
   namespace: platform-03
 spec:

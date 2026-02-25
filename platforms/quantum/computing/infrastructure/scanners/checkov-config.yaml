@@ -12,9 +12,6 @@
 apiVersion: security.machinenativeops.io/v1
 kind: CheckovConfig
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:computing:infrastructure:scanners:checkov-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/computing/infrastructure/scanners/checkov-config.yaml"
   name: gl-quantum-checkov
   namespace: infrastructure
   labels:

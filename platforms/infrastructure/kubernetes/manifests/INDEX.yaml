@@ -9,9 +9,6 @@
 apiVersion: machinenativeops.io/v1
 kind: ManifestIndex
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:kubernetes:manifests:INDEX.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/kubernetes/manifests/INDEX.yaml"
   name: kubernetes-manifests-index
   namespace: platform-03
   labels:

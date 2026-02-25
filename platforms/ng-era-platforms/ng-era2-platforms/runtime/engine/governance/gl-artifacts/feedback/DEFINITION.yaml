@@ -7,10 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLLayerDefinition
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:governance:gl-artifacts:feedback:DEFINITION.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/feedback/DEFINITION.yaml"
+
   layer_id: GL60-80
   name: Advanced/Feedback Layer
   version: "1.0.0"

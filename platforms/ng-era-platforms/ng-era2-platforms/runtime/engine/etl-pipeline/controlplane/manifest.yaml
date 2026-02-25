@@ -9,12 +9,7 @@
 # ECO-Layer: GL00-09 (Strategic)
 # Closure-Signal: manifest
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:controlplane:manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/controlplane/manifest.yaml"
-  name: controlplane
-  version: "1.0.0"
+
   layer: "GL00-09"
 
 components:

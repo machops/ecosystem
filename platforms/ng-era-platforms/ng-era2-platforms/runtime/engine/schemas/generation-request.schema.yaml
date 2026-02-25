@@ -53,12 +53,7 @@ properties:
     pattern: "^[a-z0-9-]{2,30}$"
   
   version:
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:schemas:generation-request.schema.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/schemas/generation-request.schema.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

@@ -1,9 +1,6 @@
 apiVersion: gl-runtime.io/v1.0.0
 kind: NamingConventionSpecification
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:governance:naming-governance:contracts:naming-conventions.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/contracts/naming-conventions.yaml"
+
   created_at: '2026-01-31T00:00:00Z'
   enforcement: MANDATORY
   governance_level: CONSTITUTIONAL

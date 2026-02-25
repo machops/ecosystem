@@ -12,9 +12,6 @@
 apiVersion: pipeline.machinenativeops.io/v1
 kind: MetadataDrivenPipeline
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
   name: gov-quantum-ci-pipeline
   namespace: ci-cd
   labels:
@@ -26,10 +23,7 @@ spec:
   enabled: true
   version: v3
   
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+  
     pipeline:
       name: gov-quantum-pipeline
       version: "1.0.0"
@@ -46,10 +40,7 @@ spec:
       description: "Validate changes before processing"
       jobs:
         - name: validate-metadata
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: validation
             category: quality
           steps:
@@ -59,10 +50,7 @@ spec:
                 yq eval '.metadata | keys' .github/workflows-quantum/pipeline-metadata.yaml
                 
         - name: lint-workflows
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: validation
             category: lint
           steps:
@@ -75,10 +63,7 @@ spec:
       description: "Security scanning and vulnerability detection"
       jobs:
         - name: dependency-scan
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: security
             category: dependency
           steps:
@@ -88,10 +73,7 @@ spec:
                 trivy fs --severity HIGH,CRITICAL --format json > artifacts/security/dependency-scan.json
                 
         - name: secrets-scan
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: security
             category: secrets
           steps:
@@ -105,10 +87,7 @@ spec:
       description: "Build artifacts and generate SBOM"
       jobs:
         - name: generate-sbom
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: build
             category: supply-chain
           steps:
@@ -118,10 +97,7 @@ spec:
                 syft . -o spdx-json > artifacts/sbom/sbom.json
                 
         - name: sign-artifacts
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: build
             category: signing
           steps:
@@ -135,10 +111,7 @@ spec:
       description: "Run tests and generate evidence"
       jobs:
         - name: unit-tests
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: test
             category: unit
           steps:
@@ -148,10 +121,7 @@ spec:
                 pytest tests/unit/ --junitxml=artifacts/test-results/unit-tests.xml
                 
         - name: integration-tests
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: test
             category: integration
           steps:
@@ -165,10 +135,7 @@ spec:
       description: "Governance validation and compliance checks"
       jobs:
         - name: naming-compliance
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: governance
             category: naming
           steps:
@@ -178,10 +145,7 @@ spec:
                 conftest test infrastructure/ -p governance-quantum/naming/conftest-policy.yaml --output json > artifacts/governance/naming-compliance.json
                 
         - name: k8s-policy-validation
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: governance
             category: policy
           steps:
@@ -195,10 +159,7 @@ spec:
       description: "Deploy artifacts and verify"
       jobs:
         - name: deploy-staging
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: deploy
             category: staging
           environment: staging
@@ -213,10 +174,7 @@ spec:
       description: "Post-deployment verification and evidence collection"
       jobs:
         - name: health-check
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: verification
             category: health
           steps:
@@ -226,10 +184,7 @@ spec:
                 curl -f https://staging.api.machinenativeops.com/health || exit 1
                 
         - name: collect-evidence
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:ci-pipeline:metadata-driven-pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml"
+          
             type: verification
             category: evidence
           steps:

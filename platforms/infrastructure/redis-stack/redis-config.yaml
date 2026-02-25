@@ -23,12 +23,7 @@
 # Redis Configuration
 # -----------------------------------------------------------------------------
 version: "1.0.0"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:redis-stack:redis-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/redis-stack/redis-config.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

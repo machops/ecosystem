@@ -168,7 +168,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/automation-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:automation-config:sha256-34ff467a494069388255904db3e039783ab628b04e9fc1e5f7c472ed46020da9
+    eco-base/urn: urn:eco-base:k8s:core:configmap:automation-config:sha256-09c58cdfa4907785e485374238b5ec5bf2a9756b77ad3b7123198bed1656d89e
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

@@ -7,12 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLBackwardReconciliationMechanism
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:governance:gl-artifacts:feedback:artifacts:backward-reconciliation-mechanism.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/feedback/artifacts/backward-reconciliation-mechanism.yaml"
-  name: backward-reconciliation-mechanism
-  version: "1.0.0"
+
   created: "2026-01-21"
   layer: "GL60-80"
 reconciliation_system:

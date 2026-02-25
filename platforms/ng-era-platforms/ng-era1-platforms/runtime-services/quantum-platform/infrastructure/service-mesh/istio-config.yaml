@@ -12,9 +12,6 @@
 apiVersion: servicemesh.machinenativeops.io/v1
 kind: ServiceMeshConfiguration
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:infrastructure:service-mesh:istio-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/service-mesh/istio-config.yaml"
   name: gl-quantum-service-mesh
   namespace: infrastructure
   labels:

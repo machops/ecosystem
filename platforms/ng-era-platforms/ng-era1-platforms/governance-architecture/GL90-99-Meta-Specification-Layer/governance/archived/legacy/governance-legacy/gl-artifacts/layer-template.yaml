@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLLayerTemplate
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:layer-template.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/layer-template.yaml"
-  name: gl-layer-template
-  version: "1.0.0"
+
 spec:
   layer_id: "GL00-00"  # Replace with actual layer ID
   name: "Layer Name"   # Replace with actual layer name

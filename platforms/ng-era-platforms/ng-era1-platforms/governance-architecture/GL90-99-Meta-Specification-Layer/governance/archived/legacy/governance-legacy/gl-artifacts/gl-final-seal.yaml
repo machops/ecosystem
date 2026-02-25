@@ -8,10 +8,7 @@
 # Version: 1.0.0
 # Status: IMMUTABLE
 # Authority: SUPREME
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-final-seal.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-final-seal.yaml"
+
   name: ECO-FINAL-SEAL
   version: 1.0.0
   created: 2025-01-18

@@ -9,12 +9,7 @@
 # =============================================================================
 apiVersion: governance.machinenativeops.io/v2
 kind: HighWeightPrompts
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-HIGH-WEIGHT-PROMPTS.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-HIGH-WEIGHT-PROMPTS.yaml"
-  name: gl-high-weight-prompts
-  version: "1.0.0"
+
   created_at: "2025-01-18T00:00:00Z"
   owner: governance-bot
   layer: "GL30-49"

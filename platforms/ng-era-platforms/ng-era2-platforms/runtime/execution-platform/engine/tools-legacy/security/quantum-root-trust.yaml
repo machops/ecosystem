@@ -12,9 +12,6 @@
 apiVersion: security.machinenativeops/v1
 kind: QuantumRootOfTrust
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:tools-legacy:security:quantum-root-trust.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/security/quantum-root-trust.yaml"
   name: quantum-root-trust
   namespace: security
   labels:

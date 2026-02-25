@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLForwardExpansionImplementation
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:forward-expansion-implementation.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/forward-expansion-implementation.yaml"
-  name: forward-expansion-implementation
-  version: "1.0.0"
+
   created: "2026-01-21"
   layer: "GL30-49"
 implementation:

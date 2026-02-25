@@ -8,9 +8,6 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:virtualservice.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/virtualservice.yaml"
   name: machine-native-ops
   namespace: production
   labels:
@@ -100,9 +97,6 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:virtualservice.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/virtualservice.yaml"
   name: machine-native-ops
   namespace: production
   labels:

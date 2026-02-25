@@ -15,10 +15,7 @@
 # 執行模式: FULLY_AUTONOMOUS
 # ═══════════════════════════════════════════════════════════════════════════
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:automation:instant:docs:INSTANT-EXECUTION-MANIFEST.yaml"
-    eco-base/uri: "eco-base://platform/resource/automation/instant/docs/INSTANT-EXECUTION-MANIFEST.yaml"
+
   name: instant-execution-manifest
   version: 1.0.0
   status: PRODUCTION_READY

@@ -11,9 +11,6 @@
 apiVersion: gl-runtime.io/v1.0.0
 kind: UnificationSpecification
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:semantic-unification-spec.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/semantic-unification-spec.yaml"
   name: semantic-unification-spec
   version: v1.0.0
   description: "GL Semantic Unification Specification - 語意統一規範"
@@ -487,12 +484,7 @@ spec:
         - "gl.key.agent.max.intent"
         - "gl.key.governance.policy.level"
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:semantic-unification-spec.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/semantic-unification-spec.yaml"
-  created_at: "2026-01-31T00:00:00Z"
-  updated_at: "2026-01-31T00:00:00Z"
+
   governance_level: CONSTITUTIONAL
   enforcement: MANDATORY
   compatibility:

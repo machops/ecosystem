@@ -75,12 +75,7 @@ properties:
     items:
       type: string
   
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:schemas:validation-response.schema.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/schemas/validation-response.schema.yaml"
-    type: object
-    description: "Additional validation metadata"
+  
     properties:
       validator_version:
         type: string

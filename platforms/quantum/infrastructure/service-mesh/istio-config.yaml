@@ -12,9 +12,6 @@
 apiVersion: servicemesh.machinenativeops.io/v1
 kind: ServiceMeshConfiguration
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:infrastructure:service-mesh:istio-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/infrastructure/service-mesh/istio-config.yaml"
   name: gov-quantum-service-mesh
   namespace: infrastructure
   labels:

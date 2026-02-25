@@ -9,12 +9,7 @@
 # ECO-Layer: GL30-49 (Execution)
 # Closure-Signal: manifest
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:workspace:projects:etl-pipeline:config:pipeline.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/workspace/projects/etl-pipeline/config/pipeline.yaml"
-  pipeline-name: user-analytics-etl
-  version: "1.0.0"
+
   layer: "GL30-49"
   last-updated: "2024-01-01T00:00:00Z"
   responsible: "data-engineering-team"

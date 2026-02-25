@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLArtifactEngine
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-artifact-engine.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-artifact-engine.yaml"
-  name: gl-artifact-engine
-  version: "1.0.0"
+
   status: ACTIVE
   created_at: "2025-01-19T00:00:00Z"
   activated_at: "2025-01-19T00:00:00Z"
@@ -206,12 +201,7 @@ engine_capabilities:
       standard_artifact_structure:
         apiVersion: "governance.machinenativeops.io/v1"
         kind: "{artifact_type}"
-        metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-artifact-engine.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-artifact-engine.yaml"
-          name: "{artifact_name}"
-          version: "1.0.0"
+        
           gl_layer: "{gl_layer}"
           status: "DRAFT"
           created_at: "{timestamp}"
@@ -346,11 +336,7 @@ engine_capabilities:
         action: "Record sealing timestamp"
       - step: 6
         action: "Output sealed artifact"
-    seal_metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-artifact-engine.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-artifact-engine.yaml"
-      status: "SEALED"
+    seal_
       immutable: true
       sealed_at: "{timestamp}"
       integrity_hash: "sha256:{hash}"

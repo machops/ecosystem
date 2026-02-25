@@ -12,9 +12,6 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:kyverno-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/kyverno-policies.yaml"
   name: gov-quantum-naming-policy
   namespace: governance
   labels:
@@ -34,11 +31,7 @@ spec:
       validate:
         message: "Deployment name must follow pattern: (dev|staging|prod)-[a-z0-9-]+-deploy-vX.Y.Z"
         pattern:
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:kyverno-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/kyverno-policies.yaml"
-            name: "^(dev|staging|prod)-[a-z0-9-]+-deploy-v[0-9]+\\.[0-9]+\\.[0-9]+"
+          
             
     - name: enforce-service-naming
       match:
@@ -48,11 +41,7 @@ spec:
       validate:
         message: "Service name must follow pattern: (dev|staging|prod)-[a-z0-9-]+-svc-vX.Y.Z"
         pattern:
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:kyverno-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/kyverno-policies.yaml"
-            name: "^(dev|staging|prod)-[a-z0-9-]+-svc-v[0-9]+\\.[0-9]+\\.[0-9]+"
+          
             
     - name: enforce-ingress-naming
       match:
@@ -62,11 +51,7 @@ spec:
       validate:
         message: "Ingress name must follow pattern: (dev|staging|prod)-[a-z0-9-]+-ing-vX.Y.Z"
         pattern:
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:kyverno-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/kyverno-policies.yaml"
-            name: "^(dev|staging|prod)-[a-z0-9-]+-ing-v[0-9]+\\.[0-9]+\\.[0-9]+"
+          
             
     - name: require-standard-labels
       match:
@@ -80,10 +65,7 @@ spec:
       validate:
         message: "Missing required standard labels"
         pattern:
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:kyverno-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/kyverno-policies.yaml"
+          
             labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
@@ -105,10 +87,7 @@ spec:
       validate:
         message: "machinenativeops.gl/environment label must be one of: dev, staging, prod"
         pattern:
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:kyverno-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/kyverno-policies.yaml"
+          
             labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned

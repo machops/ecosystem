@@ -10,11 +10,7 @@
 
 apiVersion: fhs.integration/v1
 kind: MaturityCriteria
-
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:tools-legacy:fhs-integration:maturity-criteria.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/fhs-integration/maturity-criteria.yaml"
   name: fhs-integration-maturity-criteria
   version: v1.0.0
   description: Criteria for determining when workspace components are ready for FHS integration

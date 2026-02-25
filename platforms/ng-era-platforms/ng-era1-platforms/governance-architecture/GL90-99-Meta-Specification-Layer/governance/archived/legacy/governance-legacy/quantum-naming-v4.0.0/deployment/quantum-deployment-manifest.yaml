@@ -69,10 +69,12 @@ metadata:
     app.kubernetes.io/component: "rbac"
 subjects:
   - kind: ServiceAccount
-    name: quantum-governance-sa
+metadata:
+  name: quantum-governance-sa
     namespace: quantum-governance
 roleRef:
   kind: ClusterRole
+metadata:
   name: quantum-governance-role
   apiGroup: rbac.authorization.k8s.io
 
@@ -345,7 +347,8 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: quantum-governance-service
+metadata:
+  name: quantum-governance-service
   minReplicas: 3
   maxReplicas: 10
   metrics:

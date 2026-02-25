@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLConstitution
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-core:gl-constitution.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-core/gl-constitution.yaml"
-  name: gl-constitution
-  version: "1.0.0"
+
   status: ENACTED
   created_at: "2025-01-19T00:00:00Z"
   enacted_at: "2025-01-19T00:00:00Z"

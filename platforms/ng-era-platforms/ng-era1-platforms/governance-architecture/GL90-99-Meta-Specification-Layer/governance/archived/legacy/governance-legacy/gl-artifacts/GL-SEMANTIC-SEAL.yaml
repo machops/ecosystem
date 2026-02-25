@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLSemanticSeal
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-SEMANTIC-SEAL.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-SEMANTIC-SEAL.yaml"
-  name: gl-semantic-seal
-  version: "1.0.0"
+
   status: SEALED
   sealed_at: "2025-01-18T00:00:00Z"
   sealed_by: "governance-committee"

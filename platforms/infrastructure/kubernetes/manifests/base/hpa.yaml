@@ -9,9 +9,6 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:kubernetes:manifests:base:hpa.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/kubernetes/manifests/base/hpa.yaml"
   name: aep-engine-hpa
   namespace: platform-03
   labels:
@@ -24,7 +21,8 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: aep-engine
+metadata:
+  name: aep-engine
   minReplicas: 3
   maxReplicas: 10
   metrics:

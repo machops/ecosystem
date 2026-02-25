@@ -11,9 +11,6 @@
 apiVersion: networking.istio.io/v1beta1
 kind: ServiceEntry
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:security:service-entry.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/security/service-entry.yaml"
   name: external-database
   namespace: platform-03
 spec:
@@ -30,9 +27,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: ServiceEntry
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:security:service-entry.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/security/service-entry.yaml"
   name: external-api
   namespace: platform-03
 spec:
@@ -51,9 +45,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: ServiceEntry
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:security:service-entry.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/security/service-entry.yaml"
   name: redis-cloud
   namespace: platform-03
 spec:
@@ -70,9 +61,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: ServiceEntry
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:security:service-entry.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/security/service-entry.yaml"
   name: observability-external
   namespace: platform-03
 spec:
@@ -97,9 +85,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:security:service-entry.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/security/service-entry.yaml"
   name: external-services-dr
   namespace: platform-03
 spec:

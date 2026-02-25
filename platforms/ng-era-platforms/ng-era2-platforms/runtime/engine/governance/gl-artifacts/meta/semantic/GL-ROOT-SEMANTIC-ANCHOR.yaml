@@ -7,12 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLRootSemanticAnchor
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:governance:gl-artifacts:meta:semantic:GL-ROOT-SEMANTIC-ANCHOR.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/semantic/GL-ROOT-SEMANTIC-ANCHOR.yaml"
-  name: gl-root-semantic-anchor
-  version: "1.0.0"
+
   created: "2026-01-21"
   status: active
 # GL Root Semantic Anchor - The single source of truth for all governance

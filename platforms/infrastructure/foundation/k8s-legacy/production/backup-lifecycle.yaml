@@ -1,236 +1,146 @@
-# @ECO-governed
-# @ECO-layer: infrastructure
-# @ECO-semantic: backup-lifecycle
-# @ECO-audit-trail: ../../engine/governance/GL_SEMANTIC_ANCHOR.json
-# 
-# GL Unified Architecture Governance Framework Activated
-
-# Backup Lifecycle Management Configuration
+---
 apiVersion: v1
+data:
+  lifecycle-policy.yaml: "# Backup lifecycle management policy\nlifecycle:\n  enabled:\
+    \ true\n  \n  # Retention policies by backup type\n  retention:\n    fullCluster:\n\
+    \      shortTerm:\n        duration: 7d\n        location: primary\n        count:\
+    \ 7\n      mediumTerm:\n        duration: 30d\n        location: primary\n   \
+    \     count: 30\n      longTerm:\n        duration: 90d\n        location: dr\n\
+    \        count: 90\n      archival:\n        duration: 365d\n        location:\
+    \ archive\n        count: 12\n    \n    incremental:\n      shortTerm:\n     \
+    \   duration: 1d\n        location: primary\n        count: 24\n      mediumTerm:\n\
+    \        duration: 7d\n        location: primary\n        count: 168\n    \n \
+    \   database:\n      postgresql:\n        hourly:\n          duration: 24h\n \
+    \         location: primary\n          count: 24\n        daily:\n          duration:\
+    \ 30d\n          location: primary\n          count: 30\n        weekly:\n   \
+    \       duration: 90d\n          location: dr\n          count: 12\n      redis:\n\
+    \        hourly:\n          duration: 6h\n          location: primary\n      \
+    \    count: 12\n        daily:\n          duration: 7d\n          location: primary\n\
+    \          count: 7\n    \n    configuration:\n      shortTerm:\n        duration:\
+    \ 30d\n        location: primary\n        count: 1440\n      longTerm:\n     \
+    \   duration: 90d\n        location: dr\n        count: 4320\n  \n  # Lifecycle\
+    \ transitions\n  transitions:\n    - name: primary-to-dr\n      sourceLocation:\
+    \ primary\n      targetLocation: dr\n      schedule: \"0 4 * * *\"  # Daily at\
+    \ 4 AM UTC\n      backupTypes:\n        - fullCluster\n        - database\n  \
+    \      - configuration\n    \n    - name: dr-to-archive\n      sourceLocation:\
+    \ dr\n      targetLocation: archive\n      schedule: \"0 5 1 * *\"  # Monthly\
+    \ on 1st at 5 AM UTC\n      backupTypes:\n        - fullCluster\n        - database\n\
+    \  \n  # Cleanup policies\n  cleanup:\n    enabled: true\n    schedule: \"0 3\
+    \ * * *\"  # Daily at 3 AM UTC\n    policies:\n      - name: expired-backups\n\
+    \        action: delete\n        condition:\n          age: exceeds\n        \
+    \  value: retention\n        notification:\n          enabled: true\n        \
+    \  channels:\n            - slack\n            - email\n      \n      - name:\
+    \ failed-backups\n        action: delete\n        condition:\n          status:\
+    \ failed\n          age: greaterThan\n          value: 7d\n        notification:\n\
+    \          enabled: true\n      \n      - name: incomplete-backups\n        action:\
+    \ verify\n        condition:\n          status: incomplete\n          age: greaterThan\n\
+    \          value: 1h\n        actionOnVerifyFail: delete\n  \n  # Archive policies\n\
+    \  archival:\n    enabled: true\n    schedule: \"0 5 1 * *\"  # Monthly on 1st\
+    \ at 5 AM UTC\n    format: tar.gz\n    compression: true\n    encryption: true\n\
+    \    \n      include: true\n      format: json\n    retention: 365d\n    notification:\n\
+    \      enabled: true\n      channels:\n        - slack\n        - email\n"
 kind: ConfigMap
 metadata:
   annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:backup-lifecycle.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml"
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/configmap/backup-lifecycle-config
+    eco-base/urn: urn:eco-base:k8s:core:configmap:backup-lifecycle-config:sha256-8ed593e7bebf4acf756bfb4a7d13c4f4a41bbac2492248c5b11fcd17f1268369
+  labels:
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: backup-lifecycle-config
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/owner: eco-system
+    eco-base/platform: core
   name: backup-lifecycle-config
   namespace: velero
-data:
-  lifecycle-policy.yaml: |
-    # Backup lifecycle management policy
-    lifecycle:
-      enabled: true
-      
-      # Retention policies by backup type
-      retention:
-        fullCluster:
-          shortTerm:
-            duration: 7d
-            location: primary
-            count: 7
-          mediumTerm:
-            duration: 30d
-            location: primary
-            count: 30
-          longTerm:
-            duration: 90d
-            location: dr
-            count: 90
-          archival:
-            duration: 365d
-            location: archive
-            count: 12
-        
-        incremental:
-          shortTerm:
-            duration: 1d
-            location: primary
-            count: 24
-          mediumTerm:
-            duration: 7d
-            location: primary
-            count: 168
-        
-        database:
-          postgresql:
-            hourly:
-              duration: 24h
-              location: primary
-              count: 24
-            daily:
-              duration: 30d
-              location: primary
-              count: 30
-            weekly:
-              duration: 90d
-              location: dr
-              count: 12
-          redis:
-            hourly:
-              duration: 6h
-              location: primary
-              count: 12
-            daily:
-              duration: 7d
-              location: primary
-              count: 7
-        
-        configuration:
-          shortTerm:
-            duration: 30d
-            location: primary
-            count: 1440
-          longTerm:
-            duration: 90d
-            location: dr
-            count: 4320
-      
-      # Lifecycle transitions
-      transitions:
-        - name: primary-to-dr
-          sourceLocation: primary
-          targetLocation: dr
-          schedule: "0 4 * * *"  # Daily at 4 AM UTC
-          backupTypes:
-            - fullCluster
-            - database
-            - configuration
-        
-        - name: dr-to-archive
-          sourceLocation: dr
-          targetLocation: archive
-          schedule: "0 5 1 * *"  # Monthly on 1st at 5 AM UTC
-          backupTypes:
-            - fullCluster
-            - database
-      
-      # Cleanup policies
-      cleanup:
-        enabled: true
-        schedule: "0 3 * * *"  # Daily at 3 AM UTC
-        policies:
-          - name: expired-backups
-            action: delete
-            condition:
-              age: exceeds
-              value: retention
-            notification:
-              enabled: true
-              channels:
-                - slack
-                - email
-          
-          - name: failed-backups
-            action: delete
-            condition:
-              status: failed
-              age: greaterThan
-              value: 7d
-            notification:
-              enabled: true
-          
-          - name: incomplete-backups
-            action: verify
-            condition:
-              status: incomplete
-              age: greaterThan
-              value: 1h
-            actionOnVerifyFail: delete
-      
-      # Archive policies
-      archival:
-        enabled: true
-        schedule: "0 5 1 * *"  # Monthly on 1st at 5 AM UTC
-        format: tar.gz
-        compression: true
-        encryption: true
-        metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:backup-lifecycle.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml"
-          include: true
-          format: json
-        retention: 365d
-        notification:
-          enabled: true
-          channels:
-            - slack
-            - email
 ---
-# Backup lifecycle job
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:backup-lifecycle.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml"
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/cronjob/backup-lifecycle-manager
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:backup-lifecycle-manager:sha256-1145991710cb9e74cb2bb70690644dd097e5893ccc708e4eea66ab3376bc6462
+  labels:
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: backup-lifecycle-manager
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/owner: eco-system
+    eco-base/platform: core
   name: backup-lifecycle-manager
   namespace: velero
 spec:
-  schedule: "0 3 * * *"  # Daily at 3 AM UTC
-  successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
         spec:
-          serviceAccountName: velero
           containers:
-          - name: lifecycle-manager
-            image: velero/velero:latest
-            command:
+          - command:
             - /bin/sh
             - -c
-            - |
-              # Execute lifecycle policies
-              velero backup get --namespace velero -o json | \
-                jq -r '.items[] | select(.status.phase == "Completed") | "\(.metadata.name) \(.metadata.creationTimestamp)"' | \
-                while read backup_name creation_time; do
-                  # Check retention policy
-                  backup_age=$(($(date +%s) - $(date -d "$creation_time" +%s)))
-                  retention_days=30
-                  retention_seconds=$((retention_days * 24 * 3600))
-                  
-                  if [ $backup_age -gt $retention_seconds ]; then
-                    echo "Deleting expired backup: $backup_name"
-                    velero backup delete $backup_name --namespace velero --confirm
-                  fi
-                done
-              
-              # Sync to DR regions
-              echo "Syncing backups to DR regions..."
-              velero backup-location sync --namespace velero
-              
-              # Verify backups
-              echo "Verifying backups..."
-              velero backup get --namespace velero -o json | \
-                jq -r '.items[] | select(.status.phase == "Completed") | .metadata.name' | \
-                while read backup_name; do
-                  echo "Verifying backup: $backup_name"
-                  velero backup describe $backup_name --namespace velero --details
-                done
+            - "# Execute lifecycle policies\nvelero backup get --namespace velero\
+              \ -o json | \\\n  jq -r '.items[] | select(.status.phase == \"Completed\"\
+              ) | \"\\(.metadata.name) \\(.metadata.creationTimestamp)\"' | \\\n \
+              \ while read backup_name creation_time; do\n    # Check retention policy\n\
+              \    backup_age=$(($(date +%s) - $(date -d \"$creation_time\" +%s)))\n\
+              \    retention_days=30\n    retention_seconds=$((retention_days * 24\
+              \ * 3600))\n    \n    if [ $backup_age -gt $retention_seconds ]; then\n\
+              \      echo \"Deleting expired backup: $backup_name\"\n      velero\
+              \ backup delete $backup_name --namespace velero --confirm\n    fi\n\
+              \  done\n\n# Sync to DR regions\necho \"Syncing backups to DR regions...\"\
+              \nvelero backup-location sync --namespace velero\n\n# Verify backups\n\
+              echo \"Verifying backups...\"\nvelero backup get --namespace velero\
+              \ -o json | \\\n  jq -r '.items[] | select(.status.phase == \"Completed\"\
+              ) | .metadata.name' | \\\n  while read backup_name; do\n    echo \"\
+              Verifying backup: $backup_name\"\n    velero backup describe $backup_name\
+              \ --namespace velero --details\n  done\n"
+            image: velero/velero:latest
+            name: lifecycle-manager
             volumeMounts:
-            - name: velero-config
-              mountPath: /etc/velero
+            - mountPath: /etc/velero
+              name: velero-config
               readOnly: true
-          volumes:
-          - name: velero-config
-            configMap:
-              name: backup-lifecycle-config
           restartPolicy: OnFailure
+          serviceAccountName: velero
+          volumes:
+          - configMap:
+              name: backup-lifecycle-config
+            name: velero-config
+  schedule: 0 3 * * *
+  successfulJobsHistoryLimit: 3
 ---
-# Backup notification configuration
 apiVersion: v1
 kind: Secret
 metadata:
   annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:backup-lifecycle.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml"
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/secret/backup-notification-config
+    eco-base/urn: urn:eco-base:k8s:core:secret:backup-notification-config:sha256-0154863c18195144df59e94a6e9e558932e50c05f4ca4f1ee7b064945b0a90c1
+  labels:
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: backup-notification-config
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/owner: eco-system
+    eco-base/platform: core
   name: backup-notification-config
   namespace: velero
-type: Opaque
 stringData:
-  slack-webhook-url: https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
-  email-smtp-server: smtp.example.com
-  email-smtp-port: "587"
   email-from: backups@machine-native-ops.com
+  email-smtp-port: '587'
+  email-smtp-server: smtp.example.com
   email-to: ops-team@machine-native-ops.com
+  slack-webhook-url: https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+type: Opaque

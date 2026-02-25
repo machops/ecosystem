@@ -13,12 +13,7 @@
 
 apiVersion: playbook.gl.io/v1
 kind: MigrationPlaybook
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:.governance:playbooks:naming-migration.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/playbooks/naming-migration.yaml"
-  name: gl-naming-migration
-  version: "1.0.0"
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
@@ -103,11 +98,8 @@ spec:
           cat > migration-plan.yaml << EOF
           apiVersion: plan.gl.io/v1
           kind: MigrationPlan
-          metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:.governance:playbooks:naming-migration.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/playbooks/naming-migration.yaml"
-            name: naming-migration-$(date +%Y%m%d)
+metadata:
+  name: naming-migration-$(date +%Y%m%d)
             createdAt: $(date -u +%Y-%m-%dT%H:%M:%SZ)
           spec:
             dryRun: true

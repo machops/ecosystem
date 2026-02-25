@@ -10,9 +10,6 @@
 apiVersion: gl-runtime.io/v1.0.0
 kind: DirectoryStandardsSpecification
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:governance:naming-governance:contracts:directory-standards.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/contracts/directory-standards.yaml"
   name: directory-standards
   version: v2.0.0
   description: "大型儲存庫目錄編排規範與責任邊界規範"
@@ -319,12 +316,7 @@ spec:
       - CONTRIBUTING.md
       - CHANGELOG.md
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:governance:naming-governance:contracts:directory-standards.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/contracts/directory-standards.yaml"
-  created_at: "2026-01-31T00:00:00Z"
-  updated_at: "2026-01-31T00:00:00Z"
+
   version: "v2.0.0"
   governance_level: CONSTITUTIONAL
   enforcement: MANDATORY

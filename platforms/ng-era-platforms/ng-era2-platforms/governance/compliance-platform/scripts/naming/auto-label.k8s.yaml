@@ -6,9 +6,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
   name: auto-labeler
   namespace: monitoring
   labels:
@@ -26,10 +23,7 @@ spec:
       app.kubernetes.io/name: auto-labeler
   
   template:
-    metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
+    
       labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
@@ -85,9 +79,6 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
   name: auto-labeler
   namespace: monitoring
 
@@ -95,9 +86,6 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
   name: auto-labeler
   namespace: monitoring
 rules:
@@ -109,17 +97,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
   name: auto-labeler
   namespace: monitoring
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
+metadata:
   name: auto-labeler
 subjects:
 - kind: ServiceAccount
+metadata:
   name: auto-labeler
   namespace: monitoring
 
@@ -128,9 +115,6 @@ subjects:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
   name: auto-labeler-labels
   namespace: monitoring
 
@@ -182,9 +166,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
   name: auto-labeler-annotations
   namespace: monitoring
 
@@ -215,9 +196,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance-platform:scripts:naming:auto-label.k8s.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml"
   name: auto-labeler-naming
   namespace: monitoring
 

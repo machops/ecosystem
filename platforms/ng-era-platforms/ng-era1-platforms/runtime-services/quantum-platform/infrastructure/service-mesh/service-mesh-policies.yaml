@@ -12,9 +12,6 @@
 apiVersion: servicemesh.machinenativeops.io/v1
 kind: ServiceMeshPolicies
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:infrastructure:service-mesh:service-mesh-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/service-mesh/service-mesh-policies.yaml"
   name: gl-quantum-service-mesh-policies
   namespace: infrastructure
   labels:

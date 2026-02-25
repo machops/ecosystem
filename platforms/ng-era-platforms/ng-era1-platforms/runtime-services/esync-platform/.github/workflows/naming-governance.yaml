@@ -41,12 +41,7 @@ jobs:
         uses: actions/setup-python@v5  # v5.0.0
         with:
           python-version: '3.11'
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:esync-platform:.github:workflows:naming-governance.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/naming-governance.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

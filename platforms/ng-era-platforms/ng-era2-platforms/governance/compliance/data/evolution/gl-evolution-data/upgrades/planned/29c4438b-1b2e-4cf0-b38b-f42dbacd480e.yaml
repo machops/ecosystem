@@ -1,12 +1,7 @@
 # @ECO-layer: GL60-80
 # @ECO-governed
 version: "1.0.0"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:governance:compliance:data:evolution:gl-evolution-data:upgrades:planned:29c4438b-1b2e-4cf0-b38b-f42dbacd480e.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/governance/compliance/data/evolution/gl-evolution-data/upgrades/planned/29c4438b-1b2e-4cf0-b38b-f42dbacd480e.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

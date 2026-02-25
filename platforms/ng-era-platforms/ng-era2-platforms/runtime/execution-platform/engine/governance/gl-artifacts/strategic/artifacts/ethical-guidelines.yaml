@@ -7,12 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v2
 kind: EthicalGuidelines
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:governance:gl-artifacts:strategic:artifacts:ethical-guidelines.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/governance/gl-artifacts/strategic/artifacts/ethical-guidelines.yaml"
-  name: machinenativeops-ethical-guidelines
-  version: "1.0.0"
+
   created_at: "2025-01-18T00:00:00Z"
   updated_at: "2025-01-18T00:00:00Z"
   owner: governance-committee

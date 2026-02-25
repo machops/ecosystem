@@ -12,9 +12,6 @@
 apiVersion: policy.machinenativeops.io/v1
 kind: ConftestPolicy
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:computing:governance:naming:conftest-policy.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/computing/governance/naming/conftest-policy.yaml"
   name: gl-quantum-naming-conftest
   namespace: governance
   labels:

@@ -14,12 +14,7 @@ governance:
   layer: "GL00-09"
   component: "Cross-Domain Integration"
   version: "1.0.0"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:governance:gl-artifacts:strategic:artifacts:cross-domain-integration.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/strategic/artifacts/cross-domain-integration.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

@@ -12,12 +12,7 @@
 
 apiVersion: audit.gl.io/v1
 kind: AuditTrailSchema
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:.governance:audit:audit-schema.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/audit/audit-schema.yaml"
-  name: gl-governance-audit
-  version: "1.0.0"
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
@@ -182,9 +177,6 @@ spec:
 apiVersion: audit.gl.io/v1
 kind: AuditEvent
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:.governance:audit:audit-schema.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/audit/audit-schema.yaml"
   name: sample-naming-fix
 spec:
   eventId: "550e8400-e29b-41d4-a716-446655440000"
@@ -199,7 +191,8 @@ spec:
     result: success
   resource:
     kind: Deployment
-    name: "app-backend"
+metadata:
+  name: "app-backend"
     namespace: "production"
     previousState:
       name: "app-backend"
@@ -219,9 +212,6 @@ spec:
 apiVersion: audit.gl.io/v1
 kind: AuditQuery
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:.governance:audit:audit-schema.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/audit/audit-schema.yaml"
   name: daily-compliance-report
 spec:
   query: |

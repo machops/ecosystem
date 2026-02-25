@@ -9,9 +9,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:tools-legacy:infrastructure:kubernetes:quantum:frontend-deployment.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/frontend-deployment.yaml"
   name: quantumflow-frontend
   namespace: quantumflow
   labels:
@@ -31,10 +28,7 @@ spec:
       app.kubernetes.io/name: quantumflow
       app.kubernetes.io/component: frontend
   template:
-    metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:tools-legacy:infrastructure:kubernetes:quantum:frontend-deployment.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/frontend-deployment.yaml"
+    
       labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned

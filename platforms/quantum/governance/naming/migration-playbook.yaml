@@ -12,9 +12,6 @@
 apiVersion: migration.machinenativeops.io/v1
 kind: NamingMigrationPlaybook
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:naming:migration-playbook.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/naming/migration-playbook.yaml"
   name: gov-quantum-naming-migration
   namespace: governance
   labels:

@@ -1,0 +1,578 @@
+[ECO-SPEC-FAIL] k8s/circleci/deployment.yaml: yaml parse error: while scanning a simple key
+  in "k8s/circleci/deployment.yaml", line 115, column 1
+could not find expected ':'
+  in "k8s/circleci/deployment.yaml", line 115, column 15
+[ECO-SPEC-FAIL] platforms/quantum/computing/governance/ci-pipeline/metadata-driven-pipeline.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/quantum/computing/governance/ci-pipeline/metadata-driven-pipeline.yaml", line 51, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/quantum/computing/governance/ci-pipeline/metadata-driven-pipeline.yaml", line 53, column 13
+[ECO-SPEC-FAIL] platforms/quantum/computing/governance/naming/kyverno-policies.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/quantum/computing/governance/naming/kyverno-policies.yaml", line 39, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/quantum/computing/governance/naming/kyverno-policies.yaml", line 41, column 13
+[ECO-SPEC-FAIL] platforms/quantum/computing/infrastructure/enforcers/policy-enforcer.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/quantum/computing/infrastructure/enforcers/policy-enforcer.yaml", line 96, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/quantum/computing/infrastructure/enforcers/policy-enforcer.yaml", line 98, column 13
+[ECO-SPEC-FAIL] platforms/quantum/computing/infrastructure/policies/security-policies.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/computing/infrastructure/policies/security-policies.yaml", line 27, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/computing/infrastructure/policies/security-policies.yaml", line 140, column 5
+[ECO-SPEC-FAIL] platforms/quantum/computing/infrastructure/service-mesh/istio-config.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/computing/infrastructure/service-mesh/istio-config.yaml", line 137, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/computing/infrastructure/service-mesh/istio-config.yaml", line 157, column 5
+[ECO-SPEC-FAIL] platforms/quantum/computing/k3s-upgrade/upgrade-monitoring.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/computing/k3s-upgrade/upgrade-monitoring.yaml", line 24, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/computing/k3s-upgrade/upgrade-monitoring.yaml", line 32, column 5
+[ECO-SPEC-FAIL] platforms/quantum/computing/monitoring/alerting/alert-correlation.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/computing/monitoring/alerting/alert-correlation.yaml", line 29, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/computing/monitoring/alerting/alert-correlation.yaml", line 50, column 5
+[ECO-SPEC-FAIL] platforms/quantum/computing/monitoring/prometheus/naming-violation-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/computing/monitoring/prometheus/naming-violation-rules.yaml", line 25, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/computing/monitoring/prometheus/naming-violation-rules.yaml", line 33, column 5
+[ECO-SPEC-FAIL] platforms/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml", line 51, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/quantum/governance/ci-pipeline/metadata-driven-pipeline.yaml", line 53, column 13
+[ECO-SPEC-FAIL] platforms/quantum/governance/naming/kyverno-policies.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/quantum/governance/naming/kyverno-policies.yaml", line 39, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/quantum/governance/naming/kyverno-policies.yaml", line 41, column 13
+[ECO-SPEC-FAIL] platforms/quantum/infrastructure/enforcers/policy-enforcer.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/quantum/infrastructure/enforcers/policy-enforcer.yaml", line 96, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/quantum/infrastructure/enforcers/policy-enforcer.yaml", line 98, column 13
+[ECO-SPEC-FAIL] platforms/quantum/infrastructure/policies/security-policies.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/infrastructure/policies/security-policies.yaml", line 27, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/infrastructure/policies/security-policies.yaml", line 140, column 5
+[ECO-SPEC-FAIL] platforms/quantum/infrastructure/service-mesh/istio-config.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/infrastructure/service-mesh/istio-config.yaml", line 137, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/infrastructure/service-mesh/istio-config.yaml", line 157, column 5
+[ECO-SPEC-FAIL] platforms/quantum/k3s-upgrade/upgrade-monitoring.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/k3s-upgrade/upgrade-monitoring.yaml", line 24, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/k3s-upgrade/upgrade-monitoring.yaml", line 32, column 5
+[ECO-SPEC-FAIL] platforms/quantum/monitoring/alerting/alert-correlation.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/monitoring/alerting/alert-correlation.yaml", line 29, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/monitoring/alerting/alert-correlation.yaml", line 50, column 5
+[ECO-SPEC-FAIL] platforms/quantum/monitoring/prometheus/naming-violation-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/quantum/monitoring/prometheus/naming-violation-rules.yaml", line 25, column 5
+expected <block end>, but found '?'
+  in "platforms/quantum/monitoring/prometheus/naming-violation-rules.yaml", line 33, column 5
+[ECO-SPEC-FAIL] platforms/automation/instant/workflows/instant-validation.yml: yaml parse error: while parsing a block mapping
+  in "platforms/automation/instant/workflows/instant-validation.yml", line 31, column 3
+expected <block end>, but found '<block sequence start>'
+  in "platforms/automation/instant/workflows/instant-validation.yml", line 36, column 7
+[ECO-SPEC-FAIL] platforms/automation/organizer/.github/workflows/gov-validation.yml: yaml parse error: while parsing a block mapping
+  in "platforms/automation/organizer/.github/workflows/gov-validation.yml", line 34, column 3
+expected <block end>, but found '<block sequence start>'
+  in "platforms/automation/organizer/.github/workflows/gov-validation.yml", line 39, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/deployment/kubernetes/base/monitoring-deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/deployment/kubernetes/base/monitoring-deployment.yaml", line 29, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/deployment/kubernetes/base/monitoring-deployment.yaml", line 31, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/deployment/kubernetes/base/monitoring-deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/deployment/kubernetes/base/monitoring-deployment.yaml", line 29, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/deployment/kubernetes/base/monitoring-deployment.yaml", line 31, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/deployments/multi-az-deployments.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/high-availability/deployments/multi-az-deployments.yaml", line 40, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/name
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: eco-base/urn invalid: 'urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml'
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml", line 315, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml", line 317, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/high-availability/services/multi-az-services.yaml", line 402, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/istio/gateway.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/istio/gateway.yaml", line 192, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/istio/destination-rules/circuit-breaking.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/istio/destination-rules/circuit-breaking.yaml", line 64, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/jaeger/values.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/jaeger/values.yaml", line 49, column 10
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/advanced-traffic-management.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/production/advanced-traffic-management.yaml", line 106, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml", line 148, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml", line 150, column 11
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/cross-platform-monitoring.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/k8s-legacy/production/cross-platform-monitoring.yaml", line 383, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/k8s-legacy/production/cross-platform-monitoring.yaml", line 385, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/deployment-istio.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/production/deployment-istio.yaml", line 36, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/deployment.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/production/deployment.yaml", line 35, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/multi-cluster-mesh.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/production/multi-cluster-mesh.yaml", line 130, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/resilience-middleware.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/production/resilience-middleware.yaml", line 29, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/universal-deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/k8s-legacy/production/universal-deployment.yaml", line 26, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/k8s-legacy/production/universal-deployment.yaml", line 28, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/k8s-legacy/production/virtualservice.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/foundation/k8s-legacy/production/virtualservice.yaml", line 152, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/elasticsearch-search-system/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/elasticsearch-search-system/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/elasticsearch-search-system/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/elasticsearch-search-system/service.yaml: Service/elasticsearch-search-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/engine/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/engine/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/engine/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/engine/service.yaml: Service/aep-engine-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/esync-platform/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/esync-platform/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/esync-platform/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/esync-platform/service.yaml: Service/esync-platform-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/file-organizer-system/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/file-organizer-system/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/file-organizer-system/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/file-organizer-system/service.yaml: Service/file-organizer-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/instant/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/instant/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/foundation/kubernetes/manifests/systems/instant/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/foundation/kubernetes/manifests/systems/instant/service.yaml: Service/instant-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/deployments/multi-az-deployments.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/high-availability/deployments/multi-az-deployments.yaml", line 40, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/name
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: ConfigMap/zone-failure-config: eco-base/urn invalid: 'urn:eco-base:platform:resource:infrastructure:k8s-legacy:high-availability:failover:failover-policies.yaml'
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml", line 315, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/k8s-legacy/high-availability/failover/failover-policies.yaml", line 317, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-api: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/machine-native-ops-worker: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/redis-cluster: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/postgres: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: Service/monitoring: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/high-availability/services/multi-az-services.yaml", line 402, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/istio/gateway.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/istio/gateway.yaml", line 192, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/istio/destination-rules/circuit-breaking.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/istio/destination-rules/circuit-breaking.yaml", line 64, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/jaeger/values.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/jaeger/values.yaml", line 49, column 10
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/advanced-traffic-management.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/production/advanced-traffic-management.yaml", line 106, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/backup-lifecycle.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/k8s-legacy/production/backup-lifecycle.yaml", line 148, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/k8s-legacy/production/backup-lifecycle.yaml", line 150, column 11
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/cross-platform-monitoring.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/k8s-legacy/production/cross-platform-monitoring.yaml", line 383, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/k8s-legacy/production/cross-platform-monitoring.yaml", line 385, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/deployment-istio.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/production/deployment-istio.yaml", line 36, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/deployment.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/production/deployment.yaml", line 35, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/multi-cluster-mesh.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/production/multi-cluster-mesh.yaml", line 130, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/resilience-middleware.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/production/resilience-middleware.yaml", line 29, column 31
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/universal-deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/k8s-legacy/production/universal-deployment.yaml", line 26, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/k8s-legacy/production/universal-deployment.yaml", line 28, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/k8s-legacy/production/virtualservice.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/infrastructure/k8s-legacy/production/virtualservice.yaml", line 152, column 14
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/elasticsearch-search-system/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/kubernetes/manifests/systems/elasticsearch-search-system/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/kubernetes/manifests/systems/elasticsearch-search-system/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/elasticsearch-search-system/service.yaml: Service/elasticsearch-search-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/engine/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/kubernetes/manifests/systems/engine/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/kubernetes/manifests/systems/engine/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/engine/service.yaml: Service/aep-engine-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/esync-platform/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/kubernetes/manifests/systems/esync-platform/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/kubernetes/manifests/systems/esync-platform/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/esync-platform/service.yaml: Service/esync-platform-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/file-organizer-system/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/kubernetes/manifests/systems/file-organizer-system/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/kubernetes/manifests/systems/file-organizer-system/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/file-organizer-system/service.yaml: Service/file-organizer-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/instant/deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/infrastructure/kubernetes/manifests/systems/instant/deployment.yaml", line 33, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/infrastructure/kubernetes/manifests/systems/instant/deployment.yaml", line 35, column 7
+[ECO-SPEC-FAIL] platforms/infrastructure/kubernetes/manifests/systems/instant/service.yaml: Service/instant-service: app.kubernetes.io/part-of must be 'eco-base'
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era3-platforms/extensions/integration-hub/pagerduty/config.example.yaml: yaml parse error: while scanning a simple key
+  in "platforms/ng-era-platforms/ng-era3-platforms/extensions/integration-hub/pagerduty/config.example.yaml", line 166, column 11
+could not find expected ':'
+  in "platforms/ng-era-platforms/ng-era3-platforms/extensions/integration-hub/pagerduty/config.example.yaml", line 170, column 12
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/monitoring/prometheus-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/monitoring/prometheus-rules.yaml", line 23, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/monitoring/prometheus-rules.yaml", line 34, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/playbooks/naming-migration.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/playbooks/naming-migration.yaml", line 108, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/.governance/playbooks/naming-migration.yaml", line 110, column 13
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0-extended/governance/naming/naming-governance-core.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0-extended/governance/naming/naming-governance-core.yaml", line 370, column 19
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0-extended/monitoring/prometheus-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0-extended/monitoring/prometheus-rules.yaml", line 28, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0-extended/monitoring/prometheus-rules.yaml", line 35, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0/monitoring/prometheus/naming-governance-rules.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0/monitoring/prometheus/naming-governance-rules.yaml", line 31, column 20
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0/config/machine-spec.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0/config/machine-spec.yaml", line 6, column 1
+expected <block end>, but found '<block sequence start>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/naming-governance-v1.0.0/config/machine-spec.yaml", line 49, column 3
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/monitoring/prometheus-quantum-rules.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/monitoring/prometheus-quantum-rules.yaml", line 36, column 19
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: ConfigMap/quantum-governance-config: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: Secret/quantum-governance-secrets: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/deployment/quantum-deployment-manifest.yaml", line 212, column 31
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml", line 251, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml", line 253, column 11
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARTIFACTS-TEMPLATES.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARTIFACTS-TEMPLATES.yaml", line 845, column 23
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-LAYER-DEFINITIONS.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-LAYER-DEFINITIONS.yaml", line 31, column 9
+expected <block end>, but found '<scalar>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-LAYER-DEFINITIONS.yaml", line 36, column 20
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/alert-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/alert-rules.yaml", line 52, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/alert-rules.yaml", line 62, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-artifact-engine.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-artifact-engine.yaml", line 211, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-artifact-engine.yaml", line 213, column 11
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-filesystem-mapping.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-filesystem-mapping.yaml", line 34, column 9
+expected <block end>, but found '<scalar>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-filesystem-mapping.yaml", line 38, column 20
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/metrics-definition.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/metrics-definition.yaml", line 59, column 19
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/policies/naming/required-labels.policy.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/policies/naming/required-labels.policy.yaml", line 42, column 5
+expected <block end>, but found '-'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/policies/naming/required-labels.policy.yaml", line 45, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/policies/observability/naming-metrics-policy.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/policies/observability/naming-metrics-policy.yaml", line 29, column 15
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/semantic-unification-spec.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/semantic-unification-spec.yaml", line 249, column 17
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/unified-naming-governance-contract.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/unified-naming-governance-contract.yaml", line 491, column 21
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/contracts/directory-standards.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/contracts/directory-standards.yaml", line 107, column 7
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/contracts/directory-standards.yaml", line 108, column 7
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/auto-fix-bot.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/auto-fix-bot.yaml", line 57, column 16
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/ci.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/ci.yaml", line 54, column 16
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/naming-governance.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.github/workflows/naming-governance.yaml", line 54, column 16
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/observability/alerts/prometheus-rules/naming-convention-alerts.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/observability/alerts/prometheus-rules/naming-convention-alerts.yaml", line 23, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/observability/alerts/prometheus-rules/naming-convention-alerts.yaml", line 35, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/ci-pipeline/metadata-driven-pipeline.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/ci-pipeline/metadata-driven-pipeline.yaml", line 51, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/ci-pipeline/metadata-driven-pipeline.yaml", line 53, column 13
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/naming/kyverno-policies.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/naming/kyverno-policies.yaml", line 39, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/naming/kyverno-policies.yaml", line 41, column 13
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/enforcers/policy-enforcer.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/enforcers/policy-enforcer.yaml", line 96, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/enforcers/policy-enforcer.yaml", line 98, column 13
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/policies/security-policies.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/policies/security-policies.yaml", line 27, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/policies/security-policies.yaml", line 140, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/service-mesh/istio-config.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/service-mesh/istio-config.yaml", line 137, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/infrastructure/service-mesh/istio-config.yaml", line 157, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/k3s-upgrade/upgrade-monitoring.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/k3s-upgrade/upgrade-monitoring.yaml", line 24, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/k3s-upgrade/upgrade-monitoring.yaml", line 32, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/alerting/alert-correlation.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/alerting/alert-correlation.yaml", line 29, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/alerting/alert-correlation.yaml", line 50, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/prometheus/naming-violation-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/prometheus/naming-violation-rules.yaml", line 25, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/prometheus/naming-violation-rules.yaml", line 33, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era1-platforms/runtime-services/integrations/pagerduty/config.example.yaml: yaml parse error: while scanning a simple key
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/integrations/pagerduty/config.example.yaml", line 166, column 11
+could not find expected ':'
+  in "platforms/ng-era-platforms/ng-era1-platforms/runtime-services/integrations/pagerduty/config.example.yaml", line 170, column 12
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/data-processing/processing-platform/elasticsearch-search-system/workspace/projects/search-system/config/index-mapping.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/data-processing/processing-platform/elasticsearch-search-system/workspace/projects/search-system/config/index-mapping.yaml", line 96, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/data-processing/processing-platform/elasticsearch-search-system/workspace/projects/search-system/config/index-mapping.yaml", line 98, column 9
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/data-processing/search/workspace/projects/search-system/config/index-mapping.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/data-processing/search/workspace/projects/search-system/config/index-mapping.yaml", line 96, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/data-processing/search/workspace/projects/search-system/config/index-mapping.yaml", line 98, column 9
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml", line 31, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/scripts/naming/auto-label.k8s.yaml", line 33, column 7
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/governance/compliance/data/evolution/gl-evolution-data/upgrades/planned/29c4438b-1b2e-4cf0-b38b-f42dbacd480e.yaml: yaml parse error: could not determine a constructor for the tag 'tag:yaml.org,2002:python/object/apply:__main__.Priority'
+  in "platforms/ng-era-platforms/ng-era2-platforms/governance/compliance/data/evolution/gl-evolution-data/upgrades/planned/29c4438b-1b2e-4cf0-b38b-f42dbacd480e.yaml", line 26, column 11
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/monitoring/observability/observability/alerts/prometheus-rules/naming-convention-alerts.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era2-platforms/monitoring/observability/observability/alerts/prometheus-rules/naming-convention-alerts.yaml", line 18, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era2-platforms/monitoring/observability/observability/alerts/prometheus-rules/naming-convention-alerts.yaml", line 26, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/monitoring/platform/alerts/prometheus-rules/naming-convention-alerts.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era2-platforms/monitoring/platform/alerts/prometheus-rules/naming-convention-alerts.yaml", line 18, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era2-platforms/monitoring/platform/alerts/prometheus-rules/naming-convention-alerts.yaml", line 26, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.super-execution.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.super-execution.yaml", line 444, column 13
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/registries/GL-AI-NATIVE-MODULES.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/registries/GL-AI-NATIVE-MODULES.yaml", line 50, column 5
+expected <block end>, but found '<scalar>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/registries/GL-AI-NATIVE-MODULES.yaml", line 57, column 20
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/specifications/root.specs.naming.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/specifications/root.specs.naming.yaml", line 217, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/specifications/root.specs.naming.yaml", line 236, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/validation/root.validator.schema.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/validation/root.validator.schema.yaml", line 48, column 15
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/root-policy/naming-convention/naming-registry.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/root-policy/naming-convention/naming-registry.yaml", line 88, column 62
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-ARCHITECTURE-SPEC.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-ARCHITECTURE-SPEC.yaml", line 253, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-ARCHITECTURE-SPEC.yaml", line 255, column 11
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-ARTIFACTS-TEMPLATES.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-ARTIFACTS-TEMPLATES.yaml", line 847, column 23
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-LAYER-DEFINITIONS.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-LAYER-DEFINITIONS.yaml", line 33, column 9
+expected <block end>, but found '<scalar>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-LAYER-DEFINITIONS.yaml", line 38, column 20
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/observability/artifacts/alert-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/observability/artifacts/alert-rules.yaml", line 54, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/observability/artifacts/alert-rules.yaml", line 64, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/observability/artifacts/metrics-definition.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/observability/artifacts/metrics-definition.yaml", line 61, column 19
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/templates/ci/github-actions-naming-check.yml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/templates/ci/github-actions-naming-check.yml", line 31, column 3
+expected <block end>, but found '<block sequence start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/templates/ci/github-actions-naming-check.yml", line 36, column 7
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/templates/monitoring/prometheus-rules.yaml: yaml parse error: while parsing a block collection
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/templates/monitoring/prometheus-rules.yaml", line 21, column 5
+expected <block end>, but found '?'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/templates/monitoring/prometheus-rules.yaml", line 27, column 5
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tests-legacy/fixtures/sample-config.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tests-legacy/fixtures/sample-config.yaml", line 60, column 5
+expected <block end>, but found '<scalar>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tests-legacy/fixtures/sample-config.yaml", line 61, column 160
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/backend-deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/backend-deployment.yaml", line 36, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/backend-deployment.yaml", line 38, column 7
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/frontend-deployment.yaml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/frontend-deployment.yaml", line 36, column 5
+expected <block end>, but found '<block mapping start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/frontend-deployment.yaml", line 38, column 7
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/dynamic-validator-deployment.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/dynamic-validator-deployment.yaml", line 34, column 31
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing label app.kubernetes.io/instance
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing label app.kubernetes.io/version
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing label app.kubernetes.io/part-of
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing label eco-base/platform
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing label eco-base/environment
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing label eco-base/owner
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing annotation eco-base/uri
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing annotation eco-base/urn
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing annotation eco-base/governance-policy
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: Service/hybrid-decider-service: missing annotation eco-base/audit-log-level
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/hybrid-decider-service.yaml", line 63, column 31
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/quantum-scanner-daemonset.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/validation/quantum-scanner-daemonset.yaml", line 33, column 31
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/file-organizer-system/.github/workflows/gl-validation.yml: yaml parse error: while parsing a block mapping
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/file-organizer-system/.github/workflows/gl-validation.yml", line 34, column 3
+expected <block end>, but found '<block sequence start>'
+  in "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/file-organizer-system/.github/workflows/gl-validation.yml", line 39, column 7
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-cross-era-platforms/meta/semantic-core/configs/folding-config.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-cross-era-platforms/meta/semantic-core/configs/folding-config.yaml", line 168, column 16
+[ECO-SPEC-FAIL] platforms/ng-era-platforms/ng-cross-era-platforms/meta/semantic-core/deployments/kubernetes/deployment.yaml: yaml parse error: mapping values are not allowed here
+  in "platforms/ng-era-platforms/ng-cross-era-platforms/meta/semantic-core/deployments/kubernetes/deployment.yaml", line 41, column 31

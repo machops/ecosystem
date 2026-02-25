@@ -9,12 +9,7 @@
 # ECO-Layer: GL30-49 (Execution)
 # Closure-Signal: manifest
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/manifest.yaml"
-  name: etl-pipeline
-  version: "1.0.0"
+
   description: "Comprehensive ETL pipeline with data synchronization service"
   layer: "GL30-49"
   last-updated: "2024-01-01T00:00:00Z"

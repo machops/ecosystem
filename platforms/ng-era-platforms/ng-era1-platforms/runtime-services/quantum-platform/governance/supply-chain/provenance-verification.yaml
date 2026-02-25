@@ -12,9 +12,6 @@
 apiVersion: supplychain.machinenativeops.io/v1
 kind: ProvenanceVerifier
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:governance:supply-chain:provenance-verification.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/supply-chain/provenance-verification.yaml"
   name: gl-quantum-provenance-verifier
   namespace: governance
   labels:

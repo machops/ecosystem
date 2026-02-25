@@ -70,12 +70,7 @@ semantic_mappings:
   - concept: "Task Automation"
     mapping: "mno-core.automation-engine"
     description: "Map task automation to automation engine"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:controlplane:baseline:modules:01-core:module-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/baseline/modules/01-core/module-manifest.yaml"
-  created_date: "2025-01-18"
-  last_modified: "2025-01-18"
+
   maintainers:
     - "MachineNativeOps Team"
   tags:

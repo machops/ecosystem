@@ -12,9 +12,6 @@
 apiVersion: servicemesh.machinenativeops.io/v1
 kind: TrafficManagement
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:infrastructure:service-mesh:traffic-management.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/infrastructure/service-mesh/traffic-management.yaml"
   name: gov-quantum-traffic-management
   namespace: infrastructure
   labels:

@@ -12,9 +12,6 @@
 apiVersion: supplychain.machinenativeops.io/v1
 kind: ProvenanceVerifier
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:supply-chain:provenance-verification.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/supply-chain/provenance-verification.yaml"
   name: gov-quantum-provenance-verifier
   namespace: governance
   labels:

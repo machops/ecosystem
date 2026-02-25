@@ -8,10 +8,7 @@
 # Intelligent-Hyperautomation Pipeline Gate - Best Practice Structure
 # GL Unified Architecture Governance Framework Activated v2.0.0
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:gl-gate:gates:gates-01-99.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/gl-gate/gates/gates-01-99.yaml"
+
   name: gates-01-99
   id: gates-01-99
   version: '2.0.0'

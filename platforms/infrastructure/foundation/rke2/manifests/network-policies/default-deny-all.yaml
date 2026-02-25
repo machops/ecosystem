@@ -9,9 +9,6 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:rke2:manifests:network-policies:default-deny-all.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/rke2/manifests/network-policies/default-deny-all.yaml"
   name: default-deny-all-ingress
   namespace: default
 spec:
@@ -22,9 +19,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:rke2:manifests:network-policies:default-deny-all.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/rke2/manifests/network-policies/default-deny-all.yaml"
   name: default-deny-all-egress
   namespace: default
 spec:

@@ -12,9 +12,6 @@
 apiVersion: alerting.machinenativeops.io/v1
 kind: AlertCorrelation
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:monitoring:alerting:alert-correlation.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/monitoring/alerting/alert-correlation.yaml"
   name: gl-quantum-alert-correlation
   namespace: monitoring
   labels:

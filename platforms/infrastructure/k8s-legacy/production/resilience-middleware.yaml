@@ -128,7 +128,8 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: resilience-middleware
+metadata:
+  name: resilience-middleware
   minReplicas: 2
   maxReplicas: 5
   metrics:

@@ -11,9 +11,6 @@
 apiVersion: gl-runtime.io/v1.0.0
 kind: GovernanceContract
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:unified-naming-governance-contract.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/unified-naming-governance-contract.yaml"
   name: unified-naming-governance-contract
   version: v1.0.0
   description: "GL Unified Naming Governance Contract - 統一命名治理契約"
@@ -867,12 +864,7 @@ troubleshooting:
     - issue: "合規分數低"
       solution: "修復 HIGH 和 MEDIUM 優先級的違規"
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:unified-naming-governance-contract.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/unified-naming-governance-contract.yaml"
-  created_at: "2026-01-31T00:00:00Z"
-  updated_at: "2026-01-31T00:00:00Z"
+
   governance_level: CONSTITUTIONAL
   enforcement: MANDATORY
   compatibility:

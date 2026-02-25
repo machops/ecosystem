@@ -99,12 +99,7 @@ semantic_mappings:
   - concept: "Unmanned Island"
     mapping: "mno-autonomous.island-manager"
     description: "Map island operations to island manager"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:controlplane:baseline:modules:04-autonomous:module-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/baseline/modules/04-autonomous/module-manifest.yaml"
-  created_date: "2025-01-18"
-  last_modified: "2025-01-18"
+
   maintainers:
     - "MachineNativeOps Team"
   tags:

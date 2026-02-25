@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLGlobalSemanticIndex
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-global-semantic-index.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-global-semantic-index.yaml"
-  name: gl-global-semantic-index
-  version: "1.0.0"
+
   status: SEALED
   created_at: "2025-01-19T00:00:00Z"
   sealed_at: "2025-01-19T00:00:00Z"

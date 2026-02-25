@@ -12,9 +12,6 @@
 apiVersion: governance.machinenativeops.io/v1
 kind: ExceptionGovernance
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:governance:audit:exception-governance.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/audit/exception-governance.yaml"
   name: gl-quantum-exception-governance
   namespace: governance
   labels:

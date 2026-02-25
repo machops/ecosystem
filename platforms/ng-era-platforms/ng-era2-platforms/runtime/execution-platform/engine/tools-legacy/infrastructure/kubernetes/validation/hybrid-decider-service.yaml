@@ -200,7 +200,8 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: hybrid-decider
+metadata:
+  name: hybrid-decider
   minReplicas: 2
   maxReplicas: 10
   metrics:

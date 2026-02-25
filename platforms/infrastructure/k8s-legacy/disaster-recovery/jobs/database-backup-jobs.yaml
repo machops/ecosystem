@@ -7,7 +7,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/postgres-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-cfa59da6abcfa7463ca0dde5695d53b7ab2d24d8401516bfad7d7994a9710556
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-da689a7e143b7553ce037f0d986c21c8df3eb0c3054cead11ccadf54637945ac
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/instance: eco-instance
@@ -102,7 +102,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/redis-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:redis-backup:sha256-f6387034cbcd31d9e40971d710a7cf15f66fd402e58244820d9a93ac01f397a8
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:redis-backup:sha256-629a455b983a03233d18a2cf4e9ad9968220ab8bc5744ef575d94d360046309b
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/instance: eco-instance
@@ -195,7 +195,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/config-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:config-backup:sha256-b59eaf017a68407320c54e95a8fa5e595726f52303d6f32ec7684e3bc1ec8956
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:config-backup:sha256-aba1d6f3e2ff980798f6ed8d8f758437cf5b606f6073b0954c32cc623ddad1f4
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/instance: eco-instance
@@ -296,7 +296,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/backup-validation
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:backup-validation:sha256-effcc32e62820dc12021d1c7980032476141a19c7fc046ce4559bfee7c84aa78
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:backup-validation:sha256-3160ba3eb9b115d1d227518fea2f136498f9ff216a85c274b036d4bea4e9edd6
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/instance: eco-instance
@@ -446,16 +446,10 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  annotations:
-    eco-base/uri: eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml
-    eco-base/urn: urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:jobs:database-backup-jobs.yaml
-  name: backup-role-binding
+  name: backup-service-account
   namespace: platform-03
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: backup-role
 subjects:
 - kind: ServiceAccount
-  name: backup-service-account
-  namespace: platform-03

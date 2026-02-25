@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLDimensionTemplate
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:dimension-template.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/dimension-template.yaml"
-  name: gl-dimension-template
-  version: "1.0.0"
+
 spec:
   dimension_id: "00-dimension-name"  # Replace with actual dimension ID
   layer: "GL00-00"                   # Replace with parent layer

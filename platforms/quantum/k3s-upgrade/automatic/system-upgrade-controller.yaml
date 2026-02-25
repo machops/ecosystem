@@ -12,9 +12,6 @@
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:k3s-upgrade:automatic:system-upgrade-controller.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/k3s-upgrade/automatic/system-upgrade-controller.yaml"
   name: k3s-server-upgrade
   namespace: system-upgrade
   labels:
@@ -53,9 +50,6 @@ spec:
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:k3s-upgrade:automatic:system-upgrade-controller.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/k3s-upgrade/automatic/system-upgrade-controller.yaml"
   name: k3s-agent-upgrade
   namespace: system-upgrade
   labels:
@@ -94,9 +88,6 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:k3s-upgrade:automatic:system-upgrade-controller.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/k3s-upgrade/automatic/system-upgrade-controller.yaml"
   name: system-upgrade
   namespace: system-upgrade
   labels:
@@ -109,9 +100,6 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:k3s-upgrade:automatic:system-upgrade-controller.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/k3s-upgrade/automatic/system-upgrade-controller.yaml"
   name: system-upgrade
   namespace: system-upgrade
   labels:
@@ -137,9 +125,6 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:k3s-upgrade:automatic:system-upgrade-controller.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/k3s-upgrade/automatic/system-upgrade-controller.yaml"
   name: system-upgrade
   namespace: system-upgrade
   labels:
@@ -150,8 +135,10 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
+metadata:
   name: system-upgrade
 subjects:
   - kind: ServiceAccount
-    name: system-upgrade
+metadata:
+  name: system-upgrade
     namespace: system-upgrade

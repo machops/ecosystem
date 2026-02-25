@@ -12,9 +12,6 @@
 apiVersion: pipeline.machinenativeops.io/v1
 kind: PipelineMetadata
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:governance:ci-pipeline:pipeline-metadata.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/ci-pipeline/pipeline-metadata.yaml"
   name: gl-quantum-pipeline-metadata
   namespace: ci-cd
   labels:

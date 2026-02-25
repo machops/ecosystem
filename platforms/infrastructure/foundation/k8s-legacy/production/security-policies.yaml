@@ -8,9 +8,6 @@
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:security-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/security-policies.yaml"
   name: machine-native-ops-mtls
   namespace: production
   labels:
@@ -29,9 +26,6 @@ spec:
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:security-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/security-policies.yaml"
   name: machine-native-ops-authz
   namespace: production
   labels:
@@ -64,9 +58,6 @@ spec:
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:security-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/security-policies.yaml"
   name: machine-native-ops-jwt
   namespace: production
   labels:
@@ -89,9 +80,6 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:security-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/security-policies.yaml"
   name: external-redis
   namespace: production
   labels:
@@ -115,9 +103,6 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:production:security-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/production/security-policies.yaml"
   name: external-postgres
   namespace: production
   labels:

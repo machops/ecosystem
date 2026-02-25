@@ -7,12 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLModuleRegistry
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:controlplane:registries:GL-AI-NATIVE-MODULES.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/registries/GL-AI-NATIVE-MODULES.yaml"
-  name: gl-ai-native-modules-registry
-  version: "1.0.0"
+
   created: "2026-01-21"
 
 modules:
@@ -52,12 +47,7 @@ modules:
     layer: "GL20-29"
     sub_layer: "GL22"
     path: "workspace/src/data/metadata"
-    semantic_urn: "urn:machinenativeops:gl:data:metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:controlplane:registries:GL-AI-NATIVE-MODULES.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/registries/GL-AI-NATIVE-MODULES.yaml"1.0.0"
-    parent_urn: "urn:machinenativeops:gl:data:layer:1.0.0"
-    status: "ACTIVE"
+    semantic_urn: "urn:machinenativeops:gl:data:
     audit_status: "REGISTERED"
     capabilities:
       - "metadata_management"

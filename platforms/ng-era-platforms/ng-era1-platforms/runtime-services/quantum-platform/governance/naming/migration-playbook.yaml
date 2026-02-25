@@ -12,9 +12,6 @@
 apiVersion: migration.machinenativeops.io/v1
 kind: NamingMigrationPlaybook
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:governance:naming:migration-playbook.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/naming/migration-playbook.yaml"
   name: gl-quantum-naming-migration
   namespace: governance
   labels:

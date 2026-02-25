@@ -9,12 +9,7 @@
 # Self-Healing Governance - Zero-Wait Deployment Standard
 
 version: "1.0.0"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:automation:instant:configs:INSTANT-EXECUTION-MANIFEST.yaml"
-    eco-base/uri: "eco-base://platform/resource/automation/instant/configs/INSTANT-EXECUTION-MANIFEST.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

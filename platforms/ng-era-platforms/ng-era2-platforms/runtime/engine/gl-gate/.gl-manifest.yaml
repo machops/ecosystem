@@ -12,12 +12,7 @@ gl-manifest:
   version: "1.0.0"
   schema: "gl-manifest/v1"
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:gl-gate:.gl-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/gl-gate/.gl-manifest.yaml"
-  name: "gl-gate"
-  description: "ECO-Gate Governance Gate System - Comprehensive governance gates for machine-native-ops engine"
+
   version: "1.0.0"
   created: "2026-01-26"
   updated: "2026-01-26"

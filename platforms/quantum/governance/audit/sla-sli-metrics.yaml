@@ -12,9 +12,6 @@
 apiVersion: metrics.machinenativeops.io/v1
 kind: SLASLIMetrics
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:governance:audit:sla-sli-metrics.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/governance/audit/sla-sli-metrics.yaml"
   name: gov-quantum-sla-sli
   namespace: governance
   labels:

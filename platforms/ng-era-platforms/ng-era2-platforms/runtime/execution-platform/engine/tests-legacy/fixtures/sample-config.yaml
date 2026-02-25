@@ -55,7 +55,4 @@ artifacts:
     - library
     - tool
     - system
-  require_metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:tests-legacy:fixtures:sample-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tests-legacy/fixtures/sample-config.yaml" true
+  require_ true

@@ -11,9 +11,6 @@
 apiVersion: gl-runtime.io/v1.0.0
 kind: UnificationSpecification
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:governance-unification-spec.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/governance-unification-spec.yaml"
   name: governance-unification-spec
   version: v1.0.0
   description: "GL Governance Unification Specification - 治理統一規範"
@@ -793,12 +790,7 @@ spec:
           - "觸發緊急審批"
           - "升級到高級治理層"
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:governance-unification-spec.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/governance-unification-spec.yaml"
-  created_at: "2026-01-31T00:00:00Z"
-  updated_at: "2026-01-31T00:00:00Z"
+
   governance_level: CONSTITUTIONAL
   enforcement: MANDATORY
   compatibility:

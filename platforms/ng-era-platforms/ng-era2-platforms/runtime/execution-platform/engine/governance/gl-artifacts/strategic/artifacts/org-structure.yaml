@@ -7,12 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v2
 kind: OrganizationStructure
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:governance:gl-artifacts:strategic:artifacts:org-structure.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/governance/gl-artifacts/strategic/artifacts/org-structure.yaml"
-  name: machinenativeops-governance-org
-  version: "1.0.0"
+
   created_at: "2025-01-18T00:00:00Z"
   updated_at: "2025-01-18T00:00:00Z"
   owner: governance-committee

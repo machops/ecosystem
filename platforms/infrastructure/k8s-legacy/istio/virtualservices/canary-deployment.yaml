@@ -11,9 +11,6 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:virtualservices:canary-deployment.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/virtualservices/canary-deployment.yaml"
   name: machine-native-ops-canary
   namespace: platform-03
 spec:
@@ -46,9 +43,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:virtualservices:canary-deployment.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/virtualservices/canary-deployment.yaml"
   name: machine-native-ops-ab-test
   namespace: platform-03
 spec:
@@ -84,9 +78,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:virtualservices:canary-deployment.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/virtualservices/canary-deployment.yaml"
   name: machine-native-ops-blue-green
   namespace: platform-03
 spec:
@@ -110,9 +101,6 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:istio:virtualservices:canary-deployment.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/istio/virtualservices/canary-deployment.yaml"
   name: machine-native-ops-shadow
   namespace: platform-03
 spec:

@@ -9,9 +9,6 @@
 apiVersion: governance.machinenativeops.io/v1alpha1
 kind: MigrationPolicy
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:policies:migration:naming-migration-policy.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/policies/migration/naming-migration-policy.yaml"
   name: naming-migration-standard
   labels:
     eco-base/part-of: eco-base

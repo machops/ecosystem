@@ -12,12 +12,7 @@ gl-manifest:
   version: "1.0.0"
   schema: "gl-manifest/v1"
   
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:aep-engine-web:.gl-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/aep-engine-web/.gl-manifest.yaml"
-  name: "aep-engine-web"
-  description: "AEP Engine Governance & Audit Web Application - Zero Configuration Deployment"
+
   version: "1.0.0"
   created: "2026-01-26"
   updated: "2026-01-26"

@@ -13,9 +13,6 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: daily-full-backup-all
   namespace: velero
   labels:
@@ -76,9 +73,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: hourly-incremental-backup
   namespace: velero
   labels:
@@ -105,9 +99,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: daily-monitoring-backup
   namespace: velero
   labels:
@@ -131,9 +122,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: weekly-full-backup
   namespace: velero
   labels:
@@ -159,9 +147,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: monthly-archive-backup
   namespace: velero
   labels:
@@ -185,9 +170,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: config-backup
   namespace: velero
   labels:
@@ -217,9 +199,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: pv-snapshot-backup
   namespace: velero
   labels:
@@ -246,9 +225,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: etcd-backup
   namespace: velero
   labels:
@@ -276,9 +252,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: app-data-backup
   namespace: velero
   labels:
@@ -307,9 +280,6 @@ spec:
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:k8s-legacy:disaster-recovery:schedules:backup-schedules.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/k8s-legacy/disaster-recovery/schedules/backup-schedules.yaml"
   name: validate-backups
   namespace: velero
   labels:

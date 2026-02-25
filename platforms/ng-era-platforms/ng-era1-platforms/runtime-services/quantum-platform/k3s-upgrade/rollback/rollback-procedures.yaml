@@ -12,9 +12,6 @@
 apiVersion: rollback.machinenativeops.io/v1
 kind: RollbackProcedures
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:k3s-upgrade:rollback:rollback-procedures.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/k3s-upgrade/rollback/rollback-procedures.yaml"
   name: gl-quantum-k3s-rollback
   namespace: k3s-upgrade
   labels:

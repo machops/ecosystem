@@ -12,9 +12,6 @@
 apiVersion: security.machinenativeops.io/v1
 kind: KubeBenchConfig
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:quantum:computing:infrastructure:scanners:kube-bench-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/quantum/computing/infrastructure/scanners/kube-bench-config.yaml"
   name: gl-quantum-kube-bench
   namespace: infrastructure
   labels:

@@ -12,9 +12,6 @@
 apiVersion: supplychain.machinenativeops.io/v1
 kind: SBOMGenerator
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:governance:supply-chain:sbom-generation.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/supply-chain/sbom-generation.yaml"
   name: gl-quantum-sbom-generator
   namespace: governance
   labels:

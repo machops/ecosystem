@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLFilesystemMapping
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-filesystem-mapping.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-filesystem-mapping.yaml"
-  name: gl-filesystem-mapping
-  version: "1.0.0"
+
   created: "2026-01-21"
 filesystem_mapping:
   # Governance Layers Root
@@ -33,12 +28,7 @@ filesystem_mapping:
         semantic_urn: "urn:machinenativeops:gl:data:catalog:1.0.0"
       - path: "metadata/"
         module_id: "GL22"
-        semantic_urn: "urn:machinenativeops:gl:data:metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-filesystem-mapping.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-filesystem-mapping.yaml"1.0.0"
-      - path: "assets/"
-        module_id: "GL23"
+        semantic_urn: "urn:machinenativeops:gl:data:
         semantic_urn: "urn:machinenativeops:gl:data:assets:1.0.0"
   algorithms_layer:
     path: "workspace/src/algorithms/"

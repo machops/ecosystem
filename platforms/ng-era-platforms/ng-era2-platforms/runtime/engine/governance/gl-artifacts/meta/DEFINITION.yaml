@@ -7,10 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLLayerDefinition
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:governance:gl-artifacts:meta:DEFINITION.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/DEFINITION.yaml"
+
   layer_id: GL90-99
   name: Meta-Specification Layer
   version: "1.0.0"

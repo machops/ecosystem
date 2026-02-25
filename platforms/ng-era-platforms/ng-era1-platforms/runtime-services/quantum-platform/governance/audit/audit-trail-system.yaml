@@ -12,9 +12,6 @@
 apiVersion: audit.machinenativeops.io/v1
 kind: AuditTrailSystem
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:quantum-platform:governance:audit:audit-trail-system.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/quantum-platform/governance/audit/audit-trail-system.yaml"
   name: gl-quantum-audit-trail
   namespace: governance
   labels:

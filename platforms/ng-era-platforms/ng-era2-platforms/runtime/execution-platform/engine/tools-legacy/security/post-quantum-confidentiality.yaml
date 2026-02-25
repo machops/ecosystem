@@ -12,9 +12,6 @@
 apiVersion: security.machinenativeops/v1
 kind: PostQuantumConfidentiality
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:tools-legacy:security:post-quantum-confidentiality.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/security/post-quantum-confidentiality.yaml"
   name: post-quantum-confidentiality
   namespace: security
   labels:

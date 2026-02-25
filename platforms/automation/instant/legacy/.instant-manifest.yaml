@@ -30,10 +30,5 @@ artifacts:
     type: example-output
   - path: reports/
     type: output
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:automation:instant:legacy:.instant-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/automation/instant/legacy/.instant-manifest.yaml"
-  slsa_level: "L3+"
-  mcp_protocol: "2024.1"
+
   updated_at: "2025-01-09"

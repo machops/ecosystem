@@ -3,1817 +3,1901 @@
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "c29789663167c6ab84d731cb5beba7560bde117f40cb6f32d75811c57d002485",
+      "contentSha256": "c64111088a69473df46dfad8ef1a65c4102887a6ea70e25be9384a5eb949a2ac",
       "kind": "ConfigMap",
       "name": "argocd-notifications-cm",
       "namespace": "argocd",
       "platform": "core",
       "source": "k8s/argocd/argocd-notifications-cm.yaml",
       "uri": "eco-base://k8s/core/configmap/argocd-notifications-cm",
-      "urn": "urn:eco-base:k8s:core:configmap:argocd-notifications-cm:sha256-c29789663167c6ab84d731cb5beba7560bde117f40cb6f32d75811c57d002485"
+      "urn": "urn:eco-base:k8s:core:configmap:argocd-notifications-cm:sha256-c64111088a69473df46dfad8ef1a65c4102887a6ea70e25be9384a5eb949a2ac"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "8d5628f536effe4c54392714fa7425dbf2bff4d680df1fa71cd35e9a10019bbc",
+      "contentSha256": "05dc9defcddd037f9e27174a515f8e3a6c3f0328ee56a06c73adee4fab5ece01",
       "kind": "Secret",
       "name": "argocd-repo-eco-base",
       "namespace": "argocd",
       "platform": "core",
       "source": "k8s/argocd/argocd-repo-secret.yaml",
       "uri": "eco-base://k8s/core/secret/argocd-repo-eco-base",
-      "urn": "urn:eco-base:k8s:core:secret:argocd-repo-eco-base:sha256-8d5628f536effe4c54392714fa7425dbf2bff4d680df1fa71cd35e9a10019bbc"
+      "urn": "urn:eco-base:k8s:core:secret:argocd-repo-eco-base:sha256-05dc9defcddd037f9e27174a515f8e3a6c3f0328ee56a06c73adee4fab5ece01"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "9e1f7b007c4d778f857cdac73e7ae462621e28c83af9bb09a4582d3bffc552ee",
+      "contentSha256": "b5ea5d1e73e95e656e63191558fbb28016b028425ece86296212c9fb1af7fc6c",
       "kind": "ConfigMap",
       "name": "circleci-agent-config",
       "namespace": "circleci-runner",
       "platform": "core",
       "source": "k8s/circleci/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/circleci-agent-config",
-      "urn": "urn:eco-base:k8s:core:configmap:circleci-agent-config:sha256-9e1f7b007c4d778f857cdac73e7ae462621e28c83af9bb09a4582d3bffc552ee"
+      "urn": "urn:eco-base:k8s:core:configmap:circleci-agent-config:sha256-b5ea5d1e73e95e656e63191558fbb28016b028425ece86296212c9fb1af7fc6c"
+    },
+    {
+      "apiVersion": "apps/v1",
+      "component": "deployment",
+      "contentSha256": "fdd73944dd857ab64802f48fd17e7e9ce9febb846a223d34b38cc17acfc4e11d",
+      "kind": "Deployment",
+      "name": "circleci-agent",
+      "namespace": "circleci-runner",
+      "platform": "core",
+      "source": "k8s/circleci/deployment.yaml",
+      "uri": "eco-base://k8s/core/deployment/circleci-agent",
+      "urn": "urn:eco-base:k8s:core:deployment:circleci-agent:sha256-fdd73944dd857ab64802f48fd17e7e9ce9febb846a223d34b38cc17acfc4e11d"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "c3939c0c6d0e1fbae2f890e5b293c1a062c9ce0abb853f12fd93c8b808d577ad",
+      "contentSha256": "a0eb3e7cbe576cb1d6a4017acee8d3da1be855a10df73ad51362988af23fa70e",
       "kind": "Secret",
       "name": "circleci-runner-secrets",
       "namespace": "circleci-runner",
       "platform": "core",
       "source": "k8s/circleci/secret.yaml",
       "uri": "eco-base://k8s/core/secret/circleci-runner-secrets",
-      "urn": "urn:eco-base:k8s:core:secret:circleci-runner-secrets:sha256-c3939c0c6d0e1fbae2f890e5b293c1a062c9ce0abb853f12fd93c8b808d577ad"
+      "urn": "urn:eco-base:k8s:core:secret:circleci-runner-secrets:sha256-a0eb3e7cbe576cb1d6a4017acee8d3da1be855a10df73ad51362988af23fa70e"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "425edb2ab3c7c81055fae8d5564f65b1c22516537a428af5a00f3268cba3ca85",
+      "contentSha256": "1fd653a4683d1aa4724674277603f59f6baeeebb9ff774db90b38bca73c0559e",
       "kind": "ConfigMap",
       "name": "machine-native-ops-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/deployment/kubernetes/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/machine-native-ops-config",
-      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-425edb2ab3c7c81055fae8d5564f65b1c22516537a428af5a00f3268cba3ca85"
+      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-1fd653a4683d1aa4724674277603f59f6baeeebb9ff774db90b38bca73c0559e"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "52f2dbbef13cffa775a27ee5d43be4d7255661145ca8a783976e8908b5835cb9",
+      "contentSha256": "a03f367a243f6c8f11fe637d8d0380e4d80f7d007dba7be2bccbdd544447ddf5",
       "kind": "ConfigMap",
       "name": "monitoring-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/deployment/kubernetes/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/monitoring-config",
-      "urn": "urn:eco-base:k8s:core:configmap:monitoring-config:sha256-52f2dbbef13cffa775a27ee5d43be4d7255661145ca8a783976e8908b5835cb9"
+      "urn": "urn:eco-base:k8s:core:configmap:monitoring-config:sha256-a03f367a243f6c8f11fe637d8d0380e4d80f7d007dba7be2bccbdd544447ddf5"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "ab0f66ae560855a2855ce98263c07b6480aa7f375637af17e555f9f05e3a878a",
+      "contentSha256": "3d258df19e2fea07c29e0c11d15073b87edc3dcd58ba6bdf377b8e8bd7e587a8",
       "kind": "ConfigMap",
       "name": "secrets-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/deployment/kubernetes/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/secrets-config",
-      "urn": "urn:eco-base:k8s:core:configmap:secrets-config:sha256-ab0f66ae560855a2855ce98263c07b6480aa7f375637af17e555f9f05e3a878a"
+      "urn": "urn:eco-base:k8s:core:configmap:secrets-config:sha256-3d258df19e2fea07c29e0c11d15073b87edc3dcd58ba6bdf377b8e8bd7e587a8"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "8aca9ee949783a615872522ee3e014ac7a7cdf3200f973beb0ef9d567f2854f0",
+      "contentSha256": "91eec28def5825237ab7070a7345401e07dc8f678afb7ffd0e37084a69fc09bd",
       "kind": "Secret",
       "name": "machine-native-ops-secrets",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/deployment/kubernetes/base/secrets.yaml",
       "uri": "eco-base://k8s/core/secret/machine-native-ops-secrets",
-      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-8aca9ee949783a615872522ee3e014ac7a7cdf3200f973beb0ef9d567f2854f0"
+      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-91eec28def5825237ab7070a7345401e07dc8f678afb7ffd0e37084a69fc09bd"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "c0793debecff49dd26e271f1070f979f775cdc73065380afc7c0f837461ef880",
+      "contentSha256": "655cda48c29323e1cfe8ede4a0a34166989120452e02cb9cdeff5594bd3d5a10",
       "kind": "ConfigMap",
       "name": "machine-native-ops-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/deployment/kubernetes/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/machine-native-ops-config",
-      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-c0793debecff49dd26e271f1070f979f775cdc73065380afc7c0f837461ef880"
+      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-655cda48c29323e1cfe8ede4a0a34166989120452e02cb9cdeff5594bd3d5a10"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "b9ad3818cf478066d1dea2c72d81740de978f77dec280e4918b4f60c3f727404",
+      "contentSha256": "2cd6c186d187bff9e3f167260d8af0cce8ac51048697647c1f879800a1e86374",
       "kind": "ConfigMap",
       "name": "monitoring-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/deployment/kubernetes/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/monitoring-config",
-      "urn": "urn:eco-base:k8s:core:configmap:monitoring-config:sha256-b9ad3818cf478066d1dea2c72d81740de978f77dec280e4918b4f60c3f727404"
+      "urn": "urn:eco-base:k8s:core:configmap:monitoring-config:sha256-2cd6c186d187bff9e3f167260d8af0cce8ac51048697647c1f879800a1e86374"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "d788cba9af89d6f4de623cbd376aa9cfe715f5a50a1b759b09bcf648ef1cf525",
+      "contentSha256": "f38f375108fc8363a9d46c39c415f3b0be45acaa46eae390b765f32cb3ecfd83",
       "kind": "ConfigMap",
       "name": "secrets-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/deployment/kubernetes/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/secrets-config",
-      "urn": "urn:eco-base:k8s:core:configmap:secrets-config:sha256-d788cba9af89d6f4de623cbd376aa9cfe715f5a50a1b759b09bcf648ef1cf525"
+      "urn": "urn:eco-base:k8s:core:configmap:secrets-config:sha256-f38f375108fc8363a9d46c39c415f3b0be45acaa46eae390b765f32cb3ecfd83"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "92ba6b3c37b38b2a30328894b28742dbf103db4dd8f5a14a0360e6c94e6593e3",
+      "contentSha256": "7eb71308d668ba0800fd0cbada2670b4c9278ff30f2ef504f5d1088af90c7f9f",
       "kind": "Secret",
       "name": "machine-native-ops-secrets",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/deployment/kubernetes/base/secrets.yaml",
       "uri": "eco-base://k8s/core/secret/machine-native-ops-secrets",
-      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-92ba6b3c37b38b2a30328894b28742dbf103db4dd8f5a14a0360e6c94e6593e3"
+      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-7eb71308d668ba0800fd0cbada2670b4c9278ff30f2ef504f5d1088af90c7f9f"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "1b24dbcc123d035478be7d55fd91f815cc8f7537d4de45fa4a76f78e1c57dc53",
+      "contentSha256": "7a267d3d38e2eaa478a899881e7bb4ab0412ad85185b5759d833a7a0ae2caeb5",
       "kind": "CronJob",
       "name": "backup-validation",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/backup-validation",
-      "urn": "urn:eco-base:k8s:core:cronjob:backup-validation:sha256-1b24dbcc123d035478be7d55fd91f815cc8f7537d4de45fa4a76f78e1c57dc53"
+      "urn": "urn:eco-base:k8s:core:cronjob:backup-validation:sha256-7a267d3d38e2eaa478a899881e7bb4ab0412ad85185b5759d833a7a0ae2caeb5"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "31bd3337ab0f8ca55826dde907c55084922f73f828367d227c9b580567e41b10",
+      "contentSha256": "745b19ba567987cfa737bddee2d16e56d3813659f5b569e54a78284410452da3",
       "kind": "CronJob",
       "name": "config-backup",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/config-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:config-backup:sha256-31bd3337ab0f8ca55826dde907c55084922f73f828367d227c9b580567e41b10"
+      "urn": "urn:eco-base:k8s:core:cronjob:config-backup:sha256-745b19ba567987cfa737bddee2d16e56d3813659f5b569e54a78284410452da3"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "2fd55c1dd2735ec18edf91158751773c41186b0feeb888d3d7f5a8feca37569d",
+      "contentSha256": "5780bce3683220f0f94f54fa9b66f7b53989a10c1dad6b629ed5834ca9972eb3",
       "kind": "CronJob",
       "name": "postgres-backup",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/postgres-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-2fd55c1dd2735ec18edf91158751773c41186b0feeb888d3d7f5a8feca37569d"
+      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-5780bce3683220f0f94f54fa9b66f7b53989a10c1dad6b629ed5834ca9972eb3"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "92c7840fe7f1c848c14a32587b13efb9b434d548faace6bc1638637dcac7e817",
+      "contentSha256": "c3544beda4e02c7382e3d6646408dbc349a08a89724af9da5c10510701e81803",
       "kind": "CronJob",
       "name": "redis-backup",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/redis-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-92c7840fe7f1c848c14a32587b13efb9b434d548faace6bc1638637dcac7e817"
+      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-c3544beda4e02c7382e3d6646408dbc349a08a89724af9da5c10510701e81803"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "f747e2ca38de77dedc7237aef9724932d9d53553a28c3cfe97f4d90ebfba7ff1",
+      "contentSha256": "613ac00e0c61f8a90b42558cc0ac3749544b77d1327490994381fe8052b1d817",
       "kind": "ConfigMap",
       "name": "jaeger-tracing-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/jaeger/istio-config.yaml",
       "uri": "eco-base://k8s/core/configmap/jaeger-tracing-config",
-      "urn": "urn:eco-base:k8s:core:configmap:jaeger-tracing-config:sha256-f747e2ca38de77dedc7237aef9724932d9d53553a28c3cfe97f4d90ebfba7ff1"
+      "urn": "urn:eco-base:k8s:core:configmap:jaeger-tracing-config:sha256-613ac00e0c61f8a90b42558cc0ac3749544b77d1327490994381fe8052b1d817"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "9ce1a657a74d0b7916477aeb4bb247cf5c54e1dc53bb7e4988fd38f4f71d4b43",
+      "contentSha256": "58c8ba3e74760feeb4292acf319a2017a2a0b58e40059e9660f9959974051f77",
       "kind": "ConfigMap",
       "name": "alertmanager-config",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/alertmanager-config.yaml",
       "uri": "eco-base://k8s/core/configmap/alertmanager-config",
-      "urn": "urn:eco-base:k8s:core:configmap:alertmanager-config:sha256-9ce1a657a74d0b7916477aeb4bb247cf5c54e1dc53bb7e4988fd38f4f71d4b43"
+      "urn": "urn:eco-base:k8s:core:configmap:alertmanager-config:sha256-58c8ba3e74760feeb4292acf319a2017a2a0b58e40059e9660f9959974051f77"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "34ff467a494069388255904db3e039783ab628b04e9fc1e5f7c472ed46020da9",
+      "contentSha256": "09c58cdfa4907785e485374238b5ec5bf2a9756b77ad3b7123198bed1656d89e",
       "kind": "ConfigMap",
       "name": "automation-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/automation-config.yaml",
       "uri": "eco-base://k8s/core/configmap/automation-config",
-      "urn": "urn:eco-base:k8s:core:configmap:automation-config:sha256-34ff467a494069388255904db3e039783ab628b04e9fc1e5f7c472ed46020da9"
+      "urn": "urn:eco-base:k8s:core:configmap:automation-config:sha256-09c58cdfa4907785e485374238b5ec5bf2a9756b77ad3b7123198bed1656d89e"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "2211f0697f36f9e4b81c351eca2a2c11bb3006af2154cc07fd7655302f8587c8",
+      "contentSha256": "ac36df95a814ad40a0c48367cfabfdadc927c359e03ac26c51bd0d68bfc7516d",
       "kind": "ConfigMap",
       "name": "backup-compliance-config",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/backup-compliance-reporting.yaml",
       "uri": "eco-base://k8s/core/configmap/backup-compliance-config",
-      "urn": "urn:eco-base:k8s:core:configmap:backup-compliance-config:sha256-2211f0697f36f9e4b81c351eca2a2c11bb3006af2154cc07fd7655302f8587c8"
+      "urn": "urn:eco-base:k8s:core:configmap:backup-compliance-config:sha256-ac36df95a814ad40a0c48367cfabfdadc927c359e03ac26c51bd0d68bfc7516d"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "102dac47c9e1b143f0b2fd9b950bc069c80422ec9ef99e51119c04b4d986a731",
+      "contentSha256": "77f163a5003b3bea3cba31cb1c7a70c9fcdc1dce05211126e181b84f065d6c59",
       "kind": "CronJob",
       "name": "backup-compliance-report",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/backup-compliance-reporting.yaml",
       "uri": "eco-base://k8s/core/cronjob/backup-compliance-report",
-      "urn": "urn:eco-base:k8s:core:cronjob:backup-compliance-report:sha256-102dac47c9e1b143f0b2fd9b950bc069c80422ec9ef99e51119c04b4d986a731"
+      "urn": "urn:eco-base:k8s:core:cronjob:backup-compliance-report:sha256-77f163a5003b3bea3cba31cb1c7a70c9fcdc1dce05211126e181b84f065d6c59"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "6fc22907c239f32580fe358bb930d3e2fa6a2a3448a06eaad07d465284e62396",
+      "contentSha256": "1f4ef187ce75f427413f88257018776d1f7abd6bf13af5c1d5068bcefe08105e",
       "kind": "ConfigMap",
       "name": "backup-encryption-config",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/backup-encryption.yaml",
       "uri": "eco-base://k8s/core/configmap/backup-encryption-config",
-      "urn": "urn:eco-base:k8s:core:configmap:backup-encryption-config:sha256-6fc22907c239f32580fe358bb930d3e2fa6a2a3448a06eaad07d465284e62396"
+      "urn": "urn:eco-base:k8s:core:configmap:backup-encryption-config:sha256-1f4ef187ce75f427413f88257018776d1f7abd6bf13af5c1d5068bcefe08105e"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "8972dee924d8cea22a6714216c7e0ebf276ce6e3d426036def0e2d6de29d58dc",
+      "contentSha256": "7abf1cb4f8ea2d82ebe256084e61d4fb3ef5a3bde69e15ff1716345b6c738ed6",
       "kind": "Secret",
       "name": "velero-encryption-keys",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/backup-encryption.yaml",
       "uri": "eco-base://k8s/core/secret/velero-encryption-keys",
-      "urn": "urn:eco-base:k8s:core:secret:velero-encryption-keys:sha256-8972dee924d8cea22a6714216c7e0ebf276ce6e3d426036def0e2d6de29d58dc"
+      "urn": "urn:eco-base:k8s:core:secret:velero-encryption-keys:sha256-7abf1cb4f8ea2d82ebe256084e61d4fb3ef5a3bde69e15ff1716345b6c738ed6"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "c3392a7d86a825623eeedf87a38429d0a927704577e91d6f2b25290e4e1cf2ea",
+      "contentSha256": "8ed593e7bebf4acf756bfb4a7d13c4f4a41bbac2492248c5b11fcd17f1268369",
+      "kind": "ConfigMap",
+      "name": "backup-lifecycle-config",
+      "namespace": "velero",
+      "platform": "core",
+      "source": "platforms/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml",
+      "uri": "eco-base://k8s/core/configmap/backup-lifecycle-config",
+      "urn": "urn:eco-base:k8s:core:configmap:backup-lifecycle-config:sha256-8ed593e7bebf4acf756bfb4a7d13c4f4a41bbac2492248c5b11fcd17f1268369"
+    },
+    {
+      "apiVersion": "batch/v1",
+      "component": "cronjob",
+      "contentSha256": "1145991710cb9e74cb2bb70690644dd097e5893ccc708e4eea66ab3376bc6462",
+      "kind": "CronJob",
+      "name": "backup-lifecycle-manager",
+      "namespace": "velero",
+      "platform": "core",
+      "source": "platforms/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml",
+      "uri": "eco-base://k8s/core/cronjob/backup-lifecycle-manager",
+      "urn": "urn:eco-base:k8s:core:cronjob:backup-lifecycle-manager:sha256-1145991710cb9e74cb2bb70690644dd097e5893ccc708e4eea66ab3376bc6462"
+    },
+    {
+      "apiVersion": "v1",
+      "component": "secret",
+      "contentSha256": "0154863c18195144df59e94a6e9e558932e50c05f4ca4f1ee7b064945b0a90c1",
+      "kind": "Secret",
+      "name": "backup-notification-config",
+      "namespace": "velero",
+      "platform": "core",
+      "source": "platforms/infrastructure/foundation/k8s-legacy/production/backup-lifecycle.yaml",
+      "uri": "eco-base://k8s/core/secret/backup-notification-config",
+      "urn": "urn:eco-base:k8s:core:secret:backup-notification-config:sha256-0154863c18195144df59e94a6e9e558932e50c05f4ca4f1ee7b064945b0a90c1"
+    },
+    {
+      "apiVersion": "v1",
+      "component": "configmap",
+      "contentSha256": "ebabe8e901583db9fe4bda527382a7f805a6d402607cf5e393e8a156c3ff21fa",
       "kind": "ConfigMap",
       "name": "machine-native-ops-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/machine-native-ops-config",
-      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-c3392a7d86a825623eeedf87a38429d0a927704577e91d6f2b25290e4e1cf2ea"
+      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-ebabe8e901583db9fe4bda527382a7f805a6d402607cf5e393e8a156c3ff21fa"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "a504116c3500a51342d42e406d8a771a2cc78b988bbb31a830a1e570dac1533b",
+      "contentSha256": "7f29414e1bd22ccf59e83357aa7a455ac704a2bebbdaa73435ca3fbbd8e87431",
       "kind": "ConfigMap",
       "name": "cost-optimization-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/cost-optimization.yaml",
       "uri": "eco-base://k8s/core/configmap/cost-optimization-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-a504116c3500a51342d42e406d8a771a2cc78b988bbb31a830a1e570dac1533b"
+      "urn": "urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-7f29414e1bd22ccf59e83357aa7a455ac704a2bebbdaa73435ca3fbbd8e87431"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "c9279f7ac80b4e0120e734847655770405502fe491351ae5a2e6361a8d08097f",
+      "contentSha256": "b0deaf82ca399b977c1a16ac5edb43a8b609d65026657596d22c3f1d55808807",
       "kind": "ConfigMap",
       "name": "cross-platform-networking-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/cross-platform-networking.yaml",
       "uri": "eco-base://k8s/core/configmap/cross-platform-networking-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-networking-config:sha256-c9279f7ac80b4e0120e734847655770405502fe491351ae5a2e6361a8d08097f"
+      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-networking-config:sha256-b0deaf82ca399b977c1a16ac5edb43a8b609d65026657596d22c3f1d55808807"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "dfb1fca792527300c2bbc2e652e773fcb2087d1417093960adab43f8ae69c286",
+      "contentSha256": "ff9130386f7126d17eb95bf5fae0e8e281f9005b1d7fbff988ab6e23c903d4b8",
       "kind": "ConfigMap",
       "name": "cross-platform-storage-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/cross-platform-storage.yaml",
       "uri": "eco-base://k8s/core/configmap/cross-platform-storage-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-storage-config:sha256-dfb1fca792527300c2bbc2e652e773fcb2087d1417093960adab43f8ae69c286"
+      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-storage-config:sha256-ff9130386f7126d17eb95bf5fae0e8e281f9005b1d7fbff988ab6e23c903d4b8"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "04ce61c1c5351608fdb0351fc08621280deb2a74a551981f7ca0046bcb773a71",
+      "contentSha256": "9f214b17fb35dee0d85bdc99cb43afe91f2fc629d29086b37b7148a3642ce318",
       "kind": "ConfigMap",
       "name": "cross-region-failover-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/cross-region-failover.yaml",
       "uri": "eco-base://k8s/core/configmap/cross-region-failover-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cross-region-failover-config:sha256-04ce61c1c5351608fdb0351fc08621280deb2a74a551981f7ca0046bcb773a71"
+      "urn": "urn:eco-base:k8s:core:configmap:cross-region-failover-config:sha256-9f214b17fb35dee0d85bdc99cb43afe91f2fc629d29086b37b7148a3642ce318"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "38f72b9e5dd16198d9aa545b2318a7bcf6d3b30da3b7f2d42ead60bda862e3aa",
+      "contentSha256": "491d014599e2372e3c8d4368ec792d3af05a6ea49ef493ce107c1ac3151ee70d",
       "kind": "CronJob",
       "name": "dr-backup-verification",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/disaster-recovery-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/dr-backup-verification",
-      "urn": "urn:eco-base:k8s:core:cronjob:dr-backup-verification:sha256-38f72b9e5dd16198d9aa545b2318a7bcf6d3b30da3b7f2d42ead60bda862e3aa"
+      "urn": "urn:eco-base:k8s:core:cronjob:dr-backup-verification:sha256-491d014599e2372e3c8d4368ec792d3af05a6ea49ef493ce107c1ac3151ee70d"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "aecb0f158bd1a10bc4162497ce225b8d2902f519ef0af9df7e533e66c2e96edb",
+      "contentSha256": "ae0538ae96737fc6227952e783664250308f5b7cf38532278bd5f613bd188f8e",
       "kind": "CronJob",
       "name": "dr-health-check",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/disaster-recovery-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/dr-health-check",
-      "urn": "urn:eco-base:k8s:core:cronjob:dr-health-check:sha256-aecb0f158bd1a10bc4162497ce225b8d2902f519ef0af9df7e533e66c2e96edb"
+      "urn": "urn:eco-base:k8s:core:cronjob:dr-health-check:sha256-ae0538ae96737fc6227952e783664250308f5b7cf38532278bd5f613bd188f8e"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "ce88202b190a5fa6e87df0ad0d6fd0a03e89b3436259021d9827656beda94db5",
+      "contentSha256": "669a93ff6c015b7603a02e9776e7452c537dbaa171b71b6cc1fdba5556a1f715",
       "kind": "ConfigMap",
       "name": "disaster-recovery-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/disaster-recovery-testing.yaml",
       "uri": "eco-base://k8s/core/configmap/disaster-recovery-config",
-      "urn": "urn:eco-base:k8s:core:configmap:disaster-recovery-config:sha256-ce88202b190a5fa6e87df0ad0d6fd0a03e89b3436259021d9827656beda94db5"
+      "urn": "urn:eco-base:k8s:core:configmap:disaster-recovery-config:sha256-669a93ff6c015b7603a02e9776e7452c537dbaa171b71b6cc1fdba5556a1f715"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "ede47a03d68279c3f4a0567bd89985667e5f34f4572f3c1a9389a581da2f9d6e",
+      "contentSha256": "fc78cbe96f2ac00d7c26721e18670228b6edfee80305990fc3012e52871cb22f",
       "kind": "ConfigMap",
       "name": "velero-enhanced-backup-config",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/enhanced-backup-strategy.yaml",
       "uri": "eco-base://k8s/core/configmap/velero-enhanced-backup-config",
-      "urn": "urn:eco-base:k8s:core:configmap:velero-enhanced-backup-config:sha256-ede47a03d68279c3f4a0567bd89985667e5f34f4572f3c1a9389a581da2f9d6e"
+      "urn": "urn:eco-base:k8s:core:configmap:velero-enhanced-backup-config:sha256-fc78cbe96f2ac00d7c26721e18670228b6edfee80305990fc3012e52871cb22f"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "66ac1331f7d02fa074d400870f73470deb94a49005c39f0efd9b18a3923d123e",
+      "contentSha256": "334732f362c683602d897765b29976d14e5d97f8a947e9b8ec531a7e28005743",
       "kind": "ConfigMap",
       "name": "jaeger-enhanced-config",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/enhanced-tracing.yaml",
       "uri": "eco-base://k8s/core/configmap/jaeger-enhanced-config",
-      "urn": "urn:eco-base:k8s:core:configmap:jaeger-enhanced-config:sha256-66ac1331f7d02fa074d400870f73470deb94a49005c39f0efd9b18a3923d123e"
+      "urn": "urn:eco-base:k8s:core:configmap:jaeger-enhanced-config:sha256-334732f362c683602d897765b29976d14e5d97f8a947e9b8ec531a7e28005743"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "7babcdf3921fcbf98f84ee59acf64d005c73b72bff0c336271474ad8e61cc666",
+      "contentSha256": "2fc9879939042179f5b6f19e0d763ee5d512b5ba1a0ced8816f738e65c498762",
       "kind": "ConfigMap",
       "name": "trace-retention-config",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/enhanced-tracing.yaml",
       "uri": "eco-base://k8s/core/configmap/trace-retention-config",
-      "urn": "urn:eco-base:k8s:core:configmap:trace-retention-config:sha256-7babcdf3921fcbf98f84ee59acf64d005c73b72bff0c336271474ad8e61cc666"
+      "urn": "urn:eco-base:k8s:core:configmap:trace-retention-config:sha256-2fc9879939042179f5b6f19e0d763ee5d512b5ba1a0ced8816f738e65c498762"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "500f3ad943d755ef0ec75cca666930a3c64b191b32074c9a8ae77a19ad4a58a5",
+      "contentSha256": "39bdb566093b4f19319a66c897cd23726bf33364098e77499df5b64e47a7b396",
       "kind": "ConfigMap",
       "name": "tracing-context-config",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/enhanced-tracing.yaml",
       "uri": "eco-base://k8s/core/configmap/tracing-context-config",
-      "urn": "urn:eco-base:k8s:core:configmap:tracing-context-config:sha256-500f3ad943d755ef0ec75cca666930a3c64b191b32074c9a8ae77a19ad4a58a5"
+      "urn": "urn:eco-base:k8s:core:configmap:tracing-context-config:sha256-39bdb566093b4f19319a66c897cd23726bf33364098e77499df5b64e47a7b396"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "304d426387e1969024ba2a2a7be717f5865e48113344e17d840da5c1a789ef14",
+      "contentSha256": "46142dfc4314aa5b651151efb6190de55536d5983ec5a33696843dc33551ca80",
       "kind": "ConfigMap",
       "name": "extended-platforms-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/extended-platforms-config.yaml",
       "uri": "eco-base://k8s/core/configmap/extended-platforms-config",
-      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-config:sha256-304d426387e1969024ba2a2a7be717f5865e48113344e17d840da5c1a789ef14"
+      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-config:sha256-46142dfc4314aa5b651151efb6190de55536d5983ec5a33696843dc33551ca80"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "c4f22aa348a74856dc9ea3b4fabf291275f0a57021a8ca527d093ca6de019496",
+      "contentSha256": "50d1772484e00c41fc24bf362f4e067591efc4b05fda6aadc567a66a1669beca",
       "kind": "ConfigMap",
       "name": "extended-platforms-integrations",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/extended-platforms-integrations.yaml",
       "uri": "eco-base://k8s/core/configmap/extended-platforms-integrations",
-      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-integrations:sha256-c4f22aa348a74856dc9ea3b4fabf291275f0a57021a8ca527d093ca6de019496"
+      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-integrations:sha256-50d1772484e00c41fc24bf362f4e067591efc4b05fda6aadc567a66a1669beca"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "d40e9669f45ec0b9ba99ad8dca618e9faaa3a903d4d34f838e8c4c975b6c8b30",
+      "contentSha256": "df87210917ff9a8bdfdc3a3fa04f19e843768e73bcf3d49115f9788633991d81",
       "kind": "Service",
       "name": "machine-native-ops-lb",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/gateway.yaml",
       "uri": "eco-base://k8s/core/service/machine-native-ops-lb",
-      "urn": "urn:eco-base:k8s:core:service:machine-native-ops-lb:sha256-d40e9669f45ec0b9ba99ad8dca618e9faaa3a903d4d34f838e8c4c975b6c8b30"
+      "urn": "urn:eco-base:k8s:core:service:machine-native-ops-lb:sha256-df87210917ff9a8bdfdc3a3fa04f19e843768e73bcf3d49115f9788633991d81"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "d3b6f2ce384944783065e3293e8e899b5a3aa473fa8cee0da1935418068bc998",
+      "contentSha256": "7ff6cda29a31e92fd94660522ba509cd2d0a9bd02c2df26815bad728b962ea04",
       "kind": "ConfigMap",
       "name": "geo-dns-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/geo-dns-routing.yaml",
       "uri": "eco-base://k8s/core/configmap/geo-dns-config",
-      "urn": "urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-d3b6f2ce384944783065e3293e8e899b5a3aa473fa8cee0da1935418068bc998"
+      "urn": "urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-7ff6cda29a31e92fd94660522ba509cd2d0a9bd02c2df26815bad728b962ea04"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "5ccf91a3207085301bb29b24cd1d4b34844749218a4fd7977d9d7e738cb189a4",
+      "contentSha256": "88235238e071cb1ad5c7e973d7f4d1d9afa867273bb48c6985ea152368e9c494",
       "kind": "ConfigMap",
       "name": "grafana-dashboards",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/grafana-dashboards.yaml",
       "uri": "eco-base://k8s/core/configmap/grafana-dashboards",
-      "urn": "urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-5ccf91a3207085301bb29b24cd1d4b34844749218a4fd7977d9d7e738cb189a4"
+      "urn": "urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-88235238e071cb1ad5c7e973d7f4d1d9afa867273bb48c6985ea152368e9c494"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "8f439e0d2d32bea3ce2fd6a8d9db1f5b4f14ba8ca50b86322c2b7e00d461640c",
+      "contentSha256": "6cd56c0972462edbf6062c2b16fc08c0ed5f91e8365ba4298b5063861f18b7d0",
       "kind": "ConfigMap",
       "name": "jaeger-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/jaeger-config.yaml",
       "uri": "eco-base://k8s/core/configmap/jaeger-config",
-      "urn": "urn:eco-base:k8s:core:configmap:jaeger-config:sha256-8f439e0d2d32bea3ce2fd6a8d9db1f5b4f14ba8ca50b86322c2b7e00d461640c"
+      "urn": "urn:eco-base:k8s:core:configmap:jaeger-config:sha256-6cd56c0972462edbf6062c2b16fc08c0ed5f91e8365ba4298b5063861f18b7d0"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "47689364a8da66edc996854ebef3cc84edc7537e18f665d9a84df268f66ce615",
+      "contentSha256": "1473b8e3b11abbea3b8d65fa3aa6f96e159424b0bc7f8af82ee1da0da0dd0a82",
       "kind": "ConfigMap",
       "name": "tracing-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/jaeger-config.yaml",
       "uri": "eco-base://k8s/core/configmap/tracing-config",
-      "urn": "urn:eco-base:k8s:core:configmap:tracing-config:sha256-47689364a8da66edc996854ebef3cc84edc7537e18f665d9a84df268f66ce615"
+      "urn": "urn:eco-base:k8s:core:configmap:tracing-config:sha256-1473b8e3b11abbea3b8d65fa3aa6f96e159424b0bc7f8af82ee1da0da0dd0a82"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "05db17827b66f608f68aca87e6afaa9cf313e7822498e28a3ef33820c9ec7ff3",
+      "contentSha256": "9370ba01e29201224c52bcc3de8664162c0ebdc32eddaece9200e77961cb0681",
       "kind": "ConfigMap",
       "name": "k6-tests",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/k6-benchmark-tests.yaml",
       "uri": "eco-base://k8s/core/configmap/k6-tests",
-      "urn": "urn:eco-base:k8s:core:configmap:k6-tests:sha256-05db17827b66f608f68aca87e6afaa9cf313e7822498e28a3ef33820c9ec7ff3"
+      "urn": "urn:eco-base:k8s:core:configmap:k6-tests:sha256-9370ba01e29201224c52bcc3de8664162c0ebdc32eddaece9200e77961cb0681"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "673a633e292c0be97e95dd140791e5ed46da07f21220ddfc12a757fc694856e3",
+      "contentSha256": "3dd5e6e641f2c875509cc7b73b134911589e47bc54ce72b932d75b422597c76c",
       "kind": "ConfigMap",
       "name": "multi-region-dr-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/multi-region-dr.yaml",
       "uri": "eco-base://k8s/core/configmap/multi-region-dr-config",
-      "urn": "urn:eco-base:k8s:core:configmap:multi-region-dr-config:sha256-673a633e292c0be97e95dd140791e5ed46da07f21220ddfc12a757fc694856e3"
+      "urn": "urn:eco-base:k8s:core:configmap:multi-region-dr-config:sha256-3dd5e6e641f2c875509cc7b73b134911589e47bc54ce72b932d75b422597c76c"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "8da274f50baf65522f01d1c9ed7c30f64b9981732cee9daf25e01888cfc7f4f1",
+      "contentSha256": "d08737c0cf178346a9b214d680e4ba79c0531c631ee66b33efce5b49000c7b57",
       "kind": "ConfigMap",
       "name": "performance-auto-tuning-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/performance-auto-tuning.yaml",
       "uri": "eco-base://k8s/core/configmap/performance-auto-tuning-config",
-      "urn": "urn:eco-base:k8s:core:configmap:performance-auto-tuning-config:sha256-8da274f50baf65522f01d1c9ed7c30f64b9981732cee9daf25e01888cfc7f4f1"
+      "urn": "urn:eco-base:k8s:core:configmap:performance-auto-tuning-config:sha256-d08737c0cf178346a9b214d680e4ba79c0531c631ee66b33efce5b49000c7b57"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "d29f0a095e29ee7180d686c4bb18fbc7c225d20bacb2e6549842f17f07f036c7",
+      "contentSha256": "11d2c36d26b2e8fd5a747639c7a62c8d041a7ffd62e2f4dcbb4526f65c5f5d75",
       "kind": "ConfigMap",
       "name": "performance-benchmark-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/performance-benchmark-config.yaml",
       "uri": "eco-base://k8s/core/configmap/performance-benchmark-config",
-      "urn": "urn:eco-base:k8s:core:configmap:performance-benchmark-config:sha256-d29f0a095e29ee7180d686c4bb18fbc7c225d20bacb2e6549842f17f07f036c7"
+      "urn": "urn:eco-base:k8s:core:configmap:performance-benchmark-config:sha256-11d2c36d26b2e8fd5a747639c7a62c8d041a7ffd62e2f4dcbb4526f65c5f5d75"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "f748879aef8762728e8de58ba08edf82074c4f38c4a6a8c2cc0444d913c4025f",
+      "contentSha256": "cb6602197848ab352ab3eeb5194e1f6a23bae974c9759b7ea7b6fbca92f56ff6",
       "kind": "CronJob",
       "name": "performance-benchmark-endurance",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-endurance",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-f748879aef8762728e8de58ba08edf82074c4f38c4a6a8c2cc0444d913c4025f"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-cb6602197848ab352ab3eeb5194e1f6a23bae974c9759b7ea7b6fbca92f56ff6"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "61c70137404b5c8140e7a8aecabc9fc43019d6a2c0142e8bcd627be186c017d7",
+      "contentSha256": "a1726a995fb4b7c6a92f7824239c7abc67e7fa32811680739a3aa9e555eafe32",
       "kind": "CronJob",
       "name": "performance-benchmark-load",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-load",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-61c70137404b5c8140e7a8aecabc9fc43019d6a2c0142e8bcd627be186c017d7"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-a1726a995fb4b7c6a92f7824239c7abc67e7fa32811680739a3aa9e555eafe32"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "02f3e549b3e33160e326edcd09a1f0ab85274008051b94f7b84203ec5f2ce628",
+      "contentSha256": "cb35842a7da17677674259a083416d4ae8fae11ffc2f41e43258ad7bc5798a0d",
       "kind": "CronJob",
       "name": "performance-benchmark-smoke",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-smoke",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-02f3e549b3e33160e326edcd09a1f0ab85274008051b94f7b84203ec5f2ce628"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-cb35842a7da17677674259a083416d4ae8fae11ffc2f41e43258ad7bc5798a0d"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "fa220e8eb364cb52e1ab6201f968a7139863e68b405d24212c859a3c0c4361ce",
+      "contentSha256": "6f63d0fb7251261467fb793b201091ef75a78037ebac2875a3d1f773cb1b907c",
       "kind": "CronJob",
       "name": "performance-benchmark-stress",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-stress",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-fa220e8eb364cb52e1ab6201f968a7139863e68b405d24212c859a3c0c4361ce"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-6f63d0fb7251261467fb793b201091ef75a78037ebac2875a3d1f773cb1b907c"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "42ba4bfc2fb0260b0189b2872e67169bafd0b67f86bc1c59e23744466e664d6e",
+      "contentSha256": "6c3e0b3c4ebf6f8c03bd2a30e58abb8e22e3a90db3a4551f077b7e7421c88a1a",
       "kind": "ConfigMap",
       "name": "platform-agnostic-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/platform-agnostic-config.yaml",
       "uri": "eco-base://k8s/core/configmap/platform-agnostic-config",
-      "urn": "urn:eco-base:k8s:core:configmap:platform-agnostic-config:sha256-42ba4bfc2fb0260b0189b2872e67169bafd0b67f86bc1c59e23744466e664d6e"
+      "urn": "urn:eco-base:k8s:core:configmap:platform-agnostic-config:sha256-6c3e0b3c4ebf6f8c03bd2a30e58abb8e22e3a90db3a4551f077b7e7421c88a1a"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "66fcfd9b6d577c040f0fd5fe344e8eed0bbd30b3443ea268d5c2c36a83be2ac0",
+      "contentSha256": "3951315cba47f9bd00a680e3a806e8a6f0b53b7e300bcca6144af4a0b6201fec",
       "kind": "ConfigMap",
       "name": "predictive-scaling-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/predictive-scaling.yaml",
       "uri": "eco-base://k8s/core/configmap/predictive-scaling-config",
-      "urn": "urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-66fcfd9b6d577c040f0fd5fe344e8eed0bbd30b3443ea268d5c2c36a83be2ac0"
+      "urn": "urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-3951315cba47f9bd00a680e3a806e8a6f0b53b7e300bcca6144af4a0b6201fec"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "fab42a6fbad159fcef253a3b72796ee5886646c827602947c77f863eb0f17647",
+      "contentSha256": "87641506fb17b777863c7c772718febfb8a35de94e1689c99a2c756096c02760",
       "kind": "ConfigMap",
       "name": "prometheus-alerts",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/prometheus-config.yaml",
       "uri": "eco-base://k8s/core/configmap/prometheus-alerts",
-      "urn": "urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-fab42a6fbad159fcef253a3b72796ee5886646c827602947c77f863eb0f17647"
+      "urn": "urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-87641506fb17b777863c7c772718febfb8a35de94e1689c99a2c756096c02760"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "37fe9682f6edc6d5b61e57315d878cca85a62395d5e864407c16b504a4701a1b",
+      "contentSha256": "9909acd0e1f493b81f26c0e052c6a122d7e62a814412d9339c65adaaae024891",
       "kind": "ConfigMap",
       "name": "prometheus-config",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/prometheus-config.yaml",
       "uri": "eco-base://k8s/core/configmap/prometheus-config",
-      "urn": "urn:eco-base:k8s:core:configmap:prometheus-config:sha256-37fe9682f6edc6d5b61e57315d878cca85a62395d5e864407c16b504a4701a1b"
+      "urn": "urn:eco-base:k8s:core:configmap:prometheus-config:sha256-9909acd0e1f493b81f26c0e052c6a122d7e62a814412d9339c65adaaae024891"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "b34e39f6d8c38b889ff48c676dcb15114e0cff759e83fdc767da8aeec48dbe9e",
+      "contentSha256": "d02b6f95f676ae3a3d38cf286fabeeb054f3dac303a3da0623d8ece7e7166d86",
       "kind": "ConfigMap",
       "name": "resilience-policies",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/resilience-policies.yaml",
       "uri": "eco-base://k8s/core/configmap/resilience-policies",
-      "urn": "urn:eco-base:k8s:core:configmap:resilience-policies:sha256-b34e39f6d8c38b889ff48c676dcb15114e0cff759e83fdc767da8aeec48dbe9e"
+      "urn": "urn:eco-base:k8s:core:configmap:resilience-policies:sha256-d02b6f95f676ae3a3d38cf286fabeeb054f3dac303a3da0623d8ece7e7166d86"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "2f56b269713117648bd433eb18da87aeaca6958c5258866b9549fb5f804a4f4c",
+      "contentSha256": "7b05d8553672d97084135a1082fe8a4b7459486aa403dc3dbbe13f55fb327a90",
       "kind": "ConfigMap",
       "name": "resource-optimization-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/resource-optimization-monitoring.yaml",
       "uri": "eco-base://k8s/core/configmap/resource-optimization-config",
-      "urn": "urn:eco-base:k8s:core:configmap:resource-optimization-config:sha256-2f56b269713117648bd433eb18da87aeaca6958c5258866b9549fb5f804a4f4c"
+      "urn": "urn:eco-base:k8s:core:configmap:resource-optimization-config:sha256-7b05d8553672d97084135a1082fe8a4b7459486aa403dc3dbbe13f55fb327a90"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "6520c18cfc958d3807bb1d3d833845a7ea09ea8131d5b8f13e44a9e13112fcdf",
+      "contentSha256": "858114da657b68afea04e44a14c46529769d6f3d3574c1fd5fd5860a537c1244",
       "kind": "ConfigMap",
       "name": "istio-custom-metrics",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/service-observability.yaml",
       "uri": "eco-base://k8s/core/configmap/istio-custom-metrics",
-      "urn": "urn:eco-base:k8s:core:configmap:istio-custom-metrics:sha256-6520c18cfc958d3807bb1d3d833845a7ea09ea8131d5b8f13e44a9e13112fcdf"
+      "urn": "urn:eco-base:k8s:core:configmap:istio-custom-metrics:sha256-858114da657b68afea04e44a14c46529769d6f3d3574c1fd5fd5860a537c1244"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "ae170b5b5381589fb3b26f41a8c4108da5008e71929230a05e8e0d35b3a4b0bd",
+      "contentSha256": "a4cf1a3d8ba875671f75e2742b68142c78fb5efe54c5b6e0f7f43a65c7ec6801",
       "kind": "ConfigMap",
       "name": "service-mesh-dashboard",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/service-observability.yaml",
       "uri": "eco-base://k8s/core/configmap/service-mesh-dashboard",
-      "urn": "urn:eco-base:k8s:core:configmap:service-mesh-dashboard:sha256-ae170b5b5381589fb3b26f41a8c4108da5008e71929230a05e8e0d35b3a4b0bd"
+      "urn": "urn:eco-base:k8s:core:configmap:service-mesh-dashboard:sha256-a4cf1a3d8ba875671f75e2742b68142c78fb5efe54c5b6e0f7f43a65c7ec6801"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "ace516466c8b323377b0f9682a3c2e7adcada6ead988ed8065fbaaa953c0c14e",
+      "contentSha256": "00eb410215a272edd37ec454cc1320189b1c97894c27fb8ef0f92d0495fd5f44",
       "kind": "ConfigMap",
       "name": "trace-analysis-alerts",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/trace-analysis-dashboard.yaml",
       "uri": "eco-base://k8s/core/configmap/trace-analysis-alerts",
-      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-alerts:sha256-ace516466c8b323377b0f9682a3c2e7adcada6ead988ed8065fbaaa953c0c14e"
+      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-alerts:sha256-00eb410215a272edd37ec454cc1320189b1c97894c27fb8ef0f92d0495fd5f44"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "d19716665c8dbf3696c9dde55351be1d64cf957a13fd037f47de1f953cfd97b1",
+      "contentSha256": "b77ff6bc083a847a1e7fe7eba6db16981acc170b44361837dfc8c4bae02d54ab",
       "kind": "ConfigMap",
       "name": "trace-analysis-dashboard",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/trace-analysis-dashboard.yaml",
       "uri": "eco-base://k8s/core/configmap/trace-analysis-dashboard",
-      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-dashboard:sha256-d19716665c8dbf3696c9dde55351be1d64cf957a13fd037f47de1f953cfd97b1"
+      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-dashboard:sha256-b77ff6bc083a847a1e7fe7eba6db16981acc170b44361837dfc8c4bae02d54ab"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "54fe047218fadf7920111d26d3002e1704dac09e400d932a374ab9ff1e8eea4d",
+      "contentSha256": "a48ef4a523f23f049e13d74ac00c21e2b94330e6ea367604fd17290cdc4a9625",
       "kind": "CronJob",
       "name": "trace-analysis-report",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/trace-analysis-dashboard.yaml",
       "uri": "eco-base://k8s/core/cronjob/trace-analysis-report",
-      "urn": "urn:eco-base:k8s:core:cronjob:trace-analysis-report:sha256-54fe047218fadf7920111d26d3002e1704dac09e400d932a374ab9ff1e8eea4d"
+      "urn": "urn:eco-base:k8s:core:cronjob:trace-analysis-report:sha256-a48ef4a523f23f049e13d74ac00c21e2b94330e6ea367604fd17290cdc4a9625"
     },
     {
       "apiVersion": "apps/v1",
       "component": "deployment",
-      "contentSha256": "989517bf087070b24748e4ec97e1b3d0bf28d1097d1bbf766db9c000b2a4ea8f",
+      "contentSha256": "66087c6a662d14920093647b0d7418f2a7aa15862a7667569508f4449342f4a7",
       "kind": "Deployment",
       "name": "machine-native-ops",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/tracing-middleware-config.yaml",
       "uri": "eco-base://k8s/core/deployment/machine-native-ops",
-      "urn": "urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-989517bf087070b24748e4ec97e1b3d0bf28d1097d1bbf766db9c000b2a4ea8f"
+      "urn": "urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-66087c6a662d14920093647b0d7418f2a7aa15862a7667569508f4449342f4a7"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "4045eab979763f63edec9033c10a3bf779f874cc8bcb5a011e697f6578b64afd",
+      "contentSha256": "a4213cb2f9a5a3c9e2af720b1ea58fa1f2f9fce894aa168de6cb34cf2ac7124b",
       "kind": "CronJob",
       "name": "postgres-backup",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/velero-config.yaml",
       "uri": "eco-base://k8s/core/cronjob/postgres-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-4045eab979763f63edec9033c10a3bf779f874cc8bcb5a011e697f6578b64afd"
+      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-a4213cb2f9a5a3c9e2af720b1ea58fa1f2f9fce894aa168de6cb34cf2ac7124b"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "622c00583fcad2f949e4145f74ee51058e662bcb37a9e3a856d03456919a3dfd",
+      "contentSha256": "22e7415741f5dd66818d5aa2efb3407dbdce423ff795feb0f42f2c6ee38f3390",
       "kind": "CronJob",
       "name": "redis-backup",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/velero-config.yaml",
       "uri": "eco-base://k8s/core/cronjob/redis-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-622c00583fcad2f949e4145f74ee51058e662bcb37a9e3a856d03456919a3dfd"
+      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-22e7415741f5dd66818d5aa2efb3407dbdce423ff795feb0f42f2c6ee38f3390"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "9507e35d14fa8195923eca18814c26a59d0432c288a02ef2f6337d47f85d1596",
+      "contentSha256": "ae6279284f7e7a1cfa201c5d2ffc4df0c85815769840e92fd67b3a02392ff07d",
       "kind": "Secret",
       "name": "velero-s3-credentials",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/k8s-legacy/production/velero-config.yaml",
       "uri": "eco-base://k8s/core/secret/velero-s3-credentials",
-      "urn": "urn:eco-base:k8s:core:secret:velero-s3-credentials:sha256-9507e35d14fa8195923eca18814c26a59d0432c288a02ef2f6337d47f85d1596"
+      "urn": "urn:eco-base:k8s:core:secret:velero-s3-credentials:sha256-ae6279284f7e7a1cfa201c5d2ffc4df0c85815769840e92fd67b3a02392ff07d"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "21b8beb26842ecc767a1d83f49f46f97a89b990e8d64d4ff942e1388504a0cbb",
+      "contentSha256": "8433121103d69b03a1f950f029e0f2071ebe2ffb32658477f00be1ca70b0926d",
       "kind": "ConfigMap",
       "name": "machine-native-ops-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/machine-native-ops-config",
-      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-21b8beb26842ecc767a1d83f49f46f97a89b990e8d64d4ff942e1388504a0cbb"
+      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-8433121103d69b03a1f950f029e0f2071ebe2ffb32658477f00be1ca70b0926d"
     },
     {
       "apiVersion": "networking.k8s.io/v1",
       "component": "ingress",
-      "contentSha256": "1b83f23b06b8d098182d985a079b0a0fe3d5193d4f4824bc8b2dff3d473c0c3a",
+      "contentSha256": "50b36261e33f9da617c93c61220a2608193431f9efc710eeb84e8b3ec4e17e3d",
       "kind": "Ingress",
       "name": "machine-native-ops-ingress",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/base/ingress.yaml",
       "uri": "eco-base://k8s/core/ingress/machine-native-ops-ingress",
-      "urn": "urn:eco-base:k8s:core:ingress:machine-native-ops-ingress:sha256-1b83f23b06b8d098182d985a079b0a0fe3d5193d4f4824bc8b2dff3d473c0c3a"
+      "urn": "urn:eco-base:k8s:core:ingress:machine-native-ops-ingress:sha256-50b36261e33f9da617c93c61220a2608193431f9efc710eeb84e8b3ec4e17e3d"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "a892463ed0306d5e4198cb8e2aafb7b7c0936ca5a87b4397caecd9da95cd564c",
+      "contentSha256": "135b1718adee4e77abafae8087ce7ce50a237f35ee6197d6cbc9aaf28676b045",
       "kind": "Secret",
       "name": "machine-native-ops-secrets",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/base/secret.yaml",
       "uri": "eco-base://k8s/core/secret/machine-native-ops-secrets",
-      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-a892463ed0306d5e4198cb8e2aafb7b7c0936ca5a87b4397caecd9da95cd564c"
+      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-135b1718adee4e77abafae8087ce7ce50a237f35ee6197d6cbc9aaf28676b045"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "d0c34e809f615a4c9e7ffa461bb9a87f2d622df96bc7c52dfbcedc41986501c6",
+      "contentSha256": "cc8d4880b8d321c25d705d3ea930beb876e81f7faea934391ffee0a69f4fffcf",
       "kind": "Service",
       "name": "elasticsearch-search-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/systems/elasticsearch-search-system/service.yaml",
       "uri": "eco-base://k8s/core/service/elasticsearch-search-service",
-      "urn": "urn:eco-base:k8s:core:service:elasticsearch-search-service:sha256-d0c34e809f615a4c9e7ffa461bb9a87f2d622df96bc7c52dfbcedc41986501c6"
+      "urn": "urn:eco-base:k8s:core:service:elasticsearch-search-service:sha256-cc8d4880b8d321c25d705d3ea930beb876e81f7faea934391ffee0a69f4fffcf"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "54fd301c05b60157d1b215bd0c00108f95d15684032716cbb69e099a7c11d83b",
+      "contentSha256": "46fe49e9493256c1b8f0d0bd7a66f0cdf0a71338965264eee1d00ad9d470eacb",
       "kind": "Service",
       "name": "aep-engine-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/systems/engine/service.yaml",
       "uri": "eco-base://k8s/core/service/aep-engine-service",
-      "urn": "urn:eco-base:k8s:core:service:aep-engine-service:sha256-54fd301c05b60157d1b215bd0c00108f95d15684032716cbb69e099a7c11d83b"
+      "urn": "urn:eco-base:k8s:core:service:aep-engine-service:sha256-46fe49e9493256c1b8f0d0bd7a66f0cdf0a71338965264eee1d00ad9d470eacb"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "64fa48598b43613323328efaed9539df10c3954a45978337228703ce13672974",
+      "contentSha256": "c52bd6ec4cbf5156e839e84ae2133e6ef4d84c8043958ef0345b048b97c4e10b",
       "kind": "Service",
       "name": "esync-platform-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/systems/esync-platform/service.yaml",
       "uri": "eco-base://k8s/core/service/esync-platform-service",
-      "urn": "urn:eco-base:k8s:core:service:esync-platform-service:sha256-64fa48598b43613323328efaed9539df10c3954a45978337228703ce13672974"
+      "urn": "urn:eco-base:k8s:core:service:esync-platform-service:sha256-c52bd6ec4cbf5156e839e84ae2133e6ef4d84c8043958ef0345b048b97c4e10b"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "63371afdec532eb8e423eeedccc9ccf3ca00dcdbac60ae5b173a38bf825eb16b",
+      "contentSha256": "28ced9765da357256461c5ec99d583afaa0c46a221fde4e77b6021b7850374ac",
       "kind": "Service",
       "name": "file-organizer-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/systems/file-organizer-system/service.yaml",
       "uri": "eco-base://k8s/core/service/file-organizer-service",
-      "urn": "urn:eco-base:k8s:core:service:file-organizer-service:sha256-63371afdec532eb8e423eeedccc9ccf3ca00dcdbac60ae5b173a38bf825eb16b"
+      "urn": "urn:eco-base:k8s:core:service:file-organizer-service:sha256-28ced9765da357256461c5ec99d583afaa0c46a221fde4e77b6021b7850374ac"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "26c6776f5e281822cf8a667557a5aad8df619713ef72ded48fa478bc52ef0085",
+      "contentSha256": "ebf7953fdad9680d6d848f716771e718eaf3dfd70a15beb77bbe274280557402",
       "kind": "Service",
       "name": "instant-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/foundation/kubernetes/manifests/systems/instant/service.yaml",
       "uri": "eco-base://k8s/core/service/instant-service",
-      "urn": "urn:eco-base:k8s:core:service:instant-service:sha256-26c6776f5e281822cf8a667557a5aad8df619713ef72ded48fa478bc52ef0085"
+      "urn": "urn:eco-base:k8s:core:service:instant-service:sha256-ebf7953fdad9680d6d848f716771e718eaf3dfd70a15beb77bbe274280557402"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "effcc32e62820dc12021d1c7980032476141a19c7fc046ce4559bfee7c84aa78",
+      "contentSha256": "3160ba3eb9b115d1d227518fea2f136498f9ff216a85c274b036d4bea4e9edd6",
       "kind": "CronJob",
       "name": "backup-validation",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/backup-validation",
-      "urn": "urn:eco-base:k8s:core:cronjob:backup-validation:sha256-effcc32e62820dc12021d1c7980032476141a19c7fc046ce4559bfee7c84aa78"
+      "urn": "urn:eco-base:k8s:core:cronjob:backup-validation:sha256-3160ba3eb9b115d1d227518fea2f136498f9ff216a85c274b036d4bea4e9edd6"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "b59eaf017a68407320c54e95a8fa5e595726f52303d6f32ec7684e3bc1ec8956",
+      "contentSha256": "aba1d6f3e2ff980798f6ed8d8f758437cf5b606f6073b0954c32cc623ddad1f4",
       "kind": "CronJob",
       "name": "config-backup",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/config-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:config-backup:sha256-b59eaf017a68407320c54e95a8fa5e595726f52303d6f32ec7684e3bc1ec8956"
+      "urn": "urn:eco-base:k8s:core:cronjob:config-backup:sha256-aba1d6f3e2ff980798f6ed8d8f758437cf5b606f6073b0954c32cc623ddad1f4"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "cfa59da6abcfa7463ca0dde5695d53b7ab2d24d8401516bfad7d7994a9710556",
+      "contentSha256": "da689a7e143b7553ce037f0d986c21c8df3eb0c3054cead11ccadf54637945ac",
       "kind": "CronJob",
       "name": "postgres-backup",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/postgres-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-cfa59da6abcfa7463ca0dde5695d53b7ab2d24d8401516bfad7d7994a9710556"
+      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-da689a7e143b7553ce037f0d986c21c8df3eb0c3054cead11ccadf54637945ac"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "f6387034cbcd31d9e40971d710a7cf15f66fd402e58244820d9a93ac01f397a8",
+      "contentSha256": "629a455b983a03233d18a2cf4e9ad9968220ab8bc5744ef575d94d360046309b",
       "kind": "CronJob",
       "name": "redis-backup",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/disaster-recovery/jobs/database-backup-jobs.yaml",
       "uri": "eco-base://k8s/core/cronjob/redis-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-f6387034cbcd31d9e40971d710a7cf15f66fd402e58244820d9a93ac01f397a8"
+      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-629a455b983a03233d18a2cf4e9ad9968220ab8bc5744ef575d94d360046309b"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "eacf31de7d43691ee53cd61c4c86286a92fb5c8fa80a5f0f8952f139b92051a5",
+      "contentSha256": "dd180ba690909b37fdde3ef431ade90e2e024644b960fdc4a2cdd3614e3bd51d",
       "kind": "ConfigMap",
       "name": "jaeger-tracing-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/jaeger/istio-config.yaml",
       "uri": "eco-base://k8s/core/configmap/jaeger-tracing-config",
-      "urn": "urn:eco-base:k8s:core:configmap:jaeger-tracing-config:sha256-eacf31de7d43691ee53cd61c4c86286a92fb5c8fa80a5f0f8952f139b92051a5"
+      "urn": "urn:eco-base:k8s:core:configmap:jaeger-tracing-config:sha256-dd180ba690909b37fdde3ef431ade90e2e024644b960fdc4a2cdd3614e3bd51d"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "763b9afc2d0957b96a6ae165801d35be4470252efc06db131e6c49b9dc21c6cc",
+      "contentSha256": "41d7b6a5883bf36411b7655e5505e421d5ee245d1572cc63ababae99300d43fd",
       "kind": "ConfigMap",
       "name": "alertmanager-config",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/alertmanager-config.yaml",
       "uri": "eco-base://k8s/core/configmap/alertmanager-config",
-      "urn": "urn:eco-base:k8s:core:configmap:alertmanager-config:sha256-763b9afc2d0957b96a6ae165801d35be4470252efc06db131e6c49b9dc21c6cc"
+      "urn": "urn:eco-base:k8s:core:configmap:alertmanager-config:sha256-41d7b6a5883bf36411b7655e5505e421d5ee245d1572cc63ababae99300d43fd"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "df4e01de0d4196ff96f8c692e387fef031b7888b1d1ca27760adcc9fced12053",
+      "contentSha256": "2dcd9c583e3c6b855a767cb50487b2aca6ba393b1ca226b58d354ec168bbd821",
       "kind": "ConfigMap",
       "name": "automation-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/automation-config.yaml",
       "uri": "eco-base://k8s/core/configmap/automation-config",
-      "urn": "urn:eco-base:k8s:core:configmap:automation-config:sha256-df4e01de0d4196ff96f8c692e387fef031b7888b1d1ca27760adcc9fced12053"
+      "urn": "urn:eco-base:k8s:core:configmap:automation-config:sha256-2dcd9c583e3c6b855a767cb50487b2aca6ba393b1ca226b58d354ec168bbd821"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "76140b9a46c0df1c29b17daf5d70239eaf74a64478e1060a9c76f394945b8aee",
+      "contentSha256": "06e3acd85b7890e86556d2c8b4992b420383418610c675c03c9cfc51bb3c710b",
       "kind": "ConfigMap",
       "name": "backup-compliance-config",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/backup-compliance-reporting.yaml",
       "uri": "eco-base://k8s/core/configmap/backup-compliance-config",
-      "urn": "urn:eco-base:k8s:core:configmap:backup-compliance-config:sha256-76140b9a46c0df1c29b17daf5d70239eaf74a64478e1060a9c76f394945b8aee"
+      "urn": "urn:eco-base:k8s:core:configmap:backup-compliance-config:sha256-06e3acd85b7890e86556d2c8b4992b420383418610c675c03c9cfc51bb3c710b"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "8c845e05a403b021d79b4e751d324ffbc96ddc12b58f79ecba5577da56e67910",
+      "contentSha256": "b667aec10a588f50c29034940a27bf3090888eab134891917a22befe8c470414",
       "kind": "CronJob",
       "name": "backup-compliance-report",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/backup-compliance-reporting.yaml",
       "uri": "eco-base://k8s/core/cronjob/backup-compliance-report",
-      "urn": "urn:eco-base:k8s:core:cronjob:backup-compliance-report:sha256-8c845e05a403b021d79b4e751d324ffbc96ddc12b58f79ecba5577da56e67910"
+      "urn": "urn:eco-base:k8s:core:cronjob:backup-compliance-report:sha256-b667aec10a588f50c29034940a27bf3090888eab134891917a22befe8c470414"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "ccf3bee5f7b31acc257c57c30a886c9b426732ed7d33ae9373b6726e89473f17",
+      "contentSha256": "369ceb5cd67e1df6a6ce7adede76281a56d4e8bd14ab8e52a348fc5b4f2c1617",
       "kind": "ConfigMap",
       "name": "backup-encryption-config",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/backup-encryption.yaml",
       "uri": "eco-base://k8s/core/configmap/backup-encryption-config",
-      "urn": "urn:eco-base:k8s:core:configmap:backup-encryption-config:sha256-ccf3bee5f7b31acc257c57c30a886c9b426732ed7d33ae9373b6726e89473f17"
+      "urn": "urn:eco-base:k8s:core:configmap:backup-encryption-config:sha256-369ceb5cd67e1df6a6ce7adede76281a56d4e8bd14ab8e52a348fc5b4f2c1617"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "8b08d4d21f56bc3fab49a74176e0769b78c5a3b209e7d1f75b5cef176cc21983",
+      "contentSha256": "da7d68ae2d7446818853eba5c1ec481975ec44997173b8627c9badad2ae2a769",
       "kind": "Secret",
       "name": "velero-encryption-keys",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/backup-encryption.yaml",
       "uri": "eco-base://k8s/core/secret/velero-encryption-keys",
-      "urn": "urn:eco-base:k8s:core:secret:velero-encryption-keys:sha256-8b08d4d21f56bc3fab49a74176e0769b78c5a3b209e7d1f75b5cef176cc21983"
+      "urn": "urn:eco-base:k8s:core:secret:velero-encryption-keys:sha256-da7d68ae2d7446818853eba5c1ec481975ec44997173b8627c9badad2ae2a769"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "3a44e199315cf5fe88c46736afbf3631f676595acaf9a73f6459973d45372c98",
+      "contentSha256": "8ed593e7bebf4acf756bfb4a7d13c4f4a41bbac2492248c5b11fcd17f1268369",
+      "kind": "ConfigMap",
+      "name": "backup-lifecycle-config",
+      "namespace": "velero",
+      "platform": "core",
+      "source": "platforms/infrastructure/k8s-legacy/production/backup-lifecycle.yaml",
+      "uri": "eco-base://k8s/core/configmap/backup-lifecycle-config",
+      "urn": "urn:eco-base:k8s:core:configmap:backup-lifecycle-config:sha256-8ed593e7bebf4acf756bfb4a7d13c4f4a41bbac2492248c5b11fcd17f1268369"
+    },
+    {
+      "apiVersion": "batch/v1",
+      "component": "cronjob",
+      "contentSha256": "1145991710cb9e74cb2bb70690644dd097e5893ccc708e4eea66ab3376bc6462",
+      "kind": "CronJob",
+      "name": "backup-lifecycle-manager",
+      "namespace": "velero",
+      "platform": "core",
+      "source": "platforms/infrastructure/k8s-legacy/production/backup-lifecycle.yaml",
+      "uri": "eco-base://k8s/core/cronjob/backup-lifecycle-manager",
+      "urn": "urn:eco-base:k8s:core:cronjob:backup-lifecycle-manager:sha256-1145991710cb9e74cb2bb70690644dd097e5893ccc708e4eea66ab3376bc6462"
+    },
+    {
+      "apiVersion": "v1",
+      "component": "secret",
+      "contentSha256": "0154863c18195144df59e94a6e9e558932e50c05f4ca4f1ee7b064945b0a90c1",
+      "kind": "Secret",
+      "name": "backup-notification-config",
+      "namespace": "velero",
+      "platform": "core",
+      "source": "platforms/infrastructure/k8s-legacy/production/backup-lifecycle.yaml",
+      "uri": "eco-base://k8s/core/secret/backup-notification-config",
+      "urn": "urn:eco-base:k8s:core:secret:backup-notification-config:sha256-0154863c18195144df59e94a6e9e558932e50c05f4ca4f1ee7b064945b0a90c1"
+    },
+    {
+      "apiVersion": "v1",
+      "component": "configmap",
+      "contentSha256": "9b1815b204e7528452c140a3e09811b74e9e8029efed924ec57d23dec18244c2",
       "kind": "ConfigMap",
       "name": "machine-native-ops-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/machine-native-ops-config",
-      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-3a44e199315cf5fe88c46736afbf3631f676595acaf9a73f6459973d45372c98"
+      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-9b1815b204e7528452c140a3e09811b74e9e8029efed924ec57d23dec18244c2"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "b0e90c84b5b6af728c2c0ab3b3bb79fd3c4787f7ae4348476d50584789b98b08",
+      "contentSha256": "44ff186d6ea4d87d666afea23bdc736f70237eeb8966858d2143644a4f933612",
       "kind": "ConfigMap",
       "name": "cost-optimization-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/cost-optimization.yaml",
       "uri": "eco-base://k8s/core/configmap/cost-optimization-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-b0e90c84b5b6af728c2c0ab3b3bb79fd3c4787f7ae4348476d50584789b98b08"
+      "urn": "urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-44ff186d6ea4d87d666afea23bdc736f70237eeb8966858d2143644a4f933612"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "74392a7486f703996a8d2514fade07fe335916ecc126bf50801686c5f54e9085",
+      "contentSha256": "ebf9f5b20dda5a493fdf349583491c7e8d854ac7c75993b53a8d50af81816084",
       "kind": "ConfigMap",
       "name": "cross-platform-networking-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/cross-platform-networking.yaml",
       "uri": "eco-base://k8s/core/configmap/cross-platform-networking-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-networking-config:sha256-74392a7486f703996a8d2514fade07fe335916ecc126bf50801686c5f54e9085"
+      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-networking-config:sha256-ebf9f5b20dda5a493fdf349583491c7e8d854ac7c75993b53a8d50af81816084"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "dfb1fca792527300c2bbc2e652e773fcb2087d1417093960adab43f8ae69c286",
+      "contentSha256": "ff9130386f7126d17eb95bf5fae0e8e281f9005b1d7fbff988ab6e23c903d4b8",
       "kind": "ConfigMap",
       "name": "cross-platform-storage-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/cross-platform-storage.yaml",
       "uri": "eco-base://k8s/core/configmap/cross-platform-storage-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-storage-config:sha256-dfb1fca792527300c2bbc2e652e773fcb2087d1417093960adab43f8ae69c286"
+      "urn": "urn:eco-base:k8s:core:configmap:cross-platform-storage-config:sha256-ff9130386f7126d17eb95bf5fae0e8e281f9005b1d7fbff988ab6e23c903d4b8"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "9aed639cf3b54eb7bc8d4e945116e5312d4ca98f2ad2e25a3d7bc2f3e3823d1e",
+      "contentSha256": "134537665b84ff50d61f08f7cf17e434e19d1d7ad6db25a13642e91dd66a13ba",
       "kind": "ConfigMap",
       "name": "cross-region-failover-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/cross-region-failover.yaml",
       "uri": "eco-base://k8s/core/configmap/cross-region-failover-config",
-      "urn": "urn:eco-base:k8s:core:configmap:cross-region-failover-config:sha256-9aed639cf3b54eb7bc8d4e945116e5312d4ca98f2ad2e25a3d7bc2f3e3823d1e"
+      "urn": "urn:eco-base:k8s:core:configmap:cross-region-failover-config:sha256-134537665b84ff50d61f08f7cf17e434e19d1d7ad6db25a13642e91dd66a13ba"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "8bb7e667c12ca123ebd1ac1c78ded12cda8a7c0fd25a0368254bd4312de25776",
+      "contentSha256": "66ef36c2c28398c7c838b6b2faebd3d52e87968953dd2f72e48368582cbe3a7b",
       "kind": "CronJob",
       "name": "dr-backup-verification",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/disaster-recovery-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/dr-backup-verification",
-      "urn": "urn:eco-base:k8s:core:cronjob:dr-backup-verification:sha256-8bb7e667c12ca123ebd1ac1c78ded12cda8a7c0fd25a0368254bd4312de25776"
+      "urn": "urn:eco-base:k8s:core:cronjob:dr-backup-verification:sha256-66ef36c2c28398c7c838b6b2faebd3d52e87968953dd2f72e48368582cbe3a7b"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "e4b27fad95a01730ce57ff83fcc3a906075abbf0d0735862c0232d5b038adbec",
+      "contentSha256": "88d34b62e5f392d78c516f80c5ebbf90c3024a3013f2ac6505c03a781a037135",
       "kind": "CronJob",
       "name": "dr-health-check",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/disaster-recovery-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/dr-health-check",
-      "urn": "urn:eco-base:k8s:core:cronjob:dr-health-check:sha256-e4b27fad95a01730ce57ff83fcc3a906075abbf0d0735862c0232d5b038adbec"
+      "urn": "urn:eco-base:k8s:core:cronjob:dr-health-check:sha256-88d34b62e5f392d78c516f80c5ebbf90c3024a3013f2ac6505c03a781a037135"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "b1ac84c1d0573f84a913666c920022639995e398739e62846b06ba370b9c37b4",
+      "contentSha256": "074ae2365ec89e636d828b59fda4a9321e9381fe04bbb52c2b8acf79cf0fc849",
       "kind": "ConfigMap",
       "name": "disaster-recovery-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/disaster-recovery-testing.yaml",
       "uri": "eco-base://k8s/core/configmap/disaster-recovery-config",
-      "urn": "urn:eco-base:k8s:core:configmap:disaster-recovery-config:sha256-b1ac84c1d0573f84a913666c920022639995e398739e62846b06ba370b9c37b4"
+      "urn": "urn:eco-base:k8s:core:configmap:disaster-recovery-config:sha256-074ae2365ec89e636d828b59fda4a9321e9381fe04bbb52c2b8acf79cf0fc849"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "50d6f1d822419894538c6495a838519051a594895c340598becbf8a699b8debf",
+      "contentSha256": "2dcffef37af7b174caddb8857e70c7a4aea0ee3c88b7d357be6b8b9967f4330a",
       "kind": "ConfigMap",
       "name": "velero-enhanced-backup-config",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/enhanced-backup-strategy.yaml",
       "uri": "eco-base://k8s/core/configmap/velero-enhanced-backup-config",
-      "urn": "urn:eco-base:k8s:core:configmap:velero-enhanced-backup-config:sha256-50d6f1d822419894538c6495a838519051a594895c340598becbf8a699b8debf"
+      "urn": "urn:eco-base:k8s:core:configmap:velero-enhanced-backup-config:sha256-2dcffef37af7b174caddb8857e70c7a4aea0ee3c88b7d357be6b8b9967f4330a"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "5a6a864a7cf526ac7e199c3cdd228b63e43e2bd7ddea71d54f59dbed18a4f203",
+      "contentSha256": "a75ccd6afe7b6d388e613c1192635f53b9667b4d2969a9dcbf01516fa3cf0c91",
       "kind": "ConfigMap",
       "name": "jaeger-enhanced-config",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/enhanced-tracing.yaml",
       "uri": "eco-base://k8s/core/configmap/jaeger-enhanced-config",
-      "urn": "urn:eco-base:k8s:core:configmap:jaeger-enhanced-config:sha256-5a6a864a7cf526ac7e199c3cdd228b63e43e2bd7ddea71d54f59dbed18a4f203"
+      "urn": "urn:eco-base:k8s:core:configmap:jaeger-enhanced-config:sha256-a75ccd6afe7b6d388e613c1192635f53b9667b4d2969a9dcbf01516fa3cf0c91"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "dd384d81fd6f6c4b5d1cfe768de2da58ed165adfa1a4e826a7dd2790d998cd23",
+      "contentSha256": "7b734c8ab84d08a5ad9e17668ce7253618f31dbf665b01c570007089691a7d88",
       "kind": "ConfigMap",
       "name": "trace-retention-config",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/enhanced-tracing.yaml",
       "uri": "eco-base://k8s/core/configmap/trace-retention-config",
-      "urn": "urn:eco-base:k8s:core:configmap:trace-retention-config:sha256-dd384d81fd6f6c4b5d1cfe768de2da58ed165adfa1a4e826a7dd2790d998cd23"
+      "urn": "urn:eco-base:k8s:core:configmap:trace-retention-config:sha256-7b734c8ab84d08a5ad9e17668ce7253618f31dbf665b01c570007089691a7d88"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "e4c89a0cbd65456b1ce77697b78f57ab58bd76495f8038d489c363a37fe43ff6",
+      "contentSha256": "556d0fd10977243f2e08630087534cd9efb87362d1fdba2f15e10f3a3d759f30",
       "kind": "ConfigMap",
       "name": "tracing-context-config",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/enhanced-tracing.yaml",
       "uri": "eco-base://k8s/core/configmap/tracing-context-config",
-      "urn": "urn:eco-base:k8s:core:configmap:tracing-context-config:sha256-e4c89a0cbd65456b1ce77697b78f57ab58bd76495f8038d489c363a37fe43ff6"
+      "urn": "urn:eco-base:k8s:core:configmap:tracing-context-config:sha256-556d0fd10977243f2e08630087534cd9efb87362d1fdba2f15e10f3a3d759f30"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "bc095ce6e32366ecec6628c4825139a7202c4a8db36c3537b5d96ac3799ec94e",
+      "contentSha256": "272144719058e2d5f3ad109c93168ec5a878e7d2a51ed9c979e4518395512212",
       "kind": "ConfigMap",
       "name": "extended-platforms-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/extended-platforms-config.yaml",
       "uri": "eco-base://k8s/core/configmap/extended-platforms-config",
-      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-config:sha256-bc095ce6e32366ecec6628c4825139a7202c4a8db36c3537b5d96ac3799ec94e"
+      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-config:sha256-272144719058e2d5f3ad109c93168ec5a878e7d2a51ed9c979e4518395512212"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "42da6ff2a01cdf36cf0e84e22c7253264ef129703095975fe33ccd71acfd0a97",
+      "contentSha256": "a038762649ece26610d4103f2e0522898d03fef0474ff6a73e0691198b88ddbc",
       "kind": "ConfigMap",
       "name": "extended-platforms-integrations",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/extended-platforms-integrations.yaml",
       "uri": "eco-base://k8s/core/configmap/extended-platforms-integrations",
-      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-integrations:sha256-42da6ff2a01cdf36cf0e84e22c7253264ef129703095975fe33ccd71acfd0a97"
+      "urn": "urn:eco-base:k8s:core:configmap:extended-platforms-integrations:sha256-a038762649ece26610d4103f2e0522898d03fef0474ff6a73e0691198b88ddbc"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "d40e9669f45ec0b9ba99ad8dca618e9faaa3a903d4d34f838e8c4c975b6c8b30",
+      "contentSha256": "df87210917ff9a8bdfdc3a3fa04f19e843768e73bcf3d49115f9788633991d81",
       "kind": "Service",
       "name": "machine-native-ops-lb",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/gateway.yaml",
       "uri": "eco-base://k8s/core/service/machine-native-ops-lb",
-      "urn": "urn:eco-base:k8s:core:service:machine-native-ops-lb:sha256-d40e9669f45ec0b9ba99ad8dca618e9faaa3a903d4d34f838e8c4c975b6c8b30"
+      "urn": "urn:eco-base:k8s:core:service:machine-native-ops-lb:sha256-df87210917ff9a8bdfdc3a3fa04f19e843768e73bcf3d49115f9788633991d81"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "249c18138644cb70c539917dd1f497de6ae3075a68c0265991c0d99944538040",
+      "contentSha256": "42901de372a60dbd27ced1a8e2d65ddb5e10a0275b80a4ba1ecb897c2883190c",
       "kind": "ConfigMap",
       "name": "geo-dns-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/geo-dns-routing.yaml",
       "uri": "eco-base://k8s/core/configmap/geo-dns-config",
-      "urn": "urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-249c18138644cb70c539917dd1f497de6ae3075a68c0265991c0d99944538040"
+      "urn": "urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-42901de372a60dbd27ced1a8e2d65ddb5e10a0275b80a4ba1ecb897c2883190c"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "2680b962d42f4e3d264f39826dc2f2c4ae2428431f8a483863d0f41e7ee22b8a",
+      "contentSha256": "b3b73486eefaae3877ec26f8762c3bb3f7c01ed0fca7484b3220f9eb73ac74e2",
       "kind": "ConfigMap",
       "name": "grafana-dashboards",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/grafana-dashboards.yaml",
       "uri": "eco-base://k8s/core/configmap/grafana-dashboards",
-      "urn": "urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-2680b962d42f4e3d264f39826dc2f2c4ae2428431f8a483863d0f41e7ee22b8a"
+      "urn": "urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-b3b73486eefaae3877ec26f8762c3bb3f7c01ed0fca7484b3220f9eb73ac74e2"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "69b2484e8848159e13588fd95f64858378c5b771a9de618a0a136035627d88e3",
+      "contentSha256": "101f55a90bf89e91991bcb99444cb5af379599c7491098870d72b57f12bc6b4a",
       "kind": "ConfigMap",
       "name": "jaeger-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/jaeger-config.yaml",
       "uri": "eco-base://k8s/core/configmap/jaeger-config",
-      "urn": "urn:eco-base:k8s:core:configmap:jaeger-config:sha256-69b2484e8848159e13588fd95f64858378c5b771a9de618a0a136035627d88e3"
+      "urn": "urn:eco-base:k8s:core:configmap:jaeger-config:sha256-101f55a90bf89e91991bcb99444cb5af379599c7491098870d72b57f12bc6b4a"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "0060a8e697fb68232d46703ef9c05ca7f58a2aa442aa29869dba113fabdf7df3",
+      "contentSha256": "84d7166d0c5eafa8047b3a589901c84d50c3ca4b6adf8f94c42b03088ee4de4e",
       "kind": "ConfigMap",
       "name": "tracing-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/jaeger-config.yaml",
       "uri": "eco-base://k8s/core/configmap/tracing-config",
-      "urn": "urn:eco-base:k8s:core:configmap:tracing-config:sha256-0060a8e697fb68232d46703ef9c05ca7f58a2aa442aa29869dba113fabdf7df3"
+      "urn": "urn:eco-base:k8s:core:configmap:tracing-config:sha256-84d7166d0c5eafa8047b3a589901c84d50c3ca4b6adf8f94c42b03088ee4de4e"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "6c196516f4f176b71cc2cf133f069df1bac6406124b89a7112b689a935dff364",
+      "contentSha256": "52ef8a13d747d27e7d67dd1cc86def5d02597c4894d0a9b186f1a473c5a28c2c",
       "kind": "ConfigMap",
       "name": "k6-tests",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/k6-benchmark-tests.yaml",
       "uri": "eco-base://k8s/core/configmap/k6-tests",
-      "urn": "urn:eco-base:k8s:core:configmap:k6-tests:sha256-6c196516f4f176b71cc2cf133f069df1bac6406124b89a7112b689a935dff364"
+      "urn": "urn:eco-base:k8s:core:configmap:k6-tests:sha256-52ef8a13d747d27e7d67dd1cc86def5d02597c4894d0a9b186f1a473c5a28c2c"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "09783dc84323ecb109e574e47f2ecc8f56b12f0565fd355a37ef9ab6ddb81a8b",
+      "contentSha256": "92dfc10cc6d9dc9812f9cdc9a87f1152c4bedc0684d329196e3a9ca130f455be",
       "kind": "ConfigMap",
       "name": "multi-region-dr-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/multi-region-dr.yaml",
       "uri": "eco-base://k8s/core/configmap/multi-region-dr-config",
-      "urn": "urn:eco-base:k8s:core:configmap:multi-region-dr-config:sha256-09783dc84323ecb109e574e47f2ecc8f56b12f0565fd355a37ef9ab6ddb81a8b"
+      "urn": "urn:eco-base:k8s:core:configmap:multi-region-dr-config:sha256-92dfc10cc6d9dc9812f9cdc9a87f1152c4bedc0684d329196e3a9ca130f455be"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "8bf7d1b096fd79cdb97805320519a01d9670fe7c56a5f59c1149daa21be29123",
+      "contentSha256": "e5b63e8e2bc88c7d7ec365c1bf3aceb54056864a118a3a38b8ad1862ad96e05e",
       "kind": "ConfigMap",
       "name": "performance-auto-tuning-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/performance-auto-tuning.yaml",
       "uri": "eco-base://k8s/core/configmap/performance-auto-tuning-config",
-      "urn": "urn:eco-base:k8s:core:configmap:performance-auto-tuning-config:sha256-8bf7d1b096fd79cdb97805320519a01d9670fe7c56a5f59c1149daa21be29123"
+      "urn": "urn:eco-base:k8s:core:configmap:performance-auto-tuning-config:sha256-e5b63e8e2bc88c7d7ec365c1bf3aceb54056864a118a3a38b8ad1862ad96e05e"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "3fdab31135c4a0a33cb6ea2cbfbbecefa867b9bf8df7b935df4bec582cf99024",
+      "contentSha256": "52271a757a72061f70e71415f27078da47f13e5645bbc7eab608a7ebe999a966",
       "kind": "ConfigMap",
       "name": "performance-benchmark-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/performance-benchmark-config.yaml",
       "uri": "eco-base://k8s/core/configmap/performance-benchmark-config",
-      "urn": "urn:eco-base:k8s:core:configmap:performance-benchmark-config:sha256-3fdab31135c4a0a33cb6ea2cbfbbecefa867b9bf8df7b935df4bec582cf99024"
+      "urn": "urn:eco-base:k8s:core:configmap:performance-benchmark-config:sha256-52271a757a72061f70e71415f27078da47f13e5645bbc7eab608a7ebe999a966"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "37d104fa1c9e9ccacf0204ae5076a4d5977ff56bd7962cbfcb27ee96c4ba0735",
+      "contentSha256": "7ca8151ea60264310632afbba9c6d6672061b9d3532a4b0d8a2a1b760c89de72",
       "kind": "CronJob",
       "name": "performance-benchmark-endurance",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-endurance",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-37d104fa1c9e9ccacf0204ae5076a4d5977ff56bd7962cbfcb27ee96c4ba0735"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-7ca8151ea60264310632afbba9c6d6672061b9d3532a4b0d8a2a1b760c89de72"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "40c93929c8f618e3943acc05e878b811e247a22e1ca77b18bce9f12f435786e2",
+      "contentSha256": "879fd6c1da96101d491d7b2dced9f5a6917a3b355fb4e8230a9d331e5a74684b",
       "kind": "CronJob",
       "name": "performance-benchmark-load",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-load",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-40c93929c8f618e3943acc05e878b811e247a22e1ca77b18bce9f12f435786e2"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-879fd6c1da96101d491d7b2dced9f5a6917a3b355fb4e8230a9d331e5a74684b"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "4398d7341f22e99dd48e60a90307b3719bfd28a52b37d7b00939f521acebe6ef",
+      "contentSha256": "19473b3410a66d6ea30a063385abb6960fd206b8ebc6e17527e3f39af571bcf5",
       "kind": "CronJob",
       "name": "performance-benchmark-smoke",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-smoke",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-4398d7341f22e99dd48e60a90307b3719bfd28a52b37d7b00939f521acebe6ef"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-19473b3410a66d6ea30a063385abb6960fd206b8ebc6e17527e3f39af571bcf5"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "aefa007eaff28717e8a4ade2e1722746a9a3bd33e3547b31afec13dc3b525e3b",
+      "contentSha256": "9491cfa0c93f5ff850855f5157eaf8b00cc99d8d1d61682349145b6a16751273",
       "kind": "CronJob",
       "name": "performance-benchmark-stress",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/performance-benchmark-job.yaml",
       "uri": "eco-base://k8s/core/cronjob/performance-benchmark-stress",
-      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-aefa007eaff28717e8a4ade2e1722746a9a3bd33e3547b31afec13dc3b525e3b"
+      "urn": "urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-9491cfa0c93f5ff850855f5157eaf8b00cc99d8d1d61682349145b6a16751273"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "221dca16bab65f2868eb808c9148652cd7fcb96cabde97d841e403a5e802414b",
+      "contentSha256": "1060a4a37abdc422ae31cda76dc80cecb31a1377b5d582243ccf1b9bc4c08ea2",
       "kind": "ConfigMap",
       "name": "platform-agnostic-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/platform-agnostic-config.yaml",
       "uri": "eco-base://k8s/core/configmap/platform-agnostic-config",
-      "urn": "urn:eco-base:k8s:core:configmap:platform-agnostic-config:sha256-221dca16bab65f2868eb808c9148652cd7fcb96cabde97d841e403a5e802414b"
+      "urn": "urn:eco-base:k8s:core:configmap:platform-agnostic-config:sha256-1060a4a37abdc422ae31cda76dc80cecb31a1377b5d582243ccf1b9bc4c08ea2"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "9144eecdbf58ef18ea10dcfe5115d899e9f5e17058e03ad3bfdaf707d7977d2f",
+      "contentSha256": "a10ea7b5ab0c26d04259e7209d90a85567ef604b10a2662b75a0c172592c97c8",
       "kind": "ConfigMap",
       "name": "predictive-scaling-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/predictive-scaling.yaml",
       "uri": "eco-base://k8s/core/configmap/predictive-scaling-config",
-      "urn": "urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-9144eecdbf58ef18ea10dcfe5115d899e9f5e17058e03ad3bfdaf707d7977d2f"
+      "urn": "urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-a10ea7b5ab0c26d04259e7209d90a85567ef604b10a2662b75a0c172592c97c8"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "fab42a6fbad159fcef253a3b72796ee5886646c827602947c77f863eb0f17647",
+      "contentSha256": "87641506fb17b777863c7c772718febfb8a35de94e1689c99a2c756096c02760",
       "kind": "ConfigMap",
       "name": "prometheus-alerts",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/prometheus-config.yaml",
       "uri": "eco-base://k8s/core/configmap/prometheus-alerts",
-      "urn": "urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-fab42a6fbad159fcef253a3b72796ee5886646c827602947c77f863eb0f17647"
+      "urn": "urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-87641506fb17b777863c7c772718febfb8a35de94e1689c99a2c756096c02760"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "37fe9682f6edc6d5b61e57315d878cca85a62395d5e864407c16b504a4701a1b",
+      "contentSha256": "9909acd0e1f493b81f26c0e052c6a122d7e62a814412d9339c65adaaae024891",
       "kind": "ConfigMap",
       "name": "prometheus-config",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/prometheus-config.yaml",
       "uri": "eco-base://k8s/core/configmap/prometheus-config",
-      "urn": "urn:eco-base:k8s:core:configmap:prometheus-config:sha256-37fe9682f6edc6d5b61e57315d878cca85a62395d5e864407c16b504a4701a1b"
+      "urn": "urn:eco-base:k8s:core:configmap:prometheus-config:sha256-9909acd0e1f493b81f26c0e052c6a122d7e62a814412d9339c65adaaae024891"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "b6403dfe4fceef9345f78752649a0b7745acc790de32394823e79bd4eefb1ab6",
+      "contentSha256": "0446f6086ec28cf0058e0ba179265198713cf5f88cbe5a8989ee5a7c1c16794b",
       "kind": "ConfigMap",
       "name": "resilience-policies",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/resilience-policies.yaml",
       "uri": "eco-base://k8s/core/configmap/resilience-policies",
-      "urn": "urn:eco-base:k8s:core:configmap:resilience-policies:sha256-b6403dfe4fceef9345f78752649a0b7745acc790de32394823e79bd4eefb1ab6"
+      "urn": "urn:eco-base:k8s:core:configmap:resilience-policies:sha256-0446f6086ec28cf0058e0ba179265198713cf5f88cbe5a8989ee5a7c1c16794b"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "77fc0798758ee97a687517151e9f7d911e56f77c4d6ac46cf16d05aca378977e",
+      "contentSha256": "a09ef6442340a43081fa6baf020a728a4896d726d3fb477f745e3e9de7bd16c3",
       "kind": "ConfigMap",
       "name": "resource-optimization-config",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/resource-optimization-monitoring.yaml",
       "uri": "eco-base://k8s/core/configmap/resource-optimization-config",
-      "urn": "urn:eco-base:k8s:core:configmap:resource-optimization-config:sha256-77fc0798758ee97a687517151e9f7d911e56f77c4d6ac46cf16d05aca378977e"
+      "urn": "urn:eco-base:k8s:core:configmap:resource-optimization-config:sha256-a09ef6442340a43081fa6baf020a728a4896d726d3fb477f745e3e9de7bd16c3"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "d96b19681dd10fc2ec86d56e0ef6af50cd1327415607b150de008642c875217c",
+      "contentSha256": "52723a0eda1f26b087664449295c3249d514670b8c254c2fa65eea9fa574cf33",
       "kind": "ConfigMap",
       "name": "istio-custom-metrics",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/service-observability.yaml",
       "uri": "eco-base://k8s/core/configmap/istio-custom-metrics",
-      "urn": "urn:eco-base:k8s:core:configmap:istio-custom-metrics:sha256-d96b19681dd10fc2ec86d56e0ef6af50cd1327415607b150de008642c875217c"
+      "urn": "urn:eco-base:k8s:core:configmap:istio-custom-metrics:sha256-52723a0eda1f26b087664449295c3249d514670b8c254c2fa65eea9fa574cf33"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "f59a59032e1c65518371009e84bc770c1c3495e85465a4fe34e5be5c0cf90cdf",
+      "contentSha256": "dd89dc7636eeb99a42f99eb2938b874369c5724bf32181c5cec9771522cd454c",
       "kind": "ConfigMap",
       "name": "service-mesh-dashboard",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/service-observability.yaml",
       "uri": "eco-base://k8s/core/configmap/service-mesh-dashboard",
-      "urn": "urn:eco-base:k8s:core:configmap:service-mesh-dashboard:sha256-f59a59032e1c65518371009e84bc770c1c3495e85465a4fe34e5be5c0cf90cdf"
+      "urn": "urn:eco-base:k8s:core:configmap:service-mesh-dashboard:sha256-dd89dc7636eeb99a42f99eb2938b874369c5724bf32181c5cec9771522cd454c"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "ace516466c8b323377b0f9682a3c2e7adcada6ead988ed8065fbaaa953c0c14e",
+      "contentSha256": "00eb410215a272edd37ec454cc1320189b1c97894c27fb8ef0f92d0495fd5f44",
       "kind": "ConfigMap",
       "name": "trace-analysis-alerts",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/trace-analysis-dashboard.yaml",
       "uri": "eco-base://k8s/core/configmap/trace-analysis-alerts",
-      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-alerts:sha256-ace516466c8b323377b0f9682a3c2e7adcada6ead988ed8065fbaaa953c0c14e"
+      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-alerts:sha256-00eb410215a272edd37ec454cc1320189b1c97894c27fb8ef0f92d0495fd5f44"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "d19716665c8dbf3696c9dde55351be1d64cf957a13fd037f47de1f953cfd97b1",
+      "contentSha256": "b77ff6bc083a847a1e7fe7eba6db16981acc170b44361837dfc8c4bae02d54ab",
       "kind": "ConfigMap",
       "name": "trace-analysis-dashboard",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/trace-analysis-dashboard.yaml",
       "uri": "eco-base://k8s/core/configmap/trace-analysis-dashboard",
-      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-dashboard:sha256-d19716665c8dbf3696c9dde55351be1d64cf957a13fd037f47de1f953cfd97b1"
+      "urn": "urn:eco-base:k8s:core:configmap:trace-analysis-dashboard:sha256-b77ff6bc083a847a1e7fe7eba6db16981acc170b44361837dfc8c4bae02d54ab"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "54fe047218fadf7920111d26d3002e1704dac09e400d932a374ab9ff1e8eea4d",
+      "contentSha256": "a48ef4a523f23f049e13d74ac00c21e2b94330e6ea367604fd17290cdc4a9625",
       "kind": "CronJob",
       "name": "trace-analysis-report",
       "namespace": "istio-system",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/trace-analysis-dashboard.yaml",
       "uri": "eco-base://k8s/core/cronjob/trace-analysis-report",
-      "urn": "urn:eco-base:k8s:core:cronjob:trace-analysis-report:sha256-54fe047218fadf7920111d26d3002e1704dac09e400d932a374ab9ff1e8eea4d"
+      "urn": "urn:eco-base:k8s:core:cronjob:trace-analysis-report:sha256-a48ef4a523f23f049e13d74ac00c21e2b94330e6ea367604fd17290cdc4a9625"
     },
     {
       "apiVersion": "apps/v1",
       "component": "deployment",
-      "contentSha256": "989517bf087070b24748e4ec97e1b3d0bf28d1097d1bbf766db9c000b2a4ea8f",
+      "contentSha256": "66087c6a662d14920093647b0d7418f2a7aa15862a7667569508f4449342f4a7",
       "kind": "Deployment",
       "name": "machine-native-ops",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/tracing-middleware-config.yaml",
       "uri": "eco-base://k8s/core/deployment/machine-native-ops",
-      "urn": "urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-989517bf087070b24748e4ec97e1b3d0bf28d1097d1bbf766db9c000b2a4ea8f"
+      "urn": "urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-66087c6a662d14920093647b0d7418f2a7aa15862a7667569508f4449342f4a7"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "a0989b54eb6b87276f81df56182d0ccc4e3e135449045c987232e43e31788fa3",
+      "contentSha256": "4619116e9d52fc28802ad773e74d3d40faed0528b700183e3f560afcc3ecc3f0",
       "kind": "CronJob",
       "name": "postgres-backup",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/velero-config.yaml",
       "uri": "eco-base://k8s/core/cronjob/postgres-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-a0989b54eb6b87276f81df56182d0ccc4e3e135449045c987232e43e31788fa3"
+      "urn": "urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-4619116e9d52fc28802ad773e74d3d40faed0528b700183e3f560afcc3ecc3f0"
     },
     {
       "apiVersion": "batch/v1",
       "component": "cronjob",
-      "contentSha256": "09a830fefb2e353b7a4511c24ff53281298c1d12d623a4aba15de9c5972ac250",
+      "contentSha256": "2311da781c121803dd6a6cd312888ae5ae4547cda55795fd8d0792f1e8f9b597",
       "kind": "CronJob",
       "name": "redis-backup",
       "namespace": "production",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/velero-config.yaml",
       "uri": "eco-base://k8s/core/cronjob/redis-backup",
-      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-09a830fefb2e353b7a4511c24ff53281298c1d12d623a4aba15de9c5972ac250"
+      "urn": "urn:eco-base:k8s:core:cronjob:redis-backup:sha256-2311da781c121803dd6a6cd312888ae5ae4547cda55795fd8d0792f1e8f9b597"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "2306b67998f9623c57bea1cd89ca890ef7c62c99817240b62003a2427fff2653",
+      "contentSha256": "566c82273c60d474a8df61db998b6861a38b6ef2ee46d2829d968fa558a9ec4d",
       "kind": "Secret",
       "name": "velero-s3-credentials",
       "namespace": "velero",
       "platform": "core",
       "source": "platforms/infrastructure/k8s-legacy/production/velero-config.yaml",
       "uri": "eco-base://k8s/core/secret/velero-s3-credentials",
-      "urn": "urn:eco-base:k8s:core:secret:velero-s3-credentials:sha256-2306b67998f9623c57bea1cd89ca890ef7c62c99817240b62003a2427fff2653"
+      "urn": "urn:eco-base:k8s:core:secret:velero-s3-credentials:sha256-566c82273c60d474a8df61db998b6861a38b6ef2ee46d2829d968fa558a9ec4d"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "28ad76d76458c0efcfbaf41ff6ee0e7568710e38867bc1f6938445d6b1655788",
+      "contentSha256": "2f753bfae77f1e73a428964cee786144ad9575ee77436de76a08772484357ef3",
       "kind": "ConfigMap",
       "name": "machine-native-ops-config",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/base/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/machine-native-ops-config",
-      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-28ad76d76458c0efcfbaf41ff6ee0e7568710e38867bc1f6938445d6b1655788"
+      "urn": "urn:eco-base:k8s:core:configmap:machine-native-ops-config:sha256-2f753bfae77f1e73a428964cee786144ad9575ee77436de76a08772484357ef3"
     },
     {
       "apiVersion": "networking.k8s.io/v1",
       "component": "ingress",
-      "contentSha256": "1b83f23b06b8d098182d985a079b0a0fe3d5193d4f4824bc8b2dff3d473c0c3a",
+      "contentSha256": "50b36261e33f9da617c93c61220a2608193431f9efc710eeb84e8b3ec4e17e3d",
       "kind": "Ingress",
       "name": "machine-native-ops-ingress",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/base/ingress.yaml",
       "uri": "eco-base://k8s/core/ingress/machine-native-ops-ingress",
-      "urn": "urn:eco-base:k8s:core:ingress:machine-native-ops-ingress:sha256-1b83f23b06b8d098182d985a079b0a0fe3d5193d4f4824bc8b2dff3d473c0c3a"
+      "urn": "urn:eco-base:k8s:core:ingress:machine-native-ops-ingress:sha256-50b36261e33f9da617c93c61220a2608193431f9efc710eeb84e8b3ec4e17e3d"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "a892463ed0306d5e4198cb8e2aafb7b7c0936ca5a87b4397caecd9da95cd564c",
+      "contentSha256": "135b1718adee4e77abafae8087ce7ce50a237f35ee6197d6cbc9aaf28676b045",
       "kind": "Secret",
       "name": "machine-native-ops-secrets",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/base/secret.yaml",
       "uri": "eco-base://k8s/core/secret/machine-native-ops-secrets",
-      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-a892463ed0306d5e4198cb8e2aafb7b7c0936ca5a87b4397caecd9da95cd564c"
+      "urn": "urn:eco-base:k8s:core:secret:machine-native-ops-secrets:sha256-135b1718adee4e77abafae8087ce7ce50a237f35ee6197d6cbc9aaf28676b045"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "1ab2a7fe0deb28f882513d200fc722d2233a8130e2f333feeb85fff475cbe9aa",
+      "contentSha256": "806f61a332d9cb5f9dada76f6bec09076129a35f0b86471e2e4fb6e40ecde70c",
       "kind": "Service",
       "name": "elasticsearch-search-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/systems/elasticsearch-search-system/service.yaml",
       "uri": "eco-base://k8s/core/service/elasticsearch-search-service",
-      "urn": "urn:eco-base:k8s:core:service:elasticsearch-search-service:sha256-1ab2a7fe0deb28f882513d200fc722d2233a8130e2f333feeb85fff475cbe9aa"
+      "urn": "urn:eco-base:k8s:core:service:elasticsearch-search-service:sha256-806f61a332d9cb5f9dada76f6bec09076129a35f0b86471e2e4fb6e40ecde70c"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "0bcd9d1b7d99e190c84ba1c53235bd24a9d53d863882d132e7971e6c93b2ec55",
+      "contentSha256": "dcf8b9dbb8977185363a7cbe630c6c6324b075a964bcf0e45c7eef63b4649ff7",
       "kind": "Service",
       "name": "aep-engine-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/systems/engine/service.yaml",
       "uri": "eco-base://k8s/core/service/aep-engine-service",
-      "urn": "urn:eco-base:k8s:core:service:aep-engine-service:sha256-0bcd9d1b7d99e190c84ba1c53235bd24a9d53d863882d132e7971e6c93b2ec55"
+      "urn": "urn:eco-base:k8s:core:service:aep-engine-service:sha256-dcf8b9dbb8977185363a7cbe630c6c6324b075a964bcf0e45c7eef63b4649ff7"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "95d504f93963902db7b65c7cb3a8e122b559c036a9db3dbce1b81670ee3b39f7",
+      "contentSha256": "f94aae790395e1e584f77b6a6d30f988d7f8149cac098d5bdb6de4aee466b57e",
       "kind": "Service",
       "name": "esync-platform-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/systems/esync-platform/service.yaml",
       "uri": "eco-base://k8s/core/service/esync-platform-service",
-      "urn": "urn:eco-base:k8s:core:service:esync-platform-service:sha256-95d504f93963902db7b65c7cb3a8e122b559c036a9db3dbce1b81670ee3b39f7"
+      "urn": "urn:eco-base:k8s:core:service:esync-platform-service:sha256-f94aae790395e1e584f77b6a6d30f988d7f8149cac098d5bdb6de4aee466b57e"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "3d83eae2af9160824170449a84eac82d15ed40ab093d55ee47f5683bcf641a14",
+      "contentSha256": "e5e29361fc571df09bda22fd697279557c5e357c5b4fb07577cf2b4f35ff7f59",
       "kind": "Service",
       "name": "file-organizer-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/systems/file-organizer-system/service.yaml",
       "uri": "eco-base://k8s/core/service/file-organizer-service",
-      "urn": "urn:eco-base:k8s:core:service:file-organizer-service:sha256-3d83eae2af9160824170449a84eac82d15ed40ab093d55ee47f5683bcf641a14"
+      "urn": "urn:eco-base:k8s:core:service:file-organizer-service:sha256-e5e29361fc571df09bda22fd697279557c5e357c5b4fb07577cf2b4f35ff7f59"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "99e46ecd4df70892050154f054c863878906bebe476e96fe5a61c24a18a72576",
+      "contentSha256": "0d4c168e69ca07204906bf157cd411745f148b1d67db4621c2440f75df140585",
       "kind": "Service",
       "name": "instant-service",
       "namespace": "platform-03",
       "platform": "core",
       "source": "platforms/infrastructure/kubernetes/manifests/systems/instant/service.yaml",
       "uri": "eco-base://k8s/core/service/instant-service",
-      "urn": "urn:eco-base:k8s:core:service:instant-service:sha256-99e46ecd4df70892050154f054c863878906bebe476e96fe5a61c24a18a72576"
+      "urn": "urn:eco-base:k8s:core:service:instant-service:sha256-0d4c168e69ca07204906bf157cd411745f148b1d67db4621c2440f75df140585"
     },
     {
       "apiVersion": "networking.k8s.io/v1",
       "component": "ingress",
-      "contentSha256": "6669bed588957cafed5b43b39bd8c13c0fccadea4a976070df0c196c93d4fc3f",
+      "contentSha256": "7c1457891a498be49feba46a277599bd6e39367b44411ae514e2aab9afe206d4",
       "kind": "Ingress",
       "name": "gl-spec-core-ingress",
       "namespace": "gl-platform-spec-core",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-cross-era-platforms/meta/semantic-core/deployments/kubernetes/ingress.yaml",
       "uri": "eco-base://k8s/core/ingress/gl-spec-core-ingress",
-      "urn": "urn:eco-base:k8s:core:ingress:gl-spec-core-ingress:sha256-6669bed588957cafed5b43b39bd8c13c0fccadea4a976070df0c196c93d4fc3f"
+      "urn": "urn:eco-base:k8s:core:ingress:gl-spec-core-ingress:sha256-7c1457891a498be49feba46a277599bd6e39367b44411ae514e2aab9afe206d4"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "3a567563c0f7ec10ddf7911a99e351a936ecac3a0e3fb4afc11601eaa8730fea",
+      "contentSha256": "d6ba02278d8774981593666afd841e5a397ee2506bd86d778f24cd952d185a89",
       "kind": "Service",
       "name": "gl-spec-core-external",
       "namespace": "gl-platform-spec-core",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-cross-era-platforms/meta/semantic-core/deployments/kubernetes/service.yaml",
       "uri": "eco-base://k8s/core/service/gl-spec-core-external",
-      "urn": "urn:eco-base:k8s:core:service:gl-spec-core-external:sha256-3a567563c0f7ec10ddf7911a99e351a936ecac3a0e3fb4afc11601eaa8730fea"
+      "urn": "urn:eco-base:k8s:core:service:gl-spec-core-external:sha256-d6ba02278d8774981593666afd841e5a397ee2506bd86d778f24cd952d185a89"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "6dd79e0959c6e09e6c702ee4becdbbe8166979a30261a3a3be7adc11b15f5bd2",
+      "contentSha256": "ec31fc22d9e9e4607c0f2ed139883e622746391505497b49ae763273b2f1bb0b",
       "kind": "Service",
       "name": "gl-spec-core-service",
       "namespace": "gl-platform-spec-core",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-cross-era-platforms/meta/semantic-core/deployments/kubernetes/service.yaml",
       "uri": "eco-base://k8s/core/service/gl-spec-core-service",
-      "urn": "urn:eco-base:k8s:core:service:gl-spec-core-service:sha256-6dd79e0959c6e09e6c702ee4becdbbe8166979a30261a3a3be7adc11b15f5bd2"
+      "urn": "urn:eco-base:k8s:core:service:gl-spec-core-service:sha256-ec31fc22d9e9e4607c0f2ed139883e622746391505497b49ae763273b2f1bb0b"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "11310c9a1c4a2592f323b1ebae48bbc6f7ba3a883e632538a336394e125c62ac",
+      "contentSha256": "0860e65b4935d208f0d6e17b382e5f6e6efed89b81333bb1b86173e426815cde",
       "kind": "ConfigMap",
       "name": "alertmanager",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/deployments/deploy/platform/alertmanager/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/alertmanager",
-      "urn": "urn:eco-base:k8s:core:configmap:alertmanager:sha256-11310c9a1c4a2592f323b1ebae48bbc6f7ba3a883e632538a336394e125c62ac"
+      "urn": "urn:eco-base:k8s:core:configmap:alertmanager:sha256-0860e65b4935d208f0d6e17b382e5f6e6efed89b81333bb1b86173e426815cde"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "1b3009b5a53358632d73a9ea1a480a02ccae09c6cd578ca7b9c93e7cbec1b6cc",
+      "contentSha256": "10f0442e2d6a620619ce75f22bdd5fd0acd8b603aa7f16e2220364f25a64552c",
       "kind": "Secret",
       "name": "alertmanager-secrets",
       "namespace": "monitoring",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/governance/compliance-platform/deployments/deploy/platform/alertmanager/configmap.yaml",
       "uri": "eco-base://k8s/core/secret/alertmanager-secrets",
-      "urn": "urn:eco-base:k8s:core:secret:alertmanager-secrets:sha256-1b3009b5a53358632d73a9ea1a480a02ccae09c6cd578ca7b9c93e7cbec1b6cc"
+      "urn": "urn:eco-base:k8s:core:secret:alertmanager-secrets:sha256-10f0442e2d6a620619ce75f22bdd5fd0acd8b603aa7f16e2220364f25a64552c"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "604cd65a63f441bba348e70c9971451668b23a422e0b6f39a90df536a228b694",
+      "contentSha256": "2f5ad3d2a7466bcf4a07cc9398cfe6c4c02ccd3c745221c2e43a28a41c1f6bdd",
       "kind": "ConfigMap",
       "name": "root-config-schema",
       "namespace": "machinenativenops-root",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.config.yaml",
       "uri": "eco-base://k8s/core/configmap/root-config-schema",
-      "urn": "urn:eco-base:k8s:core:configmap:root-config-schema:sha256-604cd65a63f441bba348e70c9971451668b23a422e0b6f39a90df536a228b694"
+      "urn": "urn:eco-base:k8s:core:configmap:root-config-schema:sha256-2f5ad3d2a7466bcf4a07cc9398cfe6c4c02ccd3c745221c2e43a28a41c1f6bdd"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "e3a430f96cfa1f1fa5cf31247fec3a8818b835df39afc42556726d68f678b1cf",
+      "contentSha256": "ec769e441304bcee4a9c2f6aca53f4aa9606b9c34a7e46afff1132b2af19844f",
       "kind": "ConfigMap",
       "name": "governance-schema",
       "namespace": "machinenativenops-governance",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.governance.yaml",
       "uri": "eco-base://k8s/core/configmap/governance-schema",
-      "urn": "urn:eco-base:k8s:core:configmap:governance-schema:sha256-e3a430f96cfa1f1fa5cf31247fec3a8818b835df39afc42556726d68f678b1cf"
+      "urn": "urn:eco-base:k8s:core:configmap:governance-schema:sha256-ec769e441304bcee4a9c2f6aca53f4aa9606b9c34a7e46afff1132b2af19844f"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "d8cacfc36f44075cafe7cd6712b0b14ed2c33e3bd5ba22a144e3e385b54ad980",
+      "contentSha256": "4c12b96549669f8d562c8c1b760d781b875ff3734cea224fff443b606777e6b3",
       "kind": "ConfigMap",
       "name": "integrity-schema",
       "namespace": "machinenativenops-integrity",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.integrity.yaml",
       "uri": "eco-base://k8s/core/configmap/integrity-schema",
-      "urn": "urn:eco-base:k8s:core:configmap:integrity-schema:sha256-d8cacfc36f44075cafe7cd6712b0b14ed2c33e3bd5ba22a144e3e385b54ad980"
+      "urn": "urn:eco-base:k8s:core:configmap:integrity-schema:sha256-4c12b96549669f8d562c8c1b760d781b875ff3734cea224fff443b606777e6b3"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "eea10d5861bb73df5396a3a88aeaae8199f749f18f7c82886faade53072d64d5",
+      "contentSha256": "33d4d36bdddeaeebe62e11ef9b27050b6dad09b940b795d04922d89dc954a7ce",
       "kind": "ConfigMap",
       "name": "modules-schema",
       "namespace": "machinenativenops-modules",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.modules.yaml",
       "uri": "eco-base://k8s/core/configmap/modules-schema",
-      "urn": "urn:eco-base:k8s:core:configmap:modules-schema:sha256-eea10d5861bb73df5396a3a88aeaae8199f749f18f7c82886faade53072d64d5"
+      "urn": "urn:eco-base:k8s:core:configmap:modules-schema:sha256-33d4d36bdddeaeebe62e11ef9b27050b6dad09b940b795d04922d89dc954a7ce"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "82f9d8f6d094cf1aa896542b904174c13def9c511922018acad5c32ceae99eb3",
+      "contentSha256": "11b1a55a745c5e2afa4f304b4aca9670e30735d3128ad10c9bd17d2f803b7f2c",
       "kind": "ConfigMap",
       "name": "provenance-schema",
       "namespace": "machinenativenops-provenance",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.provenance.yaml",
       "uri": "eco-base://k8s/core/configmap/provenance-schema",
-      "urn": "urn:eco-base:k8s:core:configmap:provenance-schema:sha256-82f9d8f6d094cf1aa896542b904174c13def9c511922018acad5c32ceae99eb3"
+      "urn": "urn:eco-base:k8s:core:configmap:provenance-schema:sha256-11b1a55a745c5e2afa4f304b4aca9670e30735d3128ad10c9bd17d2f803b7f2c"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "2c09e855367a1370514d5bd5fe98689400dfcd14e7a1c2297ce204a3bd595643",
+      "contentSha256": "6317645c0028c3119809bdd8b135c96a796c7493fa8cb9f2d0f5e707ca68f98a",
       "kind": "ConfigMap",
       "name": "trust-schema",
       "namespace": "machinenativenops-trust",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/config/root.trust.yaml",
       "uri": "eco-base://k8s/core/configmap/trust-schema",
-      "urn": "urn:eco-base:k8s:core:configmap:trust-schema:sha256-2c09e855367a1370514d5bd5fe98689400dfcd14e7a1c2297ce204a3bd595643"
+      "urn": "urn:eco-base:k8s:core:configmap:trust-schema:sha256-6317645c0028c3119809bdd8b135c96a796c7493fa8cb9f2d0f5e707ca68f98a"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "8eada9c90be5ac2146844b99aa68ce1ade39f288aee88276f67b10ebdbb9fc6c",
+      "contentSha256": "9e636c17c7a539a80bcd0aebc3c7065b2edf70f7ff5af23c31a49e7303956875",
       "kind": "ConfigMap",
       "name": "filex-template-schema",
       "namespace": "machinenativeops-artifacts",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/engine/design/FileX-standard-template-v1.yaml",
       "uri": "eco-base://k8s/core/configmap/filex-template-schema",
-      "urn": "urn:eco-base:k8s:core:configmap:filex-template-schema:sha256-8eada9c90be5ac2146844b99aa68ce1ade39f288aee88276f67b10ebdbb9fc6c"
+      "urn": "urn:eco-base:k8s:core:configmap:filex-template-schema:sha256-9e636c17c7a539a80bcd0aebc3c7065b2edf70f7ff5af23c31a49e7303956875"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "2bf32b168c950570aff59abfde53f2ac8c6818a03234f3f6df649dee51d4ec02",
+      "contentSha256": "956146240f948792bc8a671f97017214121fb948464dd407ca79710781c1cd1d",
       "kind": "Service",
       "name": "quantumflow-backend",
       "namespace": "quantumflow",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/backend-service.yaml",
       "uri": "eco-base://k8s/core/service/quantumflow-backend",
-      "urn": "urn:eco-base:k8s:core:service:quantumflow-backend:sha256-2bf32b168c950570aff59abfde53f2ac8c6818a03234f3f6df649dee51d4ec02"
+      "urn": "urn:eco-base:k8s:core:service:quantumflow-backend:sha256-956146240f948792bc8a671f97017214121fb948464dd407ca79710781c1cd1d"
     },
     {
       "apiVersion": "v1",
       "component": "configmap",
-      "contentSha256": "1aadaff03271d5926025caf8d60c4170c9694807aef8abea99aa00abe9f37146",
+      "contentSha256": "ce7fd10967d9d943f8aecaf29dc8172f68bb04a90ff075345c5425a599e77893",
       "kind": "ConfigMap",
       "name": "quantumflow-config",
       "namespace": "quantumflow",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/configmap.yaml",
       "uri": "eco-base://k8s/core/configmap/quantumflow-config",
-      "urn": "urn:eco-base:k8s:core:configmap:quantumflow-config:sha256-1aadaff03271d5926025caf8d60c4170c9694807aef8abea99aa00abe9f37146"
+      "urn": "urn:eco-base:k8s:core:configmap:quantumflow-config:sha256-ce7fd10967d9d943f8aecaf29dc8172f68bb04a90ff075345c5425a599e77893"
     },
     {
       "apiVersion": "v1",
       "component": "service",
-      "contentSha256": "b151172bc6b23eb56aa10f225806eb5b8cf6d8a4598c08eec764990429dd1b7b",
+      "contentSha256": "6f8a098c980e689211e3dc915ae9edaf446bd8296eb96b26d283bc1dc8235a83",
       "kind": "Service",
       "name": "quantumflow-frontend",
       "namespace": "quantumflow",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/frontend-service.yaml",
       "uri": "eco-base://k8s/core/service/quantumflow-frontend",
-      "urn": "urn:eco-base:k8s:core:service:quantumflow-frontend:sha256-b151172bc6b23eb56aa10f225806eb5b8cf6d8a4598c08eec764990429dd1b7b"
+      "urn": "urn:eco-base:k8s:core:service:quantumflow-frontend:sha256-6f8a098c980e689211e3dc915ae9edaf446bd8296eb96b26d283bc1dc8235a83"
     },
     {
       "apiVersion": "networking.k8s.io/v1",
       "component": "ingress",
-      "contentSha256": "3768e469ca3272a4a1bcbcb724a55b3ecfaa22b265bc2c20859e084eac71ba5a",
+      "contentSha256": "746cacc0a025b2ba88d88a58c3cc918f6a1efeb4d6a55f305b15d43ee997233b",
       "kind": "Ingress",
       "name": "quantumflow-ingress",
       "namespace": "quantumflow",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/ingress.yaml",
       "uri": "eco-base://k8s/core/ingress/quantumflow-ingress",
-      "urn": "urn:eco-base:k8s:core:ingress:quantumflow-ingress:sha256-3768e469ca3272a4a1bcbcb724a55b3ecfaa22b265bc2c20859e084eac71ba5a"
+      "urn": "urn:eco-base:k8s:core:ingress:quantumflow-ingress:sha256-746cacc0a025b2ba88d88a58c3cc918f6a1efeb4d6a55f305b15d43ee997233b"
     },
     {
       "apiVersion": "v1",
       "component": "secret",
-      "contentSha256": "822bfd2498fafe24ff9a83728988c7856977870dc05c5ab714c26f6d5b2c0d45",
+      "contentSha256": "fafaf2fb418777e73ade4676fa840886f2a43166a2be98fec3f1789253a7b697",
       "kind": "Secret",
       "name": "quantumflow-secrets",
       "namespace": "quantumflow",
       "platform": "core",
       "source": "platforms/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/infrastructure/kubernetes/quantum/secret.yaml",
       "uri": "eco-base://k8s/core/secret/quantumflow-secrets",
-      "urn": "urn:eco-base:k8s:core:secret:quantumflow-secrets:sha256-822bfd2498fafe24ff9a83728988c7856977870dc05c5ab714c26f6d5b2c0d45"
+      "urn": "urn:eco-base:k8s:core:secret:quantumflow-secrets:sha256-fafaf2fb418777e73ade4676fa840886f2a43166a2be98fec3f1789253a7b697"
     }
   ],
-  "generatedAt": "2026-02-25T19:03:44.701544+00:00",
+  "generatedAt": "2026-02-25T19:07:08.246611+00:00",
   "hashAlgorithm": "sha256",
   "specVersion": "eco-hashlock/v1"
 }

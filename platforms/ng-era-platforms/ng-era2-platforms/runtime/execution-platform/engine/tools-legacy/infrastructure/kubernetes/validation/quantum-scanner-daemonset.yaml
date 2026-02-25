@@ -191,8 +191,10 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
+metadata:
   name: quantum-scanner-role
 subjects:
   - kind: ServiceAccount
-    name: validation-system-sa
+metadata:
+  name: validation-system-sa
     namespace: gl-runtime-verification

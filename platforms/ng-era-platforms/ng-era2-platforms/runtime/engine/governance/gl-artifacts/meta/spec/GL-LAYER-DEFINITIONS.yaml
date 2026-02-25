@@ -7,12 +7,7 @@
 
 apiVersion: governance.machinenativeops.io/v1
 kind: GLLayerDefinitions
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:governance:gl-artifacts:meta:spec:GL-LAYER-DEFINITIONS.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-LAYER-DEFINITIONS.yaml"
-  name: gl-layer-definitions
-  version: "1.0.0"
+
   created: "2026-01-21"
 layer_definitions:
   - layer_id: "GL20-29"
@@ -33,12 +28,7 @@ layer_definitions:
       - id: "GL22"
         name: "Metadata"
         path: "workspace/src/data/metadata"
-        semantic_urn: "urn:machinenativeops:gl:data:metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:governance:gl-artifacts:meta:spec:GL-LAYER-DEFINITIONS.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/governance/gl-artifacts/meta/spec/GL-LAYER-DEFINITIONS.yaml"1.0.0"
-      - id: "GL23"
-        name: "Data Assets"
+        semantic_urn: "urn:machinenativeops:gl:data:
         path: "workspace/src/data/assets"
         semantic_urn: "urn:machinenativeops:gl:data:assets:1.0.0"
   - layer_id: "GL40-49"

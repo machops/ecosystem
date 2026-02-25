@@ -6,12 +6,7 @@
 # GL Unified Architecture Governance Framework Activated
 
 version: '3.8'
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:redis-stack:docker-compose.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/redis-stack/docker-compose.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

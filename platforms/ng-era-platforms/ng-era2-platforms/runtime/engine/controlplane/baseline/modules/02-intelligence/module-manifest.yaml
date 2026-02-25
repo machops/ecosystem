@@ -86,12 +86,7 @@ semantic_mappings:
   - concept: "LLM Integration"
     mapping: "mno-intelligence.llm-integration"
     description: "Map LLM provider integration to LLM integration layer"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:controlplane:baseline:modules:02-intelligence:module-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/baseline/modules/02-intelligence/module-manifest.yaml"
-  created_date: "2025-01-18"
-  last_modified: "2025-01-18"
+
   maintainers:
     - "MachineNativeOps Team"
   tags:

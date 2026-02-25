@@ -82,7 +82,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/cost-optimization-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-a504116c3500a51342d42e406d8a771a2cc78b988bbb31a830a1e570dac1533b
+    eco-base/urn: urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-7f29414e1bd22ccf59e83357aa7a455ac704a2bebbdaa73435ca3fbbd8e87431
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

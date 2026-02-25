@@ -11,9 +11,6 @@
 apiVersion: gl-runtime.io/v1.0.0
 kind: UnificationSpecification
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:structural-unification-spec.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/structural-unification-spec.yaml"
   name: structural-unification-spec
   version: v1.0.0
   description: "GL Structural Unification Specification - 結構統一規範"
@@ -467,12 +464,7 @@ spec:
         - "gl-api-schema-secret"
         - "gl-agent-max-secret"
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:contracts:structural-unification-spec.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/structural-unification-spec.yaml"
-  created_at: "2026-01-31T00:00:00Z"
-  updated_at: "2026-01-31T00:00:00Z"
+
   governance_level: CONSTITUTIONAL
   enforcement: MANDATORY
   compatibility:

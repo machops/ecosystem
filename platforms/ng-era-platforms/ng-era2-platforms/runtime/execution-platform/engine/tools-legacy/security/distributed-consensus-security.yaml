@@ -10,9 +10,6 @@
 apiVersion: security.machinenativeops/v1
 kind: DistributedConsensusSecurity
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:execution-platform:engine:tools-legacy:security:distributed-consensus-security.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/execution-platform/engine/tools-legacy/security/distributed-consensus-security.yaml"
   name: distributed-consensus-security
   namespace: security
   labels:

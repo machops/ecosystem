@@ -9,9 +9,6 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:kubernetes:manifests:base:networkpolicy.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/kubernetes/manifests/base/networkpolicy.yaml"
   name: machine-native-ops-netpol
   namespace: platform-03
   labels:

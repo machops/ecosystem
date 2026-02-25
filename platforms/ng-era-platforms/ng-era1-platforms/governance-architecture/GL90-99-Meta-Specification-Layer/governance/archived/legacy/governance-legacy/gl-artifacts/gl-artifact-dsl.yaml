@@ -8,10 +8,7 @@
 # Version: 1.0.0
 # Status: ACTIVE
 # Mode: MACHINE_NATIVE
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:gl-artifact-dsl.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/gl-artifact-dsl.yaml"
+
   name: ECO-ARTIFACT-DSL
   version: 1.0.0
   created: 2025-01-18

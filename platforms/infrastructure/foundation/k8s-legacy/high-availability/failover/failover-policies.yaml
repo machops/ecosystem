@@ -14,9 +14,6 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: machine-native-ops-ha-pdb
   namespace: platform-03
   labels:
@@ -35,9 +32,6 @@ spec:
 apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: critical-priority
   namespace: platform-03
   labels:
@@ -53,9 +47,6 @@ description: "High priority class for critical workloads during failover"
 apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: high-priority
   namespace: platform-03
   labels:
@@ -71,9 +62,6 @@ description: "High priority class for important workloads"
 apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: normal-priority
   namespace: platform-03
   labels:
@@ -89,9 +77,6 @@ description: "Normal priority class for standard workloads"
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: machine-native-ops-hpa
   namespace: platform-03
   labels:
@@ -103,7 +88,8 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: machine-native-ops
+metadata:
+  name: machine-native-ops
   minReplicas: 9  # Minimum 3 per zone
   maxReplicas: 30  # Maximum 10 per zone
   metrics:
@@ -148,9 +134,6 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: machine-native-ops-api-hpa
   namespace: platform-03
   labels:
@@ -162,7 +145,8 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: machine-native-ops-api
+metadata:
+  name: machine-native-ops-api
   minReplicas: 6  # Minimum 2 per zone
   maxReplicas: 18  # Maximum 6 per zone
   metrics:
@@ -196,9 +180,6 @@ spec:
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: machine-native-ops-vpa
   namespace: platform-03
   labels:
@@ -210,7 +191,8 @@ spec:
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: machine-native-ops
+metadata:
+  name: machine-native-ops
   updatePolicy:
     updateMode: "Auto"
     minReplicas: 9
@@ -239,9 +221,6 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: zone-failure-config
   namespace: platform-03
   labels:
@@ -291,9 +270,6 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: zone-failover-controller
   namespace: platform-03
   labels:
@@ -310,10 +286,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: zone-failover-controller
   template:
-    metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
+    
       labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
@@ -388,9 +361,6 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: zone-failover-controller
   namespace: platform-03
 ---
@@ -398,9 +368,6 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: zone-failover-controller
   namespace: platform-03
 rules:
@@ -421,17 +388,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: zone-failover-controller
   namespace: platform-03
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
+metadata:
   name: zone-failover-controller
 subjects:
 - kind: ServiceAccount
+metadata:
   name: zone-failover-controller
   namespace: platform-03
 ---
@@ -439,9 +405,6 @@ subjects:
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:high-availability:failover:failover-policies.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/foundation/k8s-legacy/high-availability/failover/failover-policies.yaml"
   name: circuit-breaker-failover
   namespace: platform-03
 spec:

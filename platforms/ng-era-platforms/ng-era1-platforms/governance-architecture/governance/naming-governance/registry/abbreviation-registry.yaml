@@ -11,9 +11,6 @@
 apiVersion: gl-runtime.io/v1.0.0
 kind: AbbreviationRegistry
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:governance:naming-governance:registry:abbreviation-registry.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/registry/abbreviation-registry.yaml"
   name: abbreviation-registry
   version: v1.0.0
   description: "GL Abbreviation Registry - 定義所有標準縮寫"
@@ -535,12 +532,7 @@ spec:
         description: "Test"
         category: common
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:governance:naming-governance:registry:abbreviation-registry.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/governance/naming-governance/registry/abbreviation-registry.yaml"
-  created_at: "2026-01-31T00:00:00Z"
-  updated_at: "2026-01-31T00:00:00Z"
+
   total_abbreviations: 90
   categories:
     - domain

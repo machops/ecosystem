@@ -5,12 +5,7 @@
 
 apiVersion: governance.machinenativeops.io/v2
 kind: ComplianceStandardsReference
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:compliance-standards-reference.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/compliance-standards-reference.yaml"
-  name: machinenativeops-compliance-standards
-  version: "1.0.0"
+
   created_at: "2025-01-18T00:00:00Z"
   updated_at: "2025-01-18T00:00:00Z"
   owner: governance-committee

@@ -91,9 +91,6 @@ index:
       priority:
         type: integer
       
-      metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:data-processing:search:workspace:projects:search-system:config:index-mapping.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/data-processing/search/workspace/projects/search-system/config/index-mapping.yaml"
+      
         type: object
         dynamic: true

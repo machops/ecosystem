@@ -10,12 +10,7 @@
 # Closure-Signal: manifest
 
 version: "1.0.0"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:data-processing:processing-platform:elasticsearch-search-system:workspace:projects:search-system:config:search-config.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/data-processing/processing-platform/elasticsearch-search-system/workspace/projects/search-system/config/search-config.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

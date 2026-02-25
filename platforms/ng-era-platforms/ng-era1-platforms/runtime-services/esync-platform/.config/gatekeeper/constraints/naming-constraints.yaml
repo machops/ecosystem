@@ -11,9 +11,6 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: ESyncNamingConvention
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:runtime-services:esync-platform:.config:gatekeeper:constraints:naming-constraints.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/runtime-services/esync-platform/.config/gatekeeper/constraints/naming-constraints.yaml"
   name: esync-naming-convention
 spec:
   enforcementAction: deny

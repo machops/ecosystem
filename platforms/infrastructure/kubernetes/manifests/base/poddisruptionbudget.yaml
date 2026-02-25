@@ -9,9 +9,6 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:infrastructure:kubernetes:manifests:base:poddisruptionbudget.yaml"
-    eco-base/uri: "eco-base://platform/resource/infrastructure/kubernetes/manifests/base/poddisruptionbudget.yaml"
   name: aep-engine-pdb
   namespace: platform-03
   labels:

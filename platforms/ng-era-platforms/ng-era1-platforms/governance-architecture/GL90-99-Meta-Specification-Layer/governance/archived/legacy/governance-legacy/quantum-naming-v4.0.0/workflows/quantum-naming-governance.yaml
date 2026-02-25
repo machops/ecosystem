@@ -7,12 +7,7 @@
 name: Quantum-Enhanced Naming Governance Pipeline
 description: "MachineNativeOps quantum-powered naming governance with full observability"
 version: "v4.0.0-quantum"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:quantum-naming-v4.0.0:workflows:quantum-naming-governance.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/quantum-naming-v4.0.0/workflows/quantum-naming-governance.yaml"
-  name: ""
-  description: ""
+
   labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned {}

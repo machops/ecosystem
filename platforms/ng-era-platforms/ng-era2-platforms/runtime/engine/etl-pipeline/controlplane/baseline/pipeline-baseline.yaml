@@ -9,12 +9,7 @@
 # ECO-Layer: GL01 (Baseline)
 # Closure-Signal: baseline, manifest
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:controlplane:baseline:pipeline-baseline.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/controlplane/baseline/pipeline-baseline.yaml"
-  baseline-name: etl-pipeline-baseline
-  version: "1.0.0"
+
   layer: "GL01"
   last-updated: "2024-01-01T00:00:00Z"
   responsible: "system-administrator"

@@ -9,12 +9,7 @@
 # ECO-Layer: GL05 (Workspace)
 # Closure-Signal: policy
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:workspace:policy.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/workspace/policy.yaml"
-  name: workspace-policy
-  version: "1.0.0"
+
   layer: "GL05"
 
 policy-rules:

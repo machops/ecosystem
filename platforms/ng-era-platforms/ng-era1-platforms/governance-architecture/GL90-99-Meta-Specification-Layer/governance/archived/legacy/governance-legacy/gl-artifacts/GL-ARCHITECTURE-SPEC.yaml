@@ -10,12 +10,7 @@
 # =============================================================================
 apiVersion: governance.machinenativeops.io/v2
 kind: GovernanceArchitectureSpec
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-  name: gl-architecture-specification
-  version: "2.0.0"
+
   created_at: "2025-01-18T00:00:00Z"
   updated_at: "2025-01-18T00:00:00Z"
   owner: governance-team
@@ -61,12 +56,7 @@ architecture_overview:
 # GL00-09: Strategic Layer（戰略層）完整定義
 # =============================================================================
 GL00-09:
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-    layer_id: "GL00-09"
-    name: "Strategic Layer"
+  
     name_zh: "戰略層"
     range: "00-09"
     color_code: "#1E3A8A"
@@ -246,12 +236,7 @@ GL00-09:
       template: |
         apiVersion: governance.machinenativeops.io/v2
         kind: VisionStatement
-        metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-          name: organization-vision
-          version: "1.0.0"
+        
         spec:
           vision: ""
           mission: ""
@@ -264,12 +249,7 @@ GL00-09:
       template: |
         apiVersion: governance.machinenativeops.io/v2
         kind: StrategicObjectives
-        metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-          name: annual-okr
-          fiscal_year: "2025"
+        
         spec:
           objectives: []
           key_results: []
@@ -324,12 +304,7 @@ GL00-09:
 # GL10-29: Operational Layer（運營層）完整定義
 # =============================================================================
 GL10-29:
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-    layer_id: "GL10-29"
-    name: "Operational Layer"
+  
     name_zh: "運營層"
     range: "10-29"
     color_code: "#059669"
@@ -507,12 +482,7 @@ GL10-29:
 # GL30-49: Execution Layer（執行層）完整定義
 # =============================================================================
 GL30-49:
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-    layer_id: "GL30-49"
-    name: "Execution Layer"
+  
     name_zh: "執行層"
     range: "30-49"
     color_code: "#DC2626"
@@ -672,12 +642,7 @@ GL30-49:
 # GL50-59: Observability Layer（觀測層）完整定義
 # =============================================================================
 GL50-59:
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-    layer_id: "GL50-59"
-    name: "Observability Layer"
+  
     name_zh: "觀測層"
     range: "50-59"
     color_code: "#7C3AED"
@@ -830,12 +795,7 @@ GL50-59:
 # GL60-80: Advanced/Feedback Layer（進階/回饋層）完整定義
 # =============================================================================
 GL60-80:
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-    layer_id: "GL60-80"
-    name: "Advanced/Feedback Layer"
+  
     name_zh: "進階/回饋層"
     range: "60-80"
     color_code: "#EA580C"
@@ -984,12 +944,7 @@ GL60-80:
 # GL81-83: Extended Layer（擴展層）完整定義
 # =============================================================================
 GL81-83:
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-    layer_id: "GL81-83"
-    name: "Extended Layer"
+  
     name_zh: "擴展層"
     range: "81-83"
     color_code: "#0891B2"
@@ -1127,12 +1082,7 @@ GL81-83:
 # GL90-99: Meta-Specification Layer（元規範層）完整定義
 # =============================================================================
 GL90-99:
-  metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era1-platforms:governance-architecture:GL90-99-Meta-Specification-Layer:governance:archived:legacy:governance-legacy:gl-artifacts:GL-ARCHITECTURE-SPEC.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era1-platforms/governance-architecture/GL90-99-Meta-Specification-Layer/governance/archived/legacy/governance-legacy/gl-artifacts/GL-ARCHITECTURE-SPEC.yaml"
-    layer_id: "GL90-99"
-    name: "Meta-Specification Layer"
+  
     name_zh: "元規範層"
     range: "90-99"
     color_code: "#4F46E5"

@@ -9,12 +9,7 @@
 # ECO-Layer: GL05 (Workspace)
 # Closure-Signal: manifest
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:workspace:manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/workspace/manifest.yaml"
-  name: workspace
-  version: "1.0.0"
+
   layer: "GL05"
 
 components:

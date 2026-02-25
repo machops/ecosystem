@@ -98,12 +98,7 @@ semantic_mappings:
   - concept: "Registry Management"
     mapping: "mno-governance.registry-manager"
     description: "Map registry concepts to registry manager"
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:controlplane:baseline:modules:03-governance:module-manifest.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/controlplane/baseline/modules/03-governance/module-manifest.yaml"
-  created_date: "2025-01-18"
-  last_modified: "2025-01-18"
+
   maintainers:
     - "MachineNativeOps Team"
   tags:

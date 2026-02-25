@@ -9,12 +9,7 @@
 # ECO-Layer: GL00-09 (Strategic - Governance)
 # Closure-Signal: policy, audit, evidence
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:runtime:engine:etl-pipeline:controlplane:governance:policies:pipeline-governance.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/runtime/engine/etl-pipeline/controlplane/governance/policies/pipeline-governance.yaml"
-  policy-name: etl-pipeline-governance
-  version: "1.0.0"
+
   layer: "GL00-09"
   last-updated: "2024-01-01T00:00:00Z"
   responsible: "governance-committee"

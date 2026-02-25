@@ -9,12 +9,7 @@
 # ECO-Layer: GL06 (Root Policy)
 # Closure-Signal: manifest
 
-metadata:
-  annotations:
-    eco-base/urn: "urn:eco-base:platform:resource:ng-era-platforms:ng-era2-platforms:data-processing:search:root-policy:naming-convention:naming-registry.yaml"
-    eco-base/uri: "eco-base://platform/resource/ng-era-platforms/ng-era2-platforms/data-processing/search/root-policy/naming-convention/naming-registry.yaml"
-  name: naming-registry
-  version: "1.0.0"
+
   layer: "GL06"
 
 conventions:

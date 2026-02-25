@@ -220,7 +220,8 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: machine-native-ops
+metadata:
+  name: machine-native-ops
   minReplicas: 3
   maxReplicas: 10
   metrics:
@@ -284,9 +285,11 @@ metadata:
   namespace: production
 subjects:
 - kind: ServiceAccount
+metadata:
   name: machine-native-ops
   namespace: production
 roleRef:
   kind: Role
+metadata:
   name: machine-native-ops
   apiGroup: rbac.authorization.k8s.io
