@@ -149,9 +149,12 @@ def main():
             component = KIND_TO_COMPONENT[kind]
             platform = get_platform_label(doc)
             if not platform:
-                # 警告但不阻斷，因為有些資源可能還沒對齊
-                print(f"[ECO-HASHLOCK-WARN] {fpath}: {kind}/{name}: missing label eco-base/platform")
-                platform = "unknown"
+                # 強制修補：系統類資源統一歸 core，避免 unknown 污染
+                if any(x in fpath for x in ["k8s/argocd", "k8s/circleci", "monitoring", "ingress", "infrastructure"]):
+                    platform = "core"
+                else:
+                    print(f"[ECO-HASHLOCK-WARN] {fpath}: {kind}/{name}: missing label eco-base/platform, defaulting to core")
+                    platform = "core"
 
             # 計算 content hash（在回寫 URN/URI 前）
             canon = canonicalize_k8s(doc)

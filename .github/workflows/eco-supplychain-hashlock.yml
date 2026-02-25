@@ -31,6 +31,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml
 
+      - name: Block manual edits of eco-base/urn and eco-base/uri
+        if: github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          git fetch origin ${{ github.base_ref }} --depth=1
+          # 找出 PR 相對 base 的變更，若直接改 urn/uri，先標記
+          if git diff origin/${{ github.base_ref }}...HEAD -U0 | grep -E '^\+.*eco-base/(urn|uri):|^-.*eco-base/(urn|uri):' >/dev/null; then
+            # 若這次 commit 作者不是 bot，就 fail（防手填）
+            AUTHOR="$(git log -1 --pretty=format:'%an <%ae>')"
+            if echo "$AUTHOR" | grep -qi 'eco-supplychain-bot'; then
+              echo "OK: urn/uri change authored by supplychain bot."
+            else
+              echo "ERROR: manual edits to eco-base/urn or eco-base/uri are forbidden. Run hashlock update (CI/bot) instead."
+              exit 1
+            fi
+          fi
+
       - name: Update URN/URI and Hashlock (PR only)
         if: github.event_name == 'pull_request'
         run: |

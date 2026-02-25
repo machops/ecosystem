@@ -1,0 +1,20 @@
+{
+  "_type": "https://in-toto.io/Statement/v0.1",
+  "subject": [
+    {
+      "name": "hashlock.json",
+      "digest": {
+        "sha256": "13eb715b7dbafa0e433aaba116932307594d07d53a762e27d370c6a066dc344e"
+      }
+    }
+  ],
+  "predicateType": "https://eco-base.io/Attestation/SupplyChain/v1",
+  "predicate": {
+    "generator": "eco-supplychain-attest-tool",
+    "generatedAt": "2026-02-25T17:11:09.241877+00:00",
+    "workflowRunId": "local",
+    "commitSha": "local",
+    "entriesCount": 151,
+    "hashlockSha256": "13eb715b7dbafa0e433aaba116932307594d07d53a762e27d370c6a066dc344e"
+  }
+}
