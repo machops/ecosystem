@@ -31,6 +31,7 @@ jobs:
           script: |
             const fs = require('fs');
             const path = require('path');
+            const crypto = require('crypto');
             const run = context.payload.workflow_run;
             const status = (run.status || '').toLowerCase();
             const conclusion = (run.conclusion || '').toLowerCase();
@@ -180,7 +181,7 @@ jobs:
               core.info(`Wrote recovery metrics artifact: ${artifactPath}`);
               const summaryPath = path.join(artifactDir, 'recovery-summary.json');
               let summary = {
-                summary_version: "1.4.0",
+                summary_version: "1.5.0",
                 schema: "eco-base/recovery-summary/v1",
                 schema_url: "eco-base://schemas/recovery-summary/v1",
                 generated_at: new Date().toISOString(),
@@ -224,6 +225,14 @@ jobs:
                   signed_autofix_commit_enabled: true,
                   recovery_metrics_artifact_enabled: true,
                 },
+                implementation_config_descriptions: {
+                  auto_approve_workflow_run: "Attempt to approve workflow runs automatically when status indicates manual approval gating.",
+                  auto_redispatch_blocked_response: "Automatically redispatch PR blocked-response workflow when action_required/zero-job conditions are detected.",
+                  auto_update_behind_draft_branch: "Automatically update draft PR branch when merge status is BEHIND or UNKNOWN.",
+                  signed_autofix_commit_enabled: "Enable signed-off (-s) commits for safe mechanical auto-fixes.",
+                  recovery_metrics_artifact_enabled: "Emit per-run and rolling recovery metrics JSON artifacts for observability and dashboards.",
+                },
+                dashboard_contract_hash: "",
               };
               if (fs.existsSync(summaryPath)) {
                 try {
@@ -244,7 +253,7 @@ jobs:
                 error_summary: metrics.error_summary,
               });
               summary.generated_at = metrics.generated_at;
-              summary.summary_version = "1.4.0";
+              summary.summary_version = "1.5.0";
               summary.schema = summary.schema || "eco-base/recovery-summary/v1";
               summary.schema_url = summary.schema_url || "eco-base://schemas/recovery-summary/v1";
               summary.total_events = Number(summary.total_events || 0) + 1;
@@ -285,6 +294,13 @@ jobs:
                 auto_update_behind_draft_branch: true,
                 signed_autofix_commit_enabled: true,
                 recovery_metrics_artifact_enabled: true,
+              };
+              summary.implementation_config_descriptions = summary.implementation_config_descriptions || {
+                auto_approve_workflow_run: "Attempt to approve workflow runs automatically when status indicates manual approval gating.",
+                auto_redispatch_blocked_response: "Automatically redispatch PR blocked-response workflow when action_required/zero-job conditions are detected.",
+                auto_update_behind_draft_branch: "Automatically update draft PR branch when merge status is BEHIND or UNKNOWN.",
+                signed_autofix_commit_enabled: "Enable signed-off (-s) commits for safe mechanical auto-fixes.",
+                recovery_metrics_artifact_enabled: "Emit per-run and rolling recovery metrics JSON artifacts for observability and dashboards.",
               };
               summary.prs[prKey] = {
                 pr_number: prNumber,
@@ -327,6 +343,23 @@ jobs:
                 mean_time_to_recovery_minutes: meanTimeToRecoveryMinutes,
                 manual_intervention_count: manualInterventions,
               };
+              const contractPayload = {
+                summary_version: summary.summary_version,
+                schema: summary.schema,
+                schema_url: summary.schema_url,
+                dashboard_ready_keys: Object.keys(summary.dashboard_ready || {}).sort(),
+                kpi_definitions: summary.kpi_definitions || {},
+                kpi_units: summary.kpi_units || {},
+                kpi_targets: summary.kpi_targets || {},
+                alert_thresholds: summary.alert_thresholds || {},
+                refresh_interval_seconds: summary.refresh_interval_seconds,
+                implementation_config: summary.implementation_config || {},
+                implementation_config_descriptions: summary.implementation_config_descriptions || {},
+              };
+              summary.dashboard_contract_hash = crypto
+                .createHash('sha256')
+                .update(JSON.stringify(contractPayload))
+                .digest('hex');
               fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
               core.info(`Wrote rolling recovery summary: ${summaryPath}`);
             } catch (e) {
