@@ -189,7 +189,7 @@ def validate_governance_blocks(repo: Path) -> list[dict]:
             ))
 
         # Schema version must be v1 or v8
-        if re.search(r"schema_version:\s*v[2-7]|schema_version:\s*v9", content):
+        if re.search(r"schema_version:\s*v(?!1\b|8\b)\d+\b", content):
             findings.append(finding(
                 Category.GOVERNANCE_MISSING, Severity.ERROR, rel,
                 "Schema version must be v1 or v8",
@@ -285,16 +285,18 @@ def validate_dockerfile_paths(repo: Path) -> list[dict]:
 
     # Source 1: GitHub Actions workflows — pattern: -f <dockerfile> <context>
     # Supports both single-line and multi-line (backslash continuation) docker build commands
-    for wf in (repo / ".github" / "workflows").glob("*.y*ml") if (repo / ".github" / "workflows").exists() else []:
-        content = wf.read_text()
-        # Normalize backslash-newline continuations for multi-line commands
-        normalized = re.sub(r"\\\s*\n\s*", " ", content)
-        for m in re.finditer(r"-f\s+(\S+Dockerfile\S*)\s+(\S+)", normalized):
-            df_path = m.group(1)
-            ctx = m.group(2)
-            # Skip flags (e.g., --platform, --tag) that appear after -f <dockerfile>
-            if not ctx.startswith("-"):
-                build_contexts[df_path] = ctx
+    wf_dir = repo / ".github" / "workflows"
+    if wf_dir.exists():
+        for wf in wf_dir.glob("*.y*ml"):
+            content = wf.read_text()
+            # Normalize backslash-newline continuations for multi-line commands
+            normalized = re.sub(r"\\\s*\n\s*", " ", content)
+            for m in re.finditer(r"-f\s+(\S+Dockerfile\S*)\s+(\S+)", normalized):
+                df_path = m.group(1)
+                ctx = m.group(2)
+                # Skip flags (e.g., --platform, --tag) that appear after -f <dockerfile>
+                if not ctx.startswith("-"):
+                    build_contexts[df_path] = ctx
 
     # Source 2: docker-compose files — pattern: context: <path>, dockerfile: <name>
     compose_files = list(repo.glob("docker-compose*.yml")) + list(repo.glob("docker-compose*.yaml"))
@@ -312,20 +314,22 @@ def validate_dockerfile_paths(repo: Path) -> list[dict]:
                 df_name = m.group(2).strip()
                 df_path = f"{ctx}/{df_name}" if ctx != "." else df_name
                 build_contexts[df_path] = ctx
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[ci-validator] Warning: failed to read or parse docker-compose file '{cf}': {e}", file=sys.stderr)
 
     # Source 3: Shell build scripts — pattern: -f <dockerfile> <context> (same as workflows)
-    for script in (repo / "scripts").glob("*.sh") if (repo / "scripts").exists() else []:
-        try:
-            content = script.read_text()
-            for m in re.finditer(r"-f\s+(\S+Dockerfile\S*)\s+\\?\s*(\S+)", content):
-                df_path = m.group(1)
-                ctx = m.group(2).strip()
-                if ctx and not ctx.startswith("-"):
-                    build_contexts[df_path] = ctx
-        except Exception:
-            pass
+    scripts_dir = repo / "scripts"
+    if scripts_dir.exists():
+        for script in scripts_dir.glob("*.sh"):
+            try:
+                content = script.read_text()
+                for m in re.finditer(r"-f\s+(\S+Dockerfile\S*)\s+\\?\s*(\S+)", content):
+                    df_path = m.group(1)
+                    ctx = m.group(2).strip()
+                    if ctx and not ctx.startswith("-"):
+                        build_contexts[df_path] = ctx
+            except Exception as e:
+                print(f"[ci-validator] Warning: failed to read or parse build script '{script}': {e}", file=sys.stderr)
 
     for df in dockerfiles:
         content = df.read_text()
@@ -451,7 +455,7 @@ def validate_workflow_syntax(repo: Path) -> list[dict]:
 
         # Check for inline python -c (the exact pattern that caused L71 failure)
         for i, line in enumerate(content.splitlines(), 1):
-            if re.search(r'python3?\s+-c\s+"', line):
+            if re.search(r'python3?\s+-c\s+["\']', line):
                 findings.append(finding(
                     Category.WORKFLOW_SYNTAX, Severity.ERROR, rel,
                     "Inline 'python -c' with quotes — use heredoc to avoid YAML parse errors",
