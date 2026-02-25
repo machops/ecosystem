@@ -108,7 +108,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/performance-benchmark-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:performance-benchmark-config:sha256-7ca8f4d1e8ffaa0887309280d7743ea5418021c59e50142453c2609b5eb7abdd
+    eco-base/urn: urn:eco-base:k8s:core:configmap:performance-benchmark-config:sha256-0e6db99af03d2d55552a5e598bd41ebe91d5736d8405de4757db8258208b1379
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

@@ -7,7 +7,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops
-    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-63dd86d9f5ad79d9e16ae161d5b15d24698abfa42f7ae0cd7df44fc7727b7d0a
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-3caf35418ce12dd95b294854e1b0bd4d4040d6b770817ab402706dbe351f6ec1
   labels:
     app.kubernetes.io/component: application
     app.kubernetes.io/instance: eco-instance
@@ -188,7 +188,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops-api
-    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops-api:sha256-6d20cd657bbdd7cd9b7b0e2e2e7dc380115c610b1970712fd938cc6c2fdf9e38
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops-api:sha256-a941bf3df39ff066e7998ec621d386354fc1676a5ec3838927daf0b0e7d59a45
   labels:
     app.kubernetes.io/component: api
     app.kubernetes.io/instance: eco-instance
@@ -330,7 +330,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops-worker
-    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops-worker:sha256-f8dedcaa10e42a99d3dc5fca06a428675a2fe8c912802c5281d45cda384fe2ff
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops-worker:sha256-2c9d3f34f89f47f3d6a1d2d395ad095c93e6ef490b869a42220fd8cd5f83bf06
   labels:
     app.kubernetes.io/component: worker
     app.kubernetes.io/instance: eco-instance

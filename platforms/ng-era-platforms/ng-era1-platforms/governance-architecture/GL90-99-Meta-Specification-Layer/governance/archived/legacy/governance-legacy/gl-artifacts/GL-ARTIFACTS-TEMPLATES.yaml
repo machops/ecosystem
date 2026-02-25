@@ -1065,7 +1065,7 @@ GL60-80_templates:
           previous_version: "{{ previous_version }}"
           new_version: "{{ new_version }}"
         trigger:
-          type: "{{ trigger_type }}"  # scheduled, performance_degradation, data_drift
+    type: "{{ trigger_type }}"  # scheduled, performance_degradation, data_drift
           details: "{{ trigger_details }}"
         training:
           dataset:

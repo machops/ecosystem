@@ -1,5 +1,7 @@
 apiVersion: registry.gl/v1
 kind: PlatformRegistry
+metadata:
+  name: gov-platform-registry
 
   description: "GL 平台註冊表 - 所有平台的 manifest 註冊中心"
   lastUpdated: "2025-01-20"

@@ -22,217 +22,52 @@ metadata:
 spec:
   enabled: true
   version: v3
-  
-  
-    pipeline:
-      name: gl-quantum-pipeline
-      version: "1.0.0"
-      description: "GL Quantum Architecture Platform CI Pipeline"
-      author: "GL Quantum Platform Team"
-      
-    trigger:
-      type: push
-      branchPattern: "main|develop|feature/*"
-      
+  pipeline:
+    name: gl-quantum-pipeline
+    version: "1.0.0"
+    description: "GL Quantum Architecture Platform CI Pipeline"
+    author: "GL Quantum Platform Team"
+  trigger:
+    type: push
+    branchPattern: "main|develop|feature/*"
   stages:
     - name: validation
       order: 1
       description: "Validate changes before processing"
       jobs:
         - name: validate-metadata
-          
-            type: validation
-            category: quality
-          steps:
-            - name: check-metadata-schema
-              tool: yq
-              command: |
-                yq eval '.metadata | keys' .github/workflows-quantum/pipeline-metadata.yaml
-                
-        - name: lint-workflows
-          
-            type: validation
-            category: lint
-          steps:
-            - name: actionlint
-              tool: actionlint
-              command: actionlint .github/workflows-quantum/**/*.yml
-              
-    - name: security-scan
+          type: validation
+          category: quality
+        - name: lint-manifests
+          type: lint
+          category: quality
+    - name: security
       order: 2
-      description: "Security scanning and vulnerability detection"
+      description: "Security scanning and compliance"
       jobs:
-        - name: dependency-scan
-          
-            type: security
-            category: dependency
-          steps:
-            - name: trivy-scan
-              tool: trivy
-              command: |
-                trivy fs --severity HIGH,CRITICAL --format json > artifacts/security/dependency-scan.json
-                
-        - name: secrets-scan
-          
-            type: security
-            category: secrets
-          steps:
-            - name: gitleaks
-              tool: gitleaks
-              command: |
-                gitleaks detect --source . --report-path artifacts/security/secrets-scan.json
-                
+        - name: scan-vulnerabilities
+          type: security
+          category: compliance
+        - name: check-policies
+          type: policy
+          category: compliance
     - name: build
       order: 3
-      description: "Build artifacts and generate SBOM"
+      description: "Build and package artifacts"
       jobs:
-        - name: generate-sbom
-          
-            type: build
-            category: supply-chain
-          steps:
-            - name: syft-sbom
-              tool: syft
-              command: |
-                syft . -o spdx-json > artifacts/sbom/sbom.json
-                
+        - name: build-images
+          type: build
+          category: artifact
         - name: sign-artifacts
-          
-            type: build
-            category: signing
-          steps:
-            - name: cosign-sign
-              tool: cosign
-              command: |
-                cosign sign --key ${{ secrets.COSIGN_PRIVATE_KEY }} ${{ artifacts }}
-                
-    - name: test
+          type: sign
+          category: security
+    - name: deployment
       order: 4
-      description: "Run tests and generate evidence"
+      description: "Deploy to target environments"
       jobs:
-        - name: unit-tests
-          
-            type: test
-            category: unit
-          steps:
-            - name: run-unit-tests
-              tool: pytest
-              command: |
-                pytest tests/unit/ --junitxml=artifacts/test-results/unit-tests.xml
-                
-        - name: integration-tests
-          
-            type: test
-            category: integration
-          steps:
-            - name: run-integration-tests
-              tool: pytest
-              command: |
-                pytest tests/integration/ --junitxml=artifacts/test-results/integration-tests.xml
-                
-    - name: governance
-      order: 5
-      description: "Governance validation and compliance checks"
-      jobs:
-        - name: naming-compliance
-          
-            type: governance
-            category: naming
-          steps:
-            - name: conftest-validation
-              tool: conftest
-              command: |
-                conftest test infrastructure/ -p governance-quantum/naming/conftest-policy.yaml --output json > artifacts/governance/naming-compliance.json
-                
-        - name: k8s-policy-validation
-          
-            type: governance
-            category: policy
-          steps:
-            - name: kube-bench
-              tool: kube-bench
-              command: |
-                kube-bench --json > artifacts/governance/kube-bench.json
-                
-    - name: deploy
-      order: 6
-      description: "Deploy artifacts and verify"
-      jobs:
-        - name: deploy-staging
-          
-            type: deploy
-            category: staging
-          environment: staging
-          steps:
-            - name: kubectl-apply
-              tool: kubectl
-              command: |
-                kubectl apply -f deployment/ --namespace staging
-                
-    - name: verification
-      order: 7
-      description: "Post-deployment verification and evidence collection"
-      jobs:
-        - name: health-check
-          
-            type: verification
-            category: health
-          steps:
-            - name: check-endpoints
-              tool: curl
-              command: |
-                curl -f https://staging.api.machinenativeops.com/health || exit 1
-                
-        - name: collect-evidence
-          
-            type: verification
-            category: evidence
-          steps:
-            - name: generate-evidence
-              tool: python
-              command: |
-                python3 scripts/generate-evidence.py --output artifacts/evidence/
-                
-  artifacts:
-    share:
-      enabled: true
-      strategy: job-dependency
-      
-    evidence:
-      enabled: true
-      format: json
-      output: artifacts/evidence/
-      
-    reports:
-      enabled: true
-      format: json
-      output: artifacts/reports/
-      
-  fail_action:
-    onFailure:
-      - notify-team
-      - create-ticket
-      - rollback-if-deployed
-      
-    rollback:
-      enabled: true
-      timeout: 10m
-      strategy: git-revert
-      
-  audit_log:
-    enabled: true
-    format: json
-    output: artifacts/audit/
-    retention: 365d
-    fields:
-      - timestamp
-      - stage
-      - job
-      - step
-      - status
-      - duration
-      - artifacts
-      - evidence
-      - who
-      - why
-      - how
+        - name: deploy-dev
+          type: deploy
+          category: infrastructure
+        - name: deploy-prod
+          type: deploy
+          category: infrastructure

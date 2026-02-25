@@ -16,7 +16,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/circleci-agent-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:circleci-agent-config:sha256-d33adb42635d087e798f883a8f2f687c5cc7ff62c7e16ba5429ec381ef3b511d
+    eco-base/urn: urn:eco-base:k8s:core:configmap:circleci-agent-config:sha256-17c20d6fc4598b04472ce46b7537b1c09961873f8dd569cbaf3a881fd203958e
   labels:
     app: circleci-runner
     app.kubernetes.io/component: eco-component

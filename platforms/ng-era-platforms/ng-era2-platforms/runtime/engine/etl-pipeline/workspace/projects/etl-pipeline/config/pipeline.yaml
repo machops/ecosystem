@@ -15,7 +15,7 @@
   responsible: "data-engineering-team"
 
 pipeline:
-  name: user-analytics-etl
+    name: user-analytics-etl
   id: "etl-001"
   target-table: "user_analytics_processed"
   

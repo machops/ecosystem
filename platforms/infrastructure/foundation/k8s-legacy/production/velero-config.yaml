@@ -19,7 +19,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/secret/velero-s3-credentials
-    eco-base/urn: urn:eco-base:k8s:core:secret:velero-s3-credentials:sha256-70fcea7d1fa919c7bea97d325da1364a72651277254ff557b57772c08150f20b
+    eco-base/urn: urn:eco-base:k8s:core:secret:velero-s3-credentials:sha256-d97dbadf76aca43c7da0728ae3eed5904690fe428625b737c1c2cbd94f7b16b3
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -167,7 +167,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/postgres-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-ac5e9b529b06b9bde0ee97ee60c13fa0e8c7b791e7800338d9e652f9c98080a7
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-c324ac8e61e6219f31e330c51fa6f89ddf268575b219be07bcb9ac834c3c1aa8
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -234,7 +234,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/redis-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:redis-backup:sha256-54471f8d9d327d05766746124559e0315b243d6ef01a986962fabda59a385021
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:redis-backup:sha256-f258ab621b089c628303fe600b22ed474eb5d90408d8927447d9bfd3d3c94d32
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

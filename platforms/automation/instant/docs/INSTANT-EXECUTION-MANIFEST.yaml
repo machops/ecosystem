@@ -401,7 +401,7 @@ agent_system:
 # ═══════════════════════════════════════════════════════════════════════════
 
 pipeline:
-  name: instant-execution-pipeline
+    name: instant-execution-pipeline
   type: CLOSED_LOOP
   mode: CONTINUOUS
   
