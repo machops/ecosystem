@@ -159,7 +159,7 @@ def get_open_prs():
                 "--json", "number,title,headRefName,headRefOid,mergeStateStatus,labels,isDraft"])
     if r.returncode != 0 or not r.stdout.strip():
         return []
-    return [p for p in json.loads(r.stdout) if not p.get("isDraft", False)]
+    return json.loads(r.stdout)
 
 
 def get_pr_api(pr_num):
@@ -737,7 +737,7 @@ def close_all_stale_auto_issues():
 
 # ── Main PR processor ─────────────────────────────────────────────────────────
 
-def process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels):
+def process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels, is_draft=False):
     label_names = {l["name"] for l in labels} if labels else set()
 
     # ── Human-review-required: evaluate AI/bot comments ──────────────────────
@@ -777,6 +777,30 @@ def process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels):
             apply_anomaly_escalation(pr_num, issue_number, anomaly_result.get("anomaly_count", 0))
     else:
         close_auto_anomaly_issue_if_clean(pr_num)
+
+    # Draft PRs: keep continuous maintenance/retrigger, but skip merge operations.
+    if is_draft:
+        if any_pending and not failing:
+            skipped_required = set()
+            for run in check_runs:
+                name = run.get("name")
+                status = (run.get("status") or "").lower()
+                conclusion = (run.get("conclusion") or "").lower()
+                if (
+                    name in REQUIRED_CHECKS and
+                    name in pending and
+                    status == "completed" and
+                    conclusion in ("skipped", "action_required")
+                ):
+                    skipped_required.add(name)
+            if skipped_required:
+                print(f"  [DRAFT] Required checks skipped ({sorted(skipped_required)}). Re-triggering...")
+                retrigger_ci(pr_num, head_sha, skipped_required)
+        if failing:
+            print(f"  [DRAFT] Required checks failed: {failing}. Re-triggering...")
+            retrigger_ci(pr_num, head_sha, set(failing))
+        print("  [DRAFT] Continuous maintenance enabled; merge actions skipped.")
+        return
 
     # ── 1. All required checks pass → MERGE NOW ───────────────────────────────
     if all_pass and not failing:
@@ -858,6 +882,7 @@ def main():
         head_sha     = pr.get("headRefOid", "")
         merge_status = pr.get("mergeStateStatus", "UNKNOWN")
         labels       = pr.get("labels", [])
+        is_draft     = pr.get("isDraft", False)
 
         # For UNKNOWN state: get accurate data from REST API
         if merge_status == "UNKNOWN":
@@ -871,7 +896,7 @@ def main():
         else:
             print(f"\n=== PR #{pr_num} [{merge_status}]: {pr_title[:60]} ===")
 
-        process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels)
+        process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels, is_draft=is_draft)
 
     print("\n[DONE] All PRs processed.")
 

@@ -1,5 +1,6 @@
 """Tests for PR blocked-response governance behavior."""
 import importlib.util
+import json
 import os
 
 
@@ -161,3 +162,49 @@ def test_apply_anomaly_escalation_adds_labels(monkeypatch):
     assert (280, diagnose.HUMAN_REVIEW_LABEL) in added_labels
     assert patched_labels
     assert diagnose.ANOMALY_SEVERITY_LABEL in patched_labels[0]
+
+
+def test_get_open_prs_keeps_draft_prs(monkeypatch):
+    payload = json.dumps([
+        {"number": 1, "isDraft": True},
+        {"number": 2, "isDraft": False},
+    ])
+
+    class Result:
+        returncode = 0
+        stdout = payload
+
+    monkeypatch.setattr(diagnose, "gh_run", lambda *args, **kwargs: Result())
+    prs = diagnose.get_open_prs()
+    assert [p["number"] for p in prs] == [1, 2]
+
+
+def test_process_pr_draft_retriggers_failures_without_merge(monkeypatch):
+    monkeypatch.setattr(
+        diagnose,
+        "get_check_runs",
+        lambda _: [{"name": "lint", "status": "completed", "conclusion": "failure"}],
+    )
+    monkeypatch.setattr(diagnose, "collect_non_required_gate_anomalies", lambda _: [])
+    monkeypatch.setattr(diagnose, "close_auto_anomaly_issue_if_clean", lambda *_: None)
+
+    retriggered = []
+    merged = []
+    auto_merged = []
+    monkeypatch.setattr(diagnose, "retrigger_ci", lambda pr, sha, names: retriggered.append((pr, sha, set(names))))
+    monkeypatch.setattr(diagnose, "direct_merge", lambda *args, **kwargs: merged.append(args))
+    monkeypatch.setattr(diagnose, "enable_auto_merge", lambda *args, **kwargs: auto_merged.append(args))
+
+    diagnose.process_pr(
+        pr_num=280,
+        pr_title="t",
+        pr_branch="b",
+        head_sha="abc",
+        merge_status="BLOCKED",
+        labels=[],
+        is_draft=True,
+    )
+
+    assert retriggered
+    assert not merged
+    assert not auto_merged
