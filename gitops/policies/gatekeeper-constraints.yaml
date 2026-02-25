@@ -1,0 +1,153 @@
+---
+# ConstraintTemplate: Disallow Privileged Containers (with exception allowlist)
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8spspprivilegedcontainer
+  annotations:
+    description: "Disallow privileged containers. Supports namespace exception via label."
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sPSPPrivilegedContainer
+      validation:
+        openAPIV3Schema:
+          type: object
+          properties:
+            exemptNamespaces:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8spspprivilegedcontainer
+
+        violation[{"msg": msg}] {
+          input.review.object.kind == "Pod"
+          not exempt_namespace
+          c := input.review.object.spec.containers[_]
+          c.securityContext.privileged == true
+          msg := sprintf("Container <%v> is privileged. Privileged containers are not allowed.", [c.name])
+        }
+
+        violation[{"msg": msg}] {
+          input.review.object.kind == "Pod"
+          not exempt_namespace
+          c := input.review.object.spec.initContainers[_]
+          c.securityContext.privileged == true
+          msg := sprintf("Init container <%v> is privileged. Privileged containers are not allowed.", [c.name])
+        }
+
+        exempt_namespace {
+          input.review.object.metadata.namespace == input.parameters.exemptNamespaces[_]
+        }
+
+        exempt_namespace {
+          input.review.object.metadata.labels["policy.eco.platform/exempt"] == "true"
+        }
+---
+# Constraint: Apply privileged container policy to ECO namespaces
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPPrivilegedContainer
+metadata:
+  name: psp-privileged-container
+  annotations:
+    description: "Deny privileged containers in ECO platform namespaces."
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - platform-01
+      - platform-02
+      - platform-03
+      - infra
+      - eco-production
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - gatekeeper-system
+      - kyverno
+      - argocd
+      - harbor
+      - monitoring
+      - argo-events
+      - tekton-pipelines
+      - keda
+      - flagger-system
+  parameters:
+    exemptNamespaces:
+      - kube-system
+      - kube-public
+---
+# ConstraintTemplate: Allowed Container Registries
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8sallowedrepos
+  annotations:
+    description: "Only allow images from approved registries."
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sAllowedRepos
+      validation:
+        openAPIV3Schema:
+          type: object
+          properties:
+            repos:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sallowedrepos
+
+        violation[{"msg": msg}] {
+          input.review.object.kind == "Pod"
+          not exempt_namespace
+          container := input.review.object.spec.containers[_]
+          not starts_with_allowed(container.image)
+          msg := sprintf("Container <%v> image <%v> is not from an approved registry. Allowed: %v", [container.name, container.image, input.parameters.repos])
+        }
+
+        starts_with_allowed(image) {
+          repo := input.parameters.repos[_]
+          startswith(image, repo)
+        }
+
+        exempt_namespace {
+          input.review.object.metadata.labels["policy.eco.platform/exempt"] == "true"
+        }
+---
+# Constraint: Apply allowed repos policy (Audit mode - will move to Deny after 30d)
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: allowed-repos-eco-platforms
+  annotations:
+    description: "Audit mode: only approved registries. Switches to deny on 2026-03-28."
+spec:
+  enforcementAction: warn
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - platform-01
+      - platform-02
+      - platform-03
+      - infra
+      - eco-production
+  parameters:
+    repos:
+      - "harbor."
+      - "ghcr.io/indestructibleorg"
+      - "asia-east1-docker.pkg.dev/my-project-ops-1991"
+      - "gcr.io/my-project-ops-1991"

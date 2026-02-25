@@ -1,0 +1,47 @@
+---
+# EventBus: NATS JetStream (replaces deprecated NATS Streaming/STAN)
+# Production-grade: 3 replicas, anti-affinity, PDB, persistence
+apiVersion: argoproj.io/v1alpha1
+kind: EventBus
+metadata:
+  name: default
+  namespace: argo-events
+spec:
+  jetstream:
+    version: "latest"
+    replicas: 3
+    persistence:
+      storageClassName: standard-rwo
+      accessMode: ReadWriteOnce
+      volumeSize: 10Gi
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  controller: eventbus-controller
+                  eventbus-name: default
+              topologyKey: kubernetes.io/hostname
+    containerTemplate:
+      resources:
+        requests:
+          cpu: "50m"
+          memory: "64Mi"
+        limits:
+          cpu: "200m"
+          memory: "256Mi"
+---
+# PodDisruptionBudget: ensure at least 2 replicas available during disruptions
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: eventbus-default-pdb
+  namespace: argo-events
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      controller: eventbus-controller
+      eventbus-name: default
