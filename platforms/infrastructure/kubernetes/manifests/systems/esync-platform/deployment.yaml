@@ -27,8 +27,8 @@ spec:
   template:
     
       labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+        eco-base/part-of: eco-base
+        eco-base/governance: aligned
         app.kubernetes.io/name: esync-platform
         app.kubernetes.io/app.kubernetes.io/component: platform
         governance.machinenativeops.io/layer: "platform"

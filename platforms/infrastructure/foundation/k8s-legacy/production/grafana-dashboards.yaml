@@ -84,7 +84,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/grafana-dashboards
-    eco-base/urn: urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-88235238e071cb1ad5c7e973d7f4d1d9afa867273bb48c6985ea152368e9c494
+    eco-base/urn: urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-b6dc6cb2fb7edeb216b36268b9ee7130eefc48b26bdef39879ca716a5eb87d0f
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

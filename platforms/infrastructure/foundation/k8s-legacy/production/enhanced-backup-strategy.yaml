@@ -37,7 +37,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/velero-enhanced-backup-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:velero-enhanced-backup-config:sha256-fc78cbe96f2ac00d7c26721e18670228b6edfee80305990fc3012e52871cb22f
+    eco-base/urn: urn:eco-base:k8s:core:configmap:velero-enhanced-backup-config:sha256-1f82f622e52a32addf4a1b85fe483d6811781b6118f5c0e2f263b49ab21b9c70
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

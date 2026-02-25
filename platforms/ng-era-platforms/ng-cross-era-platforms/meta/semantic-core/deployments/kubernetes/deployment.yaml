@@ -1,27 +1,30 @@
-# @ECO-governed
-# @ECO-layer: GL00-09
-# @ECO-semantic: general-component
-# @ECO-audit-trail: gl-enterprise-architecture/governance/audit-trails/GL00_09-audit.json
-#
-# GL Unified Architecture Governance Framework Activated
-# GL Root Semantic Anchor: gl-enterprise-architecture/governance/ECO-ROOT-SEMANTIC-ANCHOR.yaml
-# GL Unified Naming Charter: gl-enterprise-architecture/governance/ECO-UNIFIED-NAMING-CHARTER.yaml
-
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gl-spec-core
-  namespace: gl-platform-spec-core
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/deployment/gl-spec-core
+    eco-base/urn: urn:eco-base:k8s:core:deployment:gl-spec-core:sha256-2ebdd38f0f296cbbe3b817264a0b19347750ae0752f3dbf631815c375566a934
   labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
     app.kubernetes.io/name: spec-core
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
+    gl.governance/layer: L1
+    gl.platform/semantic.core: 'true'
+    gl.semantic/component-type: semantic-engine
     platform: gl-platform-services
     version: v1.0.0
-    gl.platform/semantic.core: "true"
-    gl.governance/layer: "L1"
-    gl.semantic/component-type: "semantic-engine"
+  name: gl-spec-core
+  namespace: gl-platform-spec-core
 spec:
   replicas: 3
   selector:
@@ -29,43 +32,46 @@ spec:
       app.kubernetes.io/name: spec-core
       version: v1.0.0
   strategy:
-    type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
-      labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-        app.kubernetes.io/name: spec-core
-        version: v1.0.0
-        gl.platform/semantic.core: "true"
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9090"
-        prometheus.io/path: "/metrics"
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9090'
+        prometheus.io/scrape: 'true'
+      labels:
+        app.kubernetes.io/name: spec-core
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
+        gl.platform/semantic.core: 'true'
+        version: v1.0.0
     spec:
-      serviceAccountName: spec-core-serviceaccount
-      securityContext:
-        fsGroup: 1000
-        runAsUser: 1000
-        runAsNonRoot: true
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - compute-optimized
+            weight: 1
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - spec-core
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       containers:
-      - name: spec-aggregation-engine
-        image: gl-platform/spec-core:v1.0.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: http
-          containerPort: 8080
-          protocol: TCP
-        - name: grpc
-          containerPort: 9090
-          protocol: TCP
-        - name: metrics
-          containerPort: 9091
-          protocol: TCP
-        env:
+      - env:
         - name: NAMESPACE
           valueFrom:
             fieldRef:
@@ -75,81 +81,78 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: LOG_LEVEL
-          value: "info"
+          value: info
         - name: FOLDING_STRATEGY
-          value: "hybrid-folding"
+          value: hybrid-folding
         - name: VECTOR_DIMENSIONS
-          value: "768"
+          value: '768'
         - name: CACHE_SIZE_GB
-          value: "10"
-        resources:
-          requests:
-            memory: "8Gi"
-            cpu: "2"
-            ephemeral-storage: "10Gi"
-          limits:
-            memory: "16Gi"
-            cpu: "4"
-            ephemeral-storage: "20Gi"
-        volumeMounts:
-        - name: config-volume
-          mountPath: /app/configs
-          readOnly: true
-        - name: data-volume
-          mountPath: /data
-        - name: cache-volume
-          mountPath: /cache
+          value: '10'
+        image: gl-platform/spec-core:v1.0.0
+        imagePullPolicy: IfNotPresent
         livenessProbe:
+          failureThreshold: 3
           httpGet:
             path: /health
             port: 8080
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 3
+        name: spec-aggregation-engine
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9090
+          name: grpc
+          protocol: TCP
+        - containerPort: 9091
+          name: metrics
+          protocol: TCP
         readinessProbe:
+          failureThreshold: 3
           httpGet:
             path: /ready
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
-          failureThreshold: 3
+        resources:
+          limits:
+            cpu: '4'
+            ephemeral-storage: 20Gi
+            memory: 16Gi
+          requests:
+            cpu: '2'
+            ephemeral-storage: 10Gi
+            memory: 8Gi
         startupProbe:
+          failureThreshold: 30
           httpGet:
             path: /startup
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 5
-          failureThreshold: 30
+        volumeMounts:
+        - mountPath: /app/configs
+          name: config-volume
+          readOnly: true
+        - mountPath: /data
+          name: data-volume
+        - mountPath: /cache
+          name: cache-volume
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      serviceAccountName: spec-core-serviceaccount
       volumes:
-      - name: config-volume
-        configMap:
+      - configMap:
           name: spec-core-config
+        name: config-volume
       - name: data-volume
         persistentVolumeClaim:
           claimName: semantic-data-pvc
-      - name: cache-volume
-        emptyDir:
+      - emptyDir:
           sizeLimit: 10Gi
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - spec-core
-              topologyKey: kubernetes.io/hostname
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: node-type
-                operator: In
-                values:
-                - compute-optimized
+        name: cache-volume

@@ -1,83 +1,52 @@
-# @ECO-governed
-# @ECO-layer: infrastructure
-# @ECO-semantic: multi-az-deployments
-# @ECO-audit-trail: ../../engine/governance/GL_SEMANTIC_ANCHOR.json
-# 
-# GL Unified Architecture Governance Framework Activated
-
+--- null
 ---
-# Multi-AZ Deployments
-# Enterprise-grade multi-availability zone deployment configuration
-
----
-# MachineNativeOps Main Application - Multi-AZ Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-63dd86d9f5ad79d9e16ae161d5b15d24698abfa42f7ae0cd7df44fc7727b7d0a
+  labels:
+    app.kubernetes.io/component: application
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: machine-native-ops
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
+    tier: backend
   name: machine-native-ops
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops
-    app.kubernetes.io/component: application
-    tier: backend
 spec:
-  replicas: 9  # 3 replicas per zone
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 1
+  replicas: 9
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops
+  strategy:
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9090'
+        prometheus.io/scrape: 'true'
       labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-        app.kubernetes.io/name: machine-native-ops
         app.kubernetes.io/component: application
+        app.kubernetes.io/name: machine-native-ops
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
         tier: backend
         version: v1.0.0
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9090"
-        prometheus.io/path: "/metrics"
     spec:
-      serviceAccountName: machine-native-ops
-      # Zone topology constraints for balanced distribution
-      topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: topology.kubernetes.io/zone
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: machine-native-ops
-      - maxSkew: 2
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: machine-native-ops
-      # Pod anti-affinity to prevent co-location
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: machine-native-ops
-              topologyKey: kubernetes.io/hostname
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchLabels:
-                app.kubernetes.io/name: machine-native-ops
-              topologyKey: kubernetes.io/zone
-            namespaces:
-            - machine-native-ops
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -88,19 +57,23 @@ spec:
                 - us-east-1a
                 - us-east-1b
                 - us-east-1c
-      terminationGracePeriodSeconds: 30
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: machine-native-ops
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: machine-native-ops
+              topologyKey: kubernetes.io/zone
+            namespaces:
+            - machine-native-ops
       containers:
-      - name: machine-native-ops
-        image: machinenativeops/machine-native-ops:v1.0.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: http
-          containerPort: 8080
-          protocol: TCP
-        - name: metrics
-          containerPort: 9090
-          protocol: TCP
-        env:
+      - env:
         - name: POD_NAMESPACE
           valueFrom:
             fieldRef:
@@ -122,120 +95,139 @@ spec:
             fieldRef:
               fieldPath: metadata.labels['topology.kubernetes.io/zone']
         - name: LOG_LEVEL
-          value: "info"
+          value: info
         - name: ENABLE_TRACING
-          value: "true"
+          value: 'true'
         - name: TRACING_ENDPOINT
-          value: "jaeger-collector.jaeger.svc:14250"
-        resources:
-          requests:
-            cpu: 500m
-            memory: 512Mi
-          limits:
-            cpu: 2000m
-            memory: 2Gi
+          value: jaeger-collector.jaeger.svc:14250
+        image: machinenativeops/machine-native-ops:v1.0.0
+        imagePullPolicy: IfNotPresent
         livenessProbe:
+          failureThreshold: 3
           httpGet:
             path: /health
             port: 8080
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 3
+        name: machine-native-ops
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
         readinessProbe:
+          failureThreshold: 3
           httpGet:
             path: /ready
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
-          failureThreshold: 3
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
         startupProbe:
+          failureThreshold: 30
           httpGet:
             path: /health
             port: 8080
           initialDelaySeconds: 0
           periodSeconds: 5
           timeoutSeconds: 3
-          failureThreshold: 30
         volumeMounts:
-        - name: config
-          mountPath: /app/config
+        - mountPath: /app/config
+          name: config
           readOnly: true
-        - name: logs
-          mountPath: /var/log/app
-      - name: istio-proxy
-        image: auto
-        env:
+        - mountPath: /var/log/app
+          name: logs
+      - env:
         - name: ISTIO_META_REQUEST_ID
-          value: "true"
+          value: 'true'
+        image: auto
+        name: istio-proxy
         resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
           limits:
             cpu: 500m
             memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+      serviceAccountName: machine-native-ops
+      terminationGracePeriodSeconds: 30
+      topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: machine-native-ops
+        maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: machine-native-ops
+        maxSkew: 2
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
       volumes:
-      - name: config
-        configMap:
+      - configMap:
           name: machine-native-ops-config
-      - name: logs
-        emptyDir: {}
+        name: config
+      - emptyDir: {}
+        name: logs
 ---
-# MachineNativeOps API Service - Multi-AZ Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops-api
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops-api:sha256-6d20cd657bbdd7cd9b7b0e2e2e7dc380115c610b1970712fd938cc6c2fdf9e38
+  labels:
+    app.kubernetes.io/component: api
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: machine-native-ops-api
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
+    tier: backend
   name: machine-native-ops-api
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops-api
-    app.kubernetes.io/component: api
-    tier: backend
 spec:
-  replicas: 6  # 2 replicas per zone
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 2
-      maxUnavailable: 1
+  replicas: 6
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9090'
+        prometheus.io/scrape: 'true'
       labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-        app.kubernetes.io/name: machine-native-ops-api
         app.kubernetes.io/component: api
+        app.kubernetes.io/name: machine-native-ops-api
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
         tier: backend
         version: v1.0.0
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9090"
-        prometheus.io/path: "/metrics"
     spec:
-      serviceAccountName: machine-native-ops
-      topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: topology.kubernetes.io/zone
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: machine-native-ops-api
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: machine-native-ops-api
-              topologyKey: kubernetes.io/hostname
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -246,18 +238,16 @@ spec:
                 - us-east-1a
                 - us-east-1b
                 - us-east-1c
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: machine-native-ops-api
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       containers:
-      - name: machine-native-ops-api
-        image: machinenativeops/machine-native-ops-api:v1.0.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: http
-          containerPort: 8080
-          protocol: TCP
-        - name: metrics
-          containerPort: 9090
-          protocol: TCP
-        env:
+      - env:
         - name: POD_NAMESPACE
           valueFrom:
             fieldRef:
@@ -274,98 +264,110 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.labels['topology.kubernetes.io/zone']
-        resources:
-          requests:
-            cpu: 300m
-            memory: 256Mi
-          limits:
-            cpu: 1000m
-            memory: 1Gi
+        image: machinenativeops/machine-native-ops-api:v1.0.0
+        imagePullPolicy: IfNotPresent
         livenessProbe:
+          failureThreshold: 3
           httpGet:
             path: /health
             port: 8080
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 3
+        name: machine-native-ops-api
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
         readinessProbe:
+          failureThreshold: 3
           httpGet:
             path: /ready
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
-          failureThreshold: 3
-        volumeMounts:
-        - name: config
-          mountPath: /app/config
-          readOnly: true
-      - name: istio-proxy
-        image: auto
         resources:
+          limits:
+            cpu: 1000m
+            memory: 1Gi
           requests:
-            cpu: 50m
-            memory: 64Mi
+            cpu: 300m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /app/config
+          name: config
+          readOnly: true
+      - image: auto
+        name: istio-proxy
+        resources:
           limits:
             cpu: 200m
             memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+      serviceAccountName: machine-native-ops
+      topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: machine-native-ops-api
+        maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
       volumes:
-      - name: config
-        configMap:
+      - configMap:
           name: machine-native-ops-config
+        name: config
 ---
-# MachineNativeOps Worker - Multi-AZ Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: machine-native-ops-worker
-  namespace: platform-03
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops-worker
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops-worker:sha256-f8dedcaa10e42a99d3dc5fca06a428675a2fe8c912802c5281d45cda384fe2ff
   labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops-worker
     app.kubernetes.io/component: worker
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: machine-native-ops-worker
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
     tier: backend
     type: background
+  name: machine-native-ops-worker
+  namespace: platform-03
 spec:
-  replicas: 6  # 2 replicas per zone
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 2
-      maxUnavailable: 1
+  replicas: 6
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops-worker
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-        app.kubernetes.io/name: machine-native-ops-worker
         app.kubernetes.io/component: worker
+        app.kubernetes.io/name: machine-native-ops-worker
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
         tier: backend
         type: background
         version: v1.0.0
     spec:
-      serviceAccountName: machine-native-ops
-      topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: topology.kubernetes.io/zone
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: machine-native-ops-worker
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: machine-native-ops-worker
-              topologyKey: kubernetes.io/hostname
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -381,15 +383,16 @@ spec:
                 values:
                 - c5.xlarge
                 - c5.2xlarge
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: machine-native-ops-worker
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       containers:
-      - name: machine-native-ops-worker
-        image: machinenativeops/machine-native-ops-worker:v1.0.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: metrics
-          containerPort: 9090
-          protocol: TCP
-        env:
+      - env:
         - name: POD_NAMESPACE
           valueFrom:
             fieldRef:
@@ -407,68 +410,80 @@ spec:
             fieldRef:
               fieldPath: metadata.labels['topology.kubernetes.io/zone']
         - name: WORKER_CONCURRENCY
-          value: "10"
+          value: '10'
         - name: ENABLE_TRACING
-          value: "true"
-        resources:
-          requests:
-            cpu: 200m
-            memory: 256Mi
-          limits:
-            cpu: 1000m
-            memory: 1Gi
+          value: 'true'
+        image: machinenativeops/machine-native-ops-worker:v1.0.0
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
             command:
             - /bin/sh
             - -c
-            - "pgrep -f 'python.*worker' || exit 1"
+            - pgrep -f 'python.*worker' || exit 1
+          failureThreshold: 3
           initialDelaySeconds: 30
           periodSeconds: 30
           timeoutSeconds: 10
-          failureThreshold: 3
-      - name: istio-proxy
-        image: auto
+        name: machine-native-ops-worker
+        ports:
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
         resources:
+          limits:
+            cpu: 1000m
+            memory: 1Gi
           requests:
-            cpu: 50m
-            memory: 64Mi
+            cpu: 200m
+            memory: 256Mi
+      - image: auto
+        name: istio-proxy
+        resources:
           limits:
             cpu: 200m
             memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+      serviceAccountName: machine-native-ops
+      topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: machine-native-ops-worker
+        maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
 ---
-# Pod Disruption Budget - Main Application
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: machine-native-ops-pdb
   namespace: platform-03
 spec:
-  minAvailable: 66%  # Ensure at least 6 of 9 pods available
+  minAvailable: 66%
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops
 ---
-# Pod Disruption Budget - API Service
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: machine-native-ops-api-pdb
   namespace: platform-03
 spec:
-  minAvailable: 50%  # Ensure at least 3 of 6 pods available
+  minAvailable: 50%
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops-api
 ---
-# Pod Disruption Budget - Worker
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: machine-native-ops-worker-pdb
   namespace: platform-03
 spec:
-  minAvailable: 50%  # Ensure at least 3 of 6 pods available
+  minAvailable: 50%
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops-worker

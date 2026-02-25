@@ -1,194 +1,222 @@
-# @ECO-governed
-# @ECO-layer: governance
-# @ECO-semantic: dynamic-validator-deployment
-# @ECO-audit-trail: ../../engine/governance/GL_SEMANTIC_ANCHOR.json
-# 
-# GL Unified Architecture Governance Framework Activated
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/deployment/dynamic-validator-core
+    eco-base/urn: urn:eco-base:k8s:core:deployment:dynamic-validator-core:sha256-f6c9894f09d519f8d7c72ab25a48cddaa8e2e0f08ad5d12ed47ca151ef815dec
+  labels:
+    app.kubernetes.io/component: dynamic-validator
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: validation-system
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
+    version: v1.0.0
   name: dynamic-validator-core
   namespace: gl-runtime-verification
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
-    app.kubernetes.io/component: dynamic-validator
-    version: v1.0.0
 spec:
   replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: dynamic-validator
   strategy:
-    type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
-      labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-        app.kubernetes.io/name: dynamic-validator
-        version: v1.0.0
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8080"
-        prometheus.io/path: "/metrics"
+        prometheus.io/path: /metrics
+        prometheus.io/port: '8080'
+        prometheus.io/scrape: 'true'
+      labels:
+        app.kubernetes.io/name: dynamic-validator
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
+        version: v1.0.0
     spec:
-      serviceAccountName: validation-system-sa
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 1000
-      containers:
-        - name: validator
-          image: ghcr.io/machinenativeops/dynamic-validator:v1.0.0
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: http
-              containerPort: 8080
-              protocol: TCP
-            - name: grpc
-              containerPort: 9090
-              protocol: TCP
-            - name: metrics
-              containerPort: 8081
-              protocol: TCP
-          env:
-            - name: QUANTUM_BACKEND
-              value: "ibm_kyiv"
-            - name: COHERENCE_TARGET
-              value: "0.792"
-            - name: CLASSIC_WEIGHT
-              value: "0.43"
-            - name: QUANTUM_WEIGHT
-              value: "0.57"
-            - name: LOG_LEVEL
-              value: "info"
-            - name: EVIDENCE_STORAGE
-              value: "/data/evidence-chains"
-          volumeMounts:
-            - name: config
-              mountPath: /etc/validation
-              readOnly: true
-            - name: evidence-storage
-              mountPath: /data/evidence-chains
-            - name: reports
-              mountPath: /data/reports
-          resources:
-            requests:
-              cpu: "500m"
-              memory: "512Mi"
-            limits:
-              cpu: "2000m"
-              memory: "2Gi"
-          livenessProbe:
-            httpGet:
-              path: /health/live
-              port: http
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /health/ready
-              port: http
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            timeoutSeconds: 3
-            failureThreshold: 3
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
-      volumes:
-        - name: config
-          configMap:
-            name: validation-system-config
-        - name: evidence-storage
-          persistentVolumeClaim:
-            claimName: evidence-storage-pvc
-        - name: reports
-          emptyDir: {}
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app.kubernetes.io/name: dynamic-validator
-                topologyKey: kubernetes.io/hostname
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: dynamic-validator
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: QUANTUM_BACKEND
+          value: ibm_kyiv
+        - name: COHERENCE_TARGET
+          value: '0.792'
+        - name: CLASSIC_WEIGHT
+          value: '0.43'
+        - name: QUANTUM_WEIGHT
+          value: '0.57'
+        - name: LOG_LEVEL
+          value: info
+        - name: EVIDENCE_STORAGE
+          value: /data/evidence-chains
+        image: ghcr.io/machinenativeops/dynamic-validator:v1.0.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health/live
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+        name: validator
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9090
+          name: grpc
+          protocol: TCP
+        - containerPort: 8081
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health/ready
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /etc/validation
+          name: config
+          readOnly: true
+        - mountPath: /data/evidence-chains
+          name: evidence-storage
+        - mountPath: /data/reports
+          name: reports
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      serviceAccountName: validation-system-sa
       topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: topology.kubernetes.io/zone
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: dynamic-validator
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: dynamic-validator
+        maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+      volumes:
+      - configMap:
+          name: validation-system-config
+        name: config
+      - name: evidence-storage
+        persistentVolumeClaim:
+          claimName: evidence-storage-pvc
+      - emptyDir: {}
+        name: reports
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/dynamic-validator-service
+    eco-base/urn: urn:eco-base:k8s:core:service:dynamic-validator-service:sha256-3ea4adf6949c816253720b54e5f94c7d764aa06fba11b86c04e375375ee89d70
+  labels:
+    app.kubernetes.io/component: dynamic-validator
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: validation-system
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: dynamic-validator-service
   namespace: gl-runtime-verification
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
-    app.kubernetes.io/component: dynamic-validator
 spec:
-  type: ClusterIP
   ports:
-    - name: http
-      port: 80
-      targetPort: 8080
-      protocol: TCP
-    - name: grpc
-      port: 9090
-      targetPort: 9090
-      protocol: TCP
-    - name: metrics
-      port: 8081
-      targetPort: 8081
-      protocol: TCP
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: grpc
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  - name: metrics
+    port: 8081
+    protocol: TCP
+    targetPort: 8081
   selector:
     app.kubernetes.io/name: dynamic-validator
+  type: ClusterIP
 ---
 apiVersion: v1
+data:
+  coherence-target: '0.792'
+  fallback-backends: google_bristlecone,rigetti_aspen
+  latency-threshold: 500ms
+  noise-threshold: '0.15'
+  quantum-backend: ibm_kyiv
 kind: ConfigMap
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/configmap/validation-system-config
+    eco-base/urn: urn:eco-base:k8s:core:configmap:validation-system-config:sha256-19c6941d464fd9ca9ca3d51f40e871365e8c4ed42a6dee21a01df7aceb8415db
+  labels:
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: validation-system
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: validation-system-config
   namespace: gl-runtime-verification
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
-data:
-  quantum-backend: "ibm_kyiv"
-  fallback-backends: "google_bristlecone,rigetti_aspen"
-  coherence-target: "0.792"
-  noise-threshold: "0.15"
-  latency-threshold: "500ms"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  labels:
+    app.kubernetes.io/name: validation-system
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
   name: evidence-storage-pvc
   namespace: gl-runtime-verification
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi

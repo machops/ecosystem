@@ -11,7 +11,7 @@
 
   labels:
     eco-base/part-of: eco-base
-    eco-base/governance: aligned {}
+    eco-base/governance: aligned
 
 #   description: Complete API specification for MachineNativeOps Naming Governance System
 #   author: MachineNativeOps Architecture Team

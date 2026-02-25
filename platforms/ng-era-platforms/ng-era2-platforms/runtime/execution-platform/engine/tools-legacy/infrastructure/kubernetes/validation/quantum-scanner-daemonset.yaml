@@ -1,200 +1,199 @@
-# @ECO-layer: GQS-L0
-# @ECO-governed
-# @ECO-layer: governance
-# @ECO-semantic: quantum-scanner-daemonset
-# @ECO-audit-trail: ../../engine/governance/GL_SEMANTIC_ANCHOR.json
-# 
-# GL Unified Architecture Governance Framework Activated
-
+---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/daemonset/quantum-scanner
+    eco-base/urn: urn:eco-base:k8s:core:daemonset:quantum-scanner:sha256-4ed84ef6b1999387dba3d2ac7aee1880d57a65adaa339d90de977aa2bd5bf676
+  labels:
+    app.kubernetes.io/component: quantum-scanner
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: validation-system
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
+    version: v1.0.0
   name: quantum-scanner
   namespace: gl-runtime-verification
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
-    app.kubernetes.io/component: quantum-scanner
-    version: v1.0.0
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: quantum-scanner
-  updateStrategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
   template:
     metadata:
-      labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-        app.kubernetes.io/name: quantum-scanner
-        version: v1.0.0
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8080"
+        prometheus.io/port: '8080'
+        prometheus.io/scrape: 'true'
+      labels:
+        app.kubernetes.io/name: quantum-scanner
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
+        version: v1.0.0
     spec:
-      serviceAccountName: validation-system-sa
-      tolerations:
-        - key: node-role.kubernetes.io/control-plane
-          operator: Exists
-          effect: NoSchedule
-        - key: node-role.kubernetes.io/master
-          operator: Exists
-          effect: NoSchedule
+      containers:
+      - env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: QUANTUM_BACKEND
+          value: ibm_kyiv
+        - name: SCAN_INTERVAL
+          value: 30s
+        - name: COHERENCE_SAMPLING_RATE
+          value: 100ms
+        - name: FEATURE_METRICS
+          value: coherence,entanglement,fidelity
+        image: ghcr.io/machinenativeops/quantum-scanner:v1.0.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 5
+        name: scanner
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 8081
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /etc/quantum-scanner
+          name: config
+          readOnly: true
+        - mountPath: /host/proc
+          name: host-proc
+          readOnly: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
-      containers:
-        - name: scanner
-          image: ghcr.io/machinenativeops/quantum-scanner:v1.0.0
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: http
-              containerPort: 8080
-              protocol: TCP
-            - name: metrics
-              containerPort: 8081
-              protocol: TCP
-          env:
-            - name: NODE_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
-            - name: QUANTUM_BACKEND
-              value: "ibm_kyiv"
-            - name: SCAN_INTERVAL
-              value: "30s"
-            - name: COHERENCE_SAMPLING_RATE
-              value: "100ms"
-            - name: FEATURE_METRICS
-              value: "coherence,entanglement,fidelity"
-          volumeMounts:
-            - name: config
-              mountPath: /etc/quantum-scanner
-              readOnly: true
-            - name: host-proc
-              mountPath: /host/proc
-              readOnly: true
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-            initialDelaySeconds: 15
-            periodSeconds: 20
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /ready
-              port: http
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 3
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
-      volumes:
-        - name: config
-          configMap:
-            name: quantum-scanner-config
-        - name: host-proc
-          hostPath:
-            path: /proc
-            type: Directory
+      serviceAccountName: validation-system-sa
       terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
+      volumes:
+      - configMap:
+          name: quantum-scanner-config
+        name: config
+      - hostPath:
+          path: /proc
+          type: Directory
+        name: host-proc
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
 ---
 apiVersion: v1
+data:
+  scanner-config.yaml: "apiVersion: v1\nkind: ScannerConfig\nspec:\n  backends:\n\
+    \    primary: ibm_kyiv\n    fallback:\n      - google_bristlecone\n      - rigetti_aspen\n\
+    \  scanning:\n    interval: 30s\n    timeout: 10s\n    parallel_jobs: 4\n  metrics:\n\
+    \    - name: coherence\n      threshold: 0.78\n      alert_below: true\n    -\
+    \ name: entanglement\n      threshold: 0.85\n      alert_below: true\n    - name:\
+    \ fidelity\n      threshold: 0.95\n      alert_below: true\n  features:\n    extraction_depth:\
+    \ 8\n    shots: 1024\n    error_mitigation: true\n"
 kind: ConfigMap
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/configmap/quantum-scanner-config
+    eco-base/urn: urn:eco-base:k8s:core:configmap:quantum-scanner-config:sha256-50cae1cbca5f3c3c504ba56d70f7c8a642f6f6e9b0d38f615415e106ff1e3253
+  labels:
+    app.kubernetes.io/component: quantum-scanner
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: validation-system
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: quantum-scanner-config
   namespace: gl-runtime-verification
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
-    app.kubernetes.io/component: quantum-scanner
-data:
-  scanner-config.yaml: |
-    apiVersion: v1
-    kind: ScannerConfig
-    spec:
-      backends:
-        primary: ibm_kyiv
-        fallback:
-          - google_bristlecone
-          - rigetti_aspen
-      scanning:
-        interval: 30s
-        timeout: 10s
-        parallel_jobs: 4
-      metrics:
-        - name: coherence
-          threshold: 0.78
-          alert_below: true
-        - name: entanglement
-          threshold: 0.85
-          alert_below: true
-        - name: fidelity
-          threshold: 0.95
-          alert_below: true
-      features:
-        extraction_depth: 8
-        shots: 1024
-        error_mitigation: true
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/name: validation-system
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
   name: validation-system-sa
   namespace: gl-runtime-verification
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: quantum-scanner-role
   labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
     app.kubernetes.io/name: validation-system
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
+  name: quantum-scanner-role
 rules:
-  - apiGroups: [""]
-    resources: ["nodes", "pods"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["metrics.k8s.io"]
-    resources: ["nodes", "pods"]
-    verbs: ["get", "list"]
+- apiGroups:
+  - ''
+  resources:
+  - nodes
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - metrics.k8s.io
+  resources:
+  - nodes
+  - pods
+  verbs:
+  - get
+  - list
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: quantum-scanner-binding
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: validation-system
+  name: quantum-scanner-role
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-metadata:
-  name: quantum-scanner-role
 subjects:
-  - kind: ServiceAccount
-metadata:
+- kind: ServiceAccount
   name: validation-system-sa
-    namespace: gl-runtime-verification
+  namespace: gl-runtime-verification

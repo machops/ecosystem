@@ -150,7 +150,7 @@ infrastructure:
 
   labels:
     eco-base/part-of: eco-base
-    eco-base/governance: aligned {}
+    eco-base/governance: aligned
 
     ddos_protection: true           # DDoS protection enabled
     rate_limiting:

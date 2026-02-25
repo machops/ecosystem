@@ -56,7 +56,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/geo-dns-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-42901de372a60dbd27ced1a8e2d65ddb5e10a0275b80a4ba1ecb897c2883190c
+    eco-base/urn: urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-ab8d8fa32d61393e97210c072aec0e269d5f249181e1eb043f0b9ab209022d14
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

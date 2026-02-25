@@ -26,7 +26,7 @@ version: "1.0.0"
 
   labels:
     eco-base/part-of: eco-base
-    eco-base/governance: aligned {}
+    eco-base/governance: aligned
 
 redis:
   host: ${REDIS_HOST:-localhost}

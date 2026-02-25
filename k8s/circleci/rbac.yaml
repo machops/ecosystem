@@ -43,12 +43,10 @@ metadata:
     app: circleci-runner
 subjects:
   - kind: ServiceAccount
-metadata:
-  name: circleci-runner
+    name: circleci-runner
     namespace: circleci-runner
 roleRef:
   kind: Role
-metadata:
   name: circleci-runner
   apiGroup: rbac.authorization.k8s.io
 ---
@@ -79,11 +77,9 @@ metadata:
     app: circleci-runner
 subjects:
   - kind: ServiceAccount
-metadata:
-  name: circleci-runner
+    name: circleci-runner
     namespace: circleci-runner
 roleRef:
   kind: ClusterRole
-metadata:
   name: circleci-runner
   apiGroup: rbac.authorization.k8s.io

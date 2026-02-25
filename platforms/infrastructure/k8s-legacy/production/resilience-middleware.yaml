@@ -1,20 +1,26 @@
-# @ECO-governed
-# @ECO-layer: infrastructure
-# @ECO-semantic: resilience-middleware
-# @ECO-audit-trail: ../../engine/governance/GL_SEMANTIC_ANCHOR.json
-# 
-# GL Unified Architecture Governance Framework Activated
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/deployment/resilience-middleware
+    eco-base/urn: urn:eco-base:k8s:core:deployment:resilience-middleware:sha256-b63189fd078319929678d35bd45028be95b488c2caf5730473fc2aaeeb8d0d66
+  labels:
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: resilience-middleware
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
+    environment: production
   name: resilience-middleware
   namespace: production
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: resilience-middleware
-    environment: production
 spec:
   replicas: 2
   selector:
@@ -23,146 +29,140 @@ spec:
       environment: production
   template:
     metadata:
-      labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-        app.kubernetes.io/name: resilience-middleware
-        environment: production
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8001"
-        prometheus.io/path: "/metrics"
+        prometheus.io/path: /metrics
+        prometheus.io/port: '8001'
+        prometheus.io/scrape: 'true'
+      labels:
+        app.kubernetes.io/name: resilience-middleware
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
+        environment: production
     spec:
-      serviceAccountName: resilience-middleware
       containers:
-      - name: middleware
+      - env:
+        - name: ENVIRONMENT
+          value: production
+        - name: LOG_LEVEL
+          value: INFO
+        - name: RESILIENCE_CONFIG_PATH
+          value: /config/resilience-policies.yaml
         image: ghcr.io/machinenativeops/resilience-middleware:latest
         imagePullPolicy: Always
-        
-        ports:
-        - name: http
-          containerPort: 8001
-          protocol: TCP
-        
-        env:
-        - name: ENVIRONMENT
-          value: "production"
-        - name: LOG_LEVEL
-          value: "INFO"
-        - name: RESILIENCE_CONFIG_PATH
-          value: "/config/resilience-policies.yaml"
-        
-        volumeMounts:
-        - name: config
-          mountPath: /config
-          readOnly: true
-        
-        resources:
-          requests:
-            cpu: 200m
-            memory: 256Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
-        
         livenessProbe:
+          failureThreshold: 3
           httpGet:
             path: /health
             port: http
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 3
-        
+        name: middleware
+        ports:
+        - containerPort: 8001
+          name: http
+          protocol: TCP
         readinessProbe:
+          failureThreshold: 3
           httpGet:
             path: /ready
             port: http
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 3
-          failureThreshold: 3
-      
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /config
+          name: config
+          readOnly: true
+      serviceAccountName: resilience-middleware
       volumes:
-      - name: config
-        configMap:
+      - configMap:
           name: resilience-policies
-
+        name: config
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/resilience-middleware
+    eco-base/urn: urn:eco-base:k8s:core:service:resilience-middleware:sha256-47d7b5d637dfa2e12e8dea80a8ebe83db4286bbda6bd7bd30e62f1180cd75f8c
+    prometheus.io/path: /stats/prometheus
+    prometheus.io/port: '15020'
+    prometheus.io/scrape: 'true'
+  labels:
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: resilience-middleware
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
+    environment: production
   name: resilience-middleware
   namespace: production
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: resilience-middleware
-    environment: production
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "15020"
-    prometheus.io/path: "/stats/prometheus"
 spec:
   ports:
   - name: http
     port: 8001
-    targetPort: http
     protocol: TCP
+    targetPort: http
   selector:
     app.kubernetes.io/name: resilience-middleware
     environment: production
   sessionAffinity: ClientIP
-
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: resilience-middleware-hpa
-  namespace: production
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: resilience-middleware
+  behavior:
+    scaleDown:
+      policies:
+      - periodSeconds: 60
+        type: Percent
+        value: 10
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      policies:
+      - periodSeconds: 60
+        type: Percent
+        value: 50
+      stabilizationWindowSeconds: 0
+  maxReplicas: 5
+  metrics:
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: 70
+        type: Utilization
+    type: Resource
+  - resource:
+      name: memory
+      target:
+        averageUtilization: 80
+        type: Utilization
+    type: Resource
+  minReplicas: 2
+  name: resilience-middleware
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-metadata:
-  name: resilience-middleware
-  minReplicas: 2
-  maxReplicas: 5
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 300
-      policies:
-      - type: Percent
-        value: 10
-        periodSeconds: 60
-    scaleUp:
-      stabilizationWindowSeconds: 0
-      policies:
-      - type: Percent
-        value: 50
-        periodSeconds: 60
-
 ---
 apiVersion: v1
+automountServiceAccountToken: false
 kind: ServiceAccount
 metadata:
   name: resilience-middleware
   namespace: production
-automountServiceAccountToken: false

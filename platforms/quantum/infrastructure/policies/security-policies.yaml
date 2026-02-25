@@ -137,8 +137,8 @@ spec:
           pattern:
             metadata:
               labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+                eco-base/part-of: eco-base
+                eco-base/governance: aligned
                 pod-security.kubernetes.io/enforce: restricted
               annotations:
                 kubernetes.io/metadata.name: ".*"

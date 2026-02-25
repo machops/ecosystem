@@ -139,6 +139,5 @@ metadata:
   name: system-upgrade
 subjects:
   - kind: ServiceAccount
-metadata:
-  name: system-upgrade
+    name: system-upgrade
     namespace: system-upgrade

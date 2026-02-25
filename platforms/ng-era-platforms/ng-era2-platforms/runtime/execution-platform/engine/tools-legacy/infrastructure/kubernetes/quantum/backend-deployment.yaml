@@ -30,8 +30,8 @@ spec:
   template:
     
       labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+        eco-base/part-of: eco-base
+        eco-base/governance: aligned
         app.kubernetes.io/name: quantumflow
         app.kubernetes.io/component: backend
     spec:

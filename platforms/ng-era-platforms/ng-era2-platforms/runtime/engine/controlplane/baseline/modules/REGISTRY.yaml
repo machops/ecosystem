@@ -11,7 +11,7 @@ registry_version: "1.0.0"
 
   labels:
     eco-base/part-of: eco-base
-    eco-base/governance: aligned {}
+    eco-base/governance: aligned
 
 last_updated: "2025-01-18"
 

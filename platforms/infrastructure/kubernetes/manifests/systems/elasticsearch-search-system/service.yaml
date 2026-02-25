@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/elasticsearch-search-service
-    eco-base/urn: urn:eco-base:k8s:core:service:elasticsearch-search-service:sha256-806f61a332d9cb5f9dada76f6bec09076129a35f0b86471e2e4fb6e40ecde70c
+    eco-base/urn: urn:eco-base:k8s:core:service:elasticsearch-search-service:sha256-cd0dda6cc1bf6c4f28bc3e1659e1fdb323ee27daadd403f94905c03847563ba0
   labels:
     app.kubernetes.io/app.kubernetes.io/component: search
     app.kubernetes.io/component: eco-component

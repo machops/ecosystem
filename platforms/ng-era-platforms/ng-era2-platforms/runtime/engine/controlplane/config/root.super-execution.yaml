@@ -1,567 +1,492 @@
-# @ECO-governed
-# @ECO-layer: governance
-# @ECO-semantic: root.super-execution
-# @ECO-audit-trail: ../../engine/governance/GL_SEMANTIC_ANCHOR.json
-# 
-# GL Unified Architecture Governance Framework Activated
-
-# ⚡ Root 超級執行/流程定義配置
-# MachineNativeOps Root Layer Super Execution Configuration
-# Version: 1.0.0
-
+---
 apiVersion: machinenativeops.io/v1
 kind: RootSuperExecutionConfig
 metadata:
+  annotations:
+    machinenativeops.io/description: Root layer super execution and workflow orchestration
+      configuration
+    machinenativeops.io/last-modified: '2025-12-20T22:00:00Z'
+  labels:
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
+    machinenativeops.io/component: super-execution
+    machinenativeops.io/tier: execution
+    machinenativeops.io/version: v1.0.0
   name: super-execution-config
   namespace: machinenativenops-execution
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    machinenativeops.io/tier: "execution"
-    machinenativeops.io/version: "v1.0.0"
-    machinenativeops.io/component: "super-execution"
-  annotations:
-    machinenativeops.io/description: "Root layer super execution and workflow orchestration configuration"
-    machinenativeops.io/last-modified: "2025-12-20T22:00:00Z"
-
 spec:
-  # === 執行流程定義 ===
   execution_flows:
-    - name: "system-bootstrap-flow"
-      description: "System bootstrap and initialization flow"
-      version: "1.0.0"
-      enabled: true
-      criticality: "critical"
-      triggers:
-        - type: "system_startup"
-          condition: "system.state = 'starting'"
-        - type: "manual"
-          condition: "user.role in ['system-administrator', 'operator'] AND manual_trigger = true"
-      steps:
-        - name: "validate_environment"
-          module: "config-manager"
-          action: "validate_configuration"
-          timeout: "60s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "exponential"
-            initial_delay: "5s"
-          on_failure: "abort_flow"
-          
-        - name: "initialize_logging"
-          module: "logging-service"
-          action: "initialize"
-          timeout: "30s"
-          retry_policy:
-            max_attempts: 2
-            backoff: "fixed"
-            delay: "10s"
-          on_failure: "continue_with_warning"
-          
-        - name: "setup_trust_chain"
-          module: "trust-manager"
-          action: "initialize_trust"
-          timeout: "120s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "exponential"
-            initial_delay: "10s"
-          on_failure: "abort_flow"
-          
-        - name: "load_governance_policies"
-          module: "governance-engine"
-          action: "load_policies"
-          timeout: "90s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "exponential"
-            initial_delay: "5s"
-          on_failure: "abort_flow"
-          
-        - name: "register_modules"
-          module: "super-execution-engine"
-          action: "register_all_modules"
-          timeout: "180s"
-          retry_policy:
-            max_attempts: 2
-            backoff: "fixed"
-            delay: "15s"
-          on_failure: "continue_with_partial"
-          
-        - name: "initialize_provenance"
-          module: "provenance-tracker"
-          action: "initialize_tracking"
-          timeout: "60s"
-          retry_policy:
-            max_attempts: 2
-            backoff: "fixed"
-            delay: "10s"
-          on_failure: "continue_with_warning"
-          
-        - name: "validate_integrity"
-          module: "integrity-validator"
-          action: "baseline_validation"
-          timeout: "300s"
-          retry_policy:
-            max_attempts: 1
-            backoff: "none"
-          on_failure: "create_incident"
-          
-      success_actions:
-        - type: "notification"
-          target: "system-administrator"
-          message: "System bootstrap completed successfully"
-        - type: "log_event"
-          level: "INFO"
-          message: "Super execution bootstrap flow completed"
-          
-      failure_actions:
-        - type: "notification"
-          target: "system-administrator"
-          message: "System bootstrap failed - immediate attention required"
-          priority: "high"
-        - type: "create_incident"
-          severity: "critical"
-          title: "System Bootstrap Failure"
-        - type: "rollback"
-          target: "previous_stable_state"
-
-    - name: "security-incident-response-flow"
-      description: "Automated security incident response workflow"
-      version: "1.0.0"
-      enabled: true
-      criticality: "critical"
-      triggers:
-        - type: "security_event"
-          condition: "security.severity >= 'high' AND security.confirmed = true"
-        - type: "manual"
-          condition: "user.role in ['security-administrator', 'system-administrator'] AND incident_declared = true"
-      steps:
-        - name: "assess_incident"
-          module: "trust-manager"
-          action: "assess_security_incident"
-          timeout: "300s"
-          retry_policy:
-            max_attempts: 1
-            backoff: "none"
-          on_failure: "escalate_to_human"
-          
-        - name: "contain_threat"
-          module: "governance-engine"
-          action: "apply_containment_policy"
-          timeout: "60s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "fixed"
-            delay: "5s"
-          on_failure: "emergency_shutdown"
-          
-        - name: "isolate_affected_systems"
-          module: "super-execution-engine"
-          action: "isolate_modules"
-          parameters:
-            modules: "{{ incident.affected_modules }}"
-            isolation_level: "quarantine"
-          timeout: "120s"
-          retry_policy:
-            max_attempts: 2
-            backoff: "fixed"
-            delay: "10s"
-          on_failure: "full_isolation"
-          
-        - name: "create_evidence_snapshot"
-          module: "provenance-tracker"
-          action: "create_snapshot"
-          parameters:
-            snapshot_type: "forensic"
-            include_memory: true
-            include_logs: true
-          timeout: "180s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "exponential"
-            initial_delay: "10s"
-          on_failure: "partial_snapshot"
-          
-        - name: "notify_stakeholders"
-          module: "notification-service"
-          action: "send_security_alert"
-          parameters:
-            recipients: "{{ incident.stakeholders }}"
-            severity: "{{ incident.severity }}"
-            details: "{{ incident.summary }}"
-          timeout: "60s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "exponential"
-            initial_delay: "5s"
-          on_failure: "emergency_broadcast"
-          
-      success_actions:
-        - type: "update_incident_status"
-          status: "contained"
-        - type: "schedule_followup"
-          interval: "1h"
-          
-      failure_actions:
-        - type: "emergency_shutdown"
-          scope: "affected_modules"
-        - type: "escalate_to_executive"
-        - type: "activate_disaster_recovery"
-
-    - name: "configuration-update-flow"
-      description: "Configuration change deployment workflow"
-      version: "1.0.0"
-      enabled: true
-      criticality: "high"
-      triggers:
-        - type: "configuration_change"
-          condition: "config.change_approved = true AND config.environment in ['staging', 'production']"
-        - type: "scheduled"
-          condition: "schedule.maintenance_window = true AND schedule.config_pending = true"
-      steps:
-        - name: "validate_configuration"
-          module: "config-manager"
-          action: "validate_configuration_change"
-          parameters:
-            config_file: "{{ change.config_file }}"
-            schema_file: "{{ change.schema_file }}"
-          timeout: "120s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "exponential"
-            initial_delay: "5s"
-          on_failure: "reject_change"
-          
-        - name: "backup_current_config"
-          module: "storage-backend"
-          action: "create_backup"
-          parameters:
-            source: "/etc/machinenativenops/config"
-            destination: "{{ backup.destination }}"
-            compression: true
-          timeout: "300s"
-          retry_policy:
-            max_attempts: 2
-            backoff: "fixed"
-            delay: "15s"
-          on_failure: "abort_change"
-          
-        - name: "apply_configuration"
-          module: "config-manager"
-          action: "apply_configuration_change"
-          parameters:
-            config_file: "{{ change.config_file }}"
-            rollout_strategy: "canary"
-            canary_percentage: 10
-          timeout: "600s"
-          retry_policy:
-            max_attempts: 1
-            backoff: "none"
-          on_failure: "rollback_to_backup"
-          
-        - name: "validate_deployment"
-          module: "integrity-validator"
-          action: "validate_configuration_deployment"
-          parameters:
-            validation_level: "comprehensive"
-            health_check_timeout: "300s"
-          timeout: "600s"
-          retry_policy:
-            max_attempts: 3
-            backoff: "exponential"
-            initial_delay: "30s"
-          on_failure: "rollback_and_investigate"
-          
-        - name: "update_provenance"
-          module: "provenance-tracker"
-          action: "record_configuration_change"
-          parameters:
-            change_id: "{{ change.id }}"
-            approver: "{{ change.approver }}"
-            timestamp: "{{ change.timestamp }}"
-            rollback_available: true
-          timeout: "60s"
-          retry_policy:
-            max_attempts: 2
-            backoff: "fixed"
-            delay: "5s"
-          on_failure: "async_update"
-          
-      success_actions:
-        - type: "notification"
-          target: "change.requester"
-          message: "Configuration update completed successfully"
-        - type: "update_change_status"
-          status: "completed"
-          
-      failure_actions:
-        - type: "notification"
-          target: "change.requester"
-          message: "Configuration update failed - rollback initiated"
-          priority: "high"
-        - type: "update_change_status"
-          status: "failed"
-
-  # === 觸發器定義 ===
-  triggers:
-    - name: "system_startup"
-      type: "event"
-      description: "Triggered when system starts up"
-      event_source: "system_monitor"
-      event_type: "system.start"
-      filters:
-        - "system.state = 'starting'"
-        - "system.environment != 'test'"
-        
-    - name: "security_event"
-      type: "event"
-      description: "Triggered by security events"
-      event_source: "security_monitor"
-      event_type: "security.incident"
-      filters:
-        - "security.severity in ['medium', 'high', 'critical']"
-        - "security.verified = true"
-        
-    - name: "configuration_change"
-      type: "event"
-      description: "Triggered by approved configuration changes"
-      event_source: "config_manager"
-      event_type: "config.change_approved"
-      filters:
-        - "config.environment in ['staging', 'production']"
-        - "config.risk_level in ['low', 'medium']"
-        
-    - name: "scheduled"
-      type: "time"
-      description: "Time-based triggers"
-      schedule_format: "cron"
-      examples:
-        - "0 2 * * *"  # Daily at 2 AM
-        - "0 0 * * 0"  # Weekly on Sunday
-        - "0 0 1 * *"  # Monthly on 1st
-
-  # === 故障處理器 ===
-  fallback_handlers:
-    - name: "emergency_shutdown"
-      description: "Emergency system shutdown"
-      module: "super-execution-engine"
-      action: "emergency_shutdown"
+  - criticality: critical
+    description: System bootstrap and initialization flow
+    enabled: true
+    failure_actions:
+    - message: System bootstrap failed - immediate attention required
+      priority: high
+      target: system-administrator
+      type: notification
+    - severity: critical
+      title: System Bootstrap Failure
+      type: create_incident
+    - target: previous_stable_state
+      type: rollback
+    name: system-bootstrap-flow
+    steps:
+    - action: validate_configuration
+      module: config-manager
+      name: validate_environment
+      on_failure: abort_flow
+      retry_policy:
+        backoff: exponential
+        initial_delay: 5s
+        max_attempts: 3
+      timeout: 60s
+    - action: initialize
+      module: logging-service
+      name: initialize_logging
+      on_failure: continue_with_warning
+      retry_policy:
+        backoff: fixed
+        delay: 10s
+        max_attempts: 2
+      timeout: 30s
+    - action: initialize_trust
+      module: trust-manager
+      name: setup_trust_chain
+      on_failure: abort_flow
+      retry_policy:
+        backoff: exponential
+        initial_delay: 10s
+        max_attempts: 3
+      timeout: 120s
+    - action: load_policies
+      module: governance-engine
+      name: load_governance_policies
+      on_failure: abort_flow
+      retry_policy:
+        backoff: exponential
+        initial_delay: 5s
+        max_attempts: 3
+      timeout: 90s
+    - action: register_all_modules
+      module: super-execution-engine
+      name: register_modules
+      on_failure: continue_with_partial
+      retry_policy:
+        backoff: fixed
+        delay: 15s
+        max_attempts: 2
+      timeout: 180s
+    - action: initialize_tracking
+      module: provenance-tracker
+      name: initialize_provenance
+      on_failure: continue_with_warning
+      retry_policy:
+        backoff: fixed
+        delay: 10s
+        max_attempts: 2
+      timeout: 60s
+    - action: baseline_validation
+      module: integrity-validator
+      name: validate_integrity
+      on_failure: create_incident
+      retry_policy:
+        backoff: none
+        max_attempts: 1
+      timeout: 300s
+    success_actions:
+    - message: System bootstrap completed successfully
+      target: system-administrator
+      type: notification
+    - level: INFO
+      message: Super execution bootstrap flow completed
+      type: log_event
+    triggers:
+    - condition: system.state = 'starting'
+      type: system_startup
+    - condition: user.role in ['system-administrator', 'operator'] AND manual_trigger
+        = true
+      type: manual
+    version: 1.0.0
+  - criticality: critical
+    description: Automated security incident response workflow
+    enabled: true
+    failure_actions:
+    - scope: affected_modules
+      type: emergency_shutdown
+    - type: escalate_to_executive
+    - type: activate_disaster_recovery
+    name: security-incident-response-flow
+    steps:
+    - action: assess_security_incident
+      module: trust-manager
+      name: assess_incident
+      on_failure: escalate_to_human
+      retry_policy:
+        backoff: none
+        max_attempts: 1
+      timeout: 300s
+    - action: apply_containment_policy
+      module: governance-engine
+      name: contain_threat
+      on_failure: emergency_shutdown
+      retry_policy:
+        backoff: fixed
+        delay: 5s
+        max_attempts: 3
+      timeout: 60s
+    - action: isolate_modules
+      module: super-execution-engine
+      name: isolate_affected_systems
+      on_failure: full_isolation
       parameters:
-        shutdown_timeout: "30s"
-        preserve_critical_data: true
-        notify_administrators: true
-      conditions:
-        - "system.critical_failure = true"
-        - "safety.threat_detected = true"
-        
-    - name: "rollback_to_backup"
-      description: "Rollback to last known good configuration"
-      module: "config-manager"
-      action: "rollback_configuration"
+        isolation_level: quarantine
+        modules: '{{ incident.affected_modules }}'
+      retry_policy:
+        backoff: fixed
+        delay: 10s
+        max_attempts: 2
+      timeout: 120s
+    - action: create_snapshot
+      module: provenance-tracker
+      name: create_evidence_snapshot
+      on_failure: partial_snapshot
       parameters:
-        backup_source: "last_known_good"
-        validate_after_rollback: true
-        notify_on_failure: true
-      conditions:
-        - "config.deployment_failed = true"
-        - "backup.available = true"
-        
-    - name: "isolate_affected_systems"
-      description: "Isolate affected modules to prevent spread"
-      module: "super-execution-engine"
-      action: "isolate_modules"
+        include_logs: true
+        include_memory: true
+        snapshot_type: forensic
+      retry_policy:
+        backoff: exponential
+        initial_delay: 10s
+        max_attempts: 3
+      timeout: 180s
+    - action: send_security_alert
+      module: notification-service
+      name: notify_stakeholders
+      on_failure: emergency_broadcast
       parameters:
-        isolation_mode: "quarantine"
-        preserve_state: true
-        allow_monitoring: true
-      conditions:
-        - "security.breach_detected = true"
-        - "system.stability_compromised = true"
-        
-    - name: "activate_disaster_recovery"
-      description: "Activate disaster recovery procedures"
-      module: "disaster-recovery"
-      action: "activate_recovery_plan"
+        details: '{{ incident.summary }}'
+        recipients: '{{ incident.stakeholders }}'
+        severity: '{{ incident.severity }}'
+      retry_policy:
+        backoff: exponential
+        initial_delay: 5s
+        max_attempts: 3
+      timeout: 60s
+    success_actions:
+    - status: contained
+      type: update_incident_status
+    - interval: 1h
+      type: schedule_followup
+    triggers:
+    - condition: security.severity >= 'high' AND security.confirmed = true
+      type: security_event
+    - condition: user.role in ['security-administrator', 'system-administrator'] AND
+        incident_declared = true
+      type: manual
+    version: 1.0.0
+  - criticality: high
+    description: Configuration change deployment workflow
+    enabled: true
+    failure_actions:
+    - message: Configuration update failed - rollback initiated
+      priority: high
+      target: change.requester
+      type: notification
+    - status: failed
+      type: update_change_status
+    name: configuration-update-flow
+    steps:
+    - action: validate_configuration_change
+      module: config-manager
+      name: validate_configuration
+      on_failure: reject_change
       parameters:
-        recovery_type: "full"
-        prioritize_critical_services: true
-        estimated_recovery_time: "4h"
-      conditions:
-        - "system.catastrophic_failure = true"
-        - "multiple_critical_modules_failed = true"
-
-  # === 執行策略 ===
+        config_file: '{{ change.config_file }}'
+        schema_file: '{{ change.schema_file }}'
+      retry_policy:
+        backoff: exponential
+        initial_delay: 5s
+        max_attempts: 3
+      timeout: 120s
+    - action: create_backup
+      module: storage-backend
+      name: backup_current_config
+      on_failure: abort_change
+      parameters:
+        compression: true
+        destination: '{{ backup.destination }}'
+        source: /etc/machinenativenops/config
+      retry_policy:
+        backoff: fixed
+        delay: 15s
+        max_attempts: 2
+      timeout: 300s
+    - action: apply_configuration_change
+      module: config-manager
+      name: apply_configuration
+      on_failure: rollback_to_backup
+      parameters:
+        canary_percentage: 10
+        config_file: '{{ change.config_file }}'
+        rollout_strategy: canary
+      retry_policy:
+        backoff: none
+        max_attempts: 1
+      timeout: 600s
+    - action: validate_configuration_deployment
+      module: integrity-validator
+      name: validate_deployment
+      on_failure: rollback_and_investigate
+      parameters:
+        health_check_timeout: 300s
+        validation_level: comprehensive
+      retry_policy:
+        backoff: exponential
+        initial_delay: 30s
+        max_attempts: 3
+      timeout: 600s
+    - action: record_configuration_change
+      module: provenance-tracker
+      name: update_provenance
+      on_failure: async_update
+      parameters:
+        approver: '{{ change.approver }}'
+        change_id: '{{ change.id }}'
+        rollback_available: true
+        timestamp: '{{ change.timestamp }}'
+      retry_policy:
+        backoff: fixed
+        delay: 5s
+        max_attempts: 2
+      timeout: 60s
+    success_actions:
+    - message: Configuration update completed successfully
+      target: change.requester
+      type: notification
+    - status: completed
+      type: update_change_status
+    triggers:
+    - condition: config.change_approved = true AND config.environment in ['staging',
+        'production']
+      type: configuration_change
+    - condition: schedule.maintenance_window = true AND schedule.config_pending =
+        true
+      type: scheduled
+    version: 1.0.0
   execution_strategies:
-    - name: "sequential_execution"
-      description: "Execute steps one after another"
-      parallelism: 1
-      failure_strategy: "stop_on_first_failure"
-      timeout_strategy: "per_step_timeout"
-      
-    - name: "parallel_execution"
-      description: "Execute steps in parallel where possible"
-      parallelism: "unlimited"
-      failure_strategy: "continue_on_failure"
-      timeout_strategy: "overall_timeout"
-      dependencies: "respect_step_dependencies"
-      
-    - name: "pipeline_execution"
-      description: "Execute as a pipeline with stages"
-      parallelism: "per_stage"
-      failure_strategy: "stop_stage_on_failure"
-      timeout_strategy: "stage_timeout"
-      stage_gates: true
-
-  # === 資源管理 ===
-  resource_management:
-    cpu_limits:
-      default: "1000m"
-      critical_flows: "2000m"
-      background_flows: "200m"
-    memory_limits:
-      default: "1Gi"
-      critical_flows: "2Gi"
-      background_flows: "256Mi"
-    concurrency_limits:
-      total_concurrent_flows: 50
-      critical_concurrent_flows: 5
-      user_concurrent_flows: 3
-    queue_management:
-      max_queue_size: 1000
-      queue_timeout: "1h"
-      priority_levels: ["critical", "high", "medium", "low"]
-
-  # === 監控與可觀測性 ===
+  - description: Execute steps one after another
+    failure_strategy: stop_on_first_failure
+    name: sequential_execution
+    parallelism: 1
+    timeout_strategy: per_step_timeout
+  - dependencies: respect_step_dependencies
+    description: Execute steps in parallel where possible
+    failure_strategy: continue_on_failure
+    name: parallel_execution
+    parallelism: unlimited
+    timeout_strategy: overall_timeout
+  - description: Execute as a pipeline with stages
+    failure_strategy: stop_stage_on_failure
+    name: pipeline_execution
+    parallelism: per_stage
+    stage_gates: true
+    timeout_strategy: stage_timeout
+  fallback_handlers:
+  - action: emergency_shutdown
+    conditions:
+    - system.critical_failure = true
+    - safety.threat_detected = true
+    description: Emergency system shutdown
+    module: super-execution-engine
+    name: emergency_shutdown
+    parameters:
+      notify_administrators: true
+      preserve_critical_data: true
+      shutdown_timeout: 30s
+  - action: rollback_configuration
+    conditions:
+    - config.deployment_failed = true
+    - backup.available = true
+    description: Rollback to last known good configuration
+    module: config-manager
+    name: rollback_to_backup
+    parameters:
+      backup_source: last_known_good
+      notify_on_failure: true
+      validate_after_rollback: true
+  - action: isolate_modules
+    conditions:
+    - security.breach_detected = true
+    - system.stability_compromised = true
+    description: Isolate affected modules to prevent spread
+    module: super-execution-engine
+    name: isolate_affected_systems
+    parameters:
+      allow_monitoring: true
+      isolation_mode: quarantine
+      preserve_state: true
+  - action: activate_recovery_plan
+    conditions:
+    - system.catastrophic_failure = true
+    - multiple_critical_modules_failed = true
+    description: Activate disaster recovery procedures
+    module: disaster-recovery
+    name: activate_disaster_recovery
+    parameters:
+      estimated_recovery_time: 4h
+      prioritize_critical_services: true
+      recovery_type: full
   observability:
+    logging:
+      level: INFO
+      log_fields:
+      - flow_id
+      - flow_name
+      - step_name
+      - execution_id
+      - user_id
+      - status
+      - duration
+      - error_message
+      structured_logging: true
     metrics:
-      - name: "flow_execution_duration"
-        type: "histogram"
-        description: "Time taken to execute flows"
-        labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned ["flow_name", "status"]
-      - name: "flow_success_rate"
-        type: "gauge"
-        description: "Success rate of flow executions"
-        labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned ["flow_name"]
-      - name: "active_flows_count"
-        type: "gauge"
-        description: "Number of currently active flows"
-      - name: "flow_queue_size"
-        type: "gauge"
-        description: "Number of flows waiting in queue"
-        
+    - description: Time taken to execute flows
+      labels:
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
+      name: flow_execution_duration
+      type: histogram
+    - description: Success rate of flow executions
+      labels:
+        eco-base/governance: aligned
+        eco-base/part-of: eco-base
+      name: flow_success_rate
+      type: gauge
+    - description: Number of currently active flows
+      name: active_flows_count
+      type: gauge
+    - description: Number of flows waiting in queue
+      name: flow_queue_size
+      type: gauge
     tracing:
       enabled: true
       sampling_rate: 0.1
       span_attributes:
-        - "flow.name"
-        - "flow.version"
-        - "flow.step"
-        - "flow.status"
-        - "flow.trigger"
-        
-    logging:
-      level: "INFO"
-      structured_logging: true
-      log_fields:
-        - "flow_id"
-        - "flow_name"
-        - "step_name"
-        - "execution_id"
-        - "user_id"
-        - "status"
-        - "duration"
-        - "error_message"
-
+      - flow.name
+      - flow.version
+      - flow.step
+      - flow.status
+      - flow.trigger
+  resource_management:
+    concurrency_limits:
+      critical_concurrent_flows: 5
+      total_concurrent_flows: 50
+      user_concurrent_flows: 3
+    cpu_limits:
+      background_flows: 200m
+      critical_flows: 2000m
+      default: 1000m
+    memory_limits:
+      background_flows: 256Mi
+      critical_flows: 2Gi
+      default: 1Gi
+    queue_management:
+      max_queue_size: 1000
+      priority_levels:
+      - critical
+      - high
+      - medium
+      - low
+      queue_timeout: 1h
+  triggers:
+  - description: Triggered when system starts up
+    event_source: system_monitor
+    event_type: system.start
+    filters:
+    - system.state = 'starting'
+    - system.environment != 'test'
+    name: system_startup
+    type: event
+  - description: Triggered by security events
+    event_source: security_monitor
+    event_type: security.incident
+    filters:
+    - security.severity in ['medium', 'high', 'critical']
+    - security.verified = true
+    name: security_event
+    type: event
+  - description: Triggered by approved configuration changes
+    event_source: config_manager
+    event_type: config.change_approved
+    filters:
+    - config.environment in ['staging', 'production']
+    - config.risk_level in ['low', 'medium']
+    name: configuration_change
+    type: event
+  - description: Time-based triggers
+    examples:
+    - 0 2 * * *
+    - 0 0 * * 0
+    - 0 0 1 * *
+    name: scheduled
+    schedule_format: cron
+    type: time
 status:
-  phase: "Active"
   conditions:
-    - type: "ExecutionFlowsConfigured"
-      status: "True"
-      lastTransitionTime: "2025-12-20T22:00:00Z"
-      reason: "FlowsConfigured"
-      message: "All execution flows configured successfully"
-    - type: "TriggersEnabled"
-      status: "True"
-      lastTransitionTime: "2025-12-20T22:00:00Z"
-      reason: "TriggersActive"
-      message: "All triggers are enabled and monitoring"
-    - type: "FallbackHandlersReady"
-      status: "True"
-      lastTransitionTime: "2025-12-20T22:00:00Z"
-      reason: "HandlersConfigured"
-      message: "Fallback handlers configured and ready"
-
+  - lastTransitionTime: '2025-12-20T22:00:00Z'
+    message: All execution flows configured successfully
+    reason: FlowsConfigured
+    status: 'True'
+    type: ExecutionFlowsConfigured
+  - lastTransitionTime: '2025-12-20T22:00:00Z'
+    message: All triggers are enabled and monitoring
+    reason: TriggersActive
+    status: 'True'
+    type: TriggersEnabled
+  - lastTransitionTime: '2025-12-20T22:00:00Z'
+    message: Fallback handlers configured and ready
+    reason: HandlersConfigured
+    status: 'True'
+    type: FallbackHandlersReady
+  phase: Active
 ---
-# Super Execution Schema 定義
 apiVersion: v1
+data:
+  schema.yaml: "# Root Super Execution Configuration Schema\ntype: object\nproperties:\n\
+    \  execution_flows:\n    type: array\n    items:\n      type: object\n      properties:\n\
+    \        name:\n          type: string\n        description:\n          type:\
+    \ string\n        version:\n          type: string\n        enabled:\n       \
+    \   type: boolean\n        criticality:\n          type: string\n          enum:\
+    \ [\"critical\", \"high\", \"medium\", \"low\"]\n        triggers:\n         \
+    \ type: array\n        steps:\n          type: array\n        success_actions:\n\
+    \          type: array\n        failure_actions:\n          type: array\n    \
+    \  required: [\"name\", \"description\", \"version\", \"enabled\", \"criticality\"\
+    , \"triggers\", \"steps\"]\n  triggers:\n    type: array\n    items:\n      type:\
+    \ object\n      properties:\n        name:\n          type: string\n        type:\n\
+    \          type: string\n          enum: [\"event\", \"time\", \"manual\"]\n \
+    \       description:\n          type: string\n      required: [\"name\", \"type\"\
+    , \"description\"]\n  fallback_handlers:\n    type: array\n    items:\n      type:\
+    \ object\n      properties:\n        name:\n          type: string\n        description:\n\
+    \          type: string\n        module:\n          type: string\n        action:\n\
+    \          type: string\n        parameters:\n          type: object\n       \
+    \ conditions:\n          type: array\n      required: [\"name\", \"description\"\
+    , \"module\", \"action\", \"conditions\"]\nrequired: [\"execution_flows\", \"\
+    triggers\", \"fallback_handlers\"]"
 kind: ConfigMap
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/configmap/super-execution-schema
+    eco-base/urn: urn:eco-base:k8s:core:configmap:super-execution-schema:sha256-80136086ba1e5beb8756740dde3377f358df51195e7400b401db0526747a8866
+  labels:
+    app.kubernetes.io/component: eco-component
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: super-execution-schema
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/owner: eco-system
+    eco-base/platform: core
   name: super-execution-schema
   namespace: machinenativenops-execution
-data:
-  schema.yaml: |
-    # Root Super Execution Configuration Schema
-    type: object
-    properties:
-      execution_flows:
-        type: array
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            version:
-              type: string
-            enabled:
-              type: boolean
-            criticality:
-              type: string
-              enum: ["critical", "high", "medium", "low"]
-            triggers:
-              type: array
-            steps:
-              type: array
-            success_actions:
-              type: array
-            failure_actions:
-              type: array
-          required: ["name", "description", "version", "enabled", "criticality", "triggers", "steps"]
-      triggers:
-        type: array
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              type: string
-              enum: ["event", "time", "manual"]
-            description:
-              type: string
-          required: ["name", "type", "description"]
-      fallback_handlers:
-        type: array
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            module:
-              type: string
-            action:
-              type: string
-            parameters:
-              type: object
-            conditions:
-              type: array
-          required: ["name", "description", "module", "action", "conditions"]
-    required: ["execution_flows", "triggers", "fallback_handlers"]

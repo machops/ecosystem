@@ -56,7 +56,7 @@ properties:
 
   labels:
     eco-base/part-of: eco-base
-    eco-base/governance: aligned {}
+    eco-base/governance: aligned
 
     type: string
     description: "Version identifier"

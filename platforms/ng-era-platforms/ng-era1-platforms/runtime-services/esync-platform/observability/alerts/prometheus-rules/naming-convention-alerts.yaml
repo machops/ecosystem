@@ -32,8 +32,8 @@ spec:
             ) > 0.1
           for: 10m
           labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+            eco-base/part-of: eco-base
+            eco-base/governance: aligned
             severity: warning
             team: platform
           annotations:
@@ -45,8 +45,8 @@ spec:
             sum(increase(naming_violations_total{severity="critical"}[15m])) > 5
           for: 5m
           labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+            eco-base/part-of: eco-base
+            eco-base/governance: aligned
             severity: critical
             team: platform
           annotations:
@@ -62,8 +62,8 @@ spec:
             ) < 0.95
           for: 30m
           labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+            eco-base/part-of: eco-base
+            eco-base/governance: aligned
             severity: warning
             team: governance
           annotations:
@@ -79,8 +79,8 @@ spec:
             ) > 0.2
           for: 15m
           labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+            eco-base/part-of: eco-base
+            eco-base/governance: aligned
             severity: warning
             team: platform
           annotations:

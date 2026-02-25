@@ -15,7 +15,7 @@ governance:
 
   labels:
     eco-base/part-of: eco-base
-    eco-base/governance: aligned {}
+    eco-base/governance: aligned
 
   last_updated: "2025-01-18"
   status: "active"

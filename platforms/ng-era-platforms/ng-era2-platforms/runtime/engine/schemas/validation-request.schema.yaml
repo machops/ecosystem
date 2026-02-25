@@ -10,7 +10,7 @@ version: "1.0.0"
 
   labels:
     eco-base/part-of: eco-base
-    eco-base/governance: aligned {}
+    eco-base/governance: aligned
 
 $schema: "http://json-schema.org/draft-07/schema#"
 title: "Naming Validation Request"

@@ -24,7 +24,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/quantumflow-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:quantumflow-config:sha256-ce7fd10967d9d943f8aecaf29dc8172f68bb04a90ff075345c5425a599e77893
+    eco-base/urn: urn:eco-base:k8s:core:configmap:quantumflow-config:sha256-a89ed0d15990563fccc4fd78b28a312592cf0e43ac18fedd2d06ab038db304ad
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

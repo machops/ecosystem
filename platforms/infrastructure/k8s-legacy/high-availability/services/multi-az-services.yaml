@@ -1,298 +1,337 @@
-# @ECO-governed
-# @ECO-layer: infrastructure
-# @ECO-semantic: multi-az-services
-# @ECO-audit-trail: ../../engine/governance/GL_SEMANTIC_ANCHOR.json
-# 
-# GL Unified Architecture Governance Framework Activated
-
+--- null
 ---
-# Multi-AZ Services
-# Enterprise-grade multi-availability zone service configuration
-
----
-# Main Application Service
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/machine-native-ops
+    eco-base/urn: urn:eco-base:k8s:core:service:machine-native-ops:sha256-376797a973deaa454a431e8e60d5e9692f53b9187d8f627af9dca32271987b08
+    prometheus.io/port: '9090'
+    prometheus.io/scrape: 'true'
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: '2'
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval-seconds: '30'
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /health
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout-seconds: '5'
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: '3'
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  labels:
+    app.kubernetes.io/component: application
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: machine-native-ops
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: machine-native-ops
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops
-    app.kubernetes.io/component: application
-  annotations:
-    # AWS NLB annotations
-    service.beta.kubernetes.io/aws-load-balancer-type: nlb
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /health
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval-seconds: "30"
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout-seconds: "5"
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: "2"
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
-    # Health check annotations
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "9090"
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local  # Preserve client IP
-  sessionAffinity: ClientIP
-  sessionAffinityConfig:
-    clientIP:
-      timeoutSeconds: 10800  # 3 hours
-  selector:
-    app.kubernetes.io/name: machine-native-ops
+  externalTrafficPolicy: Local
   ports:
   - name: http
     port: 80
-    targetPort: 8080
     protocol: TCP
+    targetPort: 8080
   - name: https
     port: 443
-    targetPort: 8080
     protocol: TCP
+    targetPort: 8080
   - name: metrics
     port: 9090
-    targetPort: 9090
     protocol: TCP
+    targetPort: 9090
+  selector:
+    app.kubernetes.io/name: machine-native-ops
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  type: LoadBalancer
 ---
-# API Service
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/machine-native-ops-api
+    eco-base/urn: urn:eco-base:k8s:core:service:machine-native-ops-api:sha256-11da0696acaefa96e97329bf33a229444bd39c27994c99b011f988d45eeb94b0
+    prometheus.io/port: '9090'
+    prometheus.io/scrape: 'true'
+  labels:
+    app.kubernetes.io/component: api
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: machine-native-ops-api
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: machine-native-ops-api
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops-api
-    app.kubernetes.io/component: api
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "9090"
 spec:
-  type: ClusterIP
-  selector:
-    app.kubernetes.io/name: machine-native-ops-api
   ports:
   - name: http
     port: 8080
-    targetPort: 8080
     protocol: TCP
+    targetPort: 8080
   - name: metrics
     port: 9090
-    targetPort: 9090
     protocol: TCP
+    targetPort: 9090
+  selector:
+    app.kubernetes.io/name: machine-native-ops-api
+  type: ClusterIP
 ---
-# Worker Service (Headless for direct pod communication)
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/machine-native-ops-worker
+    eco-base/urn: urn:eco-base:k8s:core:service:machine-native-ops-worker:sha256-edad0b9abe0f08069df5a3102dfc464e7a8537610d3ff8f6cc3131f02b3ea5f5
+  labels:
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: machine-native-ops-worker
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: machine-native-ops-worker
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops-worker
-    app.kubernetes.io/component: worker
 spec:
-  type: ClusterIP
-  clusterIP: None  # Headless service
-  selector:
-    app.kubernetes.io/name: machine-native-ops-worker
+  clusterIP: None
   ports:
   - name: metrics
     port: 9090
-    targetPort: 9090
     protocol: TCP
+    targetPort: 9090
+  selector:
+    app.kubernetes.io/name: machine-native-ops-worker
+  type: ClusterIP
 ---
-# Redis Cluster Service
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/redis-cluster
+    eco-base/urn: urn:eco-base:k8s:core:service:redis-cluster:sha256-089470f0056bc756151ff59dbf40525e57a5406d6c9c660bb43d9e96ec7a6df3
+  labels:
+    app.kubernetes.io/component: cache
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: redis-cluster
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: redis-cluster
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: redis-cluster
-    app.kubernetes.io/component: cache
 spec:
-  type: ClusterIP
-  selector:
-    app.kubernetes.io/name: rediscluster
   ports:
   - name: redis
     port: 6379
-    targetPort: 6379
     protocol: TCP
+    targetPort: 6379
   - name: metrics
     port: 9121
-    targetPort: 9121
     protocol: TCP
+    targetPort: 9121
+  selector:
+    app.kubernetes.io/name: rediscluster
+  type: ClusterIP
 ---
-# PostgreSQL Service
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/postgres
+    eco-base/urn: urn:eco-base:k8s:core:service:postgres:sha256-3e7a93da3fb2009cf37f9fcee21181cff03304f2b49f23f5d28317d5d2b2b20e
+    prometheus.io/port: '9187'
+    prometheus.io/scrape: 'true'
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: postgres
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: postgres
-    app.kubernetes.io/component: database
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "9187"
 spec:
-  type: ClusterIP
-  selector:
-    app.kubernetes.io/name: postgres
   ports:
   - name: postgres
     port: 5432
-    targetPort: 5432
     protocol: TCP
+    targetPort: 5432
   - name: metrics
     port: 9187
-    targetPort: 9187
     protocol: TCP
+    targetPort: 9187
+  selector:
+    app.kubernetes.io/name: postgres
+  type: ClusterIP
 ---
-# Monitoring Service
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    eco-base/audit-log-level: minimal
+    eco-base/governance-policy: standard-v1
+    eco-base/uri: eco-base://k8s/core/service/monitoring
+    eco-base/urn: urn:eco-base:k8s:core:service:monitoring:sha256-c782c32349d2c8a919851a01bc0dfa8cd2267f925338457f0f5399c04f63a312
+  labels:
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/instance: eco-instance
+    app.kubernetes.io/name: monitoring
+    app.kubernetes.io/part-of: eco-base
+    app.kubernetes.io/version: 1.0.0
+    eco-base/environment: development
+    eco-base/governance: aligned
+    eco-base/owner: eco-system
+    eco-base/part-of: eco-base
+    eco-base/platform: core
   name: monitoring
   namespace: monitoring
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: monitoring
-    app.kubernetes.io/component: observability
 spec:
-  type: LoadBalancer
   externalTrafficPolicy: Local
-  selector:
-    app.kubernetes.io/name: prometheus
   ports:
   - name: prometheus
     port: 9090
-    targetPort: 9090
     protocol: TCP
+    targetPort: 9090
   - name: grafana
     port: 3000
-    targetPort: 3000
     protocol: TCP
+    targetPort: 3000
+  selector:
+    app.kubernetes.io/name: prometheus
+  type: LoadBalancer
 ---
-# Service Monitor for Prometheus
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
+  labels:
+    app.kubernetes.io/name: machine-native-ops
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
+    release: prometheus
   name: machine-native-ops
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops
-    release: prometheus
 spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: metrics
+    scheme: http
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops
-  endpoints:
-  - port: metrics
-    interval: 30s
-    path: /metrics
-    scheme: http
 ---
-# Service Monitor for API
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
+  labels:
+    app.kubernetes.io/name: machine-native-ops-api
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
+    release: prometheus
   name: machine-native-ops-api
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops-api
-    release: prometheus
 spec:
+  endpoints:
+  - interval: 15s
+    path: /metrics
+    port: metrics
+    scheme: http
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops-api
-  endpoints:
-  - port: metrics
-    interval: 15s
-    path: /metrics
-    scheme: http
 ---
-# Service Monitor for Worker
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
+  labels:
+    app.kubernetes.io/name: machine-native-ops-worker
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
+    release: prometheus
   name: machine-native-ops-worker
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: machine-native-ops-worker
-    release: prometheus
 spec:
+  endpoints:
+  - interval: 60s
+    path: /metrics
+    port: metrics
+    scheme: http
   selector:
     matchLabels:
       app.kubernetes.io/name: machine-native-ops-worker
-  endpoints:
-  - port: metrics
-    interval: 60s
-    path: /metrics
-    scheme: http
 ---
-# Service Monitor for Redis
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
+  labels:
+    app.kubernetes.io/name: redis-cluster
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
+    release: prometheus
   name: redis-cluster
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: redis-cluster
-    release: prometheus
 spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: metrics
+    scheme: http
   selector:
     matchLabels:
       app.kubernetes.io/name: rediscluster
-  endpoints:
-  - port: metrics
-    interval: 30s
-    path: /metrics
-    scheme: http
 ---
-# Service Monitor for PostgreSQL
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
+  labels:
+    app.kubernetes.io/name: postgres
+    eco-base/governance: aligned
+    eco-base/part-of: eco-base
+    release: prometheus
   name: postgres
   namespace: platform-03
-  labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-    app.kubernetes.io/name: postgres
-    release: prometheus
 spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: metrics
+    scheme: http
   selector:
     matchLabels:
       app.kubernetes.io/name: postgres
-  endpoints:
-  - port: metrics
-    interval: 30s
-    path: /metrics
-    scheme: http
 ---
-# Gateway Service (for external access)
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
@@ -302,54 +341,51 @@ spec:
   selector:
     istio: ingressgateway
   servers:
-  - port:
-      number: 80
+  - hosts:
+    - machine-native-ops.example.com
+    - '*.machine-native-ops.example.com'
+    port:
       name: http
+      number: 80
       protocol: HTTP
-    hosts:
-    - "machine-native-ops.example.com"
-    - "*.machine-native-ops.example.com"
-  - port:
-      number: 443
+  - hosts:
+    - machine-native-ops.example.com
+    - '*.machine-native-ops.example.com'
+    port:
       name: https
+      number: 443
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      serverCertificate: /etc/certs/tls.crt
       privateKey: /etc/certs/tls.key
-    hosts:
-    - "machine-native-ops.example.com"
-    - "*.machine-native-ops.example.com"
+      serverCertificate: /etc/certs/tls.crt
 ---
-# Virtual Service for Routing
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: machine-native-ops-vs
   namespace: platform-03
 spec:
-  hosts:
-  - "machine-native-ops.example.com"
-  - "*.machine-native-ops.example.com"
   gateways:
   - machine-native-ops-gateway
+  hosts:
+  - machine-native-ops.example.com
+  - '*.machine-native-ops.example.com'
   http:
-  # Route to main application
   - match:
     - uri:
         prefix: /
+    retries:
+      attempts: 3
+      perTryTimeout: 10s
+      retryOn: 5xx,connect-failure,refused-stream
     route:
     - destination:
         host: machine-native-ops
         port:
           number: 80
     timeout: 30s
-    retries:
-      attempts: 3
-      perTryTimeout: 10s
-      retryOn: 5xx,connect-failure,refused-stream
 ---
-# Destination Rule for Load Balancing
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
@@ -357,11 +393,28 @@ metadata:
   namespace: platform-03
 spec:
   host: machine-native-ops
+  subsets:
+  - labels:
+      eco-base/governance: aligned
+      eco-base/part-of: eco-base
+      version: v1.0.0
+    name: stable
+  - labels:
+      eco-base/governance: aligned
+      eco-base/part-of: eco-base
+      version: v1.1.0
+    name: canary
   trafficPolicy:
+    connectionPool:
+      http:
+        http1MaxPendingRequests: 50
+        idleTimeout: 300s
+        maxRequestsPerConnection: 3
+      tcp:
+        connectTimeout: 10s
+        maxConnections: 100
     loadBalancer:
-      simple: LEAST_CONN
       localityLbSetting:
-        enabled: true
         distribute:
         - from: us-east-1a/us-east-1a/*
           to:
@@ -370,38 +423,21 @@ spec:
             us-east-1c/us-east-1c/*: 10
         - from: us-east-1b/us-east-1b/*
           to:
+            us-east-1a/us-east-1a/*: 10
             us-east-1b/us-east-1b/*: 80
             us-east-1c/us-east-1c/*: 10
-            us-east-1a/us-east-1a/*: 10
         - from: us-east-1c/us-east-1c/*
           to:
-            us-east-1c/us-east-1c/*: 80
             us-east-1a/us-east-1a/*: 10
             us-east-1b/us-east-1b/*: 10
-    connectionPool:
-      tcp:
-        maxConnections: 100
-        connectTimeout: 10s
-      http:
-        http1MaxPendingRequests: 50
-        maxRequestsPerConnection: 3
-        idleTimeout: 300s
+            us-east-1c/us-east-1c/*: 80
+        enabled: true
+      simple: LEAST_CONN
     outlierDetection:
+      baseEjectionTime: 60s
       consecutive5xxErrors: 3
       interval: 30s
-      baseEjectionTime: 60s
       maxEjectionPercent: 50
       minHealthPercent: 50
     tls:
       mode: ISTIO_MUTUAL
-  subsets:
-  - name: stable
-    labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-      version: v1.0.0
-  - name: canary
-    labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
-      version: v1.1.0

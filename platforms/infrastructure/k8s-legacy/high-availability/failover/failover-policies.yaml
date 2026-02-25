@@ -288,8 +288,8 @@ spec:
   template:
     
       labels:
-    eco-base/part-of: eco-base
-    eco-base/governance: aligned
+        eco-base/part-of: eco-base
+        eco-base/governance: aligned
         app.kubernetes.io/name: zone-failover-controller
         app.kubernetes.io/component: failover
         type: controller

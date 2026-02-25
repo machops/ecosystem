@@ -58,7 +58,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/alertmanager
-    eco-base/urn: urn:eco-base:k8s:core:configmap:alertmanager:sha256-0860e65b4935d208f0d6e17b382e5f6e6efed89b81333bb1b86173e426815cde
+    eco-base/urn: urn:eco-base:k8s:core:configmap:alertmanager:sha256-068a61bdafa19e1e47fa7ec07ac56398e70cccd5ef3e811a50531d46a587bf4c
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -83,7 +83,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/secret/alertmanager-secrets
-    eco-base/urn: urn:eco-base:k8s:core:secret:alertmanager-secrets:sha256-10f0442e2d6a620619ce75f22bdd5fd0acd8b603aa7f16e2220364f25a64552c
+    eco-base/urn: urn:eco-base:k8s:core:secret:alertmanager-secrets:sha256-56195b89e2d36f2cb5c711531c32ab0dc6cdc15e6d8d367049b9b10b96d105c7
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
