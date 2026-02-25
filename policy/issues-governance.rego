@@ -199,7 +199,7 @@ decision := {
     "should_mark_stale": should_mark_stale,
     "should_close_stale": should_close_stale,
     "is_duplicate": is_duplicate,
-    "recommended_labels": recommended_labels,
+    "recommended_labels": labels,
     "requires_human_review": tier3_issue,
 } if {
     tier := tier_value
@@ -208,7 +208,7 @@ decision := {
     should_mark_stale := should_mark_stale_value
     should_close_stale := should_close_stale_value
     is_duplicate := is_duplicate_value
-    recommended_labels := {l | recommended_labels[l]}
+    labels := {l | recommended_labels[l]}
 }
 
 # Helper: compute tier as string

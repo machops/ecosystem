@@ -134,7 +134,7 @@ def gh_api(
         try:
             body = json.dumps(data).encode() if data else None
             req = urllib.request.Request(url, data=body, method=method)
-            req.add_header("Authorization", f"token {TOKEN}")
+            req.add_header("Authorization", f"Bearer {TOKEN}")
             req.add_header("Accept", "application/vnd.github.v3+json")
             req.add_header("Content-Type", "application/json")
             with urllib.request.urlopen(req, timeout=30) as r:
@@ -303,7 +303,7 @@ def analyze_issue(issue: dict) -> IssueAnalysis:
         pr_data = gh_api(f"pulls/{analysis.linked_pr}")
         if pr_data and pr_data.get("state") in ("closed", "merged"):
             analysis.auto_closeable = True
-            pr_state = pr_data.get("merged_at") and "merged" or "closed"
+            pr_state = "merged" if pr_data.get("merged_at") else "closed"
             analysis.close_reason = (
                 f"PR #{analysis.linked_pr} has been {pr_state}. "
                 f"This issue is no longer relevant."
