@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/aep-engine-service
-    eco-base/urn: urn:eco-base:k8s:core:service:aep-engine-service:sha256-a3e26f6671d40b247c62062ac85aee1a5e50cd8166fd3747d5304f415a67d47f
+    eco-base/urn: urn:eco-base:k8s:core:service:aep-engine-service:sha256-76cb9b8ef3e74f7dfe07d0199ba28bcc5d39e06a36b17d5202f08c887821a775
   labels:
     app.kubernetes.io/app.kubernetes.io/component: engine
     app.kubernetes.io/component: eco-component

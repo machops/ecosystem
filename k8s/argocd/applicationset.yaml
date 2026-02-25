@@ -44,11 +44,11 @@ spec:
         helm:
           releaseName: "eco-{{env}}"
           valueFiles:
-      - "{{values_file}}"
+          - "{{values_file}}"
           parameters:
-        - name: global.namespace
+          - name: global.namespace
             value: "{{namespace}}"
-        - name: global.environment
+          - name: global.environment
             value: "{{env}}"
       destination:
         server: "{{cluster}}"
@@ -58,9 +58,9 @@ spec:
           selfHeal: true
           prune: true
         syncOptions:
-      - CreateNamespace=true
-      - PrunePropagationPolicy=foreground
-      - PruneLast=true
+        - CreateNamespace=true
+        - PrunePropagationPolicy=foreground
+        - PruneLast=true
         retry:
           limit: 3
           backoff:

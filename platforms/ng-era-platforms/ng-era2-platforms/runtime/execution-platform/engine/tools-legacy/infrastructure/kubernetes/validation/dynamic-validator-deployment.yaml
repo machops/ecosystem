@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/dynamic-validator-core
-    eco-base/urn: urn:eco-base:k8s:core:deployment:dynamic-validator-core:sha256-86da56235c9c8730a85453cf29c73bca05f584acd49add8cdcb1e7f32191b5ac
+    eco-base/urn: urn:eco-base:k8s:core:deployment:dynamic-validator-core:sha256-f6f599e8125929a7845be2debf49506abf153654fc4e436d8e6a16ea779993dd
   labels:
     app.kubernetes.io/component: dynamic-validator
     app.kubernetes.io/instance: eco-instance
@@ -145,7 +145,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/dynamic-validator-service
-    eco-base/urn: urn:eco-base:k8s:core:service:dynamic-validator-service:sha256-45d2c5855542f7f758abd125187af0cb2237cbd78f8fa24753222bd031411155
+    eco-base/urn: urn:eco-base:k8s:core:service:dynamic-validator-service:sha256-82d8e297939e06ddae41285b638544f402491c51dbf715b87f0ed34d73a5ca00
   labels:
     app.kubernetes.io/component: dynamic-validator
     app.kubernetes.io/instance: eco-instance
@@ -190,7 +190,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/validation-system-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:validation-system-config:sha256-98c2d14a1867910b91933034c774af3504e83ad9d2b236d78a72a08761e07edb
+    eco-base/urn: urn:eco-base:k8s:core:configmap:validation-system-config:sha256-97423b09bc1567d69775874b99eb8fcf57dfa27914ed52078a63ee63b6eb0d10
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

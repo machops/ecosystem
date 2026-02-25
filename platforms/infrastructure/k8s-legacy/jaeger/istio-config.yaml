@@ -63,7 +63,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/jaeger-tracing-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:jaeger-tracing-config:sha256-48aeac8d630747f85ded2acdebaa073f73677b22d0e9124c0b8089126e72afcd
+    eco-base/urn: urn:eco-base:k8s:core:configmap:jaeger-tracing-config:sha256-0142f2eba78101891e63504ab19a817ae1e127ed815f0ec9c61c2ad387fbb628
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
