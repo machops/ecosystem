@@ -1,0 +1,53 @@
+name: eco-supplychain-hashlock
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  supply-chain-governance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # 如果是 PR，則切換到 PR 的 head 分支以利回寫
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Update URN/URI and Hashlock (PR only)
+        if: github.event_name == 'pull_request'
+        run: |
+          python tools/eco-supplychain/hashlock.py --mode update --paths platforms/ k8s/ manifests/
+          
+          # 檢查是否有變更並自動 commit 回 PR 分支
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "eco-supplychain-bot"
+            git config user.email "eco-supplychain-bot@users.noreply.github.com"
+            git add .
+            git commit -m "chore(supplychain): auto-update URN/URI and hashlock.json"
+            git push
+          else
+            echo "No supply chain drift detected."
+          fi
+
+      - name: Verify Hashlock (Push to main or PR check)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          python tools/eco-supplychain/hashlock.py --mode verify --paths platforms/ k8s/ manifests/
