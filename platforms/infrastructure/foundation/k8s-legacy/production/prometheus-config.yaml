@@ -62,7 +62,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/prometheus-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-config:sha256-82d3cab3a206b588089330c1b0b73f1a3838596fc0602a2ff6ba2dd6069868ca
+    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-config:sha256-7d5ce71177430f02f0af36785b9fa1844abfd3d33f034a0881cb0fada96e2adb
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -155,7 +155,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/prometheus-alerts
-    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-e0f3e88f4e9e1c374c93a91b5848d1cfd26e5eff600b86c90946bb418b453054
+    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-8374943234cd415df0504ca7ccb5805cd93ae5e8f65bbea353744131b71f11ce
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

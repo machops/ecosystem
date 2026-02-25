@@ -26,27 +26,27 @@ spec:
       - name: jaeger
         image: jaegertracing/all-in-one:1.53
         ports:
-        - containerPort: 5775
+      - containerPort: 5775
           protocol: UDP
           name: zipkin-thrift
-        - containerPort: 6831
+      - containerPort: 6831
           protocol: UDP
           name: jaeger-thrift
-        - containerPort: 6832
+      - containerPort: 6832
           protocol: UDP
           name: jaeger-binary
-        - containerPort: 5778
+      - containerPort: 5778
           name: config
-        - containerPort: 16686
+      - containerPort: 16686
           name: ui
-        - containerPort: 14268
+      - containerPort: 14268
           name: collector-http
-        - containerPort: 14250
+      - containerPort: 14250
           name: collector-grpc
         env:
-        - name: COLLECTOR_OTLP_ENABLED
+      - name: COLLECTOR_OTLP_ENABLED
           value: "true"
-        - name: SPAN_STORAGE_TYPE
+      - name: SPAN_STORAGE_TYPE
           value: "memory"
         resources:
           requests:

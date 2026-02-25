@@ -41,11 +41,11 @@ spec:
     spec:
       containers:
       - env:
-        - name: ENVIRONMENT
+      - name: ENVIRONMENT
           value: production
-        - name: LOG_LEVEL
+      - name: LOG_LEVEL
           value: INFO
-        - name: RESILIENCE_CONFIG_PATH
+      - name: RESILIENCE_CONFIG_PATH
           value: /config/resilience-policies.yaml
         image: ghcr.io/machinenativeops/resilience-middleware:latest
         imagePullPolicy: Always
@@ -59,7 +59,7 @@ spec:
           timeoutSeconds: 5
         name: middleware
         ports:
-        - containerPort: 8001
+      - containerPort: 8001
           name: http
           protocol: TCP
         readinessProbe:
@@ -78,7 +78,7 @@ spec:
             cpu: 200m
             memory: 256Mi
         volumeMounts:
-        - mountPath: /config
+      - mountPath: /config
           name: config
           readOnly: true
       serviceAccountName: resilience-middleware

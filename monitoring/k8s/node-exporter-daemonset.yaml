@@ -20,19 +20,19 @@ spec:
       - name: node-exporter
         image: prom/node-exporter:v1.7.0
         args:
-        - '--path.procfs=/host/proc'
-        - '--path.sysfs=/host/sys'
-        - '--path.rootfs=/host/root'
-        - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/host/root'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
         ports:
-        - containerPort: 9100
+      - containerPort: 9100
           name: metrics
         volumeMounts:
-        - name: proc
+      - name: proc
           mountPath: /host/proc
-        - name: sys
+      - name: sys
           mountPath: /host/sys
-        - name: root
+      - name: root
           mountPath: /host/root
           readOnly: true
         resources:

@@ -77,8 +77,8 @@ GL00-09_templates:
   owner: {{ owner }}
   layer: "GL00-09"
   tags:
-  - strategic
-  - vision
+      - strategic
+      - vision
       spec:
         vision:
           statement: "{{ vision_statement }}"
@@ -88,20 +88,20 @@ GL00-09_templates:
           purpose: "{{ mission_purpose }}"
         values:
           {{#each values}}
-          - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
             description: "{{ this.description }}"
             behaviors:
               {{#each this.behaviors}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           {{/each}}
         strategic_pillars:
           {{#each strategic_pillars}}
-          - pillar: "{{ this.name }}"
+      - pillar: "{{ this.name }}"
             description: "{{ this.description }}"
             objectives:
               {{#each this.objectives}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           {{/each}}
       status:
@@ -138,7 +138,7 @@ GL00-09_templates:
       spec:
         objectives:
           {{#each objectives}}
-          - id: "{{ this.id }}"
+      - id: "{{ this.id }}"
             title: "{{ this.title }}"
             description: "{{ this.description }}"
             owner: "{{ this.owner }}"
@@ -148,7 +148,7 @@ GL00-09_templates:
               parent_objective: "{{ this.alignment.parent_objective }}"
             key_results:
               {{#each this.key_results}}
-              - id: "{{ this.id }}"
+      - id: "{{ this.id }}"
                 description: "{{ this.description }}"
                 metric: "{{ this.metric }}"
                 baseline: {{ this.baseline }}
@@ -162,13 +162,13 @@ GL00-09_templates:
               end_date: "{{ this.timeline.end_date }}"
               milestones:
                 {{#each this.timeline.milestones}}
-                - date: "{{ this.date }}"
+      - date: "{{ this.date }}"
                   description: "{{ this.description }}"
                 {{/each}}
           {{/each}}
         dependencies:
           {{#each dependencies}}
-          - from_objective: "{{ this.from }}"
+      - from_objective: "{{ this.from }}"
             to_objective: "{{ this.to }}"
             type: "{{ this.type }}"  # blocks, enables, supports
           {{/each}}
@@ -177,7 +177,7 @@ GL00-09_templates:
           headcount: {{ headcount }}
           tools:
             {{#each tools}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
       status:
         overall_progress: {{ overall_progress }}
@@ -216,32 +216,32 @@ GL00-09_templates:
             composition: "{{ board_composition }}"
             responsibilities:
               {{#each board_responsibilities}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
             meeting_frequency: "{{ board_meeting_frequency }}"
           committees:
             {{#each committees}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               chair: "{{ this.chair }}"
               members: {{ this.member_count }}
               responsibilities:
                 {{#each this.responsibilities}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
               meeting_frequency: "{{ this.meeting_frequency }}"
             {{/each}}
           executive_team:
             {{#each executives}}
-            - role: "{{ this.role }}"
+      - role: "{{ this.role }}"
               responsibilities:
                 {{#each this.responsibilities}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
             {{/each}}
         decision_framework:
           decision_types:
             {{#each decision_types}}
-            - type: "{{ this.type }}"
+      - type: "{{ this.type }}"
               authority: "{{ this.authority }}"
               approval_process: "{{ this.approval_process }}"
               escalation_path: "{{ this.escalation_path }}"
@@ -253,7 +253,7 @@ GL00-09_templates:
         accountability:
           reporting_requirements:
             {{#each reporting_requirements}}
-            - report: "{{ this.report }}"
+      - report: "{{ this.report }}"
               frequency: "{{ this.frequency }}"
               audience: "{{ this.audience }}"
             {{/each}}
@@ -287,13 +287,13 @@ GL00-09_templates:
           overall_appetite: "{{ overall_appetite }}"  # conservative, moderate, aggressive
           category_appetites:
             {{#each category_appetites}}
-            - category: "{{ this.category }}"
+      - category: "{{ this.category }}"
               appetite: "{{ this.appetite }}"
               threshold: {{ this.threshold }}
             {{/each}}
         risks:
           {{#each risks}}
-          - id: "{{ this.id }}"
+      - id: "{{ this.id }}"
             title: "{{ this.title }}"
             description: "{{ this.description }}"
             category: "{{ this.category }}"
@@ -307,13 +307,13 @@ GL00-09_templates:
               strategy: "{{ this.treatment.strategy }}"  # accept, mitigate, transfer, avoid
               controls:
                 {{#each this.treatment.controls}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
               residual_risk: {{ this.treatment.residual_risk }}
             monitoring:
               indicators:
                 {{#each this.monitoring.indicators}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
               review_frequency: "{{ this.monitoring.review_frequency }}"
               last_review: "{{ this.monitoring.last_review }}"
@@ -322,26 +322,26 @@ GL00-09_templates:
         risk_matrix:
           dimensions:
             likelihood:
-              - level: 1
+      - level: 1
                 label: "Rare"
-              - level: 2
+      - level: 2
                 label: "Unlikely"
-              - level: 3
+      - level: 3
                 label: "Possible"
-              - level: 4
+      - level: 4
                 label: "Likely"
-              - level: 5
+      - level: 5
                 label: "Almost Certain"
             impact:
-              - level: 1
+      - level: 1
                 label: "Insignificant"
-              - level: 2
+      - level: 2
                 label: "Minor"
-              - level: 3
+      - level: 3
                 label: "Moderate"
-              - level: 4
+      - level: 4
                 label: "Major"
-              - level: 5
+      - level: 5
                 label: "Catastrophic"
       status:
         total_risks: {{ total_risks }}
@@ -372,12 +372,12 @@ GL10-29_templates:
         alignment:
           strategic_objectives:
             {{#each strategic_objectives}}
-            - objective_id: "{{ this.id }}"
+      - objective_id: "{{ this.id }}"
               contribution: "{{ this.contribution }}"
             {{/each}}
         initiatives:
           {{#each initiatives}}
-          - id: "{{ this.id }}"
+      - id: "{{ this.id }}"
             name: "{{ this.name }}"
             description: "{{ this.description }}"
             owner: "{{ this.owner }}"
@@ -385,7 +385,7 @@ GL10-29_templates:
             priority: {{ this.priority }}
             deliverables:
               {{#each this.deliverables}}
-              - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
                 due_date: "{{ this.due_date }}"
                 acceptance_criteria: "{{ this.acceptance_criteria }}"
               {{/each}}
@@ -394,31 +394,31 @@ GL10-29_templates:
               headcount: {{ this.resources.headcount }}
               tools:
                 {{#each this.resources.tools}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
             timeline:
               start_date: "{{ this.timeline.start_date }}"
               end_date: "{{ this.timeline.end_date }}"
               phases:
                 {{#each this.timeline.phases}}
-                - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
                   start: "{{ this.start }}"
                   end: "{{ this.end }}"
                 {{/each}}
             kpis:
               {{#each this.kpis}}
-              - metric: "{{ this.metric }}"
+      - metric: "{{ this.metric }}"
                 target: {{ this.target }}
                 current: {{ this.current }}
               {{/each}}
             risks:
               {{#each this.risks}}
-              - risk: "{{ this.risk }}"
+      - risk: "{{ this.risk }}"
                 mitigation: "{{ this.mitigation }}"
               {{/each}}
             dependencies:
               {{#each this.dependencies}}
-              - initiative_id: "{{ this.id }}"
+      - initiative_id: "{{ this.id }}"
                 type: "{{ this.type }}"
               {{/each}}
           {{/each}}
@@ -426,7 +426,7 @@ GL10-29_templates:
           total_budget: {{ total_budget }}
           by_department:
             {{#each department_budgets}}
-            - department: "{{ this.department }}"
+      - department: "{{ this.department }}"
               budget: {{ this.budget }}
               headcount: {{ this.headcount }}
             {{/each}}
@@ -434,7 +434,7 @@ GL10-29_templates:
           review_cadence: "{{ review_cadence }}"
           escalation_criteria:
             {{#each escalation_criteria}}
-            - condition: "{{ this.condition }}"
+      - condition: "{{ this.condition }}"
               action: "{{ this.action }}"
             {{/each}}
       status:
@@ -465,25 +465,25 @@ GL10-29_templates:
           applicability: "{{ applicability }}"
         definitions:
           {{#each definitions}}
-          - term: "{{ this.term }}"
+      - term: "{{ this.term }}"
             definition: "{{ this.definition }}"
           {{/each}}
         roles_responsibilities:
           {{#each roles}}
-          - role: "{{ this.role }}"
+      - role: "{{ this.role }}"
             responsibilities:
               {{#each this.responsibilities}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           {{/each}}
         procedure:
           prerequisites:
             {{#each prerequisites}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
           steps:
             {{#each steps}}
-            - step_number: {{ this.number }}
+      - step_number: {{ this.number }}
               action: "{{ this.action }}"
               responsible: "{{ this.responsible }}"
               details: "{{ this.details }}"
@@ -494,32 +494,32 @@ GL10-29_templates:
                 question: "{{ this.decision_point.question }}"
                 options:
                   {{#each this.decision_point.options}}
-                  - option: "{{ this.option }}"
+      - option: "{{ this.option }}"
                     next_step: {{ this.next_step }}
                   {{/each}}
               {{/if}}
             {{/each}}
           exception_handling:
             {{#each exceptions}}
-            - exception: "{{ this.exception }}"
+      - exception: "{{ this.exception }}"
               handling: "{{ this.handling }}"
               escalation: "{{ this.escalation }}"
             {{/each}}
         quality_control:
           checkpoints:
             {{#each checkpoints}}
-            - checkpoint: "{{ this.checkpoint }}"
+      - checkpoint: "{{ this.checkpoint }}"
               criteria: "{{ this.criteria }}"
               verification_method: "{{ this.verification_method }}"
             {{/each}}
         references:
           {{#each references}}
-          - document: "{{ this.document }}"
+      - document: "{{ this.document }}"
             location: "{{ this.location }}"
           {{/each}}
         revision_history:
           {{#each revisions}}
-          - version: "{{ this.version }}"
+      - version: "{{ this.version }}"
             date: "{{ this.date }}"
             author: "{{ this.author }}"
             changes: "{{ this.changes }}"
@@ -550,7 +550,7 @@ GL10-29_templates:
           currency: "{{ currency }}"
           allocation:
             {{#each budget_allocation}}
-            - category: "{{ this.category }}"
+      - category: "{{ this.category }}"
               amount: {{ this.amount }}
               percentage: {{ this.percentage }}
               justification: "{{ this.justification }}"
@@ -559,17 +559,17 @@ GL10-29_templates:
           total: {{ total_headcount }}
           allocation:
             {{#each headcount_allocation}}
-            - department: "{{ this.department }}"
+      - department: "{{ this.department }}"
               count: {{ this.count }}
               roles:
                 {{#each this.roles}}
-                - role: "{{ this.role }}"
+      - role: "{{ this.role }}"
                   count: {{ this.count }}
                 {{/each}}
             {{/each}}
         infrastructure:
           {{#each infrastructure}}
-          - resource: "{{ this.resource }}"
+      - resource: "{{ this.resource }}"
             type: "{{ this.type }}"
             capacity: "{{ this.capacity }}"
             cost: {{ this.cost }}
@@ -577,7 +577,7 @@ GL10-29_templates:
           {{/each}}
         tools_licenses:
           {{#each tools}}
-          - tool: "{{ this.tool }}"
+      - tool: "{{ this.tool }}"
             license_type: "{{ this.license_type }}"
             seats: {{ this.seats }}
             annual_cost: {{ this.annual_cost }}
@@ -613,18 +613,18 @@ GL30-49_templates:
           description: "{{ project_description }}"
           objectives:
             {{#each objectives}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
           success_criteria:
             {{#each success_criteria}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
         team:
           project_manager: "{{ project_manager }}"
           tech_lead: "{{ tech_lead }}"
           members:
             {{#each team_members}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               role: "{{ this.role }}"
               allocation: {{ this.allocation }}
             {{/each}}
@@ -633,17 +633,17 @@ GL30-49_templates:
           end_date: "{{ end_date }}"
           phases:
             {{#each phases}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               start: "{{ this.start }}"
               end: "{{ this.end }}"
               deliverables:
                 {{#each this.deliverables}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
             {{/each}}
         work_breakdown:
           {{#each work_items}}
-          - id: "{{ this.id }}"
+      - id: "{{ this.id }}"
             title: "{{ this.title }}"
             description: "{{ this.description }}"
             assignee: "{{ this.assignee }}"
@@ -652,12 +652,12 @@ GL30-49_templates:
             status: "{{ this.status }}"
             dependencies:
               {{#each this.dependencies}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           {{/each}}
         risks:
           {{#each risks}}
-          - risk: "{{ this.risk }}"
+      - risk: "{{ this.risk }}"
             probability: "{{ this.probability }}"
             impact: "{{ this.impact }}"
             mitigation: "{{ this.mitigation }}"
@@ -666,17 +666,17 @@ GL30-49_templates:
         communication:
           stakeholders:
             {{#each stakeholders}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               role: "{{ this.role }}"
               communication_frequency: "{{ this.frequency }}"
             {{/each}}
           meetings:
             {{#each meetings}}
-            - type: "{{ this.type }}"
+      - type: "{{ this.type }}"
               frequency: "{{ this.frequency }}"
               participants:
                 {{#each this.participants}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
             {{/each}}
       status:
@@ -685,7 +685,7 @@ GL30-49_templates:
         health: "{{ health }}"
         blockers:
           {{#each blockers}}
-          - "{{ this }}"
+      - "{{ this }}"
           {{/each}}
   # 測試報告模板
   test_report:
@@ -718,28 +718,28 @@ GL30-49_templates:
           function_coverage: {{ function_coverage }}
         test_suites:
           {{#each test_suites}}
-          - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
             tests: {{ this.tests }}
             passed: {{ this.passed }}
             failed: {{ this.failed }}
             duration: "{{ this.duration }}"
             failures:
               {{#each this.failures}}
-              - test: "{{ this.test }}"
+      - test: "{{ this.test }}"
                 error: "{{ this.error }}"
                 stack_trace: "{{ this.stack_trace }}"
               {{/each}}
           {{/each}}
         quality_gates:
           {{#each quality_gates}}
-          - gate: "{{ this.gate }}"
+      - gate: "{{ this.gate }}"
             threshold: {{ this.threshold }}
             actual: {{ this.actual }}
             status: "{{ this.status }}"
           {{/each}}
         recommendations:
           {{#each recommendations}}
-          - "{{ this }}"
+      - "{{ this }}"
           {{/each}}
       status:
         overall_status: "{{ overall_status }}"
@@ -765,11 +765,11 @@ GL30-49_templates:
           version: "{{ release_version }}"
           changelog:
             {{#each changelog}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
           artifacts:
             {{#each artifacts}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               type: "{{ this.type }}"
               checksum: "{{ this.checksum }}"
             {{/each}}
@@ -778,7 +778,7 @@ GL30-49_templates:
           type: "{{ environment_type }}"
           infrastructure:
             {{#each infrastructure}}
-            - component: "{{ this.component }}"
+      - component: "{{ this.component }}"
               version: "{{ this.version }}"
             {{/each}}
         deployment:
@@ -789,7 +789,7 @@ GL30-49_templates:
           deployed_by: "{{ deployed_by }}"
           steps:
             {{#each steps}}
-            - step: "{{ this.step }}"
+      - step: "{{ this.step }}"
               status: "{{ this.status }}"
               started_at: "{{ this.started_at }}"
               completed_at: "{{ this.completed_at }}"
@@ -798,7 +798,7 @@ GL30-49_templates:
         verification:
           health_checks:
             {{#each health_checks}}
-            - check: "{{ this.check }}"
+      - check: "{{ this.check }}"
               status: "{{ this.status }}"
               response_time: {{ this.response_time }}
             {{/each}}
@@ -834,7 +834,7 @@ GL50-59_templates:
       spec:
         metrics:
           {{#each metrics}}
-          - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
             type: "{{ this.type }}"  # counter, gauge, histogram, summary
             description: "{{ this.description }}"
             unit: "{{ this.unit }}"
@@ -842,7 +842,7 @@ GL50-59_templates:
               eco-base/part-of: eco-base
               eco-base/governance: aligned
               {{#each this.labels}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
             collection:
               source: "{{ this.collection.source }}"
@@ -857,15 +857,15 @@ GL50-59_templates:
           {{/each}}
         dashboards:
           {{#each dashboards}}
-          - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
             description: "{{ this.description }}"
             panels:
               {{#each this.panels}}
-              - title: "{{ this.title }}"
+      - title: "{{ this.title }}"
                 type: "{{ this.type }}"
                 metrics:
                   {{#each this.metrics}}
-                  - "{{ this }}"
+      - "{{ this }}"
                   {{/each}}
               {{/each}}
           {{/each}}
@@ -887,7 +887,7 @@ GL50-59_templates:
       spec:
         rules:
           {{#each rules}}
-          - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
             description: "{{ this.description }}"
             severity: "{{ this.severity }}"  # info, warning, critical
             condition:
@@ -908,15 +908,15 @@ GL50-59_templates:
             notification:
               channels:
                 {{#each this.notification.channels}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
               escalation:
                 {{#each this.notification.escalation}}
-                - level: {{ this.level }}
+      - level: {{ this.level }}
                   after: "{{ this.after }}"
                   notify:
                     {{#each this.notify}}
-                    - "{{ this }}"
+      - "{{ this }}"
                     {{/each}}
                 {{/each}}
           {{/each}}
@@ -939,7 +939,7 @@ GL50-59_templates:
       spec:
         slos:
           {{#each slos}}
-          - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
             description: "{{ this.description }}"
             sli:
               metric: "{{ this.sli.metric }}"
@@ -957,7 +957,7 @@ GL50-59_templates:
                 remaining: {{ this.performance.error_budget.remaining }}
             incidents:
               {{#each this.incidents}}
-              - date: "{{ this.date }}"
+      - date: "{{ this.date }}"
                 duration: "{{ this.duration }}"
                 impact: {{ this.impact }}
                 root_cause: "{{ this.root_cause }}"
@@ -997,12 +997,12 @@ GL60-80_templates:
           type: "{{ experiment_type }}"  # A/B, A/B/n, multivariate
           variants:
             {{#each variants}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               description: "{{ this.description }}"
               allocation: {{ this.allocation }}
               changes:
                 {{#each this.changes}}
-                - "{{ this }}"
+      - "{{ this }}"
                 {{/each}}
             {{/each}}
           targeting:
@@ -1010,7 +1010,7 @@ GL60-80_templates:
             sample_size: {{ sample_size }}
             criteria:
               {{#each targeting_criteria}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           duration:
             minimum: "{{ minimum_duration }}"
@@ -1018,17 +1018,17 @@ GL60-80_templates:
         metrics:
           primary:
             {{#each primary_metrics}}
-            - metric: "{{ this.metric }}"
+      - metric: "{{ this.metric }}"
               minimum_detectable_effect: {{ this.mde }}
               baseline: {{ this.baseline }}
             {{/each}}
           secondary:
             {{#each secondary_metrics}}
-            - metric: "{{ this.metric }}"
+      - metric: "{{ this.metric }}"
             {{/each}}
           guardrail:
             {{#each guardrail_metrics}}
-            - metric: "{{ this.metric }}"
+      - metric: "{{ this.metric }}"
               threshold: {{ this.threshold }}
             {{/each}}
         statistical_analysis:
@@ -1037,7 +1037,7 @@ GL60-80_templates:
           correction_method: "{{ correction_method }}"
         risks:
           {{#each risks}}
-          - risk: "{{ this.risk }}"
+      - risk: "{{ this.risk }}"
             mitigation: "{{ this.mitigation }}"
           {{/each}}
       status:
@@ -1076,7 +1076,7 @@ GL60-80_templates:
             date_range: "{{ date_range }}"
             features:
               {{#each features}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           hyperparameters:
             {{#each hyperparameters}}
@@ -1089,7 +1089,7 @@ GL60-80_templates:
         evaluation:
           metrics:
             {{#each evaluation_metrics}}
-            - metric: "{{ this.metric }}"
+      - metric: "{{ this.metric }}"
               previous: {{ this.previous }}
               new: {{ this.new }}
               improvement: {{ this.improvement }}
@@ -1134,7 +1134,7 @@ GL81-83_templates:
           statement: "{{ hypothesis }}"
           assumptions:
             {{#each assumptions}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
         experiment_design:
           approach: "{{ approach }}"
@@ -1143,47 +1143,47 @@ GL81-83_templates:
           resources:
             team:
               {{#each team}}
-              - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
                 role: "{{ this.role }}"
               {{/each}}
             budget: {{ budget }}
             tools:
               {{#each tools}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           success_criteria:
             {{#each success_criteria}}
-            - criterion: "{{ this.criterion }}"
+      - criterion: "{{ this.criterion }}"
               target: "{{ this.target }}"
             {{/each}}
         results:
           findings:
             {{#each findings}}
-            - finding: "{{ this.finding }}"
+      - finding: "{{ this.finding }}"
               evidence: "{{ this.evidence }}"
               significance: "{{ this.significance }}"
             {{/each}}
           metrics:
             {{#each metrics}}
-            - metric: "{{ this.metric }}"
+      - metric: "{{ this.metric }}"
               result: {{ this.result }}
               target: {{ this.target }}
             {{/each}}
           lessons_learned:
             {{#each lessons}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
         recommendations:
           decision: "{{ decision }}"  # proceed, pivot, abandon
           next_steps:
             {{#each next_steps}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
           transfer_plan:
             target_layer: "{{ target_layer }}"
             artifacts:
               {{#each transfer_artifacts}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
       status:
         phase: "{{ phase }}"
@@ -1213,21 +1213,21 @@ GL90-99_templates:
           scope: "{{ scope }}"
           principles:
             {{#each principles}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
         specification:
           schema:
             version: "{{ schema_version }}"
-            format: "{{ schema_format }}"
+      format: "{{ schema_format }}"
           components:
             {{#each components}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               type: "{{ this.type }}"
               required: {{ this.required }}
               description: "{{ this.description }}"
               validation:
                 {{#each this.validation}}
-                - rule: "{{ this.rule }}"
+      - rule: "{{ this.rule }}"
                   message: "{{ this.message }}"
                 {{/each}}
             {{/each}}
@@ -1235,17 +1235,17 @@ GL90-99_templates:
             composable: {{ composable }}
             extension_points:
               {{#each extension_points}}
-              - point: "{{ this.point }}"
+      - point: "{{ this.point }}"
                 type: "{{ this.type }}"
               {{/each}}
         governance:
           review_process:
             stages:
               {{#each review_stages}}
-              - stage: "{{ this.stage }}"
+      - stage: "{{ this.stage }}"
                 approvers:
                   {{#each this.approvers}}
-                  - "{{ this }}"
+      - "{{ this }}"
                   {{/each}}
               {{/each}}
           versioning:
@@ -1255,12 +1255,12 @@ GL90-99_templates:
         implementation:
           reference_implementations:
             {{#each reference_implementations}}
-            - name: "{{ this.name }}"
+      - name: "{{ this.name }}"
               location: "{{ this.location }}"
             {{/each}}
           tooling:
             {{#each tooling}}
-            - tool: "{{ this.tool }}"
+      - tool: "{{ this.tool }}"
               purpose: "{{ this.purpose }}"
             {{/each}}
       status:
@@ -1287,7 +1287,7 @@ GL90-99_templates:
           artifacts_validated: {{ artifacts_validated }}
           layers_covered:
             {{#each layers_covered}}
-            - "{{ this }}"
+      - "{{ this }}"
             {{/each}}
         results:
           summary:
@@ -1297,14 +1297,14 @@ GL90-99_templates:
             warnings: {{ warnings }}
           by_layer:
             {{#each layer_results}}
-            - layer: "{{ this.layer }}"
+      - layer: "{{ this.layer }}"
               artifacts: {{ this.artifacts }}
               passed: {{ this.passed }}
               failed: {{ this.failed }}
             {{/each}}
           violations:
             {{#each violations}}
-            - artifact: "{{ this.artifact }}"
+      - artifact: "{{ this.artifact }}"
               rule: "{{ this.rule }}"
               severity: "{{ this.severity }}"
               message: "{{ this.message }}"
@@ -1313,11 +1313,11 @@ GL90-99_templates:
             {{/each}}
         recommendations:
           {{#each recommendations}}
-          - priority: {{ this.priority }}
+      - priority: {{ this.priority }}
             recommendation: "{{ this.recommendation }}"
             affected_artifacts:
               {{#each this.affected}}
-              - "{{ this }}"
+      - "{{ this }}"
               {{/each}}
           {{/each}}
       status:

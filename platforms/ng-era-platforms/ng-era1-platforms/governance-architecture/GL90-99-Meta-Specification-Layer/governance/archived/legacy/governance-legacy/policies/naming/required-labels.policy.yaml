@@ -409,7 +409,7 @@ examples:
     expected: "PASS"
 
   # 示例 2: 缺少環境標籤
-  - description: "缺少 environment 標籤"
+      - description: "缺少 environment 標籤"
   resource:
       apiVersion: v1
       kind: Namespace
@@ -423,7 +423,7 @@ examples:
     violation: "LABEL-001"
 
   # 示例 3: 環境標籤值錯誤
-  - description: "environment 標籤值不合法"
+      - description: "environment 標籤值不合法"
   resource:
       apiVersion: v1
       kind: Namespace
@@ -438,7 +438,7 @@ examples:
     violation: "environment label value invalid"
 
   # 示例 4: 合規的 Deployment
-  - description: "合規的 Deployment"
+      - description: "合規的 Deployment"
   resource:
       apiVersion: apps/v1
       kind: Deployment
@@ -461,7 +461,7 @@ examples:
     expected: "PASS"
 
   # 示例 5: 豁免資源
-  - description: "系統命名空間豁免"
+      - description: "系統命名空間豁免"
     resource:
       apiVersion: v1
       kind: Namespace

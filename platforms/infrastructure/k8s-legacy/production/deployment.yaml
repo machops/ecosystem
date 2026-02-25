@@ -49,45 +49,45 @@ spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
+      - podAffinityTerm:
               labelSelector:
                 matchExpressions:
-                - key: app
+      - key: app
                   operator: In
                   values:
-                  - machine-native-ops
+      - machine-native-ops
               topologyKey: kubernetes.io/hostname
             weight: 100
       containers:
       - env:
-        - name: ENVIRONMENT
+      - name: ENVIRONMENT
           value: production
-        - name: LOG_LEVEL
+      - name: LOG_LEVEL
           value: INFO
-        - name: REDIS_HOST
+      - name: REDIS_HOST
           value: redis-master
-        - name: REDIS_PORT
+      - name: REDIS_PORT
           value: '6379'
-        - name: POSTGRES_HOST
+      - name: POSTGRES_HOST
           value: postgresql
-        - name: POSTGRES_PORT
+      - name: POSTGRES_PORT
           value: '5432'
-        - name: POSTGRES_DB
+      - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
               key: postgres-db
               name: machine-native-ops-secrets
-        - name: POSTGRES_USER
+      - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
               key: postgres-user
               name: machine-native-ops-secrets
-        - name: POSTGRES_PASSWORD
+      - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               key: postgres-password
               name: machine-native-ops-secrets
-        - name: SECRET_KEY
+      - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret-key
@@ -104,7 +104,7 @@ spec:
           timeoutSeconds: 5
         name: app
         ports:
-        - containerPort: 8000
+      - containerPort: 8000
           name: http
           protocol: TCP
         readinessProbe:
@@ -126,7 +126,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL
+      - ALL
           readOnlyRootFilesystem: true
           runAsGroup: 1000
           runAsUser: 1000
@@ -139,11 +139,11 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 3
         volumeMounts:
-        - mountPath: /app/logs
+      - mountPath: /app/logs
           name: logs
-        - mountPath: /app/data
+      - mountPath: /app/data
           name: data
-        - mountPath: /app/cache
+      - mountPath: /app/cache
           name: cache
       nodeSelector:
         node-role.kubernetes.io/worker: 'true'

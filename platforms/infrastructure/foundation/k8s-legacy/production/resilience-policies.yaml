@@ -100,7 +100,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/resilience-policies
-    eco-base/urn: urn:eco-base:k8s:core:configmap:resilience-policies:sha256-77b389d1121370fef425825a809d9bb941d7fe76475378407c3915b8ef6e4ebb
+    eco-base/urn: urn:eco-base:k8s:core:configmap:resilience-policies:sha256-478f5c9a4f8070689063123316f6fa4a2a08de46338738d028559841c4e6252d
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

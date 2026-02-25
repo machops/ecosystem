@@ -26,24 +26,24 @@ spec:
       - name: consul
         image: hashicorp/consul:1.17
         ports:
-        - containerPort: 8500
+      - containerPort: 8500
           name: http
-        - containerPort: 8600
+      - containerPort: 8600
           name: dns
           protocol: UDP
-        - containerPort: 8301
+      - containerPort: 8301
           name: serf-lan
-        - containerPort: 8302
+      - containerPort: 8302
           name: serf-wan
-        - containerPort: 8300
+      - containerPort: 8300
           name: server
         args:
-        - "agent"
-        - "-dev"
-        - "-client=0.0.0.0"
-        - "-ui"
+      - "agent"
+      - "-dev"
+      - "-client=0.0.0.0"
+      - "-ui"
         env:
-        - name: CONSUL_BIND_INTERFACE
+      - name: CONSUL_BIND_INTERFACE
           value: "eth0"
         resources:
           requests:

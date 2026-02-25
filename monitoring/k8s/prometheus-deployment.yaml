@@ -255,23 +255,23 @@ spec:
       - name: prometheus
         image: prom/prometheus:v2.45.0
         ports:
-        - containerPort: 9090
+      - containerPort: 9090
           name: web
         args:
-        - '--config.file=/etc/prometheus/prometheus.yml'
-        - '--storage.tsdb.path=/prometheus'
-        - '--storage.tsdb.retention.time=30d'
-        - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-        - '--web.console.templates=/usr/share/prometheus/consoles'
-        - '--web.enable-lifecycle'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-lifecycle'
         volumeMounts:
-        - name: config
+      - name: config
           mountPath: /etc/prometheus
-        - name: alerts
+      - name: alerts
           mountPath: /etc/prometheus/rules
-        - name: storage
+      - name: storage
           mountPath: /prometheus
-        - name: supabase-secret
+      - name: supabase-secret
           mountPath: /etc/prometheus/secrets
           readOnly: true
         resources:
@@ -294,7 +294,7 @@ spec:
         secret:
           secretName: prometheus-secrets
           items:
-          - key: SUPABASE_SECRET_KEY
+      - key: SUPABASE_SECRET_KEY
             path: supabase_secret_key
 ---
 apiVersion: v1

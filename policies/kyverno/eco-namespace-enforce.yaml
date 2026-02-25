@@ -40,42 +40,42 @@ spec:
     eco-base/environment: "?*"
     eco-base/owner: "?*"
 
-  - name: restrict-environment-values
+      - name: restrict-environment-values
   match:
   any:
-  - resources:
+      - resources:
   kinds:
-  - Deployment
-  - StatefulSet
-  - DaemonSet
-  - Job
-  - CronJob
-  - Service
-  - Ingress
+      - Deployment
+      - StatefulSet
+      - DaemonSet
+      - Job
+      - CronJob
+      - Service
+      - Ingress
   validate:
   message: "eco-base/environment must be one of: production|staging|development"
   deny:
   conditions:
   any:
-  - key: "{{ request.object.metadata.labels.\"eco-base/environment\" }}"
+      - key: "{{ request.object.metadata.labels.\"eco-base/environment\" }}"
   operator: AnyNotIn
   value:
-  - production
-  - staging
-  - development
+      - production
+      - staging
+      - development
 
-  - name: require-mandatory-annotations
+      - name: require-mandatory-annotations
   match:
   any:
-  - resources:
+      - resources:
   kinds:
-  - Deployment
-  - StatefulSet
-  - DaemonSet
-  - Job
-  - CronJob
-  - Service
-  - Ingress
+      - Deployment
+      - StatefulSet
+      - DaemonSet
+      - Job
+      - CronJob
+      - Service
+      - Ingress
   validate:
   message: "ECO namespace spec violation: missing mandatory annotations. Refer to ECO_NAMESPACE_SPEC.md"
   pattern:
@@ -86,65 +86,65 @@ spec:
     eco-base/governance-policy: "?*"
     eco-base/audit-log-level: "?*"
 
-  - name: restrict-audit-log-level
+      - name: restrict-audit-log-level
   match:
   any:
-  - resources:
+      - resources:
   kinds:
-  - Deployment
-  - StatefulSet
-  - DaemonSet
-  - Job
-  - CronJob
+      - Deployment
+      - StatefulSet
+      - DaemonSet
+      - Job
+      - CronJob
   validate:
   message: "eco-base/audit-log-level must be full|minimal"
   deny:
   conditions:
   any:
-  - key: "{{ request.object.metadata.annotations.\"eco-base/audit-log-level\" }}"
+      - key: "{{ request.object.metadata.annotations.\"eco-base/audit-log-level\" }}"
   operator: AnyNotIn
   value:
-  - full
-  - minimal
+      - full
+      - minimal
 
-  - name: enforce-urn-format
+      - name: enforce-urn-format
   match:
   any:
-  - resources:
+      - resources:
   kinds:
-  - Deployment
-  - StatefulSet
-  - DaemonSet
-  - Job
-  - CronJob
-  - Service
-  - Ingress
+      - Deployment
+      - StatefulSet
+      - DaemonSet
+      - Job
+      - CronJob
+      - Service
+      - Ingress
   validate:
   message: "eco-base/urn must match: urn:eco-base:<type>:<platform>:<component>:<resource>:<uuidv1|sha256-...>"
   deny:
   conditions:
   any:
-  - key: "{{ request.object.metadata.annotations.\"eco-base/urn\" }}"
+      - key: "{{ request.object.metadata.annotations.\"eco-base/urn\" }}"
   operator: NotMatches
   value: "^urn:eco-base:[a-z0-9-]+:[a-z0-9-]+:[a-z0-9-]+:[a-z0-9-]+:((?:[0-9a-f]{8}-[0-9a-f]{4}-1[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12})|(?:sha256-[0-9a-f]{8,}))$"
 
-  - name: enforce-uri-format
+      - name: enforce-uri-format
   match:
   any:
-  - resources:
+      - resources:
   kinds:
-  - Deployment
-  - StatefulSet
-  - DaemonSet
-  - Job
-  - CronJob
-  - Service
-  - Ingress
+      - Deployment
+      - StatefulSet
+      - DaemonSet
+      - Job
+      - CronJob
+      - Service
+      - Ingress
   validate:
   message: "eco-base/uri must match: eco-base://<type>/<platform>/<component>/<resource>[?...]."
   deny:
   conditions:
   any:
-  - key: "{{ request.object.metadata.annotations.\"eco-base/uri\" }}"
+      - key: "{{ request.object.metadata.annotations.\"eco-base/uri\" }}"
   operator: NotMatches
   value: "^eco-base://[a-z0-9-]+/[a-z0-9-]+/[a-z0-9-]+/.+(\\?.*)?$"

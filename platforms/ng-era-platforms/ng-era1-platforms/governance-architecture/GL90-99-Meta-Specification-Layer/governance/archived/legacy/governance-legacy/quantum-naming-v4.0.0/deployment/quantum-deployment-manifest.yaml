@@ -236,18 +236,18 @@ spec:
     spec:
       containers:
       - env:
-        - name: QUANTUM_BACKEND
+      - name: QUANTUM_BACKEND
           value: ibm_quantum_falcon
-        - name: COHERENCE_THRESHOLD
+      - name: COHERENCE_THRESHOLD
           value: '0.9999'
-        - name: ENTANGLEMENT_DEPTH
+      - name: ENTANGLEMENT_DEPTH
           value: '7'
-        - name: QUANTUM_API_TOKEN
+      - name: QUANTUM_API_TOKEN
           valueFrom:
             secretKeyRef:
               key: quantum-api-token
               name: quantum-governance-secrets
-        - name: QUANTUM_SIGNATURE_KEY
+      - name: QUANTUM_SIGNATURE_KEY
           valueFrom:
             secretKeyRef:
               key: quantum-signature-key
@@ -264,13 +264,13 @@ spec:
           timeoutSeconds: 5
         name: quantum-governance
         ports:
-        - containerPort: 8080
+      - containerPort: 8080
           name: http
           protocol: TCP
-        - containerPort: 9090
+      - containerPort: 9090
           name: metrics
           protocol: TCP
-        - containerPort: 16686
+      - containerPort: 16686
           name: jaeger
           protocol: TCP
         readinessProbe:
@@ -291,23 +291,23 @@ spec:
             ephemeral-storage: 10Gi
             memory: 4GiQuantum
         volumeMounts:
-        - mountPath: /etc/quantum-governance
+      - mountPath: /etc/quantum-governance
           name: config-volume
           readOnly: true
-        - mountPath: /etc/policies
+      - mountPath: /etc/policies
           name: policies-volume
           readOnly: true
       serviceAccountName: quantum-governance-sa
       volumes:
       - configMap:
           items:
-          - key: quantum-config.yaml
+      - key: quantum-config.yaml
             path: quantum-config.yaml
           name: quantum-governance-config
         name: config-volume
       - configMap:
           items:
-          - key: naming-policies.yaml
+      - key: naming-policies.yaml
             path: naming-policies.yaml
           name: quantum-governance-config
         name: policies-volume

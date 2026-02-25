@@ -190,7 +190,7 @@ spec:
   nextReviewDate: "2026-06-17"
 
   references:
-  - title: "GitHub Actions Documentation"
+      - title: "GitHub Actions Documentation"
   url: "https://docs.github.com/en/actions"
-  - title: "GitLab CI/CD Documentation"
+      - title: "GitLab CI/CD Documentation"
   url: "https://docs.gitlab.com/ee/ci/"

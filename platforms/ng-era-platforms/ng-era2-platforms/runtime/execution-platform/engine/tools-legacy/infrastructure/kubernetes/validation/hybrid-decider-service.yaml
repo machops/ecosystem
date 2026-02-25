@@ -85,7 +85,7 @@ spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
+      - podAffinityTerm:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: hybrid-decider
@@ -93,15 +93,15 @@ spec:
             weight: 100
       containers:
       - env:
-        - name: CLASSIC_WEIGHT
+      - name: CLASSIC_WEIGHT
           value: '0.43'
-        - name: QUANTUM_WEIGHT
+      - name: QUANTUM_WEIGHT
           value: '0.57'
-        - name: FUSION_ALGORITHM
+      - name: FUSION_ALGORITHM
           value: weighted_average
-        - name: CONFIDENCE_THRESHOLD
+      - name: CONFIDENCE_THRESHOLD
           value: '0.85'
-        - name: DECISION_TIMEOUT
+      - name: DECISION_TIMEOUT
           value: 10s
         image: ghcr.io/machinenativeops/hybrid-decider:v1.0.0
         imagePullPolicy: IfNotPresent
@@ -113,11 +113,11 @@ spec:
           periodSeconds: 10
         name: decider
         ports:
-        - containerPort: 8080
+      - containerPort: 8080
           name: http
-        - containerPort: 9090
+      - containerPort: 9090
           name: grpc
-        - containerPort: 8081
+      - containerPort: 8081
           name: metrics
         readinessProbe:
           httpGet:
@@ -136,10 +136,10 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL
+      - ALL
           readOnlyRootFilesystem: true
         volumeMounts:
-        - mountPath: /etc/hybrid-decider
+      - mountPath: /etc/hybrid-decider
           name: config
           readOnly: true
       securityContext:

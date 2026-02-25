@@ -143,15 +143,15 @@ spec:
   annotations:
     kubernetes.io/metadata.name: ".*"
     exceptions:
-  - name: system-namespace-exception
+      - name: system-namespace-exception
   namespaces:
-  - kube-system
-  - kube-public
-  - kube-node-lease
+      - kube-system
+      - kube-public
+      - kube-node-lease
   reason: "System namespaces require privileged access"
   expires: "2025-12-31"
     reporting:
-  enabled: true
+      enabled: true
   violations:
   severity: warning
   notify: true

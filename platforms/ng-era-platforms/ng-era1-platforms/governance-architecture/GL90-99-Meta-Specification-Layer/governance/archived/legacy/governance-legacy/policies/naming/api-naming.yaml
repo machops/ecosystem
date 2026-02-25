@@ -157,9 +157,9 @@ spec:
   nextReviewDate: "2026-06-17"
 
   references:
-  - title: "RESTful API Design Best Practices"
+      - title: "RESTful API Design Best Practices"
   url: "https://restfulapi.net/"
-  - title: "Microsoft REST API Guidelines"
+      - title: "Microsoft REST API Guidelines"
   url: "https://github.com/microsoft/api-guidelines"
-  - title: "Google API Design Guide"
+      - title: "Google API Design Guide"
   url: "https://cloud.google.com/apis/design"
