@@ -5,7 +5,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/postgres-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-13e4fa5b2d8064f711c34a5d8ddf7fcb904402cf79b6fc6d8cf41ac7aa93ac03
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:postgres-backup:sha256-5285d6c65068a0463077f77fabae011da9e1734ccef24e845a554c68d26289c9
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/name: postgres-backup
@@ -92,7 +92,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/redis-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:redis-backup:sha256-3ab7053eba7ff543ac13ca8d2812cebba4eee95122f72ab3ad46614618ccd0ce
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:redis-backup:sha256-b3038add7d61b8a2143bc1610da2df494ea97f2625adbd3034a07f3702ef8d86
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/name: redis-backup
@@ -177,7 +177,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/config-backup
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:config-backup:sha256-8df878a093e0586bf31b53f1725884f70ed1ef344916f1fbdfbdebe8b805930f
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:config-backup:sha256-3d49e6ce397ba2726a764b617b13691a582cc23f7a258599a4984e0f0fca0991
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/name: config-backup
@@ -270,7 +270,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/backup-validation
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:backup-validation:sha256-21e6e693d340830d5dc6fba2fbbab17bf7ea59ab80c86e00ae108f9e2085850a
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:backup-validation:sha256-6d58e77e14f567d9740a8e5e8c624c98526b0ec80cb32be67a0ec608ded7f27c
   labels:
     app.kubernetes.io/component: backup
     app.kubernetes.io/name: backup-validation

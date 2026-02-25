@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/ingress/machine-native-ops-ingress
-    eco-base/urn: urn:eco-base:k8s:core:ingress:machine-native-ops-ingress:sha256-eadb825038ec0b9076d74c87565303890fef52387a685747e0837ac89173c497
+    eco-base/urn: urn:eco-base:k8s:core:ingress:machine-native-ops-ingress:sha256-1cbb096954a5f393013b55a1e6bc8a7fe1ae99a91e7412497461c5fc917afc56
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
   labels:

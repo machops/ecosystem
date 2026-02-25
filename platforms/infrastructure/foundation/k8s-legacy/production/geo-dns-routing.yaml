@@ -54,7 +54,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/geo-dns-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-e0cfe9b16de32277c2a820dc0b2fef9522c58aef3cf27cde5a8e985228c9c529
+    eco-base/urn: urn:eco-base:k8s:core:configmap:geo-dns-config:sha256-4ad60f8f5372c3b904a9c8d339d5053c8d8214ab3236bc0e9461866a5cd5020d
   labels: {}
   name: geo-dns-config
   namespace: production

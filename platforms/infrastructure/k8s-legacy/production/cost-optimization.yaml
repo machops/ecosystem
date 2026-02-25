@@ -80,7 +80,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/cost-optimization-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-ef5e5b1e0f2b5f1ff9a3c983387b89723ccab2a701cffe38a3078f4898ad0cb4
+    eco-base/urn: urn:eco-base:k8s:core:configmap:cost-optimization-config:sha256-5561899426be974e1ee2e35809cefc4e1240e3bfc14c6e7edd26773ecb5bd5e6
   labels: {}
   name: cost-optimization-config
   namespace: production

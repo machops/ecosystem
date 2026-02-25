@@ -4,7 +4,7 @@ kind: Service
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/service/esync-platform-service
-    eco-base/urn: urn:eco-base:k8s:core:service:esync-platform-service:sha256-08c3bc2ae8e55fe7967332356173788aeb0331420af8d389a75a30f3b9b375d4
+    eco-base/urn: urn:eco-base:k8s:core:service:esync-platform-service:sha256-2cd280a237bfcd23cb222d7e151edb53cd6f2f5df1aa89f58d44d466dbc321cd
   labels:
     app.kubernetes.io/app.kubernetes.io/component: platform
     app.kubernetes.io/name: esync-platform

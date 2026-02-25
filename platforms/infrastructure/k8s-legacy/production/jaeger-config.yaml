@@ -17,7 +17,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/jaeger-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:jaeger-config:sha256-d683a54ea8735bb8664214879d81b89801089c8f16ba22cc289843063eeb95ed
+    eco-base/urn: urn:eco-base:k8s:core:configmap:jaeger-config:sha256-e67cf2361e4fb7210d0c35d1053e112ff71876da6221b5a6f5dfa44a800ffa81
   labels:
     app.kubernetes.io/name: jaeger
     eco-base/governance: aligned
@@ -40,7 +40,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/tracing-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:tracing-config:sha256-a787408c79f4be32ff0f6834e9d1f7bc8f1ff08ede3cd018356ee42fc5faf56b
+    eco-base/urn: urn:eco-base:k8s:core:configmap:tracing-config:sha256-f938aa79bdc148cbf29f46766ba444f5576d2c912f6777ab81e6c0d19fccf47d
   labels:
     app.kubernetes.io/name: machine-native-ops
     eco-base/governance: aligned
