@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/dr-health-check
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:dr-health-check:sha256-9bc184f4b4cab774435d63f1cfc32e356de185b73e7986d27f3a008ee96fd723
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:dr-health-check:sha256-888fa4d476953832c09aa2aedef7a63f68afe65bffe3e87482e15dbdbbaea4eb
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -93,7 +93,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/cronjob/dr-backup-verification
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:dr-backup-verification:sha256-e1c657b2e5a9eecf192d4ec876413cb58d22892e326ff9c8de18cbb0768489ab
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:dr-backup-verification:sha256-ef0351b82ec1e94266efc9e0af5944ad20f657456f77d2c3620a8b52b727343f
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

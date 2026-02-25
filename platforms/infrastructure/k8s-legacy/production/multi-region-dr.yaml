@@ -60,7 +60,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/multi-region-dr-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:multi-region-dr-config:sha256-f54f7138353328a4f8db923719c16c209d152fa439788364739449305094d2c8
+    eco-base/urn: urn:eco-base:k8s:core:configmap:multi-region-dr-config:sha256-90bcf1f58bc9ae727851b00799d986ff2a39c21a80c82a533df211450eda6fab
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops
-    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-64ce1f084d37567d6be07a55d10c8e1a8c4eafab5549aedf56e8635a997a833c
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-2b78aa61fe77c3beb857ddeb86d49b7fb42907c62f9880142f91e41853910f26
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -188,7 +188,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/machine-native-ops
-    eco-base/urn: urn:eco-base:k8s:core:service:machine-native-ops:sha256-e00cd19e327c5af5f56c6a23b90db0f039f073fbb9f33c23949384dfee1ed724
+    eco-base/urn: urn:eco-base:k8s:core:service:machine-native-ops:sha256-0a851dca9efb7b228b9abe1f384f2c7936005fcadd9402e5d3605354a90532f8
     prometheus.io/path: /stats/prometheus
     prometheus.io/port: '15020'
     prometheus.io/scrape: 'true'

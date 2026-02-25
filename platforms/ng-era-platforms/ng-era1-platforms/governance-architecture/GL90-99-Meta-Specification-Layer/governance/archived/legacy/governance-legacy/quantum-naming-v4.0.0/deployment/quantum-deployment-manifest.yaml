@@ -152,7 +152,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/quantum-governance-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:quantum-governance-config:sha256-76edf887e1a044b2645910cea928819bda95ff892647039194fc916fa77a2060
+    eco-base/urn: urn:eco-base:k8s:core:configmap:quantum-governance-config:sha256-10858296bc9ce11da9e4a979f5b66e1d97366a1a8996179852918c7e1a6618c6
   labels:
     app.kubernetes.io/component: config
     app.kubernetes.io/instance: eco-instance
@@ -178,7 +178,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/secret/quantum-governance-secrets
-    eco-base/urn: urn:eco-base:k8s:core:secret:quantum-governance-secrets:sha256-ef5d2cbdf87a7391ed8a9fbacf951aca3926cbb26c53fde2637abd8801c0c943
+    eco-base/urn: urn:eco-base:k8s:core:secret:quantum-governance-secrets:sha256-ac9c194530f865e54b6e6db91f2a83ad7b979083b40668ec21452b973b7eb2bb
   labels:
     app.kubernetes.io/component: secrets
     app.kubernetes.io/instance: eco-instance
@@ -201,7 +201,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/quantum-governance-service
-    eco-base/urn: urn:eco-base:k8s:core:deployment:quantum-governance-service:sha256-1853f2947d520bfb2d66789ff6e823e3e9551ed2beac88d06be66e4ff6625f29
+    eco-base/urn: urn:eco-base:k8s:core:deployment:quantum-governance-service:sha256-7039d81d85924f9d55155dcf160309d38172b4058e374de795eeb6fcec39a7c5
   labels:
     app.kubernetes.io/component: service
     app.kubernetes.io/instance: eco-instance
@@ -319,7 +319,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/quantum-governance-service
-    eco-base/urn: urn:eco-base:k8s:core:service:quantum-governance-service:sha256-a71556d0b135d6da3542d96db1f56bf8a54bd05580355b659346b8db8d9f14ef
+    eco-base/urn: urn:eco-base:k8s:core:service:quantum-governance-service:sha256-0a6e0517fbd62087bc722852a27153053eb770482f38477bbca27527c4491b4d
     prometheus.io/port: '9090'
     prometheus.io/scrape: 'true'
   labels:
@@ -561,7 +561,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/ingress/quantum-governance-ingress
-    eco-base/urn: urn:eco-base:k8s:core:ingress:quantum-governance-ingress:sha256-7f1d2f33309c772d5d34575533d7d50c6a5d09f8cd926cda6202c33b1f2c9d97
+    eco-base/urn: urn:eco-base:k8s:core:ingress:quantum-governance-ingress:sha256-8053130ac0c2eda107bca4879caa75e55c363ada053f39913ce09daa5e8b32cf
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: 10m
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'

@@ -9,9 +9,8 @@
 # ECO-Layer: GL30-49 (Execution)
 # Closure-Signal: manifest
 
-version: "1.0.0"
-
-  labels:
+version: \"1.0.0\"
+labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
 

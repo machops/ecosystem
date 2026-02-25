@@ -10,9 +10,8 @@
 # @gl-semantic-anchor ECO-30-EXEC-NORMALIZER
 # GL Unified Architecture Governance Framework Activated
 
-gl_version: "1.0"
-
-  labels:
+gl_version: \"1.0\"
+labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
 

@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/machine-native-ops
-    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-96354441c8a1f91a0e871987497ab58156cd53862c1609adb5a8553f880211b9
+    eco-base/urn: urn:eco-base:k8s:core:deployment:machine-native-ops:sha256-50deede96013b542a071171242f89ba916db3e9f28f3c9a595f13090459888d8
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance
@@ -174,7 +174,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/machine-native-ops
-    eco-base/urn: urn:eco-base:k8s:core:service:machine-native-ops:sha256-1ff63159261ab43a431440871027ae8f8ae4cca9231991ced0130a612e1fb8be
+    eco-base/urn: urn:eco-base:k8s:core:service:machine-native-ops:sha256-df61fd3ea295fb6a6061dd7811e0350cb1436d09ea381e357a629dbcf831834a
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
   labels:
     app.kubernetes.io/component: eco-component

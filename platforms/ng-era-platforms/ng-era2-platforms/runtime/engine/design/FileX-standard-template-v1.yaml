@@ -267,7 +267,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/filex-template-schema
-    eco-base/urn: urn:eco-base:k8s:core:configmap:filex-template-schema:sha256-1d461e0a7d7a994b23287655bb07c0efd1edbc78b4e5fd538c21441041fe54c0
+    eco-base/urn: urn:eco-base:k8s:core:configmap:filex-template-schema:sha256-90e1f7fdb43ab54f9cc2d0d433b1685d2078f3f5daec4558c6b1584e39820af6
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

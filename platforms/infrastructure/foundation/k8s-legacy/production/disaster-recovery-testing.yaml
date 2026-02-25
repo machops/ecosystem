@@ -128,7 +128,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/disaster-recovery-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:disaster-recovery-config:sha256-f61c34f88a34fcacb2660ed23149321d76d48d1107ff2689cbe8565d96a922d3
+    eco-base/urn: urn:eco-base:k8s:core:configmap:disaster-recovery-config:sha256-4fcaebb1a7dbe7ee7740f89078c356bf5dddb9793cb1dfb6e7bf3d7c672a5eda
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/hybrid-decider-service
-    eco-base/urn: urn:eco-base:k8s:core:service:hybrid-decider-service:sha256-e806d71d34df6c5b75f076b10786e8eca1fdfb8fb86e987e438214929f62ee48
+    eco-base/urn: urn:eco-base:k8s:core:service:hybrid-decider-service:sha256-1f1db019f1ae33b23a3589c8ee4de9d19c58f1d8bac43c773b55cc2f2b101c10
   labels:
     app.kubernetes.io/component: hybrid-decider
     app.kubernetes.io/instance: eco-instance
@@ -46,7 +46,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/hybrid-decider
-    eco-base/urn: urn:eco-base:k8s:core:deployment:hybrid-decider:sha256-20eabf907408d58abe8363abc0c2aacb6f93501f857bd5caa91052d9d13714a8
+    eco-base/urn: urn:eco-base:k8s:core:deployment:hybrid-decider:sha256-b8958e8129536fd038b74259ce8dfcfd9bd0e06871353c8996b6dd858be3bf2f
   labels:
     app.kubernetes.io/component: hybrid-decider
     app.kubernetes.io/instance: eco-instance
@@ -171,7 +171,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/hybrid-decider-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:hybrid-decider-config:sha256-fd89610e891a89c3e9ba3047b317770b58ff214152059eec0668f82fd05459c1
+    eco-base/urn: urn:eco-base:k8s:core:configmap:hybrid-decider-config:sha256-6f30041e0b31afc233455217b3a78ea1f136dcd67ff2d4767bba0df1a6cec5d1
   labels:
     app.kubernetes.io/component: hybrid-decider
     app.kubernetes.io/instance: eco-instance

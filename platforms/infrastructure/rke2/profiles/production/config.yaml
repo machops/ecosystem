@@ -11,9 +11,8 @@
 # ============================================================================
 # Enables CIS 1.29 benchmark compliance
 # Reference: https://www.cisecurity.org/benchmark/kubernetes
-version: "1.0.0"
-
-  labels:
+version: \"1.0.0\"
+labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
 

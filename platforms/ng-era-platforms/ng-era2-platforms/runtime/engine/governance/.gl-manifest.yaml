@@ -10,9 +10,8 @@
 # @gl-semantic-anchor ECO-10-GOV-ENGINE
 # GL Unified Architecture Governance Framework Activated
 
-gl_version: "2.0"
-
-  labels:
+gl_version: \"2.0\"
+labels:
     eco-base/part-of: eco-base
     eco-base/governance: aligned
 
