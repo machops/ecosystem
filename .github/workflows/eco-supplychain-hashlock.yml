@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v5.4.0
         with:
           python-version: "3.11"
 
@@ -82,7 +82,7 @@ jobs:
           git push
 
       - name: Upload supplychain reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
           name: eco-supplychain-reports-pr
           path: |
@@ -101,13 +101,13 @@ jobs:
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.6.0
+        uses: sigstore/cosign-installer@053f9b74638557590800a301da1ba82351507e2c # v3.8.1
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v5.4.0
         with:
           python-version: "3.11"
 
@@ -153,7 +153,7 @@ jobs:
             --out-md supplychain/reports/latest.summary.md
 
       - name: Upload supplychain reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
           name: eco-supplychain-reports-main
           path: |
