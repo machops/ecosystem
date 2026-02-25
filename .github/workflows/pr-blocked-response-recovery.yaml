@@ -180,8 +180,9 @@ jobs:
               core.info(`Wrote recovery metrics artifact: ${artifactPath}`);
               const summaryPath = path.join(artifactDir, 'recovery-summary.json');
               let summary = {
-                summary_version: "1.2.0",
+                summary_version: "1.3.0",
                 schema: "eco-base/recovery-summary/v1",
+                schema_url: "eco-base://schemas/recovery-summary/v1",
                 generated_at: new Date().toISOString(),
                 total_events: 0,
                 prs: {},
@@ -197,6 +198,25 @@ jobs:
                   mean_time_to_recovery_minutes: "avg((now - last_successful_recovery_time) / 60000) across PRs with successful recovery",
                   manual_intervention_count: "count(recent_runs where approve_result='approve-failed' or redispatch_result='dispatch-failed')",
                 },
+                kpi_units: {
+                  approval_success_rate_pct: "percent",
+                  redispatch_success_rate_pct: "percent",
+                  mean_time_to_recovery_minutes: "minutes",
+                  manual_intervention_count: "count",
+                },
+                kpi_targets: {
+                  approval_success_rate_pct: 95,
+                  redispatch_success_rate_pct: 98,
+                  mean_time_to_recovery_minutes: 15,
+                  manual_intervention_count: 0,
+                },
+                alert_thresholds: {
+                  approval_success_rate_pct_below: 90,
+                  redispatch_success_rate_pct_below: 95,
+                  mean_time_to_recovery_minutes_above: 30,
+                  manual_intervention_count_above: 0,
+                },
+                refresh_interval_seconds: 900,
               };
               if (fs.existsSync(summaryPath)) {
                 try {
@@ -217,8 +237,9 @@ jobs:
                 error_summary: metrics.error_summary,
               });
               summary.generated_at = metrics.generated_at;
-              summary.summary_version = "1.2.0";
+              summary.summary_version = "1.3.0";
               summary.schema = summary.schema || "eco-base/recovery-summary/v1";
+              summary.schema_url = summary.schema_url || "eco-base://schemas/recovery-summary/v1";
               summary.total_events = Number(summary.total_events || 0) + 1;
               summary.dashboard_ready = summary.dashboard_ready || {
                 approval_success_rate_pct: null,
@@ -232,6 +253,25 @@ jobs:
                 mean_time_to_recovery_minutes: "avg((now - last_successful_recovery_time) / 60000) across PRs with successful recovery",
                 manual_intervention_count: "count(recent_runs where approve_result='approve-failed' or redispatch_result='dispatch-failed')",
               };
+              summary.kpi_units = summary.kpi_units || {
+                approval_success_rate_pct: "percent",
+                redispatch_success_rate_pct: "percent",
+                mean_time_to_recovery_minutes: "minutes",
+                manual_intervention_count: "count",
+              };
+              summary.kpi_targets = summary.kpi_targets || {
+                approval_success_rate_pct: 95,
+                redispatch_success_rate_pct: 98,
+                mean_time_to_recovery_minutes: 15,
+                manual_intervention_count: 0,
+              };
+              summary.alert_thresholds = summary.alert_thresholds || {
+                approval_success_rate_pct_below: 90,
+                redispatch_success_rate_pct_below: 95,
+                mean_time_to_recovery_minutes_above: 30,
+                manual_intervention_count_above: 0,
+              };
+              summary.refresh_interval_seconds = summary.refresh_interval_seconds || 900;
               summary.prs[prKey] = {
                 pr_number: prNumber,
                 latest_run_id: run.id,
