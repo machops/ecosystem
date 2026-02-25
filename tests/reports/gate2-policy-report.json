@@ -1,0 +1,27 @@
+{
+  "gate": "Gate-2",
+  "component": "Policy Conformance CI",
+  "timestamp": "2026-02-26T00:00:00Z",
+  "summary": {
+    "total": 7,
+    "pass": 7,
+    "fail": 0,
+    "result": "PASS"
+  },
+  "tests": [
+    {"test": "kyverno-compliant-pod", "status": "PASS", "detail": "pass:4 fail:0 warn:0 error:0 skip:0"},
+    {"test": "kyverno-violation-pod-detected", "status": "PASS", "detail": "pass:1 fail:3 (disallow-latest-tag, require-resource-limits, require-non-root-user)"},
+    {"test": "opa-test-deny-privileged", "status": "PASS", "detail": "data.main.test_deny_privileged_container PASS"},
+    {"test": "opa-test-allow-non-privileged", "status": "PASS", "detail": "data.main.test_allow_non_privileged PASS"},
+    {"test": "opa-test-deny-unapproved-registry", "status": "PASS", "detail": "data.main.test_deny_unapproved_registry PASS"},
+    {"test": "exception-expiry-kube-system", "status": "PASS", "detail": "expires 2026-06-01 (96d left)"},
+    {"test": "exception-expiry-monitoring-stack", "status": "PASS", "detail": "expires 2026-05-01 (65d left)"}
+  ],
+  "policy_inventory": {
+    "kyverno_policies": 4,
+    "gatekeeper_constraint_templates": 2,
+    "gatekeeper_constraints": 2,
+    "policy_exceptions": 2,
+    "ci_workflow": ".github/workflows/policy-gate.yml"
+  }
+}

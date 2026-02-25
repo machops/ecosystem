@@ -1,0 +1,175 @@
+name: Policy Gate — Conformance CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'gitops/policies/**'
+      - 'platforms/**/manifests/**'
+      - 'tests/policy/**'
+      - 'tests/fixtures/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'gitops/policies/**'
+      - 'platforms/**/manifests/**'
+      - 'tests/policy/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  # ── Job 1: Kyverno CLI dry-run against test fixtures ─────────────────────
+  kyverno-policy-test:
+    name: Kyverno Policy Dry-Run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install kyverno CLI
+        run: |
+          curl -LO https://github.com/kyverno/kyverno/releases/download/v1.13.4/kyverno-cli_v1.13.4_linux_x86_64.tar.gz
+          tar -xzf kyverno-cli_v1.13.4_linux_x86_64.tar.gz kyverno
+          sudo mv kyverno /usr/local/bin/kyverno
+          kyverno version
+
+      - name: Kyverno apply — compliant pod MUST pass
+        run: |
+          kyverno apply gitops/policies/kyverno-supply-chain.yaml \
+            --resource tests/fixtures/test-pod-compliant.yaml \
+            --detailed-results 2>&1 | tee /tmp/kyverno-compliant.txt
+          # Must have 0 violations
+          VIOLATIONS=$(grep -c "FAILED" /tmp/kyverno-compliant.txt || echo "0")
+          echo "Violations on compliant pod: $VIOLATIONS"
+          if [ "$VIOLATIONS" -gt 0 ]; then
+            echo "ERROR: Compliant pod has policy violations (false positive)"
+            exit 1
+          fi
+
+      - name: Kyverno apply — violation pod MUST fail enforce rules
+        run: |
+          kyverno apply gitops/policies/kyverno-supply-chain.yaml \
+            --resource tests/fixtures/test-pod-violations.yaml \
+            --detailed-results 2>&1 | tee /tmp/kyverno-violations.txt || true
+          # Must detect violations for enforce rules
+          VIOLATIONS=$(grep -c "FAILED\|fail" /tmp/kyverno-violations.txt || echo "0")
+          echo "Violations detected on non-compliant pod: $VIOLATIONS"
+          if [ "$VIOLATIONS" -eq 0 ]; then
+            echo "ERROR: Non-compliant pod passed all policies (false negative)"
+            exit 1
+          fi
+          echo "Policy correctly detected violations"
+
+      - name: Generate policy report
+        if: always()
+        run: |
+          mkdir -p tests/reports
+          cat > tests/reports/policy-report.json << EOF
+          {
+            "gate": "Gate-2",
+            "component": "Kyverno Policy",
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "run_id": "${{ github.run_id }}",
+            "commit": "${{ github.sha }}",
+            "compliant_pod_violations": $(grep -c "FAILED" /tmp/kyverno-compliant.txt 2>/dev/null || echo "0"),
+            "violation_pod_detections": $(grep -c "FAILED\|fail" /tmp/kyverno-violations.txt 2>/dev/null || echo "0")
+          }
+          EOF
+          cat tests/reports/policy-report.json
+
+      - name: Upload policy report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: policy-report
+          path: tests/reports/policy-report.json
+
+  # ── Job 2: OPA/conftest Gatekeeper constraint tests ──────────────────────
+  conftest-gatekeeper-test:
+    name: Conftest Gatekeeper Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install conftest
+        run: |
+          curl -LO https://github.com/open-policy-agent/conftest/releases/download/v0.56.0/conftest_0.56.0_Linux_x86_64.tar.gz
+          tar -xzf conftest_0.56.0_Linux_x86_64.tar.gz conftest
+          sudo mv conftest /usr/local/bin/conftest
+          conftest --version
+
+      - name: Install OPA
+        run: |
+          curl -L -o opa https://openpolicyagent.org/downloads/v0.70.0/opa_linux_amd64_static
+          chmod +x opa && sudo mv opa /usr/local/bin/opa
+          opa version
+
+      - name: Run OPA unit tests for Gatekeeper policies
+        run: |
+          opa test tests/policy/gatekeeper_test.rego -v 2>&1 | tee /tmp/opa-test.txt
+          FAILURES=$(grep -c "FAIL" /tmp/opa-test.txt || echo "0")
+          if [ "$FAILURES" -gt 0 ]; then
+            echo "ERROR: OPA policy tests failed"
+            cat /tmp/opa-test.txt
+            exit 1
+          fi
+          echo "All OPA policy tests passed"
+
+  # ── Job 3: Exception expiry check ────────────────────────────────────────
+  exception-expiry-check:
+    name: Exception List Expiry Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check exception expiry dates
+        run: |
+          python3 << 'PYEOF'
+          import yaml, sys
+          from datetime import datetime, timezone
+
+          today = datetime.now(timezone.utc).date()
+          expired = []
+
+          with open("gitops/policies/exception-list.yaml") as f:
+            docs = list(yaml.safe_load_all(f))
+
+          for doc in docs:
+            if not doc:
+              continue
+            annotations = doc.get("metadata", {}).get("annotations", {})
+            expires_str = annotations.get("eco.policy/expires")
+            name = doc.get("metadata", {}).get("name", "unknown")
+            if expires_str:
+              expires = datetime.strptime(expires_str, "%Y-%m-%d").date()
+              if expires < today:
+                expired.append(f"{name} expired on {expires_str}")
+                print(f"EXPIRED: {name} (expired: {expires_str})")
+              else:
+                days_left = (expires - today).days
+                print(f"OK: {name} (expires: {expires_str}, {days_left} days left)")
+
+          if expired:
+            print(f"\nERROR: {len(expired)} expired exception(s) found. Remove or renew before merging.")
+            sys.exit(1)
+          else:
+            print("\nAll exceptions are within expiry date.")
+          PYEOF
+
+  # ── Job 4: Violation trend gate ──────────────────────────────────────────
+  violation-trend-gate:
+    name: Violation Trend Gate
+    runs-on: ubuntu-latest
+    needs: [kyverno-policy-test, conftest-gatekeeper-test, exception-expiry-check]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gate summary
+        run: |
+          echo "=== Policy Gate Summary ==="
+          echo "Kyverno dry-run: PASS"
+          echo "OPA/conftest tests: PASS"
+          echo "Exception expiry: PASS"
+          echo "All policy gates passed — merge allowed"

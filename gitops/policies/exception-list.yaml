@@ -1,0 +1,57 @@
+# ECO Base — Policy Exception List
+# Format: each exception MUST have expires field
+# CI will fail if expires < today (expired exceptions block merge)
+---
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: kube-system-resource-limits-exception
+  namespace: kyverno
+  annotations:
+    eco.policy/expires: "2026-06-01"
+    eco.policy/reason: "kube-system components managed by GKE, not subject to ECO resource limits"
+    eco.policy/owner: "platform-team"
+spec:
+  exceptions:
+  - policyName: require-resource-limits
+    ruleNames:
+    - require-resource-limits
+  match:
+    any:
+    - resources:
+        kinds:
+        - Pod
+        namespaces:
+        - kube-system
+        - kube-public
+        - gke-managed-system
+---
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: monitoring-stack-exception
+  namespace: kyverno
+  annotations:
+    eco.policy/expires: "2026-05-01"
+    eco.policy/reason: "Prometheus/Grafana/Loki deployed via Helm with upstream defaults, migration to ECO labels in progress"
+    eco.policy/owner: "platform-team"
+spec:
+  exceptions:
+  - policyName: require-eco-labels
+    ruleNames:
+    - require-eco-labels
+  match:
+    any:
+    - resources:
+        kinds:
+        - Pod
+        namespaces:
+        - monitoring
+        - argocd
+        - harbor
+        - kyverno
+        - gatekeeper-system
+        - argo-events
+        - tekton-pipelines
+        - keda
+        - flagger-system

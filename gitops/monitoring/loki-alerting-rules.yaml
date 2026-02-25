@@ -1,0 +1,110 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: loki-alerts
+  namespace: monitoring
+  labels:
+    app: kube-prometheus-stack
+    release: prometheus
+spec:
+  groups:
+  - name: loki.ingestion
+    interval: 1m
+    rules:
+    - alert: LokiIngestionRateHigh
+      expr: |
+        sum(rate(loki_distributor_lines_received_total[5m])) > 50000
+      for: 5m
+      labels:
+        severity: warning
+        component: loki
+        eco_platform: observops
+      annotations:
+        summary: "Loki ingestion rate is high"
+        description: "Loki is receiving more than 50k lines/sec for 5 minutes. Current rate: {{ $value | humanize }}/s"
+
+    - alert: LokiIngestionDropped
+      expr: |
+        sum(rate(loki_distributor_bytes_received_total[5m])) == 0
+      for: 2m
+      labels:
+        severity: critical
+        component: loki
+        eco_platform: observops
+      annotations:
+        summary: "Loki ingestion has stopped"
+        description: "Loki is not receiving any log data for 2 minutes"
+
+  - name: loki.query
+    interval: 1m
+    rules:
+    - alert: LokiQueryP95Latency
+      expr: |
+        histogram_quantile(0.95,
+          sum(rate(loki_request_duration_seconds_bucket{route=~"loki_api_v1_query.*"}[5m])) by (le)
+        ) > 10
+      for: 5m
+      labels:
+        severity: warning
+        component: loki
+        eco_platform: observops
+      annotations:
+        summary: "Loki p95 query latency exceeds 10s"
+        description: "Loki p95 query latency is {{ $value | humanizeDuration }}"
+
+    - alert: LokiQueryErrorRate
+      expr: |
+        sum(rate(loki_request_duration_seconds_count{status_code=~"5.."}[5m]))
+        /
+        sum(rate(loki_request_duration_seconds_count[5m])) > 0.01
+      for: 5m
+      labels:
+        severity: critical
+        component: loki
+        eco_platform: observops
+      annotations:
+        summary: "Loki query error rate exceeds 1%"
+        description: "Loki query error rate is {{ $value | humanizePercentage }}"
+
+  - name: loki.compaction
+    interval: 5m
+    rules:
+    - alert: LokiCompactionBacklog
+      expr: |
+        loki_boltdb_shipper_compact_tables_operation_duration_seconds > 300
+      for: 10m
+      labels:
+        severity: warning
+        component: loki-compactor
+        eco_platform: observops
+      annotations:
+        summary: "Loki compaction taking too long"
+        description: "Loki compaction operation took {{ $value | humanizeDuration }}"
+
+    - alert: LokiCompactorNotRunning
+      expr: |
+        absent(loki_boltdb_shipper_compact_tables_operation_duration_seconds)
+      for: 30m
+      labels:
+        severity: warning
+        component: loki-compactor
+        eco_platform: observops
+      annotations:
+        summary: "Loki compactor metrics absent"
+        description: "No compactor metrics for 30 minutes — compactor may not be running"
+
+  - name: loki.storage
+    interval: 5m
+    rules:
+    - alert: LokiStorageWriteError
+      expr: |
+        sum(rate(loki_gcs_request_duration_seconds_count{operation="PutObject",status_code!="200"}[5m])) > 0
+      for: 2m
+      labels:
+        severity: critical
+        component: loki-gcs
+        eco_platform: observops
+      annotations:
+        summary: "Loki GCS write errors detected"
+        description: "Loki is failing to write to GCS: {{ $value | humanize }} errors/s"

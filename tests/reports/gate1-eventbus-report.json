@@ -1,0 +1,12 @@
+{
+  "gate": "Gate-1",
+  "component": "EventBus JetStream",
+  "timestamp": "2026-02-25T23:46:57Z",
+  "summary": {
+    "total": 7,
+    "pass": 7,
+    "fail": 0,
+    "result": "PASS"
+  },
+  "tests": [{"test":"eventbus-type","status":"PASS","detail":"EventBus spec.jetstream is set"},{"test":"pdb-min-available","status":"PASS","detail":"PDB minAvailable=2 confirmed"},{"test":"pod-deletion-resilience","status":"PASS","detail":"EventBus recovered after pod deletion within 60s"},{"test":"pdb-disruption-guard","status":"PASS","detail":"PDB allows max 1 disruption, desiredHealthy=2"},{"test":"resource-quota","status":"PASS","detail":"ResourceQuota pods=30 applied"},{"test":"limit-range","status":"PASS","detail":"LimitRange Container type applied"},{"test":"final-state-all-running","status":"PASS","detail":"All 3 JetStream pods Running after fault injection"}]
+}

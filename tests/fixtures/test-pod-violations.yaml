@@ -1,0 +1,15 @@
+---
+# Non-compliant pod: missing resource limits, latest tag, no eco labels
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-violations
+  namespace: platform-01
+spec:
+  containers:
+  - name: app
+    image: nginx:latest
+    # No resources defined
+    # No eco labels
+    securityContext:
+      privileged: false

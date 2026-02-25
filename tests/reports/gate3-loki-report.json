@@ -1,0 +1,58 @@
+{
+  "gate": "Gate-3",
+  "component": "Loki GCS + Load Test + Retention",
+  "timestamp": "2026-02-25T23:51:12Z",
+  "summary": {
+    "total": 9,
+    "pass": 9,
+    "fail": 0,
+    "result": "PASS"
+  },
+  "tests": [
+    {
+      "test": "loki-pod-running",
+      "status": "PASS",
+      "detail": "loki-0 Running: loki-0                          Running   true"
+    },
+    {
+      "test": "loki-gcs-config",
+      "status": "PASS",
+      "detail": "GCS bucket configured in Loki config"
+    },
+    {
+      "test": "loki-retention-720h",
+      "status": "PASS",
+      "detail": "retention_period: 720h confirmed"
+    },
+    {
+      "test": "loki-compactor-enabled",
+      "status": "PASS",
+      "detail": "compactor retention_enabled=true, delete_request_store=gcs"
+    },
+    {
+      "test": "gcs-bucket-exists",
+      "status": "PASS",
+      "detail": "GCS bucket eco-base-loki-chunks-my-project-ops-1991 accessible"
+    },
+    {
+      "test": "gcs-lifecycle-policy",
+      "status": "PASS",
+      "detail": "GCS lifecycle delete rule (35d) set successfully"
+    },
+    {
+      "test": "loki-spike-write",
+      "status": "PASS",
+      "detail": "100/100 entries written (100.0%)"
+    },
+    {
+      "test": "loki-query-after-write",
+      "status": "PASS",
+      "detail": "Query returned 10 entries after spike write"
+    },
+    {
+      "test": "loki-alerting-rules",
+      "status": "PASS",
+      "detail": "PrometheusRule for Loki present"
+    }
+  ]
+}

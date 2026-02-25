@@ -1,0 +1,28 @@
+---
+# Compliant pod: should PASS all policies
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-compliant
+  namespace: platform-01
+  labels:
+    app: test-app
+    version: "1.0.0"
+    eco.platform: platform-01
+spec:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+  containers:
+  - name: app
+    image: ghcr.io/indestructibleorg/test-app:1.0.0
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    securityContext:
+      privileged: false
+      allowPrivilegeEscalation: false
