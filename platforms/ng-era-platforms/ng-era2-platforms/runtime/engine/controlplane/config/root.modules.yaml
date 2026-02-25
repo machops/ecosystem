@@ -586,7 +586,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/modules-schema
-    eco-base/urn: urn:eco-base:k8s:core:configmap:modules-schema:sha256-e64053cf2147024cf5bc86580fd98f4f0f7194e8f6d8b6ec85b71cf1d011525d
+    eco-base/urn: urn:eco-base:k8s:core:configmap:modules-schema:sha256-6cf03d3dafe8f266851517aff1d03b562d532379ead7ee976ca879c05fb46423
   labels: {}
   name: modules-schema
   namespace: machinenativenops-modules

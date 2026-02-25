@@ -82,7 +82,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/grafana-dashboards
-    eco-base/urn: urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-2733caf7be17ba65ba32710ab39f8e18c882fdaac84f4ecdbf97c9c782148d3b
+    eco-base/urn: urn:eco-base:k8s:core:configmap:grafana-dashboards:sha256-38e77897bcf43db57211a6320ea22fd7d40d4b0b9c7ce0801adb85e3855ecd45
   labels:
     app.kubernetes.io/name: grafana
     eco-base/governance: aligned

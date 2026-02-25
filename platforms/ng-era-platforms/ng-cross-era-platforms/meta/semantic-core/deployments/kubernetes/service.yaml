@@ -4,7 +4,7 @@ kind: Service
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/service/gl-spec-core-service
-    eco-base/urn: urn:eco-base:k8s:core:service:gl-spec-core-service:sha256-08b2ce07bef56a624aa35aa3558700bc3bef1d3468930c39b663086847a92c9e
+    eco-base/urn: urn:eco-base:k8s:core:service:gl-spec-core-service:sha256-ac1978384113b5c6e6c5c7ac4464718457458ae11b241d1c46ead3565ea30860
     prometheus.io/port: '9091'
     prometheus.io/scrape: 'true'
   labels:
@@ -39,7 +39,7 @@ kind: Service
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/service/gl-spec-core-external
-    eco-base/urn: urn:eco-base:k8s:core:service:gl-spec-core-external:sha256-1c34f64e7022b794b9ce6e0327ad17320f9a8f0f25d5632b9c475245f8cdbe5f
+    eco-base/urn: urn:eco-base:k8s:core:service:gl-spec-core-external:sha256-66181fc6043551756b2814ed2bcc7df89e62a56d834a8081401c5275cab2b5bb
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
     service.beta.kubernetes.io/aws-load-balancer-type: alb
   labels:

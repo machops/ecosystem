@@ -200,7 +200,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/root-config-schema
-    eco-base/urn: urn:eco-base:k8s:core:configmap:root-config-schema:sha256-cc3c6af0eee2a6527c5e1786276830a8e19bac1e85789c863dc99a26bf7e4c07
+    eco-base/urn: urn:eco-base:k8s:core:configmap:root-config-schema:sha256-81f9383ab2d6c71ad94ada653833f804dd6a475b6078d4513f4bb3bbb77d6f97
   labels: {}
   name: root-config-schema
   namespace: machinenativenops-root

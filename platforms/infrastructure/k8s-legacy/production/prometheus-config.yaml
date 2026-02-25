@@ -60,7 +60,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/prometheus-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-config:sha256-47f97041d3bccef91ca059f318dbfab25e378b5ec4b7997da2c089e526a87fe4
+    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-config:sha256-a1bae5f36b627ba850fbb624fdfa1a238afe3040f073f37ee8d7a892b1bbb74c
   labels:
     app.kubernetes.io/name: prometheus
     eco-base/governance: aligned
@@ -144,7 +144,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/prometheus-alerts
-    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-82bdb11f167fa5343de65878e5607a0284eed905c8bdf12ccac45b0a8de909c4
+    eco-base/urn: urn:eco-base:k8s:core:configmap:prometheus-alerts:sha256-069e149920941b88e170b49c95ed62d68e94d802c9ce9c2e8e0412088927d18e
   labels:
     app.kubernetes.io/name: prometheus
     eco-base/governance: aligned

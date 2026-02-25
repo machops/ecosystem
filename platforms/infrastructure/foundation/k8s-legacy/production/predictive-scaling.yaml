@@ -82,7 +82,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/predictive-scaling-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-9c272fdb0761853074a7e7aa2842f96cf17d4fc0fed585bc1ca68d1d3663c455
+    eco-base/urn: urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-0ea59e804d59488ef39e77c615b66c28a13a98cb8276eb4176d9057a1c0e88c0
   labels: {}
   name: predictive-scaling-config
   namespace: production

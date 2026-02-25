@@ -142,7 +142,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/cross-platform-networking-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:cross-platform-networking-config:sha256-2cc816c79db6f19e5d800852a1d6225b2463eb7a2066435afbd656fac8245989
+    eco-base/urn: urn:eco-base:k8s:core:configmap:cross-platform-networking-config:sha256-6540d7a77d63a850c0909aef09990730670424ec94a3eabf0e1968d44075c130
   labels: {}
   name: cross-platform-networking-config
   namespace: production

@@ -43,7 +43,7 @@ kind: ConfigMap
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/configmap/alertmanager-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:alertmanager-config:sha256-fe5ae9b0b79498f27e0df78615c5c137c1739f62cdb97cfc4eff8731f885a52e
+    eco-base/urn: urn:eco-base:k8s:core:configmap:alertmanager-config:sha256-5ba279129229f42a6e85d8b36f8cf859b8611e1f953730a0c30218604e393146
   labels:
     app.kubernetes.io/name: alertmanager
     eco-base/governance: aligned

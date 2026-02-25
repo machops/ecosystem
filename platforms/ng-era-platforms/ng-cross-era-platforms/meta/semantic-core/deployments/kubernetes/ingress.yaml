@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/ingress/gl-spec-core-ingress
-    eco-base/urn: urn:eco-base:k8s:core:ingress:gl-spec-core-ingress:sha256-b7a2477938ff734332276e742c7616addd936f67089e1aeb19e3b2b9c3d65c1a
+    eco-base/urn: urn:eco-base:k8s:core:ingress:gl-spec-core-ingress:sha256-bb7b25290b36c8b82fec85624c5431dcf1eafded734f4a372c29111f61b4d997
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/configuration-snippet: 'more_set_headers "ECO-Platform:
       spec-core";

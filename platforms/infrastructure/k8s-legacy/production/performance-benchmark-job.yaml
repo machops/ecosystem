@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-smoke
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-e2195e7ffc6bf732d079ffb8889e138fc2a22f26729615f52dbf81e0172ae5b9
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-smoke:sha256-069f9360c47c03a12ddadb709788c4cf0f3f7273dfc5c67c082e71599bfd6746
   labels:
     app.kubernetes.io/name: performance-benchmark
     eco-base/governance: aligned
@@ -64,7 +64,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-load
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-393cc58a2d403be39a9aa01bc99598c813bb59345f58e702faa1c776ee5a3836
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-load:sha256-54332c739b9dbd890dcb341a02b972af519e981685d24918e1250dc6040daf4a
   labels:
     app.kubernetes.io/name: performance-benchmark
     eco-base/governance: aligned
@@ -124,7 +124,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-stress
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-3a93702faa9f352ba74c9ff9a64b5f071248b24f032126fbb5e9a6ad9c407dff
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-stress:sha256-c962091aa43d96f1cec834870231eed2a3be4bcacfa5b862e1b891e3bfa3479f
   labels:
     app.kubernetes.io/name: performance-benchmark
     eco-base/governance: aligned
@@ -184,7 +184,7 @@ kind: CronJob
 metadata:
   annotations:
     eco-base/uri: eco-base://k8s/core/cronjob/performance-benchmark-endurance
-    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-41ddd4a1f1891be08a5c00980a9a6c9fa44c1418fcebd59f6facc5543fef5fa7
+    eco-base/urn: urn:eco-base:k8s:core:cronjob:performance-benchmark-endurance:sha256-ca4cf5a5adad90ceac3d069eba9eee83b89de22edf88c7dd92c954bdaaf5aa7e
   labels:
     app.kubernetes.io/name: performance-benchmark
     eco-base/governance: aligned
