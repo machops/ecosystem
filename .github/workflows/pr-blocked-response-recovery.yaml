@@ -171,6 +171,8 @@ jobs:
               core.info(`Wrote recovery metrics artifact: ${artifactPath}`);
               const summaryPath = path.join(artifactDir, 'recovery-summary.json');
               let summary = {
+                summary_version: "1.0.0",
+                schema: "eco-base/recovery-summary/v1",
                 generated_at: new Date().toISOString(),
                 total_events: 0,
                 prs: {},
@@ -194,6 +196,8 @@ jobs:
                 error_summary: metrics.error_summary,
               });
               summary.generated_at = metrics.generated_at;
+              summary.summary_version = summary.summary_version || "1.0.0";
+              summary.schema = summary.schema || "eco-base/recovery-summary/v1";
               summary.total_events = Number(summary.total_events || 0) + 1;
               summary.prs[prKey] = {
                 pr_number: prNumber,
