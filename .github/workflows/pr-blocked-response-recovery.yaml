@@ -180,7 +180,7 @@ jobs:
               core.info(`Wrote recovery metrics artifact: ${artifactPath}`);
               const summaryPath = path.join(artifactDir, 'recovery-summary.json');
               let summary = {
-                summary_version: "1.1.0",
+                summary_version: "1.2.0",
                 schema: "eco-base/recovery-summary/v1",
                 generated_at: new Date().toISOString(),
                 total_events: 0,
@@ -190,6 +190,12 @@ jobs:
                   redispatch_success_rate_pct: null,
                   mean_time_to_recovery_minutes: null,
                   manual_intervention_count: 0,
+                },
+                kpi_definitions: {
+                  approval_success_rate_pct: "approved / (approved + approve-failed) * 100",
+                  redispatch_success_rate_pct: "dispatched / (dispatched + dispatch-failed) * 100",
+                  mean_time_to_recovery_minutes: "avg((now - last_successful_recovery_time) / 60000) across PRs with successful recovery",
+                  manual_intervention_count: "count(recent_runs where approve_result='approve-failed' or redispatch_result='dispatch-failed')",
                 },
               };
               if (fs.existsSync(summaryPath)) {
@@ -211,7 +217,7 @@ jobs:
                 error_summary: metrics.error_summary,
               });
               summary.generated_at = metrics.generated_at;
-              summary.summary_version = "1.1.0";
+              summary.summary_version = "1.2.0";
               summary.schema = summary.schema || "eco-base/recovery-summary/v1";
               summary.total_events = Number(summary.total_events || 0) + 1;
               summary.dashboard_ready = summary.dashboard_ready || {
@@ -219,6 +225,12 @@ jobs:
                 redispatch_success_rate_pct: null,
                 mean_time_to_recovery_minutes: null,
                 manual_intervention_count: 0,
+              };
+              summary.kpi_definitions = summary.kpi_definitions || {
+                approval_success_rate_pct: "approved / (approved + approve-failed) * 100",
+                redispatch_success_rate_pct: "dispatched / (dispatched + dispatch-failed) * 100",
+                mean_time_to_recovery_minutes: "avg((now - last_successful_recovery_time) / 60000) across PRs with successful recovery",
+                manual_intervention_count: "count(recent_runs where approve_result='approve-failed' or redispatch_result='dispatch-failed')",
               };
               summary.prs[prKey] = {
                 pr_number: prNumber,
