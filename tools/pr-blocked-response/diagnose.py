@@ -146,7 +146,7 @@ def gh_run(args, **kwargs):
 def gh_api(path, method="GET", data=None):
     url = f"https://api.github.com{path}"
     req = urllib.request.Request(url, method=method)
-    req.add_header("Authorization", f"token {GH_TOKEN}")
+    req.add_header("Authorization", f"Bearer {GH_TOKEN}")
     req.add_header("Accept", "application/vnd.github.v3+json")
     req.add_header("Content-Type", "application/json")
     if data is not None:
@@ -329,11 +329,12 @@ def evaluate_ai_bot_comments(pr_num):
     for c in review_comments:
         actor = c.get("user", {}).get("login", "")
         if actor in AI_BOT_ACTORS:
+            body = c.get("body", "")
             all_comments.append({
                 "actor": actor,
-                "body": c.get("body", ""),
+                "body": body,
                 "path": c.get("path", ""),
-                "suggestion": c.get("body", "") if "```suggestion" in c.get("body", "") else None,
+                "suggestion": body if "```suggestion" in body else None,
                 "type": "review_comment",
             })
 
@@ -525,12 +526,8 @@ def classify_checks(check_runs):
             passing.add(name)
         elif conclusion == "skipped":
             # Required check skipped unexpectedly → treat as pending, re-trigger
-            if name in REQUIRED_CHECKS:
-                print(f"  [SKIPPED-REQUIRED] {name} was skipped — treating as pending")
-                pending.append(name)
-            else:
-                # Expected skip for non-required check → treat as passing
-                passing.add(name)
+            print(f"  [SKIPPED-REQUIRED] {name} was skipped — treating as pending")
+            pending.append(name)
         elif status in ("queued", "in_progress", "waiting", "pending"):
             pending.append(name)
         elif conclusion in ("failure", "error", "timed_out", "action_required", "cancelled"):
