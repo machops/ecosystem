@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/file-organizer-service
-    eco-base/urn: urn:eco-base:k8s:core:service:file-organizer-service:sha256-7b4456e6ac9b63dfee6ff697c99a62546aecf4db69deda3e1cee3677ccd747d5
+    eco-base/urn: urn:eco-base:k8s:core:service:file-organizer-service:sha256-f9b528b1c1b4d7a97cc1ceebcdc9b335b20dabf79d7b22b0e9dcb3530fa536d5
   labels:
     app.kubernetes.io/app.kubernetes.io/component: application
     app.kubernetes.io/component: eco-component

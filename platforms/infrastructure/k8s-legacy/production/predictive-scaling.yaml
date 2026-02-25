@@ -84,7 +84,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/configmap/predictive-scaling-config
-    eco-base/urn: urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-2761aa6a3cc120091cd3e4adc5f626a4cd4cb164386187f9603578b47b7e7d75
+    eco-base/urn: urn:eco-base:k8s:core:configmap:predictive-scaling-config:sha256-511b4c056d67fa4b6ef0cfe83021b941b75270998f6f80edaa01a688e81daa49
   labels:
     app.kubernetes.io/component: eco-component
     app.kubernetes.io/instance: eco-instance

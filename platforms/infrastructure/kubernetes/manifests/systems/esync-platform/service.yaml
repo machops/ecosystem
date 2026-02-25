@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/service/esync-platform-service
-    eco-base/urn: urn:eco-base:k8s:core:service:esync-platform-service:sha256-3af3521392de5b69187d6d9d41c626e60ff3418c27608581d44f204cc61ccd6b
+    eco-base/urn: urn:eco-base:k8s:core:service:esync-platform-service:sha256-e073fd7cdb33ee9906a39bee19b1baee8b5f5f0447412d65eb3ea5938460b353
   labels:
     app.kubernetes.io/app.kubernetes.io/component: platform
     app.kubernetes.io/component: eco-component
