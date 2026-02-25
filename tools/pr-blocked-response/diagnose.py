@@ -375,12 +375,13 @@ def retrigger_ci(pr_num, head_sha, failed_check_names):
         if (
             run.get("name") in failed_check_names and
             status == "completed" and
-            conclusion in ("failure", "timed_out", "cancelled", "skipped", "action_required")
+            conclusion in ("failure", "timed_out", "cancelled", "skipped", "action_required", "startup_failure")
         ):
             result = gh_api(f"/repos/{REPO}/check-runs/{run['id']}/rerequest", method="POST")
             if not result.get("_http_error"):
                 rerun_count += 1
     print(f"  [RETRIGGER] Re-triggered {rerun_count} check run(s)")
+    return rerun_count
 
 
 def remove_label(pr_num, label):
@@ -770,6 +771,8 @@ def process_pr(pr_num, pr_title, pr_branch, head_sha, merge_status, labels, is_d
     print(f"  all_pass={all_pass} any_pending={any_pending} merge_status={merge_status}")
     if anomalies:
         print(f"  [ANOMALIES] Non-required gate anomalies: {anomalies}")
+        anomaly_names = {name for name, _ in anomalies}
+        retrigger_ci(pr_num, head_sha, anomaly_names)
         anomaly_result = upsert_auto_anomaly_issue(pr_num, anomalies, head_sha)
         issue_number = anomaly_result.get("issue_number")
         if issue_number:

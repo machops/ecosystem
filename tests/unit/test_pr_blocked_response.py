@@ -51,6 +51,25 @@ def test_retrigger_ci_rerequests_skipped_required_checks(monkeypatch):
     assert (f"/repos/{diagnose.REPO}/check-runs/99/rerequest", "POST") in calls
 
 
+def test_retrigger_ci_rerequests_startup_failure_checks(monkeypatch):
+    calls = []
+    monkeypatch.setattr(
+        diagnose,
+        "get_check_runs",
+        lambda _: [{"id": 55, "name": "Security Gates — Trivy + Checkov + Gitleaks", "status": "completed", "conclusion": "startup_failure"}],
+    )
+    monkeypatch.setattr(
+        diagnose,
+        "gh_api",
+        lambda path, method="GET", data=None: calls.append((path, method)) or {},
+    )
+
+    count = diagnose.retrigger_ci(123, "deadbeef", {"Security Gates — Trivy + Checkov + Gitleaks"})
+
+    assert count == 1
+    assert (f"/repos/{diagnose.REPO}/check-runs/55/rerequest", "POST") in calls
+
+
 def test_engine_classify_marks_skipped_required_as_pending():
     summary = engine.classify_check_runs([
         {"name": "validate", "status": "completed", "conclusion": "success"},
