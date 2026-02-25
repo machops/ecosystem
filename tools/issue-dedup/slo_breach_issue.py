@@ -114,7 +114,7 @@ try:
 except urllib.error.HTTPError as e:
     # Include HTTP status and response body to aid debugging
     try:
-        response_body = e.read().decode("utf-8", errors="replace")
+        response_body = e.read(4096).decode("utf-8", errors="replace")
     except Exception:
         response_body = "<unavailable>"
     print(
