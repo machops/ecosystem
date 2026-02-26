@@ -1,7 +1,7 @@
 name: eco-base CI/CD
 # eco-base Unified CI/CD Pipeline
 # URI: eco-base://github/workflows/ci
-# Last updated: 2026-02-26 - Codacy coverage integration
+# Last updated: 2026-02-26 (batch2 fixes)
 
 on:
   push:
