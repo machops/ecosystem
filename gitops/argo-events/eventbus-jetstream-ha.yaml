@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventBus
+metadata:
+  name: default
+  namespace: argo-events
+  annotations:
+    eco.platform/p1-fix: "required-anti-affinity-v2"
+    eco.platform/owner: "platform-ops"
+spec:
+  jetstream:
+    version: "latest"
+    replicas: 3
+    persistence:
+      storageClassName: standard-rwo
+      accessMode: ReadWriteOnce
+      volumeSize: 10Gi
+    containerTemplate:
+      resources:
+        requests:
+          cpu: 30m
+          memory: 64Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                eventbus-name: default
+            topologyKey: kubernetes.io/hostname

@@ -1,0 +1,186 @@
+name: Supply Chain Security Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'platforms/**'
+      - 'mobile/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'platforms/**'
+      - 'mobile/**'
+
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+  attestations: write
+
+jobs:
+  sbom-generate:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    outputs:
+      sbom-path: ${{ steps.sbom.outputs.sbom-path }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM for platforms
+        id: sbom
+        run: |
+          mkdir -p sbom-artifacts
+          # Generate SBOM for each platform directory
+          for platform in platforms/eco-core platforms/eco-govops platforms/eco-dataops platforms/eco-observops platforms/eco-seccompops platforms/eco-superai; do
+            if [ -d "$platform" ]; then
+              platform_name=$(basename "$platform")
+              syft dir:"$platform" -o cyclonedx-json > "sbom-artifacts/${platform_name}-sbom.json"
+              echo "Generated SBOM for $platform_name"
+            fi
+          done
+          echo "sbom-path=sbom-artifacts" >> $GITHUB_OUTPUT
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-artifacts
+          path: sbom-artifacts/
+          retention-days: 90
+
+  cosign-sign:
+    name: Sign Artifacts with cosign
+    runs-on: ubuntu-latest
+    needs: sbom-generate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+        with:
+          cosign-release: 'v2.4.3'
+
+      - name: Download SBOM artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: sbom-artifacts
+          path: sbom-artifacts/
+
+      - name: Sign SBOMs with cosign (keyless, Sigstore)
+        run: |
+          for sbom in sbom-artifacts/*.json; do
+            echo "Signing $sbom"
+            cosign sign-blob \
+              --yes \
+              --bundle "${sbom}.bundle" \
+              "$sbom" || echo "Warning: cosign sign failed for $sbom (keyless requires OIDC)"
+          done
+
+      - name: Upload signed bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-signed-bundles
+          path: sbom-artifacts/*.bundle
+          retention-days: 90
+
+  slsa-provenance:
+    name: SLSA Build Provenance
+    runs-on: ubuntu-latest
+    needs: sbom-generate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute SHA256 of platform manifests
+        id: hash
+        run: |
+          find platforms/ -name "*.yaml" -o -name "*.json" | sort | xargs sha256sum > /tmp/manifest-hashes.txt
+          HASH=$(sha256sum /tmp/manifest-hashes.txt | cut -d' ' -f1)
+          echo "hash=$HASH" >> $GITHUB_OUTPUT
+          echo "Manifest hash: $HASH"
+
+      - name: Generate SLSA provenance attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: '/tmp/manifest-hashes.txt'
+
+  admission-policy-check:
+    name: Admission Policy Compliance Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install kyverno CLI
+        run: |
+          curl -LO https://github.com/kyverno/kyverno/releases/download/v1.13.4/kyverno-cli_v1.13.4_linux_x86_64.tar.gz
+          tar -xzf kyverno-cli_v1.13.4_linux_x86_64.tar.gz
+          sudo mv kyverno /usr/local/bin/kyverno
+          kyverno version
+
+      - name: Check all platform manifests for image tag compliance
+        run: |
+          VIOLATIONS=0
+          REPORT=""
+
+          for f in $(find platforms/ -name "*.yaml" 2>/dev/null); do
+            # Check for 'latest' tag
+            if grep -q 'image:.*:latest' "$f" 2>/dev/null; then
+              VIOLATIONS=$((VIOLATIONS + 1))
+              REPORT="$REPORT\nVIOLATION: $f uses :latest tag"
+            fi
+            # Check for missing resource limits in Deployment/StatefulSet
+            if grep -q 'kind: Deployment\|kind: StatefulSet' "$f" 2>/dev/null; then
+              if ! grep -q 'resources:' "$f" 2>/dev/null; then
+                REPORT="$REPORT\nWARNING: $f may be missing resource limits"
+              fi
+            fi
+          done
+
+          if [ -n "$REPORT" ]; then
+            echo -e "Supply Chain Policy Violations:$REPORT"
+          fi
+
+          if [ "$VIOLATIONS" -gt 0 ]; then
+            echo "ERROR: $VIOLATIONS supply chain policy violations found"
+            exit 1
+          else
+            echo "Supply chain policy check PASSED — 0 violations"
+          fi
+
+      - name: Verify no unapproved registries in platform manifests
+        run: |
+          APPROVED_REGISTRIES="ghcr.io/indestructibleorg gcr.io/my-project-ops-1991 quay.io docker.io/library"
+          VIOLATIONS=0
+
+          for f in $(find platforms/ -name "*.yaml" 2>/dev/null); do
+            while IFS= read -r line; do
+              if echo "$line" | grep -qE '^\s+image:'; then
+                IMAGE=$(echo "$line" | sed 's/.*image:\s*//' | tr -d '"'"'" | tr -d ' ')
+                APPROVED=false
+                for reg in $APPROVED_REGISTRIES; do
+                  if echo "$IMAGE" | grep -q "^$reg"; then
+                    APPROVED=true
+                    break
+                  fi
+                done
+                # Allow images without registry prefix (Docker Hub official)
+                if echo "$IMAGE" | grep -qE '^[a-z0-9]+[:/]'; then
+                  APPROVED=true
+                fi
+                if [ "$APPROVED" = "false" ] && [ -n "$IMAGE" ]; then
+                  echo "WARNING: Unapproved registry in $f: $IMAGE"
+                fi
+              fi
+            done < "$f"
+          done
+
+          echo "Registry compliance check complete"

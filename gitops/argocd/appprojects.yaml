@@ -1,0 +1,134 @@
+---
+# AppProject: infra-critical
+# Covers: argocd, harbor, kyverno, gatekeeper, monitoring, argo-events, keda, flagger
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infra-critical
+  namespace: argocd
+  annotations:
+    eco.platform/owner: "platform-ops"
+    eco.platform/tier: "critical"
+spec:
+  description: "Critical infrastructure components — restricted prune, manual sync required for destructive changes"
+  sourceRepos:
+    - "https://github.com/indestructibleorg/eco-base"
+    - "https://helm.goharbor.io"
+    - "https://kyverno.github.io/kyverno"
+    - "https://open-policy-agent.github.io/gatekeeper/charts"
+    - "https://prometheus-community.github.io/helm-charts"
+    - "https://grafana.github.io/helm-charts"
+    - "https://kedacore.github.io/charts"
+    - "https://flagger.app"
+    - "https://argoproj.github.io/argo-helm"
+  destinations:
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+    - namespace: harbor
+      server: https://kubernetes.default.svc
+    - namespace: kyverno
+      server: https://kubernetes.default.svc
+    - namespace: gatekeeper-system
+      server: https://kubernetes.default.svc
+    - namespace: monitoring
+      server: https://kubernetes.default.svc
+    - namespace: argo-events
+      server: https://kubernetes.default.svc
+    - namespace: tekton-pipelines
+      server: https://kubernetes.default.svc
+    - namespace: tekton-pipelines-resolvers
+      server: https://kubernetes.default.svc
+    - namespace: keda
+      server: https://kubernetes.default.svc
+    - namespace: flagger-system
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRole
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRoleBinding
+    - group: "apiextensions.k8s.io"
+      kind: CustomResourceDefinition
+    - group: "admissionregistration.k8s.io"
+      kind: ValidatingWebhookConfiguration
+    - group: "admissionregistration.k8s.io"
+      kind: MutatingWebhookConfiguration
+    - group: "kyverno.io"
+      kind: ClusterPolicy
+    - group: "templates.gatekeeper.sh"
+      kind: ConstraintTemplate
+    - group: "monitoring.coreos.com"
+      kind: PrometheusRule
+    - group: "monitoring.coreos.com"
+      kind: ClusterRole
+  namespaceResourceBlacklist:
+    - group: ""
+      kind: ResourceQuota
+    - group: ""
+      kind: LimitRange
+  roles:
+    - name: infra-admin
+      description: "Full access to infra-critical project"
+      policies:
+        - p, proj:infra-critical:infra-admin, applications, *, infra-critical/*, allow
+      groups:
+        - platform-ops
+    - name: infra-readonly
+      description: "Read-only access to infra-critical project"
+      policies:
+        - p, proj:infra-critical:infra-readonly, applications, get, infra-critical/*, allow
+      groups:
+        - developers
+
+---
+# AppProject: eco-platforms
+# Covers: eco-core, eco-govops, eco-dataops, eco-observops, eco-seccompops, eco-superai
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: eco-platforms
+  namespace: argocd
+  annotations:
+    eco.platform/owner: "platform-dev"
+    eco.platform/tier: "platform"
+spec:
+  description: "ECO business platforms — auto-sync with prune enabled, diff gate required on PR"
+  sourceRepos:
+    - "https://github.com/indestructibleorg/eco-base"
+  destinations:
+    - namespace: eco-core
+      server: https://kubernetes.default.svc
+    - namespace: eco-govops
+      server: https://kubernetes.default.svc
+    - namespace: eco-dataops
+      server: https://kubernetes.default.svc
+    - namespace: eco-observops
+      server: https://kubernetes.default.svc
+    - namespace: eco-seccompops
+      server: https://kubernetes.default.svc
+    - namespace: eco-superai
+      server: https://kubernetes.default.svc
+    - namespace: platform-01
+      server: https://kubernetes.default.svc
+    - namespace: platform-02
+      server: https://kubernetes.default.svc
+    - namespace: platform-03
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRole
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRoleBinding
+  roles:
+    - name: platform-dev
+      description: "Deploy access to eco-platforms"
+      policies:
+        - p, proj:eco-platforms:platform-dev, applications, sync, eco-platforms/*, allow
+        - p, proj:eco-platforms:platform-dev, applications, get, eco-platforms/*, allow
+      groups:
+        - developers
+        - platform-dev

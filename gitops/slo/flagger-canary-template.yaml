@@ -1,0 +1,162 @@
+---
+# Flagger Canary Template — ECO Platform SLO/Rollback Closed Loop
+# SLI: success rate ≥99%, p99 latency ≤500ms, error rate ≤1%
+# Rollback: automatic if SLI violated during canary analysis
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: eco-platform-canary
+  namespace: platform-01
+  annotations:
+    eco.platform/slo-owner: "platform-ops"
+    eco.platform/slo-version: "v1.0"
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: eco-platform-app
+  progressDeadlineSeconds: 600
+  service:
+    port: 8080
+    targetPort: 8080
+    portDiscovery: true
+  analysis:
+    # Canary step interval
+    interval: 1m
+    # Number of analysis iterations before promotion
+    threshold: 5
+    # Max traffic weight for canary (%)
+    maxWeight: 50
+    # Traffic weight increment per step (%)
+    stepWeight: 10
+    # Metrics-based SLI gates
+    metrics:
+      - name: request-success-rate
+        # SLI: success rate ≥99%
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        # SLI: p99 latency ≤500ms
+        thresholdRange:
+          max: 500
+        interval: 1m
+      - name: error-rate
+        templateRef:
+          name: eco-error-rate
+          namespace: flagger-system
+        thresholdRange:
+          max: 1
+        interval: 1m
+    # Webhooks for pre/post promotion hooks
+    webhooks:
+      - name: load-test
+        url: http://flagger-loadtester.flagger-system/
+        timeout: 5s
+        metadata:
+          cmd: "hey -z 1m -q 10 -c 2 http://eco-platform-app-canary.platform-01/"
+      - name: smoke-test
+        type: pre-rollout
+        url: http://flagger-loadtester.flagger-system/
+        timeout: 15s
+        metadata:
+          cmd: "curl -s http://eco-platform-app-canary.platform-01/health | grep -q 'ok'"
+
+---
+# MetricTemplate: custom error rate SLI from Prometheus
+apiVersion: flagger.app/v1beta1
+kind: MetricTemplate
+metadata:
+  name: eco-error-rate
+  namespace: flagger-system
+spec:
+  provider:
+    type: prometheus
+    address: http://prometheus-kube-prometheus-prometheus.monitoring:9090
+  query: |
+    100 - sum(
+      rate(
+        http_requests_total{
+          namespace="{{ namespace }}",
+          service="{{ target }}",
+          status_code!~"5.."
+        }[{{ interval }}]
+      )
+    )
+    /
+    sum(
+      rate(
+        http_requests_total{
+          namespace="{{ namespace }}",
+          service="{{ target }}"
+        }[{{ interval }}]
+      )
+    ) * 100
+
+---
+# SLO PrometheusRule — Platform-level SLO recording rules
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: eco-platform-slo
+  namespace: monitoring
+  labels:
+    app: kube-prometheus-stack
+    release: prometheus
+spec:
+  groups:
+  - name: eco.slo.availability
+    interval: 30s
+    rules:
+    - record: eco:platform:availability:rate5m
+      expr: |
+        sum(rate(http_requests_total{status_code!~"5.."}[5m])) by (namespace, service)
+        /
+        sum(rate(http_requests_total[5m])) by (namespace, service)
+
+    - record: eco:platform:latency_p99:rate5m
+      expr: |
+        histogram_quantile(0.99,
+          sum(rate(http_request_duration_seconds_bucket[5m])) by (namespace, service, le)
+        )
+
+    - record: eco:platform:error_rate:rate5m
+      expr: |
+        sum(rate(http_requests_total{status_code=~"5.."}[5m])) by (namespace, service)
+        /
+        sum(rate(http_requests_total[5m])) by (namespace, service)
+
+  - name: eco.slo.alerts
+    rules:
+    - alert: EcoPlatformSLOAvailabilityBreach
+      expr: |
+        eco:platform:availability:rate5m < 0.99
+      for: 2m
+      labels:
+        severity: critical
+        eco_platform: "{{ $labels.namespace }}"
+      annotations:
+        summary: "Platform availability SLO breach"
+        description: "{{ $labels.namespace }}/{{ $labels.service }} availability {{ $value | humanizePercentage }} < 99%"
+
+    - alert: EcoPlatformSLOLatencyBreach
+      expr: |
+        eco:platform:latency_p99:rate5m > 0.5
+      for: 2m
+      labels:
+        severity: warning
+        eco_platform: "{{ $labels.namespace }}"
+      annotations:
+        summary: "Platform p99 latency SLO breach"
+        description: "{{ $labels.namespace }}/{{ $labels.service }} p99 latency {{ $value | humanizeDuration }} > 500ms"
+
+    - alert: EcoPlatformSLOErrorRateBreach
+      expr: |
+        eco:platform:error_rate:rate5m > 0.01
+      for: 2m
+      labels:
+        severity: critical
+        eco_platform: "{{ $labels.namespace }}"
+      annotations:
+        summary: "Platform error rate SLO breach"
+        description: "{{ $labels.namespace }}/{{ $labels.service }} error rate {{ $value | humanizePercentage }} > 1%"

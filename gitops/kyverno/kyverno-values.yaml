@@ -1,0 +1,18 @@
+config:
+  webhooks:
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values:
+            - kube-system
+            - kyverno
+            - monitoring
+            - argo-events
+            - tekton-pipelines
+            - tekton-pipelines-resolvers
+            - harbor
+            - argocd
+            - gatekeeper-system
+            - keda
+            - flagger-system

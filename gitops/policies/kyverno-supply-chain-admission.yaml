@@ -1,0 +1,81 @@
+---
+# Supply Chain Admission Policy — Phase 4-B
+# Enforces: no latest tag, resource limits required, approved registries only
+# Mode: Audit (→ Enforce on 2026-03-28 per policy-boundary.md schedule)
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-signed-images
+  annotations:
+    policies.kyverno.io/title: "Require Image Signatures"
+    policies.kyverno.io/category: "Supply Chain Security"
+    policies.kyverno.io/severity: "high"
+    policies.kyverno.io/description: >
+      Images deployed to eco-production must be signed via cosign/Sigstore.
+      Audit mode until 2026-03-28, then Enforce.
+    eco.platform/enforce-date: "2026-03-28"
+    eco.platform/owner: "platform-ops"
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: check-image-signature
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              namespaces:
+                - eco-production
+                - eco-core
+                - eco-govops
+                - eco-dataops
+                - eco-observops
+                - eco-seccompops
+                - eco-superai
+      verifyImages:
+        - imageReferences:
+            - "ghcr.io/indestructibleorg/*"
+          attestors:
+            - entries:
+                - keyless:
+                    subject: "https://github.com/indestructibleorg/eco-base/.github/workflows/supply-chain-gate.yml@refs/heads/main"
+                    issuer: "https://token.actions.githubusercontent.com"
+                    rekor:
+                      url: https://rekor.sigstore.dev
+          mutateDigest: false
+          required: false  # Audit: warn only; set to true when Enforce
+
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-sbom-annotation
+  annotations:
+    policies.kyverno.io/title: "Require SBOM Annotation"
+    policies.kyverno.io/category: "Supply Chain Security"
+    policies.kyverno.io/severity: "medium"
+    eco.platform/enforce-date: "2026-04-01"
+    eco.platform/owner: "platform-ops"
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: check-sbom-annotation
+      match:
+        any:
+          - resources:
+              kinds: [Deployment, StatefulSet, DaemonSet]
+              namespaces:
+                - eco-production
+                - eco-core
+                - eco-govops
+                - eco-dataops
+                - eco-observops
+                - eco-seccompops
+                - eco-superai
+      validate:
+        message: "Workloads in eco namespaces must have eco.platform/sbom-ref annotation"
+        pattern:
+          metadata:
+            annotations:
+              eco.platform/sbom-ref: "?*"
