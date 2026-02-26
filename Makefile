@@ -10,7 +10,7 @@
         tools-up tools-down \
         db-migrate db-reset db-shell \
         yaml-validate yaml-validate-dir \
-	platforms-refactor-retrieval platforms-refactor-p0 platforms-refactor-p1 platforms-refactor-p2 \
+	platforms-refactor-retrieval platforms-refactor-p0 platforms-refactor-p1 platforms-refactor-p2 platforms-refactor-enterprise platforms-baseline \
         status urls
 
 COMPOSE      := docker compose --env-file .env.local
@@ -64,6 +64,8 @@ help:
 	@echo "  make platforms-refactor-p0"
 	@echo "  make platforms-refactor-p1"
 	@echo "  make platforms-refactor-p2"
+	@echo "  make platforms-refactor-enterprise"
+	@echo "  make platforms-baseline"
 	@echo ""
 	@echo "$(GREEN)Info:$(RESET)"
 	@echo "  make status          Health check all services"
@@ -208,6 +210,18 @@ platforms-refactor-p2:
 	@echo "$(CYAN)▸ Running platforms forced retrieval workflow (P2)...$(RESET)"
 	PHASE=P2 TASK_ID=P2-platforms-refactor-retrieval TARGET=platforms OUT=.tmp/refactor-retrieval bash ./scripts/platforms_refactor_retrieval.sh
 	@echo "$(GREEN)✓ P2 artifacts updated: .tmp/refactor-retrieval$(RESET)"
+
+platforms-refactor-enterprise:
+	@echo "$(CYAN)▸ Running enterprise forced retrieval workflow (P2 + external snapshots)...$(RESET)"
+	PHASE=P2 TASK_ID=P2-platforms-refactor-retrieval TARGET=platforms OUT=.tmp/refactor-retrieval ENABLE_EXTERNAL_FETCH=1 bash ./scripts/platforms_refactor_retrieval.sh
+	@echo "$(GREEN)✓ Enterprise artifacts updated: .tmp/refactor-retrieval$(RESET)"
+
+platforms-baseline:
+	@echo "$(CYAN)▸ Building platforms baseline...$(RESET)"
+	PHASE=P2 TASK_ID=P2-platforms-refactor-retrieval TARGET=platforms OUT=.tmp/refactor-retrieval ENABLE_EXTERNAL_FETCH=1 bash ./scripts/platforms_refactor_retrieval.sh
+	@echo "$(GREEN)✓ Baseline ready: .tmp/refactor-retrieval$(RESET)"
+	@echo "$(CYAN)▸ Baseline decision$(RESET)"
+	@cat .tmp/refactor-retrieval/decision-2.txt
 
 # ══════════════════════════════════════════════════════════════════════════════
 # INFO

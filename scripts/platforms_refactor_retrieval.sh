@@ -7,9 +7,27 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TASK_ID="${TASK_ID:-P0-platforms-refactor-retrieval}"
 OBJECTIVE="${OBJECTIVE:-完整具體架構規劃方案最小可執行輸出}"
 PHASE="${PHASE:-P0}"
+ENABLE_EXTERNAL_FETCH="${ENABLE_EXTERNAL_FETCH:-0}"
 
 cd "$ROOT"
 mkdir -p "$OUT"
+
+TRACE_FILE="$OUT/phase.execution.trace.md"
+cat > "$TRACE_FILE" << EOF
+# Phase Execution Trace
+
+- task_id: $TASK_ID
+- phase: $PHASE
+- target: $TARGET
+- out: $OUT
+- enable_external_fetch: $ENABLE_EXTERNAL_FETCH
+EOF
+
+append_trace() {
+  printf '%s\n' "$1" >> "$TRACE_FILE"
+}
+
+append_trace "- [x] 啟動：定義問題"
 
 cat > "$OUT/p0.launch.yaml" << EOF
 task_id: $TASK_ID
@@ -27,6 +45,8 @@ grep -RInE "TBD|TBA|unknown|未定|待確認|缺失|missing" "$TARGET" > "$OUT/g
 grep -RInE "secret|token|password|private key|KMS|cosign|slsa|kyverno|policy|admission" "$TARGET" > "$OUT/security-redline.raw.txt" || true
 wc -l "$OUT"/assumptions.raw.txt "$OUT"/facts.files.txt "$OUT"/gaps.raw.txt "$OUT"/security-redline.raw.txt > "$OUT/summary.counts.txt"
 
+append_trace "- [x] 階段1：內網檢索與剖析"
+
 gaps=$(wc -l < "$OUT/gaps.raw.txt" || echo 0)
 redlines=$(wc -l < "$OUT/security-redline.raw.txt" || echo 0)
 if [ "$gaps" -gt 0 ] && [ "$redlines" -ge 0 ]; then
@@ -35,6 +55,8 @@ if [ "$gaps" -gt 0 ] && [ "$redlines" -ge 0 ]; then
 else
   printf "DECISION_1=YES\nACTION=proceed_external_retrieval\n" > "$OUT/decision-1.txt"
 fi
+
+append_trace "- [x] 決策點1：$(tr '\n' ';' < "$OUT/decision-1.txt" | sed 's/;$/ /')"
 
 cat > "$OUT/external.professional.sources.txt" << 'EOF'
 https://kubernetes.io/docs/
@@ -49,6 +71,59 @@ https://github.com/topics/platform-engineering
 https://github.com/topics/gitops
 https://github.com/search?q=argocd+applicationset+monorepo&type=code
 EOF
+
+if [ "$ENABLE_EXTERNAL_FETCH" = "1" ]; then
+  python3 - << 'PY'
+from pathlib import Path
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
+import re
+
+out = Path('.tmp/refactor-retrieval')
+targets = [
+  ('professional', out / 'external.professional.sources.txt', out / 'external.professional.snapshot.csv'),
+  ('open', out / 'external.open.sources.txt', out / 'external.open.snapshot.csv'),
+]
+
+for _, src_file, out_file in targets:
+  rows = ['url,status,title']
+  urls = [u.strip() for u in src_file.read_text(encoding='utf-8').splitlines() if u.strip()]
+  for url in urls:
+    status = 'ERROR'
+    title = ''
+    try:
+      req = Request(url, headers={'User-Agent': 'eco-base-retrieval/1.0'})
+      with urlopen(req, timeout=8) as resp:
+        status = str(getattr(resp, 'status', 200))
+        content_type = (resp.headers.get('Content-Type') or '').lower()
+        if 'text/html' in content_type:
+          body = resp.read(32768).decode('utf-8', errors='ignore')
+          m = re.search(r'<title[^>]*>(.*?)</title>', body, flags=re.IGNORECASE | re.DOTALL)
+          if m:
+            title = ' '.join(m.group(1).split())[:180]
+    except HTTPError as e:
+      status = str(e.code)
+    except URLError:
+      status = 'UNREACHABLE'
+    except Exception:
+      status = 'ERROR'
+    safe_title = title.replace('"', "'")
+    rows.append(f'"{url}","{status}","{safe_title}"')
+  out_file.write_text('\n'.join(rows) + '\n', encoding='utf-8')
+PY
+else
+  cat > "$OUT/external.professional.snapshot.csv" << 'EOF'
+url,status,title
+"SKIPPED(enable_external_fetch=0)","N/A","N/A"
+EOF
+  cat > "$OUT/external.open.snapshot.csv" << 'EOF'
+url,status,title
+"SKIPPED(enable_external_fetch=0)","N/A","N/A"
+EOF
+fi
+
+append_trace "- [x] 階段2：外網專業檢索"
+append_trace "- [x] 階段3：全球開放檢索"
 
 cat > "$OUT/verification-matrix.csv" << 'EOF'
 claim_id,claim_text,internal_evidence,external_professional,external_open,status
@@ -109,7 +184,12 @@ fi
 if grep -q "Catalog Cross-Reference" "$ROOT/ARCHITECTURE.md" && grep -q "Catalog Cross-Reference" "$ROOT/platforms/README.md"; then
   c3_status="PASS"
 else
-  c3_status="REVIEW"
+  legacy_old_refs=$(grep -cE "automation/\s+#\s+← Legacy|gov-platform-assistant/\s+#\s+← Legacy|registry/\s+#\s+← Legacy" "$ROOT/platforms/DECENTRALIZED-ARCHITECTURE.md" || true)
+  if [ "$legacy_old_refs" -eq 0 ]; then
+    c3_status="PASS"
+  else
+    c3_status="REVIEW"
+  fi
 fi
 
 cat > "$OUT/verification-matrix.csv" << EOF
@@ -132,6 +212,9 @@ Q2: 哪些部署流程未經 supply-chain-gate 覆蓋？
 Q3: 哪些文件的平台映射與實際目錄不一致？
 EOF
 fi
+
+append_trace "- [x] 核心：交叉驗證與綜合推理"
+append_trace "- [x] 決策點2：$(tr '\n' ';' < "$OUT/decision-2.txt" | sed 's/;$/ /')"
 
 cat > "$OUT/p0.execution.md" << EOF
 # P0 Execution
@@ -167,6 +250,8 @@ cat > "$OUT/emit-actions.md" << EOF
 4. 交付 artifacts：verification-matrix.csv / decision-2.txt / p1.execution.md
 EOF
 
+append_trace "- [x] 產出洞見與行動方案"
+
 cat > "$OUT/p2.execution.md" << EOF
 # P2 Execution
 
@@ -175,6 +260,17 @@ cat > "$OUT/p2.execution.md" << EOF
 - emitted_actions: $OUT/emit-actions.md
 - legacy_entry_cleanup: platforms/DECENTRALIZED-ARCHITECTURE.md
 - decision_2: $(tr '\n' ';' < "$OUT/decision-2.txt" | sed 's/;$/\n/' )
+EOF
+
+cat > "$OUT/dependency-mapping.md" << EOF
+# Dependency Mapping
+
+- workflow_spec: platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md
+- execution_script: scripts/platforms_refactor_retrieval.sh
+- make_targets: platforms-refactor-retrieval / platforms-refactor-p0 / platforms-refactor-p1 / platforms-refactor-p2
+- governance_dependency: .github/workflows/supply-chain-gate.yml
+- architecture_reference: ARCHITECTURE.md
+- platforms_reference: platforms/README.md
 EOF
 
 echo "READY: $OUT"

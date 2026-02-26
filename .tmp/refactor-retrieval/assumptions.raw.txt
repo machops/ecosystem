@@ -1,4 +1,4 @@
-platforms/PLATFORMS_REFACTOR_RETRIEVAL_INDEX.md:24:- `.tmp/refactor-retrieval/focused-q1-legacy-refs.txt`
+platforms/PLATFORMS_REFACTOR_RETRIEVAL_INDEX.md:27:- `.tmp/refactor-retrieval/focused-q1-legacy-refs.txt`
 platforms/eco-seccompops/platform-seccompops/src/engines/zero_tolerance/engine.py:116:    def generate_legacy_sha256(data: bytes) -> str:
 platforms/eco-seccompops/platform-seccompops/src/engines/zero_tolerance/engine.py:117:        """Generate SHA256 hash - legacy only."""
 platforms/eco-seccompops/platform-seccompops/src/engines/zero_tolerance/engine.py:128:            computed = CryptographicStandard.generate_legacy_sha256(data)
@@ -7931,11 +7931,11 @@ platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/u
 platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/unified-naming-governance-contract.yaml:694:        - to: DEPRECATED
 platforms/ng-era-platforms/ng-era1-platforms/governance-architecture/contracts/unified-naming-governance-contract.yaml:697:    - state: DEPRECATED
 platforms/ng-era-platforms/README.md:17:- All historical reports, TODOs, and deployment specs remain unchanged inside each era so execution flows can be replayed without reconstruction.
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:36:grep -RInE "TODO|FIXME|HACK|DEPRECATED|legacy|archived|暫時|待補" "$TARGET" > "$OUT/assumptions.raw.txt" || true
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:117:C3,legacy path still referenced,YES,NO,YES,REVIEW
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:142:Q1: 哪些 platforms/* 仍引用 legacy 目錄？
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:159:3. 移除已淘汰 legacy 路徑的對外入口連結。
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:171:grep -RInE "TODO|FIXME|legacy|TBD|secret|token|kyverno|cosign" "$TARGET" > "$OUT/signals.txt" || true
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:54:grep -RInE "TODO|FIXME|HACK|DEPRECATED|legacy|archived|暫時|待補" "$TARGET" > "$OUT/assumptions.raw.txt" || true
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:140:C3,legacy path still referenced,YES,NO,YES,REVIEW
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:165:Q1: 哪些 platforms/* 仍引用 legacy 目錄？
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:182:3. 移除已淘汰 legacy 路徑的對外入口連結。
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:194:grep -RInE "TODO|FIXME|legacy|TBD|secret|token|kyverno|cosign" "$TARGET" > "$OUT/signals.txt" || true
 platforms/eco-govops/platform-govops/tests/unit/test_governance_module.py:36:        name="legacy",
 platforms/eco-govops/platform-govops/tests/unit/test_governance_module.py:37:        path="/libs/legacy",
 platforms/eco-govops/tests/unit/test_governance_module.py:36:        name="legacy",
@@ -8038,15 +8038,6 @@ platforms/infrastructure/foundation/k8s-legacy/jaeger/istio-config.yaml:137:    
 platforms/infrastructure/foundation/k8s-legacy/jaeger/istio-config.yaml:138:    eco-base/urn: urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:jaeger:istio-config.yaml
 platforms/infrastructure/foundation/k8s-legacy/jaeger/istio-config.yaml:158:    eco-base/uri: eco-base://platform/resource/infrastructure/foundation/k8s-legacy/jaeger/istio-config.yaml
 platforms/infrastructure/foundation/k8s-legacy/jaeger/istio-config.yaml:159:    eco-base/urn: urn:eco-base:platform:resource:infrastructure:foundation:k8s-legacy:jaeger:istio-config.yaml
-platforms/DECENTRALIZED-ARCHITECTURE.md:71:├── automation/                    # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:72:├── gl/                            # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:73:├── gov-platform-assistant/        # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:74:├── gov-platform-ide/              # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:75:├── infrastructure/                # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:76:├── ng-era-platforms/              # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:77:├── quantum/                       # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:78:└── registry/                      # ← Legacy (archived)
-platforms/DECENTRALIZED-ARCHITECTURE.md:149:The legacy directories (`automation/`, `gl/`, `gov-platform-assistant/`, etc.) are preserved
 platforms/eco-superai/platform-superai/src/ai/agents/task_executor.py:89:            "code_generator": f'"""\nGenerated code stub for: {task[:100]}\nTODO: Implement with LLM assistance\n"""\n\ndef generated_function():\n    raise NotImplementedError("LLM unavailable - implement manually")\n',
 platforms/eco-superai/platform-superai/src/ai/agents/task_executor.py:91:            "test_writer": f'"""Test suite stub for: {task[:100]}"""\nimport pytest\n\nclass TestGenerated:\n    def test_placeholder(self):\n        """TODO: Generate tests with LLM"""\n        pytest.skip("LLM unavailable")\n',
 platforms/eco-superai/src/ai/agents/task_executor.py:89:            "code_generator": f'"""\nGenerated code stub for: {task[:100]}\nTODO: Implement with LLM assistance\n"""\n\ndef generated_function():\n    raise NotImplementedError("LLM unavailable - implement manually")\n',

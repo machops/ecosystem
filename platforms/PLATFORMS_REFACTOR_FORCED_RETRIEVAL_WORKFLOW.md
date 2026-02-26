@@ -30,6 +30,12 @@ P2 執行指令：
 PHASE=P2 TASK_ID=P2-platforms-refactor-retrieval TARGET=platforms OUT=.tmp/refactor-retrieval ./scripts/platforms_refactor_retrieval.sh
 ```
 
+P2（含外網快照）執行指令：
+
+```bash
+PHASE=P2 TASK_ID=P2-platforms-refactor-retrieval TARGET=platforms OUT=.tmp/refactor-retrieval ENABLE_EXTERNAL_FETCH=1 ./scripts/platforms_refactor_retrieval.sh
+```
+
 ## 階段 1：內網檢索與剖析（強制）
 
 ### 執行指令
@@ -117,6 +123,11 @@ EOF
 ```
 
 > 階段 2/3 可在安全紅線內並行。
+
+可選快照輸出（`ENABLE_EXTERNAL_FETCH=1`）：
+
+- `external.professional.snapshot.csv`
+- `external.open.snapshot.csv`
 
 ## 核心：交叉驗證與綜合推理（驗證矩陣）
 

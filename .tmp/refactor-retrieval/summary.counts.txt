@@ -1,5 +1,5 @@
-   8053 .tmp/refactor-retrieval/assumptions.raw.txt
+   8044 .tmp/refactor-retrieval/assumptions.raw.txt
     562 .tmp/refactor-retrieval/facts.files.txt
   11569 .tmp/refactor-retrieval/gaps.raw.txt
    6253 .tmp/refactor-retrieval/security-redline.raw.txt
-  26437 total
+  26428 total

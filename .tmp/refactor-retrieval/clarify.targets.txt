@@ -18,7 +18,7 @@ platforms/ECO_NAMESPACE_ALIGNMENT.md:203:    eco-base/owner: platform-team
 platforms/ECO_NAMESPACE_ALIGNMENT.md:227:    eco-base/owner: ai-team
 platforms/ECO_PLATFORM_INTEGRATION_MASTER.md:50:| govops | 標籤缺失 | 無 `eco-base/owner` | `eco-base/owner: governance-operations-team` |
 platforms/ECO_PLATFORM_INTEGRATION_MASTER.md:95:    eco-base/owner: <platform-name>-team
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:76:grep -RInE "owner|maintainer|contact|runbook|ADR|architecture" platforms docs | sort > .tmp/refactor-retrieval/clarify.targets.txt
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:94:grep -RInE "owner|maintainer|contact|runbook|ADR|architecture" platforms docs | sort > .tmp/refactor-retrieval/clarify.targets.txt
 platforms/README.md:121:- **gl.platform.owner**: Platform owner
 platforms/README.md:13:- ECO deployment architecture map: `ARCHITECTURE.md` (ECO Platform Modules)
 platforms/README.md:142:- GL enterprise architecture (GL00-09)

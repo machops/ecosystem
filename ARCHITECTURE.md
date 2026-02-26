@@ -177,6 +177,15 @@ indestructibleorg/eco-base/
 
 - `platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md`
 - `platforms/PLATFORMS_REFACTOR_RETRIEVAL_INDEX.md`
+- `scripts/platforms_refactor_retrieval.sh`
+- `make platforms-refactor-enterprise`
+
+### Forced Execution (Enterprise)
+
+- Command: `PHASE=P2 TASK_ID=P2-platforms-refactor-retrieval TARGET=platforms OUT=.tmp/refactor-retrieval ENABLE_EXTERNAL_FETCH=1 bash ./scripts/platforms_refactor_retrieval.sh`
+- Phase trace: `.tmp/refactor-retrieval/phase.execution.trace.md`
+- Dependency mapping: `.tmp/refactor-retrieval/dependency-mapping.md`
+- External snapshots: `.tmp/refactor-retrieval/external.professional.snapshot.csv`, `.tmp/refactor-retrieval/external.open.snapshot.csv`
 
 ### Catalog Cross-Reference
 

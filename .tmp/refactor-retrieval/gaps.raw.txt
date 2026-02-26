@@ -11195,8 +11195,8 @@ platforms/quantum/computing/artifacts/cli/artifact_cli.py:155:                pr
 platforms/quantum/artifacts/cli/artifact_cli.py:152:            missing_keys = [key for key in required_keys if key not in data]
 platforms/quantum/artifacts/cli/artifact_cli.py:154:            if missing_keys:
 platforms/quantum/artifacts/cli/artifact_cli.py:155:                print(f"❌ Validation failed: Missing required keys: {', '.join(missing_keys)}")
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:39:grep -RInE "TBD|TBA|unknown|未定|待確認|缺失|missing" "$TARGET" > "$OUT/gaps.raw.txt" || true
-platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:171:grep -RInE "TODO|FIXME|legacy|TBD|secret|token|kyverno|cosign" "$TARGET" > "$OUT/signals.txt" || true
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:57:grep -RInE "TBD|TBA|unknown|未定|待確認|缺失|missing" "$TARGET" > "$OUT/gaps.raw.txt" || true
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:194:grep -RInE "TODO|FIXME|legacy|TBD|secret|token|kyverno|cosign" "$TARGET" > "$OUT/signals.txt" || true
 platforms/semantic-platform/tests/test_engines.py:118:            indexing_engine.get_document("missing")
 platforms/eco-govops/platform-govops/.github/workflows/ci.yaml:95:          mypy src/ --ignore-missing-imports
 platforms/eco-govops/platform-govops/.github/workflows/ci.yaml:161:            --cov-report=term-missing \

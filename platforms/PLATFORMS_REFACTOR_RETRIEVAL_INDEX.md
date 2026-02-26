@@ -5,6 +5,7 @@
 - `platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md`
 - `scripts/platforms_refactor_retrieval.sh`
 - `Makefile` target: `platforms-refactor-retrieval`
+- `Makefile` target: `platforms-refactor-enterprise`
 
 ## Generated Artifacts
 
@@ -17,6 +18,8 @@
 - `.tmp/refactor-retrieval/decision-1.txt`
 - `.tmp/refactor-retrieval/external.professional.sources.txt`
 - `.tmp/refactor-retrieval/external.open.sources.txt`
+- `.tmp/refactor-retrieval/external.professional.snapshot.csv`
+- `.tmp/refactor-retrieval/external.open.snapshot.csv`
 - `.tmp/refactor-retrieval/verification-matrix.csv`
 - `.tmp/refactor-retrieval/decision-2.txt`
 - `.tmp/refactor-retrieval/next-questions.txt`
@@ -29,12 +32,14 @@
 - `.tmp/refactor-retrieval/p1.execution.md`
 - `.tmp/refactor-retrieval/emit-actions.md`
 - `.tmp/refactor-retrieval/p2.execution.md`
+- `.tmp/refactor-retrieval/phase.execution.trace.md`
+- `.tmp/refactor-retrieval/dependency-mapping.md`
 
 ## Dependency & Reference Mapping
 
 - Internal retrieval scope: `platforms/**`, `docs/**`
 - Security redline keywords: `secret`, `token`, `password`, `cosign`, `slsa`, `kyverno`, `policy`
 - Governance dependency: `.github/workflows/supply-chain-gate.yml`
-- Execution dependency: `bash`, `python3`, `grep`, `find`
+- Execution dependency: `bash`, `python3`, `grep`, `find`, `curl`(optional snapshot)
 - Architecture reference: `ARCHITECTURE.md`
 - Platforms entry reference: `platforms/README.md`

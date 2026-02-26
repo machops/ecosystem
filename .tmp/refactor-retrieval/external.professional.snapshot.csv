@@ -1,0 +1,6 @@
+url,status,title
+"https://kubernetes.io/docs/","200","Kubernetes Documentation | Kubernetes"
+"https://argo-cd.readthedocs.io/","200","Argo CD - Declarative GitOps CD for Kubernetes"
+"https://kyverno.io/docs/","200","Documentation | Kyverno"
+"https://slsa.dev/","200","SLSA • Supply-chain Levels for Software Artifacts"
+"https://docs.sigstore.dev/","200","Overview - Sigstore"
