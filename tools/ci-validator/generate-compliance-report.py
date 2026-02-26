@@ -13,7 +13,7 @@ def main():
     evidence_path = sys.argv[1] if len(sys.argv) > 1 else '/tmp/compliance-evidence.json'
     output_path = sys.argv[2] if len(sys.argv) > 2 else '/tmp/compliance-report.md'
 
-    with open(evidence_path) as f:
+    with open(evidence_path, encoding='utf-8') as f:
         ev = json.load(f)
 
     period = ev['period']
@@ -119,7 +119,7 @@ def main():
     ])
 
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         f.write(report)
     print(f'Report written to {output_path}')
 
