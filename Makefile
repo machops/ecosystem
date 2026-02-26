@@ -10,6 +10,7 @@
         tools-up tools-down \
         db-migrate db-reset db-shell \
         yaml-validate yaml-validate-dir \
+	platforms-refactor-retrieval \
         status urls
 
 COMPOSE      := docker compose --env-file .env.local
@@ -57,6 +58,9 @@ help:
 	@echo "$(GREEN)YAML Toolkit:$(RESET)"
 	@echo "  make yaml-validate FILE=path/to/file.qyaml"
 	@echo "  make yaml-validate-dir"
+	@echo ""
+	@echo "$(GREEN)Platforms Refactor Retrieval:$(RESET)"
+	@echo "  make platforms-refactor-retrieval"
 	@echo ""
 	@echo "$(GREEN)Info:$(RESET)"
 	@echo "  make status          Health check all services"
@@ -181,6 +185,11 @@ yaml-validate-strict:
 
 yaml-validate-json:
 	node tools/validate-qyaml.js --dir backend/k8s --json | python3 -m json.tool
+
+platforms-refactor-retrieval:
+	@echo "$(CYAN)▸ Running platforms forced retrieval workflow...$(RESET)"
+	bash ./scripts/platforms_refactor_retrieval.sh
+	@echo "$(GREEN)✓ Retrieval artifacts updated: .tmp/refactor-retrieval$(RESET)"
 
 # ══════════════════════════════════════════════════════════════════════════════
 # INFO

@@ -1,0 +1,5 @@
+https://kubernetes.io/docs/
+https://argo-cd.readthedocs.io/
+https://kyverno.io/docs/
+https://slsa.dev/
+https://docs.sigstore.dev/

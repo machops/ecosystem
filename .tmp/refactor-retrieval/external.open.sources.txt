@@ -1,0 +1,3 @@
+https://github.com/topics/platform-engineering
+https://github.com/topics/gitops
+https://github.com/search?q=argocd+applicationset+monorepo&type=code

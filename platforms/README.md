@@ -2,6 +2,17 @@
 
 This directory contains individual platform implementations following the GL naming convention: **gl.{domain}.{capability}-platform**.
 
+## Refactor Workflow
+
+- Mandatory workflow: `platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md`
+- Execution index: `platforms/PLATFORMS_REFACTOR_RETRIEVAL_INDEX.md`
+- Automation script: `scripts/platforms_refactor_retrieval.sh`
+
+## Catalog Cross-Reference
+
+- ECO deployment architecture map: `ARCHITECTURE.md` (ECO Platform Modules)
+- Legacy archive map: `platforms/ng-era-platforms/README.md`
+
 ## Platform Naming Convention
 
 All platforms follow the format: `gl.{domain}.{capability}-platform`

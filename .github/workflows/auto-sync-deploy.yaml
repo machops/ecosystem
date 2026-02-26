@@ -2,7 +2,7 @@ name: auto-sync-deploy
 
 on:
   workflow_run:
-    workflows: ["eco-base CI/CD"]
+    workflows: ["Supply Chain Security Gate"]
     types: [completed]
     branches: [main]
   workflow_dispatch:

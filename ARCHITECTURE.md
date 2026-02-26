@@ -173,6 +173,19 @@ indestructibleorg/eco-base/
 
 ---
 
+## Platforms Refactor Workflow
+
+- `platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md`
+- `platforms/PLATFORMS_REFACTOR_RETRIEVAL_INDEX.md`
+
+### Catalog Cross-Reference
+
+- ECO deployment modules (this doc): `platforms/eco-core`, `platforms/eco-govops`, `platforms/eco-seccompops`, `platforms/eco-dataops`, `platforms/eco-superai`, `platforms/eco-observops`
+- GL marketplace catalog (platform index): `platforms/README.md`
+- Legacy NG-era archive path: `platforms/ng-era-platforms/README.md`
+
+---
+
 ## CI/CD Pipeline
 
 **Workflow**: `.github/workflows/eco-deploy.yml`  

@@ -1,0 +1,4 @@
+claim_id,claim_text,internal_evidence,external_professional,external_open,status
+C1,platform boundary is enforced,YES,YES,YES,PASS
+C2,supply chain gate is mandatory,YES,YES,YES,PASS
+C3,legacy path still referenced,YES,YES,YES,PASS

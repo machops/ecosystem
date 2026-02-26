@@ -83,7 +83,7 @@ export CIRCLECI_API_TOKEN="your-api-token-here"  # Optional
 ### Step 2: Run the Deployment Script
 
 ```bash
-cd /workspace/repo
+cd /workspaces/eco-base
 ./scripts/deploy-circleci-runner.sh
 ```
 
@@ -120,6 +120,8 @@ INFO: Waiting for tasks...
 ---
 
 ## CircleCI Configuration
+
+> Note: this repository currently uses a placeholder `.circleci/config.yml` because CI/CD is handled by GitHub Actions. To validate runner connectivity, use the verification commands in this guide and optionally run a temporary CircleCI test pipeline in a dedicated branch.
 
 ### Update `.circleci/config.yml`
 

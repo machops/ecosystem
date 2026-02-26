@@ -1,0 +1,23 @@
+platforms/DECENTRALIZED-ARCHITECTURE.md:149:The legacy directories (`automation/`, `gl/`, `gov-platform-assistant/`, etc.) are preserved
+platforms/DECENTRALIZED-ARCHITECTURE.md:156:| `ng-era2-platforms/runtime/engine/` | `runtime-platform/` |
+platforms/DECENTRALIZED-ARCHITECTURE.md:157:| `ng-era2-platforms/*/processing/` | `data-platform/` |
+platforms/DECENTRALIZED-ARCHITECTURE.md:159:| `ng-era1-platforms/*/GL90-99-semantic-engine/` | `semantic-platform/` |
+platforms/DECENTRALIZED-ARCHITECTURE.md:71:├── automation/                    # ← Legacy (archived)
+platforms/DECENTRALIZED-ARCHITECTURE.md:72:├── gl/                            # ← Legacy (archived)
+platforms/DECENTRALIZED-ARCHITECTURE.md:73:├── gov-platform-assistant/        # ← Legacy (archived)
+platforms/DECENTRALIZED-ARCHITECTURE.md:74:├── gov-platform-ide/              # ← Legacy (archived)
+platforms/DECENTRALIZED-ARCHITECTURE.md:75:├── infrastructure/                # ← Legacy (archived)
+platforms/DECENTRALIZED-ARCHITECTURE.md:76:├── ng-era-platforms/              # ← Legacy (archived)
+platforms/DECENTRALIZED-ARCHITECTURE.md:77:├── quantum/                       # ← Legacy (archived)
+platforms/DECENTRALIZED-ARCHITECTURE.md:78:└── registry/                      # ← Legacy (archived)
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:117:C3,legacy path still referenced,YES,NO,YES,REVIEW
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:142:Q1: 哪些 platforms/* 仍引用 legacy 目錄？
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:159:3. 移除已淘汰 legacy 路徑的對外入口連結。
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:171:grep -RInE "TODO|FIXME|legacy|TBD|secret|token|kyverno|cosign" "$TARGET" > "$OUT/signals.txt" || true
+platforms/PLATFORMS_REFACTOR_FORCED_RETRIEVAL_WORKFLOW.md:36:grep -RInE "TODO|FIXME|HACK|DEPRECATED|legacy|archived|暫時|待補" "$TARGET" > "$OUT/assumptions.raw.txt" || true
+platforms/PLATFORMS_REFACTOR_RETRIEVAL_INDEX.md:24:- `.tmp/refactor-retrieval/focused-q1-legacy-refs.txt`
+platforms/README.md:14:- Legacy archive map: `platforms/ng-era-platforms/README.md`
+platforms/README.md:75:Legacy NG era platform artifacts (cross-era meta, Era-1/2/3 stacks) are now grouped under `platforms/ng-era-platforms/`. See `platforms/ng-era-platforms/README.md` for layout and audit/replay guidance.
+platforms/ng-era-platforms/README.md:7:- `./ng-era1-platforms/` — Era-1 code layer (enterprise architecture, governance, core/services/runtime)
+platforms/ng-era-platforms/README.md:8:- `./ng-era2-platforms/` — Era-2 microcode layer (runtime, data processing, monitoring, governance)
+platforms/ng-era-platforms/README.md:9:- `./ng-era3-platforms/` — Era-3 extensions layer (services, services-platform, integration-hub)

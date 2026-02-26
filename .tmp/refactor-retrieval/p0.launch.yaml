@@ -1,0 +1,7 @@
+task_id: P1-platforms-refactor-retrieval
+scope: platforms
+objective: 完整具體架構規劃方案最小可執行輸出
+constraints:
+  - minimal_change_only
+  - security_redline_enforced
+  - output_must_be_actionable

@@ -11,18 +11,19 @@
 - [x] Create Deployment manifest
 - [x] Create RBAC resources (ServiceAccount, Role, ClusterRole)
 - [x] Create deployment script
+- [x] Fix `k8s/circleci/deployment.yaml` structure and offline-validate manifest integrity
 
 ## Phase 3: Documentation
 - [x] Create comprehensive setup guide
 
 ## Phase 4: Deployment (Pending)
-- [ ] Get CircleCI runner token from https://app.circleci.com/settings/user/tokens
-- [ ] Set CIRCLECI_RUNNER_TOKEN environment variable
-- [ ] Run deployment script: `./scripts/deploy-circleci-runner.sh`
-- [ ] Verify runner connectivity
-- [ ] Test with CircleCI pipeline
+- [ ] P0 — Get CircleCI runner token from https://app.circleci.com/settings/user/tokens (external dependency)
+- [ ] P1 — Set CIRCLECI_RUNNER_TOKEN environment variable
+- [ ] P1 — Run deployment script: `./scripts/deploy-circleci-runner.sh`
+- [ ] P2 — Verify runner connectivity
+- [ ] P2 — Test with CircleCI pipeline
 
 ## Pending Tasks (from previous session)
-- [ ] SSD Quota Increase — Asia-east1 region (250GB → 500GB)
-- [ ] OAuth Consent Screen — Configure OAuth 2.0 client for IAP
-- [ ] Production Cluster — Waiting for quota approval
+- [ ] P0 — SSD Quota Increase — Asia-east1 region (250GB → 500GB) (external dependency)
+- [ ] P1 — OAuth Consent Screen — Configure OAuth 2.0 client for IAP (external dependency)
+- [ ] P1 — Production Cluster — Waiting for quota approval (blocked by quota)

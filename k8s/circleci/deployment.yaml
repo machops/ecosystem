@@ -21,89 +21,89 @@ metadata:
   name: circleci-agent
   namespace: circleci-runner
 spec:
-  labels:
-    app: circleci-runner
-    component: agent
-    spec:
-      containers:
-      - env:
-        - name: CIRCLECI_RESOURCE_CLASS
-          valueFrom:
-            configMapKeyRef:
-              key: CIRCLECI_RUNNER_RESOURCE_CLASS
-              name: circleci-agent-config
-        - name: CIRCLECI_RUNNER_TOKEN
-          valueFrom:
-            secretKeyRef:
-              key: CIRCLECI_RUNNER_TOKEN
-              name: circleci-runner-secrets
-        - name: CIRCLECI_API_TOKEN
-          optional: true
-          valueFrom:
-            secretKeyRef:
-              key: CIRCLECI_API_TOKEN
-              name: circleci-runner-secrets
-        - name: LOG_LEVEL
-          valueFrom:
-            configMapKeyRef:
-              key: LOG_LEVEL
-              name: circleci-agent-config
-        - name: AGENT_NAME
-          valueFrom:
-            configMapKeyRef:
-              key: CIRCLECI_RUNNER_NAME
-              name: circleci-agent-config
-        - name: LAUNCH_AGENT_MODE
-          valueFrom:
-            configMapKeyRef:
-              key: CIRCLECI_RUNNER_MODE
-              name: circleci-agent-config
-        - name: WORKING_DIRECTORY
-          valueFrom:
-            configMapKeyRef:
-              key: WORKING_DIRECTORY
-              name: circleci-agent-config
-        - name: CLEANUP_WORKSPACE
-          valueFrom:
-            configMapKeyRef:
-              key: CLEANUP_WORKSPACE
-              name: circleci-agent-config
-        image: circleci/runner:launch-agent
-        imagePullPolicy: Always
-        livenessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - pgrep -f launch-agent || exit 1
-          failureThreshold: 3
-          initialDelaySeconds: 30
-          periodSeconds: 30
-          timeoutSeconds: 10
-        name: runner-agent
-        readinessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - pgrep -f launch-agent || exit 1
-          failureThreshold: 3
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: 2000m
-            memory: 4Gi
-          requests:
-            cpu: 250m
-            memory: 512Mi
-      restartPolicy: Always
-      serviceAccountName: circleci-runner
   replicas: 1
   selector:
     matchLabels:
       app: circleci-runner
       component: agent
   template:
-    metadata: null
+    metadata:
+      labels:
+        app: circleci-runner
+        component: agent
+    spec:
+      serviceAccountName: circleci-runner
+      restartPolicy: Always
+      containers:
+      - name: runner-agent
+        image: circleci/runner:launch-agent
+        imagePullPolicy: Always
+        env:
+        - name: CIRCLECI_RESOURCE_CLASS
+          valueFrom:
+            configMapKeyRef:
+              name: circleci-agent-config
+              key: CIRCLECI_RUNNER_RESOURCE_CLASS
+        - name: CIRCLECI_RUNNER_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: circleci-runner-secrets
+              key: CIRCLECI_RUNNER_TOKEN
+        - name: CIRCLECI_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: circleci-runner-secrets
+              key: CIRCLECI_API_TOKEN
+              optional: true
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: circleci-agent-config
+              key: LOG_LEVEL
+        - name: AGENT_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: circleci-agent-config
+              key: CIRCLECI_RUNNER_NAME
+        - name: LAUNCH_AGENT_MODE
+          valueFrom:
+            configMapKeyRef:
+              name: circleci-agent-config
+              key: CIRCLECI_RUNNER_MODE
+        - name: WORKING_DIRECTORY
+          valueFrom:
+            configMapKeyRef:
+              name: circleci-agent-config
+              key: WORKING_DIRECTORY
+        - name: CLEANUP_WORKSPACE
+          valueFrom:
+            configMapKeyRef:
+              name: circleci-agent-config
+              key: CLEANUP_WORKSPACE
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pgrep -f launch-agent || exit 1
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pgrep -f launch-agent || exit 1
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
