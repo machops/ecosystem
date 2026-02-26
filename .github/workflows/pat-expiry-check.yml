@@ -1,0 +1,202 @@
+name: PAT Expiry Check
+
+# Checks PAT_EXPIRY_DATE secret daily and alerts before expiry.
+# Required secrets:
+#   PAT_EXPIRY_DATE  — expiry date of active PAT (YYYY-MM-DD)
+#   PAT_TOKEN_ID     — first 30 chars of token (for audit trail, never full value)
+#
+# Alert thresholds:
+#   T-14 days: ::warning:: annotation + GitHub Issue (MEDIUM priority)
+#   T-7  days: GitHub Issue (HIGH priority)
+#   T-0  days: GitHub Issue (CRITICAL) + workflow fails
+
+on:
+  schedule:
+    # Daily at 07:00 UTC (after weekly-chaos-drill window)
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+    inputs:
+      test_expiry_date:
+        description: 'Override expiry date for testing (YYYY-MM-DD)'
+        required: false
+        default: ''
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  check-pat-expiry:
+    name: Check PAT Expiry Date
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Record check time
+        id: timing
+        run: |
+          NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          TODAY=$(date -u +%Y-%m-%d)
+          echo "now=$NOW" >> $GITHUB_OUTPUT
+          echo "today=$TODAY" >> $GITHUB_OUTPUT
+          echo "Check time: $NOW"
+
+      - name: Resolve expiry date
+        id: expiry
+        run: |
+          # Use test override if provided, otherwise use secret
+          if [ -n "${{ github.event.inputs.test_expiry_date }}" ]; then
+            EXPIRY="${{ github.event.inputs.test_expiry_date }}"
+            echo "Using test override: $EXPIRY"
+          elif [ -n "${{ secrets.PAT_EXPIRY_DATE }}" ]; then
+            EXPIRY="${{ secrets.PAT_EXPIRY_DATE }}"
+            echo "Using PAT_EXPIRY_DATE secret"
+          else
+            echo "::error::PAT_EXPIRY_DATE secret is not set."
+            echo "Set it at: Settings → Secrets and variables → Actions"
+            echo "See docs/pat-security-guide.md for instructions."
+            exit 1
+          fi
+
+          # Validate format
+          if ! echo "$EXPIRY" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+            echo "::error::PAT_EXPIRY_DATE format invalid: '$EXPIRY'. Expected YYYY-MM-DD."
+            exit 1
+          fi
+
+          echo "expiry=$EXPIRY" >> $GITHUB_OUTPUT
+          echo "PAT expiry date: $EXPIRY"
+
+      - name: Calculate days until expiry
+        id: calc
+        run: |
+          TODAY="${{ steps.timing.outputs.today }}"
+          EXPIRY="${{ steps.expiry.outputs.expiry }}"
+
+          DAYS_LEFT=$(python3 -c "
+          from datetime import date
+          today = date.fromisoformat('$TODAY')
+          expiry = date.fromisoformat('$EXPIRY')
+          delta = (expiry - today).days
+          print(delta)
+          ")
+
+          echo "days_left=$DAYS_LEFT" >> $GITHUB_OUTPUT
+          echo "Days until PAT expiry: $DAYS_LEFT"
+
+          # Determine alert level
+          if [ "$DAYS_LEFT" -le 0 ]; then
+            echo "alert_level=CRITICAL" >> $GITHUB_OUTPUT
+            echo "::error::PAT has EXPIRED ($EXPIRY). Rotate immediately."
+          elif [ "$DAYS_LEFT" -le 7 ]; then
+            echo "alert_level=HIGH" >> $GITHUB_OUTPUT
+            echo "::warning::PAT expires in $DAYS_LEFT days ($EXPIRY). Rotate NOW."
+          elif [ "$DAYS_LEFT" -le 14 ]; then
+            echo "alert_level=MEDIUM" >> $GITHUB_OUTPUT
+            echo "::warning::PAT expires in $DAYS_LEFT days ($EXPIRY). Schedule rotation."
+          else
+            echo "alert_level=OK" >> $GITHUB_OUTPUT
+            echo "PAT is valid for $DAYS_LEFT more days."
+          fi
+
+      - name: Create or update GitHub Issue (deduped, 7-day window)
+        if: steps.calc.outputs.alert_level != 'OK'
+        uses: actions/github-script@v7
+        env:
+          DAYS_LEFT: ${{ steps.calc.outputs.days_left }}
+          ALERT_LEVEL: ${{ steps.calc.outputs.alert_level }}
+          EXPIRY: ${{ steps.expiry.outputs.expiry }}
+          TOKEN_ID: ${{ secrets.PAT_TOKEN_ID }}
+          CHECK_TIME: ${{ steps.timing.outputs.now }}
+        with:
+          script: |
+            const daysLeft = parseInt(process.env.DAYS_LEFT);
+            const alertLevel = process.env.ALERT_LEVEL;
+            const expiry = process.env.EXPIRY;
+            const tokenId = process.env.TOKEN_ID || '(PAT_TOKEN_ID not set)';
+            const checkTime = process.env.CHECK_TIME;
+
+            const priorityLabel = alertLevel === 'CRITICAL' ? 'priority:critical'
+              : alertLevel === 'HIGH' ? 'priority:high'
+              : 'priority:medium';
+
+            const title = `[PAT EXPIRY] Token expires ${daysLeft <= 0 ? 'TODAY' : 'in ' + daysLeft + ' days'} (${expiry})`;
+
+            const body = `## PAT Expiry Alert — ${alertLevel}
+
+            **Token ID:** \`${tokenId}\`
+            **Expiry Date:** ${expiry}
+            **Days Remaining:** ${daysLeft <= 0 ? '**EXPIRED**' : daysLeft}
+            **Alert Level:** ${alertLevel}
+            **Detected At:** ${checkTime}
+
+            ## Rotation Procedure
+
+            1. Generate new fine-grained PAT at [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
+               - Permissions: \`contents:write\`, \`workflows:write\`, \`issues:write\`, \`pull_requests:read\`, \`metadata:read\`
+               - Expiry: today + 90 days
+               - Repository: \`indestructibleorg/eco-base\`
+
+            2. Update secrets in [Settings → Secrets → Actions](https://github.com/indestructibleorg/eco-base/settings/secrets/actions):
+               - \`PAT_TOKEN\` (or equivalent) → new token value
+               - \`PAT_EXPIRY_DATE\` → new expiry date (YYYY-MM-DD)
+               - \`PAT_TOKEN_ID\` → first 30 chars of new token
+
+            3. Verify CI pipeline succeeds
+
+            4. Revoke old token at [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens)
+
+            5. Update \`docs/pat-audit-report.md\` with rotation record
+
+            > See [docs/pat-security-guide.md](../blob/main/docs/pat-security-guide.md) for full rotation procedure.`;
+
+            // Dedup: search for open issue with same label within 7 days
+            const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'pat-expiry',
+              since: sevenDaysAgo,
+              per_page: 10,
+            });
+
+            const match = existing.data.find(i => i.title.includes('[PAT EXPIRY]'));
+
+            if (match) {
+              // Append comment to existing issue
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: match.number,
+                body: `### Follow-up Check — ${checkTime}\n\n**Days remaining:** ${daysLeft <= 0 ? '**EXPIRED**' : daysLeft} | **Alert level:** ${alertLevel}`,
+              });
+              // Update labels if severity escalated
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: match.number,
+                labels: [priorityLabel],
+              });
+              console.log(`Appended to existing issue #${match.number}`);
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: ['pat-expiry', 'security', priorityLabel],
+              });
+              console.log('Created new PAT expiry issue');
+            }
+
+      - name: Post OK annotation
+        if: steps.calc.outputs.alert_level == 'OK'
+        run: |
+          echo "::notice title=PAT Expiry Check PASS::Token valid for ${{ steps.calc.outputs.days_left }} more days. Expires: ${{ steps.expiry.outputs.expiry }}"
+
+      - name: Fail workflow if CRITICAL (token expired)
+        if: steps.calc.outputs.alert_level == 'CRITICAL'
+        run: |
+          echo "ERROR: PAT has expired on ${{ steps.expiry.outputs.expiry }}. CI/CD operations will fail."
+          echo "Rotate immediately. See docs/pat-security-guide.md"
+          exit 1
