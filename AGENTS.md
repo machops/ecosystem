@@ -32,7 +32,7 @@ eco-base is an enterprise cloud-native AI inference platform monorepo with Pytho
 
 ### Gotchas
 
-- `pip install -e ".[dev]"` fails because hatchling can't resolve the `eco_base` package directory. Install deps directly: `pip install pydantic fastapi httpx pytest pytest-asyncio jsonschema pyyaml numpy uvicorn pydantic-settings prometheus-client PyJWT redis python-multipart ruff mypy pytest-cov structlog`.
+- `pip install -e ".[dev]"` may fail because editable installs via `hatchling` are not fully configured for this monorepo layout. Prefer installing dependencies via the project’s packaging metadata (e.g., using the appropriate extras defined in `pyproject.toml` under `[project.optional-dependencies]` such as `dev`, or the relevant `requirements*.txt` file) instead of relying on an editable install with a hardcoded dependency list.
 - The web frontend (`platforms/web/`) is scaffolding only — no React source files exist under `app/src/`. Tests referencing those paths (test_web_frontend.py, test_yaml_studio.py) fail.
 - pnpm warns about `"workspaces"` field in `package.json` (pnpm prefers `pnpm-workspace.yaml`), but install succeeds.
 - `$HOME/.local/bin` must be on `PATH` for ruff, mypy, and other pip-installed scripts.
