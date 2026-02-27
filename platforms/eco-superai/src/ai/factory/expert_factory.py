@@ -126,6 +126,3 @@ class ExpertFactory:
 
     def clear_experts(self) -> None:
         _EXPERT_STORE.clear()
-def clear_experts() -> None:
-    """Clear all experts from the store. For testing purposes."""
-    _EXPERT_STORE.clear()

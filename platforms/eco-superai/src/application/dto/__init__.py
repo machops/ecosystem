@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+import math
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -64,7 +65,7 @@ class PaginatedDTO(BaseModel):
     def total_pages(self) -> int:
         if self.total == 0:
             return 0
-        return -(-self.total // self.limit) if self.limit > 0 else 1
+        return math.ceil(self.total / self.limit) if self.limit > 0 else 1
 
 
 class QuantumJobDTO(BaseModel):
