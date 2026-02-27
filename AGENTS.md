@@ -16,7 +16,7 @@ eco-base is an enterprise cloud-native AI inference platform monorepo with Pytho
 ### Testing
 
 - **Root Python tests**: `PYTHONPATH=. pytest tests/ -v` (625 pass; 16 pre-existing failures due to missing web frontend source files)
-- **CI validator**: `python3 tools/ci-validator/validate.py` (has pre-existing validation errors in workflow files)
+- **CI validator**: `python3 tools/ci-validator/validate.py` (may report validation errors for some workflow files)
 - **Platform-specific tests** (run from each platform directory):
   - `cd platforms/eco-govops && python3 -m pytest tests/ --ignore=tests/integration --ignore=tests/e2e -q` (159 pass)
   - `cd platforms/eco-core && python3 -m pytest tests/ --ignore=tests/integration --ignore=tests/e2e -q` (32 pass)
