@@ -47,9 +47,6 @@ supplychain
 .tmp
 artifacts
 node_modules
-inputs
-node_modules
-node_modules
 pnpm-lock.json
 pnpm-lock.yaml
 package-lock.json
