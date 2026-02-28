@@ -49,22 +49,25 @@ def canonicalize_k8s(obj: dict) -> dict:
     for k in list(o.keys()):
         if k in EXCLUDE_TOP_LEVEL_FIELDS:
             o.pop(k, None)
+
     meta = o.get("metadata") or {}
     # remove noisy metadata
     for k in EXCLUDE_METADATA_FIELDS:
         meta.pop(k, None)
-    # remove eco-base/urn and eco-base/uri from annotations to avoid circular dependency
-    # (these annotations contain the content hash itself, so they must be excluded
-    # from hash computation to prevent infinite update loops)
+
+    # remove eco-base/* annotations to avoid circular hash dependency
+    # (URN/URI annotations are derived from the hash, so including them
+    # in the hash would make the hash depend on itself)
     ann = meta.get("annotations") or {}
-    ann.pop("eco-base/urn", None)
-    ann.pop("eco-base/uri", None)
+    ann = {k: v for k, v in ann.items() if not k.startswith("eco-base/")}
     if ann:
         meta["annotations"] = ann
     elif "annotations" in meta:
         del meta["annotations"]
+
     o["metadata"] = meta
     return o
+
 def load_yaml_docs(path: str):
     with open(path, "r", encoding="utf-8") as f:
         try:
@@ -111,7 +114,7 @@ _SKIP_PATH_PATTERNS = [
 def _is_helm_template_file(path: str) -> bool:
     """Check if a YAML file is a Helm template (contains {{ }})."""
     try:
-        with open(path, encoding='utf-8', errors='ignore') as f:
+        with open(path, 'r', encoding='utf-8', errors='ignore') as f:
             chunk = f.read(8192)
             return '{{' in chunk and '}}' in chunk
     except Exception:
@@ -120,7 +123,7 @@ def _is_helm_template_file(path: str) -> bool:
 def _is_k8s_manifest_file(path: str) -> bool:
     """Quick check if a YAML file looks like a k8s manifest."""
     try:
-        with open(path, encoding='utf-8', errors='ignore') as f:
+        with open(path, 'r', encoding='utf-8', errors='ignore') as f:
             chunk = f.read(2048)
             return ('apiVersion:' in chunk or 'kind:' in chunk) and 'metadata:' in chunk
     except Exception:

@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/seccompops-engine
-    eco-base/urn: urn:eco-base:k8s:core:deployment:seccompops-engine:sha256-8e40d1908de4e66965da5ba64c8991913bae0028c8ca6f7798340dfc558b443c
+    eco-base/urn: urn:eco-base:k8s:core:deployment:seccompops-engine:sha256-97e68c7649e8b91667e4f9003c74795f8ae2e4ed149f367130ce980836b26ec7
   labels:
     app.kubernetes.io/component: api
     app.kubernetes.io/instance: eco-instance
@@ -40,7 +40,7 @@ spec:
             name: seccompops-config
         - secretRef:
             name: seccompops-secrets
-        image: seccompops-platform:v0.1.0
+        image: seccompops-platform:latest
         livenessProbe:
           httpGet:
             path: /livez
@@ -66,9 +66,11 @@ spec:
         resources:
           limits:
             cpu: '1'
+            ephemeral-storage: 1Gi
             memory: 512Mi
           requests:
             cpu: 250m
+            ephemeral-storage: 1Gi
             memory: 256Mi
         volumeMounts:
         - mountPath: /app/evidence
@@ -97,7 +99,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/seccompops-enforcer
-    eco-base/urn: urn:eco-base:k8s:core:deployment:seccompops-enforcer:sha256-9d2a05ac02a7cc2de5ebb12e35a13d9194f2f3e78662c1850b5e676739a4ca8e
+    eco-base/urn: urn:eco-base:k8s:core:deployment:seccompops-enforcer:sha256-adebd38390a7c47667836b9d304eeab9fd7d58d27deb17cb17647ac13847acae
   labels:
     app.kubernetes.io/component: worker
     app.kubernetes.io/instance: eco-instance
@@ -130,14 +132,16 @@ spec:
             name: seccompops-config
         - secretRef:
             name: seccompops-secrets
-        image: seccompops-platform:v0.1.0
+        image: seccompops-platform:latest
         name: seccompops-enforcer
         resources:
           limits:
             cpu: 500m
+            ephemeral-storage: 1Gi
             memory: 256Mi
           requests:
             cpu: 100m
+            ephemeral-storage: 1Gi
             memory: 128Mi
       securityContext:
         runAsNonRoot: true
@@ -151,7 +155,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/seccompops-auditor
-    eco-base/urn: urn:eco-base:k8s:core:deployment:seccompops-auditor:sha256-5db736596024c3f491211c9a7135a584cf8d83843116cc679cf7fadcb58550a3
+    eco-base/urn: urn:eco-base:k8s:core:deployment:seccompops-auditor:sha256-20e6ee5735a13b3c4b4cbc06a13892b956ba4892151b019bdf57aadb8a9d0638
   labels:
     app.kubernetes.io/component: worker
     app.kubernetes.io/instance: eco-instance
@@ -184,14 +188,16 @@ spec:
             name: seccompops-config
         - secretRef:
             name: seccompops-secrets
-        image: seccompops-platform:v0.1.0
+        image: seccompops-platform:latest
         name: seccompops-auditor
         resources:
           limits:
             cpu: 500m
+            ephemeral-storage: 1Gi
             memory: 512Mi
           requests:
             cpu: 100m
+            ephemeral-storage: 1Gi
             memory: 256Mi
       securityContext:
         runAsNonRoot: true

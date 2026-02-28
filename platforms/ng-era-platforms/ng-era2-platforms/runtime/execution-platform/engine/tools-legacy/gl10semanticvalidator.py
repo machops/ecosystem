@@ -32,8 +32,7 @@ schema_paths = [
 schema = None
 for schema_path in schema_paths:
     try:
-        with open(schema_path, encoding='utf-8') as _f:
-            schema = json.load(_f)
+        schema = json.load(open(schema_path, encoding='utf-8'))
         print(f"Found schema at: {schema_path}", file=sys.stderr)
         break
     except Exception:
@@ -64,8 +63,7 @@ functional_dims = set()
 artifact_terms = []
 for f in files:
     try:
-        with open(f, encoding='utf-8') as _f:
-            data = json.load(_f)
+        data = json.load(open(f, encoding='utf-8'))
     except Exception as e:
         print(f"Warning: Could not parse {f}: {e}", file=sys.stderr)
         continue

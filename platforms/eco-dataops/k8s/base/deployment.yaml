@@ -6,7 +6,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/dataops-engine
-    eco-base/urn: urn:eco-base:k8s:core:deployment:dataops-engine:sha256-cbdeca72b0172b83564e5f604f5d3591b543620e34bfabd153cd9378c0f6caf3
+    eco-base/urn: urn:eco-base:k8s:core:deployment:dataops-engine:sha256-501081f2cbec9be2a1d4056464a19a64599cda5913b5a1effed7817b4a5fd082
   labels:
     app.kubernetes.io/component: api
     app.kubernetes.io/instance: eco-instance
@@ -40,7 +40,7 @@ spec:
             name: dataops-config
         - secretRef:
             name: dataops-secrets
-        image: dataops-platform:v0.1.0
+        image: dataops-platform:latest
         livenessProbe:
           httpGet:
             path: /livez
@@ -66,9 +66,11 @@ spec:
         resources:
           limits:
             cpu: '1'
+            ephemeral-storage: 1Gi
             memory: 512Mi
           requests:
             cpu: 250m
+            ephemeral-storage: 1Gi
             memory: 256Mi
         volumeMounts:
         - mountPath: /app/evidence
@@ -96,7 +98,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/dataops-pipeline
-    eco-base/urn: urn:eco-base:k8s:core:deployment:dataops-pipeline:sha256-5b1385931c4d5e048c31f6765546bb4beecd7a67ccb240d87426f516e3f8191c
+    eco-base/urn: urn:eco-base:k8s:core:deployment:dataops-pipeline:sha256-56909ff86d3b76303eaaa17df1055db300f984c6aa78d32d449f3292cbfb441c
   labels:
     app.kubernetes.io/component: worker
     app.kubernetes.io/instance: eco-instance
@@ -129,14 +131,16 @@ spec:
             name: dataops-config
         - secretRef:
             name: dataops-secrets
-        image: dataops-platform:v0.1.0
+        image: dataops-platform:latest
         name: dataops-pipeline
         resources:
           limits:
             cpu: 500m
+            ephemeral-storage: 1Gi
             memory: 256Mi
           requests:
             cpu: 100m
+            ephemeral-storage: 1Gi
             memory: 128Mi
       securityContext:
         runAsNonRoot: true
@@ -150,7 +154,7 @@ metadata:
     eco-base/audit-log-level: minimal
     eco-base/governance-policy: standard-v1
     eco-base/uri: eco-base://k8s/core/deployment/dataops-anomaly
-    eco-base/urn: urn:eco-base:k8s:core:deployment:dataops-anomaly:sha256-8612752457482b07bb1a5b5d51b338c48c9f852f9e69f6c74ecd3b0c37d29e7a
+    eco-base/urn: urn:eco-base:k8s:core:deployment:dataops-anomaly:sha256-a0281b945e97a9cfeb64a9e62c93e43750401af1e4407e14982068181ddc674d
   labels:
     app.kubernetes.io/component: worker
     app.kubernetes.io/instance: eco-instance
@@ -183,14 +187,16 @@ spec:
             name: dataops-config
         - secretRef:
             name: dataops-secrets
-        image: dataops-platform:v0.1.0
+        image: dataops-platform:latest
         name: dataops-anomaly
         resources:
           limits:
             cpu: '1'
+            ephemeral-storage: 1Gi
             memory: 1Gi
           requests:
             cpu: 250m
+            ephemeral-storage: 1Gi
             memory: 256Mi
       securityContext:
         runAsNonRoot: true
