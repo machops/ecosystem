@@ -38,13 +38,13 @@ jobs:
           # For schedule events, expected time is Monday 02:00 UTC of this week
           if [[ "${{ github.event_name }}" == "schedule" ]]; then
             python3 << 'PYEOF'
-            from datetime import datetime,timezone,timedelta; now=datetime.now(timezone.utc); d=now.weekday(); m=(now-timedelta(days=d)).replace(hour=2,minute=0,second=0,microsecond=0); print(m.strftime('%Y-%m-%dT%H:%M:%SZ'))
+                      from datetime import datetime,timezone,timedelta; now=datetime.now(timezone.utc); d=now.weekday(); m=(now-timedelta(days=d)).replace(hour=2,minute=0,second=0,microsecond=0); print(m.strftime('%Y-%m-%dT%H:%M:%SZ'))
             PYEOF
           else
             SCHEDULED="$ACTUAL"
           fi
           python3 << 'PYEOF'
-          from datetime import datetime,timezone; fmt='%Y-%m-%dT%H:%M:%SZ'; s=datetime.strptime('$SCHEDULED',fmt).replace(tzinfo=timezone.utc); a=datetime.strptime('$ACTUAL',fmt).replace(tzinfo=timezone.utc); print(int((a-s).total_seconds()))
+                    from datetime import datetime,timezone; fmt='%Y-%m-%dT%H:%M:%SZ'; s=datetime.strptime('$SCHEDULED',fmt).replace(tzinfo=timezone.utc); a=datetime.strptime('$ACTUAL',fmt).replace(tzinfo=timezone.utc); print(int((a-s).total_seconds()))
           PYEOF
           echo "scheduled=$SCHEDULED" >> $GITHUB_OUTPUT
           echo "actual=$ACTUAL" >> $GITHUB_OUTPUT
@@ -93,17 +93,17 @@ jobs:
       - name: Assert PASS
         run: |
           python3 << 'PYEOF'
-import json, glob, sys
-files = sorted(glob.glob('tests/reports/drill-eventbus-zone-*.json'))
-if not files:
-    print('ERROR: No report found'); sys.exit(1)
-report = json.load(open(files[-1]))
-result = report.get('gate_result', 'FAIL')
-resilience = report.get('zone_resilience', 'unknown')
-print(f'EventBus zone drill: {result} (zone_resilience={resilience})')
-if result != 'PASS':
-    sys.exit(1)
-PYEOF
+                    import json, glob, sys
+                    files = sorted(glob.glob('tests/reports/drill-eventbus-zone-*.json'))
+                    if not files:
+                    print('ERROR: No report found'); sys.exit(1)
+                    report = json.load(open(files[-1]))
+                    result = report.get('gate_result', 'FAIL')
+                    resilience = report.get('zone_resilience', 'unknown')
+                    print(f'EventBus zone drill: {result} (zone_resilience={resilience})')
+                    if result != 'PASS':
+                    sys.exit(1)
+          PYEOF
 
   # ── Job 2: Flagger Rollback Drill ────────────────────────────────────────
   flagger-rollback-drill:
@@ -119,88 +119,88 @@ PYEOF
           ACTUAL=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [[ "${{ github.event_name }}" == "schedule" ]]; then
             SCHEDULED=$(python3 << 'PYEOF'
-from datetime import datetime, timezone, timedelta
-now = datetime.now(timezone.utc)
-d = now.weekday()
-m = (now - timedelta(days=d)).replace(hour=2, minute=0, second=0, microsecond=0)
-print(m.strftime('%Y-%m-%dT%H:%M:%SZ'))
-PYEOF
-)
-          else
-            SCHEDULED="$ACTUAL"
-          fi
+            SCHEDULED=$(          SCHEDULED=$(  from datetime import datetime, timezone, timedelta
+            SCHEDULED=$(          SCHEDULED=$(  now = datetime.now(timezone.utc)
+            SCHEDULED=$(          SCHEDULED=$(  d = now.weekday()
+            SCHEDULED=$(          SCHEDULED=$(  m = (now - timedelta(days=d)).replace(hour=2, minute=0, second=0, microsecond=0)
+            SCHEDULED=$(          SCHEDULED=$(  print(m.strftime('%Y-%m-%dT%H:%M:%SZ'))
+            SCHEDULED=$(          SCHEDULED=$(PYEOF
+            SCHEDULED=$(          )
+            SCHEDULED=$(          else
+            SCHEDULED=$(          SCHEDULED="$ACTUAL"
+            SCHEDULED=$(          fi
           DRIFT_S=$(python3 << 'PYEOF'
-from datetime import datetime, timezone
-fmt = '%Y-%m-%dT%H:%M:%SZ'
-import os
-scheduled = os.environ.get('SCHEDULED', '')
-actual = os.environ.get('ACTUAL', '')
-if scheduled and actual:
-    s = datetime.strptime(scheduled, fmt).replace(tzinfo=timezone.utc)
-    a = datetime.strptime(actual, fmt).replace(tzinfo=timezone.utc)
-    print(int((a - s).total_seconds()))
-else:
-    print(0)
-PYEOF
-)
-          echo "scheduled=$SCHEDULED" >> $GITHUB_OUTPUT
-          echo "actual=$ACTUAL" >> $GITHUB_OUTPUT
-          echo "drift_s=$DRIFT_S" >> $GITHUB_OUTPUT
-          echo "Scheduled: $SCHEDULED | Actual: $ACTUAL | Drift: ${DRIFT_S}s"
-          if [[ "$DRIFT_S" -gt 3600 ]]; then
-            echo "::warning::Cron drift ${DRIFT_S}s exceeds 1h"
-          fi
+          DRIFT_S=$(          DRIFT_S=$(  from datetime import datetime, timezone
+          DRIFT_S=$(          DRIFT_S=$(  fmt = '%Y-%m-%dT%H:%M:%SZ'
+          DRIFT_S=$(          DRIFT_S=$(  import os
+          DRIFT_S=$(          DRIFT_S=$(  scheduled = os.environ.get('SCHEDULED', '')
+          DRIFT_S=$(          DRIFT_S=$(  actual = os.environ.get('ACTUAL', '')
+          DRIFT_S=$(          DRIFT_S=$(  if scheduled and actual:
+          DRIFT_S=$(          DRIFT_S=$(  s = datetime.strptime(scheduled, fmt).replace(tzinfo=timezone.utc)
+          DRIFT_S=$(          DRIFT_S=$(  a = datetime.strptime(actual, fmt).replace(tzinfo=timezone.utc)
+          DRIFT_S=$(          DRIFT_S=$(  print(int((a - s).total_seconds()))
+          DRIFT_S=$(          DRIFT_S=$(  else:
+          DRIFT_S=$(          DRIFT_S=$(  print(0)
+          DRIFT_S=$(          DRIFT_S=$(PYEOF
+          DRIFT_S=$(          )
+          DRIFT_S=$(          echo "scheduled=$SCHEDULED" >> $GITHUB_OUTPUT
+          DRIFT_S=$(          echo "actual=$ACTUAL" >> $GITHUB_OUTPUT
+          DRIFT_S=$(          echo "drift_s=$DRIFT_S" >> $GITHUB_OUTPUT
+          DRIFT_S=$(          echo "Scheduled: $SCHEDULED | Actual: $ACTUAL | Drift: ${DRIFT_S}s"
+          DRIFT_S=$(          if [[ "$DRIFT_S" -gt 3600 ]]; then
+          DRIFT_S=$(          echo "::warning::Cron drift ${DRIFT_S}s exceeds 1h"
+          DRIFT_S=$(          fi
 
-      - name: Authenticate to GCP
-        uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed  # v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          DRIFT_S=$(          - name: Authenticate to GCP
+          DRIFT_S=$(          uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed  # v2
+          DRIFT_S=$(          with:
+          DRIFT_S=$(          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Get GKE credentials
-        uses: google-github-actions/get-gke-credentials@64bc7249bbcf78056bb92f14d3cedc2da193946c  # v2
-        with:
-          cluster_name: ${{ env.GKE_CLUSTER_NAME }}
-          location: ${{ env.GKE_REGION }}
-          project_id: ${{ env.GCP_PROJECT_ID }}
+          DRIFT_S=$(          - name: Get GKE credentials
+          DRIFT_S=$(          uses: google-github-actions/get-gke-credentials@64bc7249bbcf78056bb92f14d3cedc2da193946c  # v2
+          DRIFT_S=$(          with:
+          DRIFT_S=$(          cluster_name: ${{ env.GKE_CLUSTER_NAME }}
+          DRIFT_S=$(          location: ${{ env.GKE_REGION }}
+          DRIFT_S=$(          project_id: ${{ env.GCP_PROJECT_ID }}
 
-      - name: Run Flagger rollback drill
-        env:
-          DRILL_SCHEDULED_TIME: ${{ steps.timing.outputs.scheduled }}
-        run: |
-          chmod +x tests/drill-flagger-rollback.sh
-          bash tests/drill-flagger-rollback.sh
+          DRIFT_S=$(          - name: Run Flagger rollback drill
+          DRIFT_S=$(          env:
+          DRIFT_S=$(          DRILL_SCHEDULED_TIME: ${{ steps.timing.outputs.scheduled }}
+          DRIFT_S=$(          run: |
+          DRIFT_S=$(          chmod +x tests/drill-flagger-rollback.sh
+          DRIFT_S=$(          bash tests/drill-flagger-rollback.sh
 
-      - name: Upload full drill report (90d retention)
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
-        if: always()
-        with:
-          name: drill-flagger-rollback-${{ github.run_number }}
-          path: tests/reports/drill-flagger-rollback-*.json
-          retention-days: 90
+          DRIFT_S=$(          - name: Upload full drill report (90d retention)
+          DRIFT_S=$(          uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
+          DRIFT_S=$(          if: always()
+          DRIFT_S=$(          with:
+          DRIFT_S=$(          name: drill-flagger-rollback-${{ github.run_number }}
+          DRIFT_S=$(          path: tests/reports/drill-flagger-rollback-*.json
+          DRIFT_S=$(          retention-days: 90
 
-      - name: Commit drill-summary.json only
-        if: always()
-        run: |
-          git config user.email "chaos-drill[bot]@indestructiblemachinen.com"
-          git config user.name "chaos-drill[bot]"
-          git add tests/reports/drill-summary.json || true
-          git diff --cached --quiet || git commit -m "chore(drill): update drill-summary.json [skip ci]"
-          git push origin HEAD:main || true
+          DRIFT_S=$(          - name: Commit drill-summary.json only
+          DRIFT_S=$(          if: always()
+          DRIFT_S=$(          run: |
+          DRIFT_S=$(          git config user.email "chaos-drill[bot]@indestructiblemachinen.com"
+          DRIFT_S=$(          git config user.name "chaos-drill[bot]"
+          DRIFT_S=$(          git add tests/reports/drill-summary.json || true
+          DRIFT_S=$(          git diff --cached --quiet || git commit -m "chore(drill): update drill-summary.json [skip ci]"
+          DRIFT_S=$(          git push origin HEAD:main || true
 
-      - name: Assert PASS
-        run: |
+          DRIFT_S=$(          - name: Assert PASS
+          DRIFT_S=$(          run: |
           python3 << 'PYEOF'
-import json, glob, sys
-files = sorted(glob.glob('tests/reports/drill-flagger-rollback-*.json'))
-if not files:
-    print('ERROR: No report found'); sys.exit(1)
-report = json.load(open(files[-1]))
-result = report.get('gate_result', 'FAIL')
-duration = report.get('canary', {}).get('rollback_duration_s', 'unknown')
-print(f'Flagger rollback drill: {result} (rollback_duration_s={duration})')
-if result != 'PASS':
-    sys.exit(1)
-PYEOF
+                    import json, glob, sys
+                    files = sorted(glob.glob('tests/reports/drill-flagger-rollback-*.json'))
+                    if not files:
+                    print('ERROR: No report found'); sys.exit(1)
+                    report = json.load(open(files[-1]))
+                    result = report.get('gate_result', 'FAIL')
+                    duration = report.get('canary', {}).get('rollback_duration_s', 'unknown')
+                    print(f'Flagger rollback drill: {result} (rollback_duration_s={duration})')
+                    if result != 'PASS':
+                    sys.exit(1)
+          PYEOF
 
   # ── Job 3: Drill Summary + Issue deduplication ───────────────────────────
   drill-summary:
