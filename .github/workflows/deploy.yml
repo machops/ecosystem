@@ -77,12 +77,17 @@ jobs:
         run: |
           mkdir -p artifacts/_tmp
           python scripts/capabilities.py capabilities.yaml > artifacts/_tmp/capabilities.enabled.json
-          python - <<'PY'
+          VERGATE=$(python - <<'PY'
 import json
-d=json.load(open("artifacts/_tmp/capabilities.enabled.json"))
-assert ("vercel" in d), "vercel disabled"
-print("vercel enabled")
+with open("artifacts/_tmp/capabilities.enabled.json") as f:
+    d = json.load(f)
+print("enabled" if "vercel" in d else "disabled")
 PY
+          )
+          if [ "$VERGATE" != "enabled" ]; then
+            echo "vercel capability disabled; skipping Vercel deploy"
+            exit 0
+          fi
           pnpm -w --filter ./apps/web deploy:vercel
 
   deploy_cloudflare:
