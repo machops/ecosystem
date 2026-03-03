@@ -70,7 +70,7 @@
 
 2.  **缺乏合理的限流和熔斷策略**
     *   **避雷區**：AI 調用、文件 I/O、數據庫查詢等關鍵資源未限流，導致系統過載。
-    *   **決策**：在 `codevantaos-policy` 中實現 **限流 (Rate Limiting)** 和 **熔斷 (Circuit Breaking)** 策略。使用令牌桶或漏桶算法對外部 API 調用、AI 推理請求等進行限流，並配合 Hystrix/Sentinel 等庫進行服務熔斷和降級，保護系統穩定性。
+    *   **決策**：在 `codevantaos-policy` 中實現 **限流 (Rate Limiting)** 和 **熔斷 (Circuit Breaking)** 策略。使用令牌桶或漏桶算法對外部 API 調用、AI 推理請求等進行限流，並配合 Resilience4j/Sentinel、或 Service Mesh（如 Envoy/Linkerd/Istio）層的熔斷/降級能力，或對應語言與框架內建的容錯機制，實現服務熔斷和降級，保護系統穩定性。
 
 3.  **監控指標定義不完善**
     *   **避雷區**：事後才發現關鍵路徑性能數據無法追踪，難以定位生產問題。
