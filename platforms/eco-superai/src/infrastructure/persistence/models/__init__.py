@@ -1,53 +1,37 @@
-from datetime import datetime, timezone
-from typing import Any, Dict, Optional
-
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, JSON
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-
-class Base(DeclarativeBase):
-    pass
+from sqlalchemy import Column, String, Boolean, DateTime, Integer, Enum as SQLEnum, ForeignKey
+from sqlalchemy.orm import relationship
+from src.infrastructure.persistence.database import Base
+from src.domain.entities.user import UserRole, UserStatus
+from src.domain.entities.ai_expert import ExpertStatus, ExpertDomain
+from src.domain.entities.quantum_job import QuantumJobStatus, QuantumJobType
 
 class UserModel(Base):
     __tablename__ = "users"
-
-    id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    username: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
-    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-
-    jobs = relationship("QuantumJobModel", back_populates="user", cascade="all, delete-orphan")
-
-class QuantumJobModel(Base):
-    __tablename__ = "quantum_jobs"
-
-    id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
-    algorithm: Mapped[str] = mapped_column(String(50), nullable=False)
-    backend: Mapped[str] = mapped_column(String(100), nullable=False)
-    status: Mapped[str] = mapped_column(String(20), nullable=False)
-    num_qubits: Mapped[int] = mapped_column(Integer, default=1)
-    shots: Mapped[int] = mapped_column(Integer, default=1024)
-    parameters: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSON)
-    result: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSON)
-    error_message: Mapped[Optional[str]] = mapped_column(String(1000))
-    execution_time_ms: Mapped[Optional[int]] = mapped_column(Integer)
-    submitted_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-    started_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
-    completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
-    version: Mapped[int] = mapped_column(Integer, default=1)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-
-    user = relationship("UserModel", back_populates="jobs")
+    id = Column(String, primary_key=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    is_active = Column(Boolean, default=True)
+    role = Column(SQLEnum(UserRole), default=UserRole.USER)
+    status = Column(SQLEnum(UserStatus), default=UserStatus.ACTIVE)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
 
 class AIExpertModel(Base):
     __tablename__ = "ai_experts"
+    id = Column(String, primary_key=True)
+    name = Column(String)
+    specialty = Column(String)
+    bio = Column(String, nullable=True)
+    status = Column(SQLEnum(ExpertStatus), default=ExpertStatus.AVAILABLE)
+    domain = Column(SQLEnum(ExpertDomain), default=ExpertDomain.AI)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
 
-    id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    name: Mapped[str] = mapped_column(String(255), nullable=False)
-    specialty: Mapped[str] = mapped_column(String(255), nullable=False)
-    bio: Mapped[Optional[str]] = mapped_column(String(1000))
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+class QuantumJobModel(Base):
+    __tablename__ = "quantum_jobs"
+    id = Column(String, primary_key=True)
+    name = Column(String)
+    status = Column(SQLEnum(QuantumJobStatus), default=QuantumJobStatus.PENDING)
+    job_type = Column(SQLEnum(QuantumJobType), default=QuantumJobType.SIMULATION)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
