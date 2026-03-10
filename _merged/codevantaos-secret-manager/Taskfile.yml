@@ -1,0 +1,3 @@
+version: '3'
+tasks:
+  default: cmds: [echo 'Hello CodeVantaOS']
