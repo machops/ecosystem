@@ -1,49 +1,53 @@
-# Security Policy
+# Security Policy — infra-base
+
+## Reporting Vulnerabilities
+
+If you discover a security vulnerability in this repository, please report it responsibly:
+
+1. **DO NOT** create a public GitHub issue
+2. Email: security@codevantaos.io
+3. Include: repository name, description, reproduction steps, impact assessment
+
+## Security Standards
+
+| Standard | Status |
+|---|---|
+| SLSA Level | L3+ |
+| SBOM Format | CycloneDX |
+| Signing | Sigstore |
+| Secret Scanning | Enabled |
+| Dependency Scanning | Enabled |
+| Container Scanning | Enabled |
+
+## Compliance Frameworks
+
+- SOC2-Type2
+- ISO27001
+- CIS-Benchmark
+- NIST-CSF
 
 ## Supported Versions
 
 | Version | Supported |
-|---------|-----------|
-| 1.0.x   | ✅        |
-| < 1.0   | ❌        |
+|---|---|
+| Latest (main) | ✅ |
+| Previous release | ✅ (security patches) |
+| Older | ❌ |
 
-## Reporting a Vulnerability
+## Response SLA
 
-1. **Do NOT** open a public issue for security vulnerabilities
-2. Use [GitHub Security Advisories](https://github.com/indestructibleorg/eco-base/security/advisories/new)
-3. Include:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Impact assessment
-   - Suggested fix (if any)
+| Severity | Response Time | Resolution Target |
+|---|---|---|
+| Critical (P0) | 15 minutes | 4 hours |
+| High (P1) | 1 hour | 24 hours |
+| Medium (P2) | 4 hours | 7 days |
+| Low (P3) | 24 hours | 30 days |
 
-## Security Measures
+## Governance
 
-### Dependencies
+This repository is governed by the [CodeVantaOS Governance Framework](https://github.com/codevantaos/.github/blob/main/GOVERNANCE.md).
 
-- All dependencies pinned to specific versions
-- Trivy scanning for CRITICAL and HIGH vulnerabilities
-- CycloneDX SBOM at `sbom.json`
-
-### Infrastructure
-
-- OPA policies in `policy/` for .qyaml governance
-- Network policies for namespace isolation
-- mTLS between services
-- RBAC with least-privilege
-
-### CI/CD
-
-- All GitHub Actions pinned to SHA
-- Docker images from `ghcr.io/indestructibleorg/*`
-- Automated security scanning in CI pipeline
-
-### Configuration
-
-- All secrets via environment variables (`ECO_*` prefix)
-- No hardcoded credentials
-- `.env.example` for reference (no real values)
-
-## Contact
-
-security@autoecoops.io
+- **Risk Level**: critical
+- **URN**: `urn:codevantaos:repo:infra:base:v1`
+- **Owner**: @infra-team
+- **Security Contact**: @devsecops-team
